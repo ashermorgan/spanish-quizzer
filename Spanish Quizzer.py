@@ -1,5 +1,6 @@
 # Import dependencies
 import csv
+import os
 import random
 import sys
 
@@ -12,7 +13,7 @@ print()
 
 # Load verbs
 verbs = []
-with open(r"Verbs.csv") as csvfile:
+with open(os.path.dirname(os.path.realpath(__file__)) + r"/Verbs.csv") as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         verbs +=[row]
