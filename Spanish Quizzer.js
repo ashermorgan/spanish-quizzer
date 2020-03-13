@@ -1,6 +1,6 @@
 // Declare global variables
 var Verbs;
-var InputTypes = [1];
+var InputTypes;
 var CurrentVerb;
 var CurrentForm;
 
@@ -40,6 +40,37 @@ function Start()
     // Show and hide elements
     document.getElementById("welcome").hidden = true;
     document.getElementById("quizzer").hidden = false;
+
+    // Set mode
+    switch(document.getElementById("mode").value) {
+        case "All":
+            InputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];
+            break;
+
+        case "Definition":
+            InputTypes = [1];
+            break;
+
+        case "Participle":
+            InputTypes = [2];
+            break;
+
+        case "Present":
+            InputTypes = [4,5,6,7,8];
+            break;
+
+        case "Preterite":
+            InputTypes = [10,11,12,13,14];
+            break;
+
+        case "Imperfect":
+            InputTypes = [16,17,18,19,20];
+            break;
+
+        default:
+            InputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];
+            break;
+    }
 
     // Give the user a prompt
     Reset();

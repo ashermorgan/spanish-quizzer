@@ -10,15 +10,24 @@
     <body onload="Load()">
         <div style="text-align: center;">
             <label style="font-family: Arial; font-size: 25px; font-weight: bold;">Spanish-Quizzer v1.0.0</label>
-            <br/>   
+            <br/>
             <a href="https://github.com/AsherMorgan/Spanish-Quizzer">View GitHub page</a>
         </div>
         
         <div id="welcome" style="text-align: center;">
             <br/>
+            <select id="mode">
+                <option value="All">All</option>
+                <option value="Definition">Definitions</option>
+                <option value="Participle">Present Participles</option>
+                <option value="Present">Present Tense</option>
+                <option value="Preterite">Preterite Tense</option>
+                <option value="Imperfect">Imperfect Tense</option>
+            </select>
+            <br/>
             <button onclick="Start()">Start</button>
         </div>
-
+        
         <div id="quizzer" style="text-align: center" hidden=true>
             <br/>
             <label style="font-size: 15px; font-weight: bold;">Vocab: </label>
