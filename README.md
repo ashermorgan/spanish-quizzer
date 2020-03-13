@@ -1,14 +1,13 @@
 # Spanish-Quizzer
-Quizzes you on spanish vocabulary through a CLI.
+Quizzes you on spanish vocabulary through a web interface.
+Try it [here](https://sites.google.com/view/Spanish-Quizzer).
 
-# Features
-- Customize what you are prompted with.
+## Features
 - Customize what you answer with.
 - View the correct answer when you make a mistake.
 - Easily type accented characters (``` a` ``` is turned into ```á```)
 - Easily type tildes (``` n` ``` is turned into ```ñ```)
 
-# Vocabulary
-You may only study sets that have matching fields.
-Currently, Spanish Quizzer comes with the following vocabulary sets:
+## Vocabulary Sets
+Currently, Spanish Quizzer only supports the following vocabulary sets:
 - Verbs (with conjugations)
