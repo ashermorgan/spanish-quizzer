@@ -1,8 +1,10 @@
 // Declare global variables
-var Verbs;
+var Terms;
 var InputTypes;
-var CurrentVerb;
-var CurrentForm;
+var OutputTypes;
+var CurrentTerm;
+var CurrentInputType;
+var CurrentOutputType;
 
 
 
@@ -27,7 +29,7 @@ function Load() {
         download: true,
         complete: function(results) {
             // Set verbs
-            Verbs = results.data;
+            Terms = results.data;
         }
     });
 }
@@ -45,30 +47,37 @@ function Start()
     switch(document.getElementById("mode").value) {
         case "All":
             InputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];
+            OutputTypes = [0];
             break;
 
         case "Definition":
             InputTypes = [1];
+            OutputTypes = [0];
             break;
 
         case "Participle":
             InputTypes = [2];
+            OutputTypes = [0];
             break;
 
         case "Present":
             InputTypes = [4,5,6,7,8];
+            OutputTypes = [0];
             break;
 
         case "Preterite":
             InputTypes = [10,11,12,13,14];
+            OutputTypes = [0];
             break;
 
         case "Imperfect":
             InputTypes = [16,17,18,19,20];
+            OutputTypes = [0];
             break;
 
         default:
             InputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];
+            OutputTypes = [0];
             break;
     }
 
@@ -87,13 +96,14 @@ function Reset() {
     document.getElementById("continueButton").hidden = true;
     
     // Get prompt
-    CurrentVerb = Math.floor(Math.random() * (Verbs.length - 1) + 1);
-    CurrentForm = InputTypes[Math.floor(Math.random() * InputTypes.length)];
+    CurrentTerm = Math.floor(Math.random() * (Terms.length - 1) + 1);
+    CurrentInputType = InputTypes[Math.floor(Math.random() * InputTypes.length)];
+    CurrentOutputType = OutputTypes[Math.floor(Math.random() * OutputTypes.length)];
 
     // Set prompt
-    document.getElementById("promptType").textContent = Verbs[0][0] + ": ";
-    document.getElementById("prompt").textContent = Verbs[CurrentVerb][0];
-    document.getElementById("inputType").textContent = Verbs[0][CurrentForm] + ": ";
+    document.getElementById("promptType").textContent = Terms[0][CurrentOutputType] + ": ";
+    document.getElementById("prompt").textContent = Terms[CurrentTerm][CurrentOutputType];
+    document.getElementById("inputType").textContent = Terms[0][CurrentInputType] + ": ";
 
     // Reset responce
     document.getElementById("input").value = "";
@@ -117,9 +127,9 @@ function Check() {
     }
 
     // Check responce
-    if (!responces.includes(Verbs[CurrentVerb][CurrentForm].toLowerCase())) {
+    if (!responces.includes(Terms[CurrentTerm][CurrentInputType].toLowerCase())) {
         // Responce was incorrect
-        document.getElementById("errorText").textContent = "The correct answer is " + Verbs[CurrentVerb][CurrentForm] + ".";
+        document.getElementById("errorText").textContent = "The correct answer is " + Terms[CurrentTerm][CurrentInputType] + ".";
         
         // Show and hide elements
         document.getElementById("input").readOnly = true;
