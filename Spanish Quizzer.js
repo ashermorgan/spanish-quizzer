@@ -58,8 +58,16 @@ function Reset() {
 
 // Check the user's responce
 function Check() {
+    // Prepare responce
+    var responce = document.getElementById("responceText").value.toLowerCase();
+    responce = responce.replace("a`", "á");
+    responce = responce.replace("e`", "é");
+    responce = responce.replace("i`", "í");
+    responce = responce.replace("n`", "ñ");
+    responce = responce.replace("o`", "ó");
+
     // Check responce
-    if (document.getElementById("responceText").value.toLowerCase() != Verbs[CurrentVerb][CurrentForm].toLowerCase()) {
+    if (responce != Verbs[CurrentVerb][CurrentForm].toLowerCase()) {
         // Responce was incorrect
         document.getElementById("errorText").textContent = "The correct answer is " + Verbs[CurrentVerb][CurrentForm] + ".";
         
