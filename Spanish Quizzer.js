@@ -103,15 +103,20 @@ function Reset() {
 // Check the user's responce
 function Check() {
     // Prepare responce
-    var responce = document.getElementById("responceText").value.toLowerCase();
-    responce = responce.replace("a`", "á");
-    responce = responce.replace("e`", "é");
-    responce = responce.replace("i`", "í");
-    responce = responce.replace("n`", "ñ");
-    responce = responce.replace("o`", "ó");
+    var responce = document.getElementById("responceText").value.toLowerCase(); // Make responce lowercase
+    responce = responce.replace("a`", "á"); // Apply accented a shortcut
+    responce = responce.replace("e`", "é"); // Apply accented e shortcut
+    responce = responce.replace("i`", "í"); // Apply accented i shortcut
+    responce = responce.replace("n`", "ñ"); // Apply n with tilde shortcut
+    responce = responce.replace("o`", "ó"); // Apply accented o shortcut
+    var responces = responce.split(",");    // Split string by commas
+    responces.push(responce);   // Keep origional responce
+    for (var i = 0; i < responces.length; i++) {
+        responces[i] = responces[i].trim(); // Trim whitespace
+    }
 
     // Check responce
-    if (responce != Verbs[CurrentVerb][CurrentForm].toLowerCase()) {
+    if (!responces.includes(Verbs[CurrentVerb][CurrentForm].toLowerCase())) {
         // Responce was incorrect
         document.getElementById("errorText").textContent = "The correct answer is " + Verbs[CurrentVerb][CurrentForm] + ".";
         
