@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Spanish-Quizzer v1.0.0</title>
+        <script src="Spanish Quizzer.js"></script>
+        <script src="https://unpkg.com/papaparse@5.1.1/papaparse.min.js"></script>
+    </head>
+
+    <body onload="Load()">
+        <div style="text-align: center;">
+            <label style="font-family: Arial; font-size: 25px; font-weight: bold;">Spanish-Quizzer v1.0.0</label>
+            <br/>
+            <a href="https://github.com/AsherMorgan/Spanish-Quizzer">View GitHub page</a>
+        </div>
+        
+        <div id="welcome" style="text-align: center;">
+            <br/>
+            <select id="mode">
+                <option value="All">All</option>
+                <option value="Definition">Definitions</option>
+                <option value="Participle">Present Participles</option>
+                <option value="Present">Present Tense</option>
+                <option value="Preterite">Preterite Tense</option>
+                <option value="Imperfect">Imperfect Tense</option>
+            </select>
+            <br/>
+            <button onclick="Start()">Start</button>
+        </div>
+        
+        <div id="quizzer" style="text-align: center" hidden=true>
+            <br/>
+            <label style="font-size: 15px; font-weight: bold;">Vocab: </label>
+            <label id="vocabText" style="font-size: 15px"></label>
+            <br/>
+            <label style="font-size: 15px; font-weight: bold;">Form: </label>
+            <label id="formText" style="font-size: 15px"></label>
+            <br/>
+            <br/>
+            <input id="responceText" type="text" autocomplete="off" spellcheck="false" autocorrect="off">
+            <button id="submitButton" onclick="Check()">Submit</button>
+            <br/>
+            <br/>
+            <label id="errorText" style="color: red;" hidden=true></label>
+            <button id="continueButton" hidden=true onclick="Reset()">Continue</button>
+        </div>
+    </body>
+</html>
