@@ -34,6 +34,19 @@ function Load() {
 
 
 
+// Start the quizzer
+function Start()
+{
+    // Show and hide elements
+    document.getElementById("welcome").hidden = true;
+    document.getElementById("quizzer").hidden = false;
+
+    // Give the user a prompt
+    Reset();
+}
+
+
+
 // Give the user a new prompt
 function Reset() {
     // Show and hide elements

@@ -13,8 +13,13 @@
             <br/>   
             <a href="https://github.com/AsherMorgan/Spanish-Quizzer">View GitHub page</a>
         </div>
+        
+        <div id="welcome" style="text-align: center;">
+            <br/>
+            <button onclick="Start()">Start</button>
+        </div>
 
-        <div id="quizzer" style="text-align: center">
+        <div id="quizzer" style="text-align: center" hidden=true>
             <br/>
             <label style="font-size: 15px; font-weight: bold;">Vocab: </label>
             <label id="vocabText" style="font-size: 15px"></label>
@@ -27,8 +32,8 @@
             <button id="submitButton" onclick="Check()">Submit</button>
             <br/>
             <br/>
-            <label id="errorText" style="color: red;"></label>
-            <button id="continueButton" onclick="Reset()">Continue</button>
+            <label id="errorText" style="color: red;" hidden=true></label>
+            <button id="continueButton" hidden=true onclick="Reset()">Continue</button>
         </div>
     </body>
 </html>
