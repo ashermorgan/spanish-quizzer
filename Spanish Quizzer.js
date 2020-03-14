@@ -1,10 +1,13 @@
 // Declare global variables
-var Terms;
-var InputTypes;
-var OutputTypes;
-var CurrentTerm;
-var CurrentInputType;
-var CurrentOutputType;
+var Sets = [];  // List of parsed sets
+
+var Terms = []; // List of acceptable terms
+var Inputs;     // List of acceptable input indexes
+var Outputs;    // List of acceptable outputs indexes
+
+var Term;       // Current term from Terms
+var Input;      // Current input type from InputTypes
+var Output;     // Current output type from OutputTypes
 
 
 
@@ -24,12 +27,12 @@ function Load() {
         }
     });
 
-    // Load csv
+    // Load CSV
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/feature-multipleSets/Vocab/Verbs.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Terms = results.data;
+            Sets.push(results.data);
         }
     });
 }
@@ -39,6 +42,12 @@ function Load() {
 // Start the quizzer
 function Start()
 {
+    // Load Sets into Terms
+    for (var i = 0; i < Sets[0].length; i++)
+    {
+        Terms.push(Sets[0][i]);
+    }
+
     // Show and hide elements
     document.getElementById("welcome").hidden = true;
     document.getElementById("quizzer").hidden = false;
@@ -46,43 +55,43 @@ function Start()
     // Set mode
     switch(document.getElementById("mode").value) {
         case "All":
-            InputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];
-            OutputTypes = [0];
+            Inputs = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];
+            Outputs = [0];
             break;
 
         case "Definition":
-            InputTypes = [1];
-            OutputTypes = [0];
+            Inputs = [1];
+            Outputs = [0];
             break;
 
         case "Participle":
-            InputTypes = [2];
-            OutputTypes = [0];
+            Inputs = [2];
+            Outputs = [0];
             break;
 
         case "Present":
-            InputTypes = [4,5,6,7,8];
-            OutputTypes = [0];
+            Inputs = [4,5,6,7,8];
+            Outputs = [0];
             break;
 
         case "Preterite":
-            InputTypes = [10,11,12,13,14];
-            OutputTypes = [0];
+            Inputs = [10,11,12,13,14];
+            Outputs = [0];
             break;
 
         case "Imperfect":
-            InputTypes = [16,17,18,19,20];
-            OutputTypes = [0];
+            Inputs = [16,17,18,19,20];
+            Outputs = [0];
             break;
 
         case "Reverse":
-            InputTypes = [0];
-            OutputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];;
+            Inputs = [0];
+            Outputs = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];;
             break;
 
         default:
-            InputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];
-            OutputTypes = [0];
+            Inputs = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];
+            Outputs = [0];
             break;
     }
 
@@ -101,14 +110,14 @@ function Reset() {
     document.getElementById("continueButton").hidden = true;
     
     // Get prompt
-    CurrentTerm = Math.floor(Math.random() * (Terms.length - 1) + 1);
-    CurrentInputType = InputTypes[Math.floor(Math.random() * InputTypes.length)];
-    CurrentOutputType = OutputTypes[Math.floor(Math.random() * OutputTypes.length)];
+    Term = Math.floor(Math.random() * (Terms.length - 1) + 1);
+    Input = Inputs[Math.floor(Math.random() * Inputs.length)];
+    Output = Outputs[Math.floor(Math.random() * Outputs.length)];
 
     // Set prompt
-    document.getElementById("promptType").textContent = Terms[0][CurrentOutputType] + ": ";
-    document.getElementById("prompt").textContent = Terms[CurrentTerm][CurrentOutputType];
-    document.getElementById("inputType").textContent = Terms[0][CurrentInputType] + ": ";
+    document.getElementById("promptType").textContent = Terms[0][Output] + ": ";
+    document.getElementById("prompt").textContent = Terms[Term][Output];
+    document.getElementById("inputType").textContent = Terms[0][Input] + ": ";
 
     // Reset responce
     document.getElementById("input").value = "";
@@ -132,9 +141,9 @@ function Check() {
     }
 
     // Check responce
-    if (!responces.includes(Terms[CurrentTerm][CurrentInputType].toLowerCase())) {
+    if (!responces.includes(Terms[Term][Input].toLowerCase())) {
         // Responce was incorrect
-        document.getElementById("errorText").textContent = "The correct answer is " + Terms[CurrentTerm][CurrentInputType] + ".";
+        document.getElementById("errorText").textContent = "The correct answer is " + Terms[Term][Input] + ".";
         
         // Show and hide elements
         document.getElementById("input").readOnly = true;
