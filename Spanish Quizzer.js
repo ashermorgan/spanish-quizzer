@@ -75,6 +75,11 @@ function Start()
             OutputTypes = [0];
             break;
 
+        case "Reverse":
+            InputTypes = [0];
+            OutputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];;
+            break;
+
         default:
             InputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];
             OutputTypes = [0];
