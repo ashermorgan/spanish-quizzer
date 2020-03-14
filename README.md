@@ -11,4 +11,5 @@ Try it [here](https://sites.google.com/view/Spanish-Quizzer).
 
 ## Vocabulary Sets
 Currently, Spanish Quizzer only supports the following vocabulary sets:
-- Verbs (with conjugations)
+- Common Verbs (with conjugations)
+- Common Prepositions
