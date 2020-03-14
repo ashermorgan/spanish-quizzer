@@ -25,7 +25,7 @@ function Load() {
     });
 
     // Load csv
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Verbs.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/feature-multipleSets/Vocab/Verbs.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
