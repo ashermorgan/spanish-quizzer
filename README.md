@@ -1,6 +1,6 @@
 # Spanish-Quizzer
 Quizzes you on spanish vocabulary through a web interface.
-Try it [here](https://sites.google.com/view/Spanish-Quizzer).
+Try it [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 
 ## Features
 - Customize what you're prompted with.
