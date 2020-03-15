@@ -22,7 +22,7 @@ function Load() {
     });
 
     // Load CSV
-    Sets = [null, null];
+    Sets = [null, null, null, null, null, null];
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Verbs.csv", {
         download: true,
         complete: function(results) {
@@ -37,6 +37,34 @@ function Load() {
             Sets[1] = results.data;
         }
     });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Nature.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[2] = results.data;
+        }
+    });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/House.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[3] = results.data;
+        }
+    });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Vacation.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[4] = results.data;
+        }
+    });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Childhood.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[5] = results.data;
+        }
+    });
 }
 
 
@@ -48,6 +76,10 @@ function Start()
     Terms = [];
     Terms.push(...Filter.GetFilter(document.getElementById("mode0").value).Apply(Sets[0]));
     Terms.push(...Filter.GetFilter(document.getElementById("mode1").value).Apply(Sets[1]));
+    Terms.push(...Filter.GetFilter(document.getElementById("mode2").value).Apply(Sets[2]));
+    Terms.push(...Filter.GetFilter(document.getElementById("mode3").value).Apply(Sets[3]));
+    Terms.push(...Filter.GetFilter(document.getElementById("mode4").value).Apply(Sets[4]));
+    Terms.push(...Filter.GetFilter(document.getElementById("mode5").value).Apply(Sets[5]));
 
     // Validate Terms
     if (Terms.length == 0) {
