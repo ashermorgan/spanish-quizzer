@@ -1,0 +1,13 @@
+.title {
+    font-family: Arial;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.error {
+	color: red;
+}

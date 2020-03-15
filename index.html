@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8"/>
         <title>Spanish-Quizzer v2.0.0</title>
+        <link rel="stylesheet" href="Styles.css">
         <script src="Spanish Quizzer.js"></script>
         <script src="Filter.js"></script>
         <script src="https://unpkg.com/papaparse@5.1.1/papaparse.min.js"></script>
@@ -10,15 +11,13 @@
 
     <body onload="Load()">
         <div style="text-align: center;">
-            <label style="font-family: Arial; font-size: 25px; font-weight: bold;">Spanish-Quizzer v2.0.0</label>
-            <br/>
-            <a href="https://github.com/AsherMorgan/Spanish-Quizzer">View GitHub page</a>
+            <label class="title">Spanish-Quizzer v2.0.0</label>
         </div>
         
         <div id="welcome" style="text-align: center;">
             <br/>
             <div>
-                <label style="font-size: 15px; font-weight: bold;">Verbs: </label>
+                <label class="label">Verbs: </label>
                 <select id="mode0">
                     <option value="None">None</option>
                     <option value="VerbsConjugations">All Conjugations</option>
@@ -31,7 +30,7 @@
                 </select>
             </div>
             <div>
-                <label style="font-size: 15px; font-weight: bold;">Prepositions: </label>
+                <label class="label">Prepositions: </label>
                 <select id="mode1">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
@@ -40,20 +39,20 @@
             <br/>
             <button onclick="Start()">Start</button>
             <br/>
-            <label id="settingsError" style="color: red;"></label>
+            <label id="settingsError" class="error"></label>
         </div>
         
         <div id="quizzer" style="text-align: center" hidden=true>
             <br/>
-            <label id="promptType" style="font-size: 15px; font-weight: bold;"></label>
-            <label id="prompt" style="font-size: 15px"></label>
+            <label id="promptType" class="label"></label>
+            <label id="prompt"></label>
             <br/>
-            <label id="inputType" style="font-size: 15px; font-weight: bold;"></label>
+            <label id="inputType" class="label"></label>
             <input id="input" type="text" autocomplete="off" spellcheck="false" autocorrect="off">
             <button id="submitButton" onclick="Check()">Submit</button>
             <br/>
             <br/>
-            <label id="errorText" style="color: red;" hidden=true></label>
+            <label id="errorText" class="error" hidden=true></label>
             <button id="continueButton" hidden=true onclick="Reset()">Continue</button>
         </div>
     </body>
