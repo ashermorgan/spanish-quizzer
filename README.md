@@ -3,6 +3,7 @@ Quizzes you on spanish vocabulary through a web interface.
 Try it [here](https://sites.google.com/view/Spanish-Quizzer).
 
 ## Features
+- Customize which terms you're quizzed on.
 - Customize what you're prompted with.
 - Customize what you answer with.
 - View the correct answer when you make a mistake.
