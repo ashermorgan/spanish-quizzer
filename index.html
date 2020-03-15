@@ -17,19 +17,27 @@
         
         <div id="welcome" style="text-align: center;">
             <br/>
-            <select id="mode">
-                <option value="None">None</option>
-                <option value="VerbsConjugations">All Conjugations</option>
-                <option value="VerbDefinitions">Definitions</option>
-                <option value="VerbPresentParticiples">Present Participles</option>
-                <option value="VerbsPresentTense">Present Tense</option>
-                <option value="VerbsPreteriteTense">Preterite Tense</option>
-                <option value="VerbsImperfectTense">Imperfect Tense</option>
-                <option value="VerbsEnglish">Reverse</option>
-            </select>
+            <div>
+                <label style="font-size: 15px; font-weight: bold;">Verbs: </label>
+                <select id="mode0">
+                    <option value="None">None</option>
+                    <option value="VerbsConjugations">All Conjugations</option>
+                    <option value="VerbDefinitions">Definitions</option>
+                    <option value="VerbPresentParticiples">Present Participles</option>
+                    <option value="VerbsPresentTense">Present Tense</option>
+                    <option value="VerbsPreteriteTense">Preterite Tense</option>
+                    <option value="VerbsImperfectTense">Imperfect Tense</option>
+                    <option value="VerbsEnglish">Reverse</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size: 15px; font-weight: bold;">Prepositions: </label>
+                <select id="mode1">
+                    <option value="None">None</option>
+                </select>
+            </div>
             <br/>
             <button onclick="Start()">Start</button>
-            <br/>
             <br/>
             <label id="settingsError" style="color: red;"></label>
         </div>

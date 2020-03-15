@@ -1,7 +1,7 @@
 // Declare global variables
-var Sets = [];  // List of parsed sets
-var Terms = []; // List of filtered terms
-var Term;       // Index of current term
+var Sets;   // List of parsed sets
+var Terms;  // List of filtered terms
+var Term;   // Index of current term
 
 
 
@@ -22,11 +22,19 @@ function Load() {
     });
 
     // Load CSV
+    Sets = [null, null];
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/feature-multipleSets/Vocab/Verbs.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets.push(results.data);
+            Sets[0] = results.data;
+        }
+    });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/feature-multipleSets/Vocab/Prepositions.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[1] = results.data;
         }
     });
 }
@@ -37,7 +45,9 @@ function Load() {
 function Start()
 {
     // Filter and load Sets into Terms
-    Terms.push(...Filter.GetFilter(document.getElementById("mode").value).Apply(Sets[0]));
+    Terms = [];
+    Terms.push(...Filter.GetFilter(document.getElementById("mode0").value).Apply(Sets[0]));
+    Terms.push(...Filter.GetFilter(document.getElementById("mode1").value).Apply(Sets[1]));
 
     // Validate Terms
     if (Terms.length == 0) {
