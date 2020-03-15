@@ -39,6 +39,12 @@ function Start()
     // Filter and load Sets into Terms
     Terms.push(...Filter.GetFilter(document.getElementById("mode").value).Apply(Sets[0]));
 
+    // Validate Terms
+    if (Terms.length == 0) {
+        document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
+        return;
+    }
+
     // Show and hide elements
     document.getElementById("welcome").hidden = true;
     document.getElementById("quizzer").hidden = false;
