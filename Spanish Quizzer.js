@@ -23,14 +23,14 @@ function Load() {
 
     // Load CSV
     Sets = [null, null];
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/feature-multipleSets/Vocab/Verbs.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Verbs.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[0] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/feature-multipleSets/Vocab/Prepositions.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Prepositions.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
