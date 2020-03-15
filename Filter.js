@@ -84,6 +84,15 @@ class Filter
             case "VerbsImperfectTense":
                 return new Filter([[0,16], [0,17], [0,18], [0,19], [0,20]], []);
 
+            case "2FieldsNouns":
+                return new Filter([[0,1], [1,0]], [[2, ["Noun"], false]]);
+
+            case "2FieldsVerbs":
+                return new Filter([[0,1], [1,0]], [[2, ["Verb"], false]]);
+
+            case "2FieldsAdjectives":
+                return new Filter([[0,1], [1,0]], [[2, ["Adjective"], false]]);
+
             default:
                 return new Filter([], []);
         }
