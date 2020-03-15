@@ -1,10 +1,7 @@
 // Declare global variables
-var Terms;
-var InputTypes;
-var OutputTypes;
-var CurrentTerm;
-var CurrentInputType;
-var CurrentOutputType;
+var Sets;   // List of parsed sets
+var Terms;  // List of filtered terms
+var Term;   // Index of current term
 
 
 
@@ -24,12 +21,20 @@ function Load() {
         }
     });
 
-    // Load csv
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Verbs.csv", {
+    // Load CSV
+    Sets = [null, null];
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/feature-multipleSets/Vocab/Verbs.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Terms = results.data;
+            Sets[0] = results.data;
+        }
+    });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/feature-multipleSets/Vocab/Prepositions.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[1] = results.data;
         }
     });
 }
@@ -39,52 +44,20 @@ function Load() {
 // Start the quizzer
 function Start()
 {
+    // Filter and load Sets into Terms
+    Terms = [];
+    Terms.push(...Filter.GetFilter(document.getElementById("mode0").value).Apply(Sets[0]));
+    Terms.push(...Filter.GetFilter(document.getElementById("mode1").value).Apply(Sets[1]));
+
+    // Validate Terms
+    if (Terms.length == 0) {
+        document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
+        return;
+    }
+
     // Show and hide elements
     document.getElementById("welcome").hidden = true;
     document.getElementById("quizzer").hidden = false;
-
-    // Set mode
-    switch(document.getElementById("mode").value) {
-        case "All":
-            InputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];
-            OutputTypes = [0];
-            break;
-
-        case "Definition":
-            InputTypes = [1];
-            OutputTypes = [0];
-            break;
-
-        case "Participle":
-            InputTypes = [2];
-            OutputTypes = [0];
-            break;
-
-        case "Present":
-            InputTypes = [4,5,6,7,8];
-            OutputTypes = [0];
-            break;
-
-        case "Preterite":
-            InputTypes = [10,11,12,13,14];
-            OutputTypes = [0];
-            break;
-
-        case "Imperfect":
-            InputTypes = [16,17,18,19,20];
-            OutputTypes = [0];
-            break;
-
-        case "Reverse":
-            InputTypes = [0];
-            OutputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];;
-            break;
-
-        default:
-            InputTypes = [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,19,20];
-            OutputTypes = [0];
-            break;
-    }
 
     // Give the user a prompt
     Reset();
@@ -101,14 +74,12 @@ function Reset() {
     document.getElementById("continueButton").hidden = true;
     
     // Get prompt
-    CurrentTerm = Math.floor(Math.random() * (Terms.length - 1) + 1);
-    CurrentInputType = InputTypes[Math.floor(Math.random() * InputTypes.length)];
-    CurrentOutputType = OutputTypes[Math.floor(Math.random() * OutputTypes.length)];
+    Term = Math.floor(Math.random() * (Terms.length - 1) + 1);
 
     // Set prompt
-    document.getElementById("promptType").textContent = Terms[0][CurrentOutputType] + ": ";
-    document.getElementById("prompt").textContent = Terms[CurrentTerm][CurrentOutputType];
-    document.getElementById("inputType").textContent = Terms[0][CurrentInputType] + ": ";
+    document.getElementById("promptType").textContent = Terms[Term][0] + ": ";
+    document.getElementById("prompt").textContent = Terms[Term][1];
+    document.getElementById("inputType").textContent = Terms[Term][2] + ": ";
 
     // Reset responce
     document.getElementById("input").value = "";
@@ -132,9 +103,9 @@ function Check() {
     }
 
     // Check responce
-    if (!responces.includes(Terms[CurrentTerm][CurrentInputType].toLowerCase())) {
+    if (!responces.includes(Terms[Term][3].toLowerCase())) {
         // Responce was incorrect
-        document.getElementById("errorText").textContent = "The correct answer is " + Terms[CurrentTerm][CurrentInputType] + ".";
+        document.getElementById("errorText").textContent = "The correct answer is " + Terms[Term][3] + ".";
         
         // Show and hide elements
         document.getElementById("input").readOnly = true;

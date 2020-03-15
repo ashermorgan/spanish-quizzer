@@ -3,6 +3,7 @@ Quizzes you on spanish vocabulary through a web interface.
 Try it [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 
 ## Features
+- Customize which terms you're quizzed on.
 - Customize what you're prompted with.
 - Customize what you answer with.
 - View the correct answer when you make a mistake.
@@ -11,4 +12,5 @@ Try it [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 
 ## Vocabulary Sets
 Currently, Spanish Quizzer only supports the following vocabulary sets:
-- Verbs (with conjugations)
+- Common Verbs (with conjugations)
+- Common Prepositions
