@@ -26,8 +26,8 @@ function Load() {
     document.getElementById("quizzer").hidden = true;
     document.getElementById("settingsError").textContent = "";
 
-    // Load CSV
-    Sets = [null, null, null, null, null, null];
+    // Load CSVs
+    Sets = [null, null, null, null, null, null, null, null, null];
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Verbs.csv", {
         download: true,
         complete: function(results) {
@@ -42,32 +42,53 @@ function Load() {
             Sets[1] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Nature.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Weather.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[2] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/House.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Family.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[3] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Vacation.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Cloths.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[4] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Childhood.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Nature.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[5] = results.data;
+        }
+    });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/House.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[6] = results.data;
+        }
+    });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Vacation.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[7] = results.data;
+        }
+    });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Childhood.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[8] = results.data;
         }
     });
 }
@@ -85,6 +106,9 @@ function Start()
     Terms.push(...Filter.GetFilter(document.getElementById("mode3").value).Apply(Sets[3]));
     Terms.push(...Filter.GetFilter(document.getElementById("mode4").value).Apply(Sets[4]));
     Terms.push(...Filter.GetFilter(document.getElementById("mode5").value).Apply(Sets[5]));
+    Terms.push(...Filter.GetFilter(document.getElementById("mode6").value).Apply(Sets[6]));
+    Terms.push(...Filter.GetFilter(document.getElementById("mode7").value).Apply(Sets[7]));
+    Terms.push(...Filter.GetFilter(document.getElementById("mode8").value).Apply(Sets[8]));
 
     // Validate Terms
     if (Terms.length == 0) {
