@@ -8,6 +8,10 @@
     font-weight: bold;
 }
 
+.text {
+    font-weight: normal;
+}
+
 .error {
 	color: red;
 }

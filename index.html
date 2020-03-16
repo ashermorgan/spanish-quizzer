@@ -12,13 +12,16 @@
 
     <body onload="Load()">
         <div style="text-align: center;">
-            <label class="title">Spanish-Quizzer v2.1.0</label>
+            <label class="title" onclick="Load()">Spanish-Quizzer v2.1.0</label>
         </div>
         
         <div id="welcome" style="text-align: center;">
             <br/>
+            <label class="label">Choose the terms that you want to study.</label>
+            <br/>
+            <br/>
             <div>
-                <label class="label">Verbs: </label>
+                <label class="text">Verbs: </label>
                 <select id="mode0">
                     <option value="None">None</option>
                     <option value="VerbsConjugations">All Conjugations</option>
@@ -31,14 +34,14 @@
                 </select>
             </div>
             <div>
-                <label class="label">Prepositions: </label>
+                <label class="text">Prepositions: </label>
                 <select id="mode1">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
                 </select>
             </div>
             <div>
-                <label class="label">Nature: </label>
+                <label class="text">Nature: </label>
                 <select id="mode2">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
@@ -48,7 +51,7 @@
                 </select>
             </div>
             <div>
-                <label class="label">House: </label>
+                <label class="text">House: </label>
                 <select id="mode3">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
@@ -58,7 +61,7 @@
                 </select>
             </div>
             <div>
-                <label class="label">Vacation: </label>
+                <label class="text">Vacation: </label>
                 <select id="mode4">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
@@ -68,7 +71,7 @@
                 </select>
             </div>
             <div>
-                <label class="label">Childhood: </label>
+                <label class="text">Childhood: </label>
                 <select id="mode5">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
@@ -83,7 +86,7 @@
             <label id="settingsError" class="error"></label>
         </div>
         
-        <div id="quizzer" style="text-align: center" hidden=true>
+        <div id="quizzer" style="text-align: center">
             <br/>
             <label id="promptType" class="label"></label>
             <label id="prompt"></label>
@@ -93,8 +96,8 @@
             <button id="submitButton" onclick="Check()">Submit</button>
             <br/>
             <br/>
-            <label id="errorText" class="error" hidden=true></label>
-            <button id="continueButton" hidden=true onclick="Reset()">Continue</button>
+            <label id="errorText" class="error" ></label>
+            <button id="continueButton" onclick="Reset()">Continue</button>
         </div>
     </body>
 </html>

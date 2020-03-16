@@ -21,6 +21,11 @@ function Load() {
         }
     });
 
+    // Show and hide elements
+    document.getElementById("welcome").hidden = false;
+    document.getElementById("quizzer").hidden = true;
+    document.getElementById("settingsError").textContent = "";
+
     // Load CSV
     Sets = [null, null, null, null, null, null];
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Verbs.csv", {
