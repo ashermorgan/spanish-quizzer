@@ -7,8 +7,8 @@ Try it [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 - Customize what you're prompted with.
 - Customize what you answer with.
 - View the correct answer when you make a mistake.
-- Easily type accented characters (``` a` ``` is turned into ```á```)
-- Easily type tildes (``` n` ``` is turned into ```ñ```)
+- Easily type accented characters (``` a` ``` is converted into ```á```)
+- Easily type tildes (``` n` ``` and ``` n~ ``` are converted into ```ñ```)
 
 ## Vocabulary Sets
 Currently, Spanish Quizzer only supports the following vocabulary sets:

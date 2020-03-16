@@ -156,6 +156,7 @@ function Check() {
     responce = responce.replace("e`", "é"); // Apply accented e shortcut
     responce = responce.replace("i`", "í"); // Apply accented i shortcut
     responce = responce.replace("n`", "ñ"); // Apply n with tilde shortcut
+    responce = responce.replace("n~", "ñ"); // Apply n with tilde shortcut
     responce = responce.replace("o`", "ó"); // Apply accented o shortcut
     var responces = responce.split(",");    // Split string by commas
     responces.push(responce);   // Keep origional responce
