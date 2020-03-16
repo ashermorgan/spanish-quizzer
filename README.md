@@ -14,7 +14,10 @@ Try it [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 Currently, Spanish Quizzer only supports the following vocabulary sets:
 - Common Verbs (with conjugations)
 - Common Prepositions
+- Weather (La Clima)
+- Family (La Familia)
+- Cloths (La Ropa)
 - Nature (La Naturaleza)
-- House (La casa)
-- Vacations (Las vacaciones)
-- Childhood (La niñez)
+- House (La Casa)
+- Vacations (Las Vacaciones)
+- Childhood (La Niñez)
