@@ -1,7 +1,7 @@
 // Declare global variables
-var Sets;   // List of parsed sets
-var Terms;  // List of filtered terms
-var Term;   // Index of current term
+var Sets;       // List of parsed sets
+var Terms;      // List of filtered terms
+var Term = 0;   // Index of current term
 
 
 
@@ -95,6 +95,25 @@ function Load() {
 
 
 
+// Shuffle the list of terms
+function ShuffleTerms() {
+    var currentIndex = Terms.length, temporaryValue, randomIndex;
+    
+    // While there are more elements to shuffle
+    while (0 !== currentIndex) {
+        // Pick a remaining element
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        
+        // Swap the two elements
+        temporaryValue = Terms[currentIndex];
+        Terms[currentIndex] = Terms[randomIndex];
+        Terms[randomIndex] = temporaryValue;
+    }
+}
+
+
+
 // Start the quizzer
 function Start()
 {
@@ -109,6 +128,9 @@ function Start()
     Terms.push(...Filter.GetFilter(document.getElementById("mode6").value).Apply(Sets[6]));
     Terms.push(...Filter.GetFilter(document.getElementById("mode7").value).Apply(Sets[7]));
     Terms.push(...Filter.GetFilter(document.getElementById("mode8").value).Apply(Sets[8]));
+
+    // Shuffle terms
+    ShuffleTerms();
 
     // Validate Terms
     if (Terms.length == 0) {
@@ -135,7 +157,11 @@ function Reset() {
     document.getElementById("continueButton").hidden = true;
     
     // Get prompt
-    Term = Math.floor(Math.random() * (Terms.length - 1) + 1);
+    Term++;
+    if (Term == Terms.length) {
+        ShuffleTerms();
+        Term = 0;
+    }
 
     // Set prompt
     document.getElementById("promptType").textContent = Terms[Term][0] + ": ";
