@@ -13,10 +13,9 @@ Big,Grande,Adjective
 Bricks,Los ladrillos,Noun
 Calendar,El calendario,Noun
 Carpet,La alfombra,Noun
-Ceiling,El techno,Noun
+Ceiling,El techo,Noun
 Chair,La silla,Noun
 Chandelier,La araña de luces,Noun
-Clean,Limiar la cocina,Verb
 Clock,El reloj,Noun
 Closet,El armario,Noun
 Cloths,La ropa,Noun
@@ -37,7 +36,6 @@ Furniture,Los muebles,Noun
 Garage,El garaje,Noun
 Garbage can,El basurero,Noun
 Home,El hogar,Noun
-Iron,Planchar,Verb
 Kitchen,La cocina,Noun
 Lamp,La lámpara,Noun
 Light,La luz,Noun
@@ -46,11 +44,9 @@ Luminous,Luminoso,Adjective
 Luxurious,Lujoso,Adjective
 Magazines,Las revistas,Noun
 Main Door,La puerta principal,Noun
-Make the bed,Hacer la cama,Verb
 Microwave,El microondas,Noun
 Mirror,El espejo,Noun
 Modest,Modesto,Adjective
-Mow the lawn,Cortar el césped,Verb
 Neighborhood,El vecindario,Noun
 Neighbors,Los vecinos,Noun
 New,Nuevo,Adjective
@@ -67,7 +63,6 @@ Pots,Las ollas,Noun
 Quiet,Tranquilo,Adjective
 Refrigerator,La refrigeradora,Noun
 Rug,La alfombra,Noun
-Set the table,Poner la mesa,Verb
 Sheets,Las sábanas,Noun
 Shelf,El estante,Noun
 Shower,La ducha,Noun
@@ -82,14 +77,19 @@ Stove,La estufa,Noun
 Stove,La cocina,Noun
 Table,La mesa,Noun
 Tablecloth,El mantel,Noun
-Take care of the dog,Cuidar al perro,Verb
 Television,El televisor,Noun
 Television,La televisión,Noun
+To clean the kitchen,Limiar la cocina,Verb
+To iron,Planchar,Verb
+To make the bed,Hacer la cama,Verb
+To mow the lawn,Cortar el césped,Verb
+To set the table,Poner la mesa,Verb
+To take care of the dog,Cuidar al perro,Verb
+To work in the garden,Trabajar en el jardín,Verb
 Toilet,El inodoro,Noun
 Towels,Las toallas,Noun
 Vaccum,Pasar la aspiradora,Verb
 Wall,La pared,Noun
 Window,La ventana,Noun
 Wood,La madera,Noun
-Work in the garden,Trabajar en el jardín,Verb
 Yard,El jardín,Noun
