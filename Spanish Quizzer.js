@@ -184,6 +184,7 @@ function Check() {
     responce = responce.replace("n`", "ñ"); // Apply n with tilde shortcut
     responce = responce.replace("n~", "ñ"); // Apply n with tilde shortcut
     responce = responce.replace("o`", "ó"); // Apply accented o shortcut
+    responce = responce.replace("u`", "ú"); // Apply accented u shortcut
     var responces = responce.split(",");    // Split string by commas
     responces.push(responce);   // Keep origional responce
     for (var i = 0; i < responces.length; i++) {
