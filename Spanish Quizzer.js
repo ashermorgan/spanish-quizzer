@@ -1,14 +1,14 @@
 // Declare global variables
-var Sets;       // List of parsed sets
-var Terms;      // List of filtered terms
-var Term = 0;   // Index of current term
+var Sets;   // List of parsed sets
+var Terms;  // List of filtered terms
+var Term;   // Index of current term
 
 
 
 // Load the document
 function Load() {
     // Add event Listener
-    var input = document.getElementById("input");
+    var input = document.getElementById("quizzerInput");
     input.addEventListener("keydown", function (e) {
         if (e.keyCode === 13) { 
             // Key was enter
@@ -22,7 +22,7 @@ function Load() {
     });
 
     // Show and hide elements
-    document.getElementById("welcome").hidden = false;
+    document.getElementById("settings").hidden = false;
     document.getElementById("quizzer").hidden = true;
     document.getElementById("settingsError").textContent = "";
 
@@ -115,19 +115,18 @@ function ShuffleTerms() {
 
 
 // Start the quizzer
-function Start()
-{
+function Start() {
     // Filter and load Sets into Terms
     Terms = [];
-    Terms.push(...Filter.GetFilter(document.getElementById("mode0").value).Apply(Sets[0]));
-    Terms.push(...Filter.GetFilter(document.getElementById("mode1").value).Apply(Sets[1]));
-    Terms.push(...Filter.GetFilter(document.getElementById("mode2").value).Apply(Sets[2]));
-    Terms.push(...Filter.GetFilter(document.getElementById("mode3").value).Apply(Sets[3]));
-    Terms.push(...Filter.GetFilter(document.getElementById("mode4").value).Apply(Sets[4]));
-    Terms.push(...Filter.GetFilter(document.getElementById("mode5").value).Apply(Sets[5]));
-    Terms.push(...Filter.GetFilter(document.getElementById("mode6").value).Apply(Sets[6]));
-    Terms.push(...Filter.GetFilter(document.getElementById("mode7").value).Apply(Sets[7]));
-    Terms.push(...Filter.GetFilter(document.getElementById("mode8").value).Apply(Sets[8]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode0").value).Apply(Sets[0]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode1").value).Apply(Sets[1]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode2").value).Apply(Sets[2]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode3").value).Apply(Sets[3]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode4").value).Apply(Sets[4]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode5").value).Apply(Sets[5]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode6").value).Apply(Sets[6]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode7").value).Apply(Sets[7]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode8").value).Apply(Sets[8]));
 
     // Shuffle terms
     ShuffleTerms();
@@ -139,10 +138,11 @@ function Start()
     }
 
     // Show and hide elements
-    document.getElementById("welcome").hidden = true;
+    document.getElementById("settings").hidden = true;
     document.getElementById("quizzer").hidden = false;
 
     // Give the user a prompt
+    Term = -1;
     Reset();
 }
 
@@ -151,10 +151,10 @@ function Start()
 // Give the user a new prompt
 function Reset() {
     // Show and hide elements
-    document.getElementById("input").readOnly = false;
-    document.getElementById("submitButton").disabled = false;
-    document.getElementById("errorText").hidden = true;
-    document.getElementById("continueButton").hidden = true;
+    document.getElementById("quizzerInput").readOnly = false;
+    document.getElementById("quizzerSubmit").disabled = false;
+    document.getElementById("quizzerFeedback").hidden = true;
+    document.getElementById("quizzerContinue").hidden = true;
     
     // Get prompt
     Term++;
@@ -162,14 +162,15 @@ function Reset() {
         ShuffleTerms();
         Term = 0;
     }
+    document.getElementById("quizzerProgress").textContent = `${Term + 1} / ${Terms.length}`;
 
     // Set prompt
-    document.getElementById("promptType").textContent = Terms[Term][0] + ": ";
-    document.getElementById("prompt").textContent = Terms[Term][1];
-    document.getElementById("inputType").textContent = Terms[Term][2] + ": ";
+    document.getElementById("quizzerPromptType").textContent = `${Terms[Term][0]}: `;
+    document.getElementById("quizzerPrompt").textContent = Terms[Term][1];
+    document.getElementById("quizzerInputType").textContent = `${Terms[Term][2]}: `;
 
     // Reset responce
-    document.getElementById("input").value = "";
+    document.getElementById("quizzerInput").value = "";
 } 
 
 
@@ -177,7 +178,7 @@ function Reset() {
 // Check the user's responce
 function Check() {
     // Prepare responce
-    var responce = document.getElementById("input").value.toLowerCase(); // Make responce lowercase
+    var responce = document.getElementById("quizzerInput").value.toLowerCase(); // Make responce lowercase
     responce = responce.replace("a`", "á"); // Apply accented a shortcut
     responce = responce.replace("e`", "é"); // Apply accented e shortcut
     responce = responce.replace("i`", "í"); // Apply accented i shortcut
@@ -194,14 +195,14 @@ function Check() {
     // Check responce
     if (!responces.includes(Terms[Term][3].toLowerCase())) {
         // Responce was incorrect
-        document.getElementById("errorText").textContent = "The correct answer is " + Terms[Term][3] + ".";
+        document.getElementById("quizzerFeedback").textContent = `The correct answer is ${Terms[Term][3].toLowerCase()}.`;
         
         // Show and hide elements
-        document.getElementById("input").readOnly = true;
-        document.getElementById("submitButton").disabled = true;
-        document.getElementById("errorText").hidden = false;
-        document.getElementById("continueButton").hidden = false;
-        document.getElementById("input").focus();
+        document.getElementById("quizzerInput").readOnly = true;
+        document.getElementById("quizzerSubmit").disabled = true;
+        document.getElementById("quizzerFeedback").hidden = false;
+        document.getElementById("quizzerContinue").hidden = false;
+        document.getElementById("quizzerInput").focus();
     }
     else {
         // Responce was correct

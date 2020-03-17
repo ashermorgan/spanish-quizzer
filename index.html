@@ -3,26 +3,30 @@
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, user-scalable=no"/>
-        <title>Spanish-Quizzer v2.1.0</title>
+        <title>Spanish-Quizzer</title>
         <link rel="stylesheet" href="Styles.css">
-        <script src="Spanish Quizzer.js"></script>
-        <script src="Filter.js"></script>
         <script src="https://unpkg.com/papaparse@5.1.1/papaparse.min.js"></script>
+        <script src="Filter.js"></script>
+        <script src="Spanish Quizzer.js"></script>
     </head>
 
     <body onload="Load()">
         <div style="text-align: center;">
             <label class="title" onclick="Load()">Spanish-Quizzer v2.1.0</label>
+            <noscript>
+                <br/>
+                <label class="error">You must have JavaScript enabled to run Spanish-Quizzer.</label>
+            </noscript>
         </div>
-        
-        <div id="welcome" style="text-align: center;">
+
+        <div id="settings" style="text-align: center;">
             <br/>
             <label class="label">Choose the terms that you want to study.</label>
             <br/>
             <br/>
             <div>
                 <label class="text">Verbs: </label>
-                <select id="mode0">
+                <select id="settingsMode0">
                     <option value="None">None</option>
                     <option value="VerbsConjugations">All Conjugations</option>
                     <option value="2FieldsAll">Definitions</option>
@@ -35,14 +39,14 @@
             </div>
             <div>
                 <label class="text">Prepositions: </label>
-                <select id="mode1">
+                <select id="settingsMode1">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
                 </select>
             </div>
             <div>
                 <label class="text">Weather: </label>
-                <select id="mode2">
+                <select id="settingsMode2">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
                     <option value="2FieldsNouns">Nouns</option>
@@ -52,7 +56,7 @@
             </div>
             <div>
                 <label class="text">Family: </label>
-                <select id="mode3">
+                <select id="settingsMode3">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
                     <option value="2FieldsNouns">Nouns</option>
@@ -61,7 +65,7 @@
             </div>
             <div>
                 <label class="text">Cloths: </label>
-                <select id="mode4">
+                <select id="settingsMode4">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
                     <option value="2FieldsNouns">Nouns</option>
@@ -70,7 +74,7 @@
             </div>
             <div>
                 <label class="text">Nature: </label>
-                <select id="mode5">
+                <select id="settingsMode5">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
                     <option value="2FieldsNouns">Nouns</option>
@@ -80,7 +84,7 @@
             </div>
             <div>
                 <label class="text">House: </label>
-                <select id="mode6">
+                <select id="settingsMode6">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
                     <option value="2FieldsNouns">Nouns</option>
@@ -90,7 +94,7 @@
             </div>
             <div>
                 <label class="text">Vacation: </label>
-                <select id="mode7">
+                <select id="settingsMode7">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
                     <option value="2FieldsNouns">Nouns</option>
@@ -100,7 +104,7 @@
             </div>
             <div>
                 <label class="text">Childhood: </label>
-                <select id="mode8">
+                <select id="settingsMode8">
                     <option value="None">None</option>
                     <option value="2FieldsAll">All</option>
                     <option value="2FieldsNouns">Nouns</option>
@@ -114,18 +118,20 @@
             <label id="settingsError" class="error"></label>
         </div>
         
-        <div id="quizzer" style="text-align: center">
+        <div id="quizzer" style="text-align: center" hidden="false">
             <br/>
-            <label id="promptType" class="label"></label>
-            <label id="prompt"></label>
+            <label id="quizzerProgress" class="label"></label>
             <br/>
-            <label id="inputType" class="label"></label>
-            <input id="input" type="text" autocomplete="off" spellcheck="false" autocorrect="off">
-            <button id="submitButton" onclick="Check()">Submit</button>
+            <label id="quizzerPromptType" class="label"></label>
+            <label id="quizzerPrompt" class="text"></label>
+            <br/>
+            <label id="quizzerInputType" class="label"></label>
+            <input id="quizzerInput" type="text" autocomplete="off" spellcheck="false" autocorrect="off">
+            <button id="quizzerSubmit" onclick="Check()">Submit</button>
             <br/>
             <br/>
-            <label id="errorText" class="error" ></label>
-            <button id="continueButton" onclick="Reset()">Continue</button>
+            <label id="quizzerFeedback" class="error"></label>
+            <button id="quizzerContinue" onclick="Reset()">Continue</button>
         </div>
     </body>
 </html>
