@@ -177,7 +177,7 @@ function Reset() {
 
 // Check the user's responce
 function Check() {
-    // Prepare responce
+    // Parse responce
     var responce = document.getElementById("quizzerInput").value.toLowerCase(); // Make responce lowercase
     responce = responce.replace("a`", "á"); // Apply accented a shortcut
     responce = responce.replace("e`", "é"); // Apply accented e shortcut
@@ -187,13 +187,26 @@ function Check() {
     responce = responce.replace("o`", "ó"); // Apply accented o shortcut
     responce = responce.replace("u`", "ú"); // Apply accented u shortcut
     var responces = responce.split(",");    // Split string by commas
-    responces.push(responce);   // Keep origional responce
     for (var i = 0; i < responces.length; i++) {
         responces[i] = responces[i].trim(); // Trim whitespace
     }
 
+    // Parse answer
+    answers = Terms[Term][3].toLowerCase().split(","); // Split string by commas
+    for (var i = 0; i < answers.length; i++) {
+        answers[i] = answers[i].trim(); // Trim whitespace
+    }
+
     // Check responce
-    if (!responces.includes(Terms[Term][3].toLowerCase())) {
+    var correct = true;
+    for(var answer of answers) {
+        if (!responces.includes(answer)) {
+            correct = false;
+        }
+    }
+
+    // Give user feedback
+    if (!correct) {
         // Responce was incorrect
         document.getElementById("quizzerFeedback").textContent = `The correct answer is ${Terms[Term][3].toLowerCase()}.`;
         
