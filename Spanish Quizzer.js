@@ -27,7 +27,7 @@ function Load() {
     document.getElementById("settingsError").textContent = "";
 
     // Load CSVs
-    Sets = [null, null, null, null, null, null, null, null, null];
+    Sets = [null, null, null, null, null, null, null, null, null, null, null];
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Verbs.csv", {
         download: true,
         complete: function(results) {
@@ -35,60 +35,74 @@ function Load() {
             Sets[0] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Prepositions.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Adjectives.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[1] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Weather.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Prepositions.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[2] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Family.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Basics.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[3] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Cloths.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Weather.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[4] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Nature.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Family.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[5] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/House.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Cloths.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[6] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Vacation.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Nature.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[7] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Childhood.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/House.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets[8] = results.data;
+        }
+    });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Vacation.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[9] = results.data;
+        }
+    });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Childhood.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[10] = results.data;
         }
     });
 }
@@ -127,6 +141,8 @@ function Start() {
     Terms.push(...Filter.GetFilter(document.getElementById("settingsMode6").value).Apply(Sets[6]));
     Terms.push(...Filter.GetFilter(document.getElementById("settingsMode7").value).Apply(Sets[7]));
     Terms.push(...Filter.GetFilter(document.getElementById("settingsMode8").value).Apply(Sets[8]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode9").value).Apply(Sets[9]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode10").value).Apply(Sets[10]));
 
     // Shuffle terms
     ShuffleTerms();
