@@ -65,6 +65,12 @@ class Filter
 
             case "2FieldsAll":
                 return new Filter([[0,1], [1,0]], []);
+
+            case "2Fields1to2":
+                return new Filter([[0,1]], []);
+
+            case "2Fields2to1":
+                return new Filter([[1,0]], []);
             
             case "VerbsConjugations":
                 return new Filter([[0,2], [0,4], [0,5], [0,6], [0,7], [0,8], [0,10], [0,11], [0,12], [0,13], [0,14], [0,16], [0,17], [0,18], [0,19], [0,20]], []);
