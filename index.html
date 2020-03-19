@@ -11,130 +11,175 @@
     </head>
 
     <body onload="Load()">
-        <div style="text-align: center;">
-            <label class="title" onclick="Load()">Spanish-Quizzer v2.1.0</label>
+        <div>
+            <label id="title" onclick="Load()">Spanish-Quizzer v2.1.0</label>
             <noscript>
                 <br/>
                 <label class="error">You must have JavaScript enabled to run Spanish-Quizzer.</label>
             </noscript>
         </div>
 
-        <div id="settings" style="text-align: center;">
+        <div id="settings">
             <br/>
             <label class="label">Choose the terms that you want to study.</label>
             <br/>
             <br/>
-            <div>
-                <label class="text" for="settingsMode0">Verbs: </label>
-                <select id="settingsMode0">
-                    <option value="None">None</option>
-                    <option value="VerbsConjugations">All Conjugations</option>
-                    <option value="2FieldsAll">Definitions</option>
-                    <option value="VerbPresentParticiples">Present Participles</option>
-                    <option value="VerbsPresentTense">Present Tense</option>
-                    <option value="VerbsPreteriteTense">Preterite Tense</option>
-                    <option value="VerbsImperfectTense">Imperfect Tense</option>
-                    <option value="VerbsEnglish">Reverse</option>
-                </select>
-            </div>
-            <div>
-                <label class="text" for="settingsMode1">Adjectives: </label>
-                <select id="settingsMode1">
-                    <option value="None">None</option>
-                    <option value="2FieldsAll">All</option>
-                </select>
-            </div>
-            <div>
-                <label class="text" for="settingsMode2">Prepositions: </label>
-                <select id="settingsMode2">
-                    <option value="None">None</option>
-                    <option value="2FieldsAll">All</option>
-                </select>
-            </div>
-            <div>
-                <label class="text" for="settingsMode3">Basic words: </label>
-                <select id="settingsMode3">
-                    <option value="None">None</option>
-                    <option value="2FieldsAll">All</option>
-                    <option value="2FieldsNouns">Nouns</option>
-                    <option value="2FieldsAdjectives">Adjectives</option>
-                </select>
-            </div>
-            <div>
-                <label class="text" for="settingsMode4">Weather: </label>
-                <select id="settingsMode4">
-                    <option value="None">None</option>
-                    <option value="2FieldsAll">All</option>
-                    <option value="2FieldsNouns">Nouns</option>
-                    <option value="2FieldsVerbs">Verbs</option>
-                    <option value="2FieldsAdjectives">Adjectives</option>
-                </select>
-            </div>
-            <div>
-                <label class="text" for="settingsMode5">Family: </label>
-                <select id="settingsMode5">
-                    <option value="None">None</option>
-                    <option value="2FieldsAll">All</option>
-                    <option value="2FieldsNouns">Nouns</option>
-                    <option value="2FieldsAdjectives">Adjectives</option>
-                </select>
-            </div>
-            <div>
-                <label class="text" for="settingsMode6">Cloths: </label>
-                <select id="settingsMode6">
-                    <option value="None">None</option>
-                    <option value="2FieldsAll">All</option>
-                    <option value="2FieldsNouns">Nouns</option>
-                    <option value="2FieldsAdjectives">Adjectives</option>
-                </select>
-            </div>
-            <div>
-                <label class="text" for="settingsMode7">Nature: </label>
-                <select id="settingsMode7">
-                    <option value="None">None</option>
-                    <option value="2FieldsAll">All</option>
-                    <option value="2FieldsNouns">Nouns</option>
-                    <option value="2FieldsVerbs">Verbs</option>
-                    <option value="2FieldsAdjectives">Adjectives</option>
-                </select>
-            </div>
-            <div>
-                <label class="text" for="settingsMode8">House: </label>
-                <select id="settingsMode8">
-                    <option value="None">None</option>
-                    <option value="2FieldsAll">All</option>
-                    <option value="2FieldsNouns">Nouns</option>
-                    <option value="2FieldsVerbs">Verbs</option>
-                    <option value="2FieldsAdjectives">Adjectives</option>
-                </select>
-            </div>
-            <div>
-                <label class="text" for="settingsMode9">Vacation: </label>
-                <select id="settingsMode9">
-                    <option value="None">None</option>
-                    <option value="2FieldsAll">All</option>
-                    <option value="2FieldsNouns">Nouns</option>
-                    <option value="2FieldsVerbs">Verbs</option>
-                    <option value="2FieldsAdjectives">Adjectives</option>
-                </select>
-            </div>
-            <div>
-                <label class="text" for="settingsMode10">Childhood: </label>
-                <select id="settingsMode10">
-                    <option value="None">None</option>
-                    <option value="2FieldsAll">All</option>
-                    <option value="2FieldsNouns">Nouns</option>
-                    <option value="2FieldsVerbs">Verbs</option>
-                    <option value="2FieldsAdjectives">Adjectives</option>
-                </select>
-            </div>
+            <table id="settingsTable">
+                <tr>
+                    <td>
+                        <label class="text" for="settingsMode0">Verbs: </label>
+                    </td>
+                    <td>
+                        <select id="settingsMode0" class="settingsFilter">
+                            <option value="None">None</option>
+                            <option value="VerbsConjugations">All Conjugations</option>
+                            <option value="2FieldsAll">Definitions</option>
+                            <option value="VerbPresentParticiples">Present Participles</option>
+                            <option value="VerbsPresentTense">Present Tense</option>
+                            <option value="VerbsPreteriteTense">Preterite Tense</option>
+                            <option value="VerbsImperfectTense">Imperfect Tense</option>
+                            <option value="VerbsEnglish">Reverse</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="text" for="settingsMode1">Adjectives: </label>
+                    </td>
+                    <td>
+                        <select id="settingsMode1" class="settingsFilter">
+                            <option value="None">None</option>
+                            <option value="2FieldsAll">All</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="text" for="settingsMode2">Prepositions: </label>
+                    </td>
+                    <td>
+                        <select id="settingsMode2" class="settingsFilter">
+                            <option value="None">None</option>
+                            <option value="2FieldsAll">All</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="text" for="settingsMode3">Basic words: </label>
+                    </td>
+                    <td>
+                        <select id="settingsMode3" class="settingsFilter">
+                            <option value="None">None</option>
+                            <option value="2FieldsAll">All</option>
+                            <option value="2FieldsNouns">Nouns</option>
+                            <option value="2FieldsAdjectives">Adjectives</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="text" for="settingsMode4">Weather: </label>
+                    </td>
+                    <td>
+                        <select id="settingsMode4" class="settingsFilter">
+                            <option value="None">None</option>
+                            <option value="2FieldsAll">All</option>
+                            <option value="2FieldsNouns">Nouns</option>
+                            <option value="2FieldsVerbs">Verbs</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="text" for="settingsMode5">Family: </label>
+                    </td>
+                    <td>
+                        <select id="settingsMode5" class="settingsFilter">
+                            <option value="None">None</option>
+                            <option value="2FieldsAll">All</option>
+                            <option value="2FieldsNouns">Nouns</option>
+                            <option value="2FieldsAdjectives">Adjectives</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="text" for="settingsMode6">Cloths: </label>
+                    </td>
+                    <td>
+                        <select id="settingsMode6" class="settingsFilter">
+                            <option value="None">None</option>
+                            <option value="2FieldsAll">All</option>
+                            <option value="2FieldsNouns">Nouns</option>
+                            <option value="2FieldsAdjectives">Adjectives</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="text" for="settingsMode7">Nature: </label>
+                    </td>
+                    <td>
+                        <select id="settingsMode7" class="settingsFilter">
+                            <option value="None">None</option>
+                            <option value="2FieldsAll">All</option>
+                            <option value="2FieldsNouns">Nouns</option>
+                            <option value="2FieldsVerbs">Verbs</option>
+                            <option value="2FieldsAdjectives">Adjectives</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="text" for="settingsMode8">House: </label>
+                    </td>
+                    <td>
+                        <select id="settingsMode8" class="settingsFilter">
+                            <option value="None">None</option>
+                            <option value="2FieldsAll">All</option>
+                            <option value="2FieldsNouns">Nouns</option>
+                            <option value="2FieldsVerbs">Verbs</option>
+                            <option value="2FieldsAdjectives">Adjectives</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="text" for="settingsMode9">Vacation: </label>
+                    </td>
+                    <td>
+                        <select id="settingsMode9" class="settingsFilter">
+                            <option value="None">None</option>
+                            <option value="2FieldsAll">All</option>
+                            <option value="2FieldsNouns">Nouns</option>
+                            <option value="2FieldsVerbs">Verbs</option>
+                            <option value="2FieldsAdjectives">Adjectives</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="text" for="settingsMode10">Childhood: </label>
+                    </td>
+                    <td>
+                        <select id="settingsMode10" class="settingsFilter">
+                            <option value="None">None</option>
+                            <option value="2FieldsAll">All</option>
+                            <option value="2FieldsNouns">Nouns</option>
+                            <option value="2FieldsVerbs">Verbs</option>
+                            <option value="2FieldsAdjectives">Adjectives</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
             <br/>
-            <button onclick="Start()">Start</button>
+            <button id="settingsStart" onclick="Start()">Start</button>
             <br/>
             <label id="settingsError" class="error"></label>
         </div>
         
-        <div id="quizzer" style="text-align: center" hidden="false">
+        <div id="quizzer" hidden="true">
             <br/>
             <label id="quizzerProgress" class="label"></label>
             <br/>
