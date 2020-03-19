@@ -11,7 +11,7 @@ Try it [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 - Easily type tildes (``` n` ``` and ``` n~ ``` are converted into ```ñ```)
 
 ## Vocabulary Sets
-Currently, Spanish Quizzer only supports the following vocabulary sets:
+Spanish Quizzer currently supports the following vocabulary sets:
 - Common Verbs (with conjugations)
 - Common Adjectives
 - Common Prepositions
@@ -23,3 +23,4 @@ Currently, Spanish Quizzer only supports the following vocabulary sets:
 - House (La Casa)
 - Vacations (Las Vacaciones)
 - Childhood (La Niñez)
+- Professions (Las Profesiones)
