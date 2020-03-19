@@ -150,6 +150,7 @@ function Start() {
     // Validate Terms
     if (Terms.length == 0) {
         document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
+        document.getElementById("settingsError").scrollIntoView(false);
         return;
     }
 
@@ -230,6 +231,7 @@ function Check() {
         document.getElementById("quizzerInput").readOnly = true;
         document.getElementById("quizzerSubmit").disabled = true;
         document.getElementById("quizzerFeedback").hidden = false;
+        document.getElementById("quizzerFeedback").scrollIntoView(false);
         document.getElementById("quizzerContinue").hidden = false;
         document.getElementById("quizzerInput").focus();
     }
