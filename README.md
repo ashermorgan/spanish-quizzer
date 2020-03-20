@@ -12,15 +12,19 @@ Try it [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 
 ## Vocabulary Sets
 Spanish Quizzer currently supports the following vocabulary sets:
-- Common Verbs (with conjugations)
-- Common Adjectives
-- Common Prepositions
-- Basic words (Colors, Days, and Months)
-- Weather (La Clima)
-- Family (La Familia)
-- Clothes (La Ropa)
-- Nature (La Naturaleza)
-- House (La Casa)
-- Vacations (Las Vacaciones)
-- Childhood (La Niñez)
-- Professions (Las Profesiones)
+- Basics:
+    - Common Verbs (with conjugations)
+    - Common Adjectives
+    - Common Adverbs
+    - Common Prepositions
+    - Basic words (Colors, Days, and Months)
+- Spanish 1:
+    - Weather (La Clima)
+    - Family (La Familia)
+    - Clothes (La Ropa)
+- Spanish 2:
+    - Nature (La Naturaleza)
+    - House (La Casa)
+    - Vacations (Las Vacaciones)
+    - Childhood (La Niñez)
+    - Professions (Las Profesiones)
