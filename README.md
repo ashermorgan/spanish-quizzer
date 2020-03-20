@@ -18,7 +18,7 @@ Spanish Quizzer currently supports the following vocabulary sets:
 - Basic words (Colors, Days, and Months)
 - Weather (La Clima)
 - Family (La Familia)
-- Cloths (La Ropa)
+- Clothes (La Ropa)
 - Nature (La Naturaleza)
 - House (La Casa)
 - Vacations (Las Vacaciones)

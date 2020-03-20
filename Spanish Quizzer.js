@@ -70,7 +70,7 @@ function Load() {
             Sets[5] = results.data;
         }
     });
-    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Cloths.csv", {
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Clothes.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
