@@ -17,8 +17,10 @@ Spanish Quizzer currently supports the following vocabulary sets:
     - Common Adjectives
     - Common Adverbs
     - Common Prepositions
-    - Basic words (Colors, Days, and Months)
 - Spanish 1:
+    - Colors (Los Colores)
+    - Days (Los Días)
+    - Months (Los Meses)
     - Weather (La Clima)
     - Family (La Familia)
     - Clothes (La Ropa)
