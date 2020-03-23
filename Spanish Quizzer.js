@@ -235,6 +235,7 @@ function Check() {
     responce = responce.replace("n~", "ñ"); // Apply n with tilde shortcut
     responce = responce.replace("o`", "ó"); // Apply accented o shortcut
     responce = responce.replace("u`", "ú"); // Apply accented u shortcut
+    responce = responce.replace("u~", "ü"); // Apply u with diaeresis shortcut
     var responces = responce.split(",");    // Split string by commas
     for (var i = 0; i < responces.length; i++) {
         responces[i] = responces[i].trim(); // Trim whitespace
