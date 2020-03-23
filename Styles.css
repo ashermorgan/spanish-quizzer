@@ -45,3 +45,19 @@ body {
 .error {
 	color: red;
 }
+
+
+
+/******** Dark mode styles ********/
+body.dark {
+    background-color: #101010;
+    color: #f0f0f0;
+}
+
+
+.dark button, .dark input, .dark select {
+    background-color: #303030;
+    color: #ffffff;
+    border-color: #ffffff;
+    border-width: 1px;
+}
