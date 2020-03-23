@@ -1,9 +1,30 @@
+/******** Body styles ********/
 body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
 
 
+
+/******** Settings styles ********/
+#settingsTable {
+    margin: auto;
+    text-align: left;
+}
+
+
+.settingsFilter {
+    width: 136px;
+}
+
+
+#settingsStart {
+    width: 75px;
+}
+
+
+
+/******** Label styles ********/
 #title {
     font-size: 25px;
     font-weight: bold;
@@ -11,27 +32,15 @@ body {
 }
 
 
-#settingsTable {
-    margin: auto;
-    text-align: left;
-}
-
-.settingsFilter {
-    width: 136px;
-}
-
-#settingsStart {
-    width: 75px;
-}
-
-
 .label {
     font-weight: bold;
 }
 
+
 .text {
     font-weight: normal;
 }
+
 
 .error {
 	color: red;
