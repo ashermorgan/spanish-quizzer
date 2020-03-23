@@ -12,7 +12,7 @@ Try it [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 
 ## Vocabulary Sets
 Spanish Quizzer currently supports the following vocabulary sets:
-- Basics:
+- Common Words:
     - Common Verbs (with conjugations)
     - Common Adjectives
     - Common Adverbs
@@ -30,3 +30,4 @@ Spanish Quizzer currently supports the following vocabulary sets:
     - Vacations (Las Vacaciones)
     - Childhood (La Niñez)
     - Professions (Las Profesiones)
+    - Health (La Salud)

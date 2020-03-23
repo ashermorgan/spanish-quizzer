@@ -133,6 +133,13 @@ function Load() {
             Sets[14] = results.data;
         }
     });
+    Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Health.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets[15] = results.data;
+        }
+    });
 }
 
 
@@ -175,6 +182,7 @@ function Start() {
     Terms.push(...Filter.GetFilter(document.getElementById("settingsMode12").value).Apply(Sets[12]));
     Terms.push(...Filter.GetFilter(document.getElementById("settingsMode13").value).Apply(Sets[13]));
     Terms.push(...Filter.GetFilter(document.getElementById("settingsMode14").value).Apply(Sets[14]));
+    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode15").value).Apply(Sets[15]));
 
     // Shuffle terms
     ShuffleTerms();
