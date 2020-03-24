@@ -22,6 +22,7 @@ Spanish Quizzer currently supports the following vocabulary sets:
     - Colors (Los Colores)
     - Days (Los Días)
     - Months (Los Meses)
+    - Questions (Las Preguntas)
     - Weather (La Clima)
     - Family (La Familia)
     - Clothes (La Ropa)
