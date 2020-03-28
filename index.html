@@ -20,282 +20,76 @@
         </div>
 
         <div id="settings">
+            <template id="settingsSetTemplate">
+                <tr>
+                    <td>
+                        <select id="settingsSetName">
+                            <optgroup label="Common Words">
+                                <option value="0">Verbs</option>
+                                <option value="1">Adjectives</option>
+                                <option value="2">Adverbs</option>
+                                <option value="3">Prepositions</option>
+                            </optgroup>
+                            <optgroup label="Spanish 1">
+                                <option value="4">Colors</option>
+                                <option value="5">Days</option>
+                                <option value="6">Months</option>
+                                <option value="7">Questions</option>
+                                <option value="8">Weather</option>
+                                <option value="9">Family</option>
+                                <option value="10">Cloths</option>
+                            </optgroup>
+                            <optgroup label="Spanish 2">
+                                <option value="11">Nature</option>
+                                <option value="12">House</option>
+                                <option value="13">Vacation</option>
+                                <option value="14">Childhood</option>
+                                <option value="15">Professions</option>
+                                <option value="16">Health</option>
+                            </optgroup>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="settingsSetFilter">
+                            <option value="2FieldsAll">All</option>
+                            <option value="2Fields2to1">Spanish to English</option>
+                            <option value="2Fields1to2">English to Spanish</option>
+                          </select>
+                    </td>
+                    <td>
+                        <button id="settingsSetRemove">Remove</button>
+                    </td>
+                </tr>
+            </template>
+
             <br/>
             <label class="text">Choose your settings and then click start.</label>
             <br/>
             <br/>
-            <table id="settingsTable">
-                <tr>
-                    <td class="label" colspan="2">Common Words</td> 
-                </tr>
+
+            <table id="settingsSets">
                 <tr>
                     <td>
-                        <label class="text" for="settingsMode0">Verbs</label>
+                        <label>Set</label>
                     </td>
                     <td>
-                        <select id="settingsMode0" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="VerbsConjugations">All Conjugations</option>
-                            <option value="2FieldsAll">Definitions</option>
-                            <option value="VerbPresentParticiples">Present Participles</option>
-                            <option value="VerbsPresentTense">Present Tense</option>
-                            <option value="VerbsPreteriteTense">Preterite Tense</option>
-                            <option value="VerbsImperfectTense">Imperfect Tense</option>
-                            <option value="VerbsEnglish">Reverse</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode1">Adjectives</label>
+                        <label>Filter</label>
                     </td>
                     <td>
-                        <select id="settingsMode1" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode2">Adverbs</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode2" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode3">Prepositions</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode3" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr><td><br/></td></tr>
-                <tr> 
-                    <td class="label" colspan="2">Spanish 1</td> 
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode4">Colors</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode4" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode5">Days</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode5" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode6">Months</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode6" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode7">Questions</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode7" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode8">Weather</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode8" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                            <option value="2FieldsNouns">Nouns</option>
-                            <option value="2FieldsVerbs">Verbs</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode9">Family</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode9" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                            <option value="2FieldsNouns">Nouns</option>
-                            <option value="2FieldsAdjectives">Adjectives</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode10">Clothes</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode10" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                            <option value="2FieldsNouns">Nouns</option>
-                            <option value="2FieldsAdjectives">Adjectives</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr><td><br/></td></tr>
-                <tr> 
-                    <td class="label" colspan="2">Spanish 2</td> 
-                </tr> 
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode11">Nature</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode11" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                            <option value="2FieldsNouns">Nouns</option>
-                            <option value="2FieldsVerbs">Verbs</option>
-                            <option value="2FieldsAdjectives">Adjectives</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode12">House</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode12" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                            <option value="2FieldsNouns">Nouns</option>
-                            <option value="2FieldsVerbs">Verbs</option>
-                            <option value="2FieldsAdjectives">Adjectives</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode13">Vacation</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode13" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                            <option value="2FieldsNouns">Nouns</option>
-                            <option value="2FieldsVerbs">Verbs</option>
-                            <option value="2FieldsAdjectives">Adjectives</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode14">Childhood</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode14" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                            <option value="2FieldsNouns">Nouns</option>
-                            <option value="2FieldsVerbs">Verbs</option>
-                            <option value="2FieldsAdjectives">Adjectives</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode15">Professions</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode15" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                            <option value="2FieldsNouns">Nouns</option>
-                            <option value="2FieldsVerbs">Verbs</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="text" for="settingsMode16">Health</label>
-                    </td>
-                    <td>
-                        <select id="settingsMode16" class="settingsFilter">
-                            <option value="None">None</option>
-                            <option value="2FieldsAll">All</option>
-                            <option value="2Fields1to2">English to Spanish</option>
-                            <option value="2Fields2to1">Spanish to English</option>
-                            <option value="2FieldsNouns">Nouns</option>
-                            <option value="2FieldsVerbs">Verbs</option>
-                            <option value="2FieldsAdjectives">Adjectives</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr><td><br/></td></tr>
-                <tr>
-                    <td class="label" colspan="2">Quizzer Settings</td> 
-                </tr> 
-                <tr>
-                    <td colspan="2">
-                        <input type="checkbox" id="settingsDarkMode" oninput="document.body.classList.toggle('dark');">
-                        <label class="text" for="settingsDarkMode">Dark Mode</label>
+                        <button onclick="AddSet();">Add set</button>
                     </td>
                 </tr>
             </table>
+
             <br/>
+            <div id="settingsOther">
+                <label class="label">Quizzer Settings</label>
+                <br/>
+                <input type="checkbox" id="settingsDarkMode" oninput="document.body.classList.toggle('dark');">
+                <label class="text" for="settingsDarkMode">Dark Mode</label>
+            </div>
+            <br/>
+
             <button id="settingsStart" onclick="Start()">Start</button>
             <br/>
             <label id="settingsError" class="error"></label>

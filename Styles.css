@@ -7,14 +7,18 @@ body {
 
 
 /******** Settings styles ********/
-#settingsTable {
+#settingsSets {
     margin: auto;
     text-align: left;
+    width: 330px;
+    border: 1px solid black;
 }
 
 
-.settingsFilter {
-    width: 136px;
+#settingsOther {
+    text-align: left;
+    margin: auto;
+    width: 300px;
 }
 
 
