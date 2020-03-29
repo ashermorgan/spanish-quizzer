@@ -65,3 +65,8 @@ body.dark {
     border-color: #ffffff;
     border-width: 1px;
 }
+
+
+.dark #settingsSets {
+    border-color: #ffffff;
+}
