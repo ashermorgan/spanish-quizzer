@@ -2,6 +2,8 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
+    background-color: #FFFFFF;
+    color: #000000;
 }
 
 
@@ -11,7 +13,7 @@ body {
     margin: auto;
     text-align: left;
     width: 353px;
-    border: 1px solid black;
+    border: 1px solid #808080;
 }
 
 
@@ -62,21 +64,47 @@ body {
 
 
 
+/******** Control styles ********/
+button, input, select {
+    background-color: #FFFFFF;
+    border: 1px solid #808080;
+    color: #000000;
+    border-radius: 0px;
+}
+
+
+button:hover:enabled {
+    cursor: pointer;
+    background-color: #F0F0F0;
+}
+
+
+button:disabled {
+    background-color: #F0F0F0;
+    color: #808080;
+}
+
+
+
 /******** Dark mode styles ********/
 body.dark {
-    background-color: #101010;
-    color: #f0f0f0;
+    background-color: #000000;
+    color: #E0E0E0;
 }
 
 
 .dark button, .dark input, .dark select {
     background-color: #303030;
-    color: #ffffff;
-    border-color: #ffffff;
-    border-width: 1px;
+    color: #FFFFFF;
 }
 
 
-.dark #settingsSets {
-    border-color: #ffffff;
+.dark button:hover:enabled {
+    cursor: pointer;
+    background-color: #404040;
 }
+
+
+.dark button:disabled {
+    background-color: #404040;
+    color: #808080;
