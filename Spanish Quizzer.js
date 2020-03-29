@@ -174,6 +174,62 @@ function AddSet() {
 
 
 
+// Update the filter option
+function settingsSetChanged(setName) {
+    // Get filter options
+    items = [];
+    switch(setName.value)
+    {
+        case "0":   // Verbs
+            items = ["None", "All Definitions", "All Conjugations", "Reverse Conjugations",
+                    "Present Participles", "Present Tense", "Preterite Tense", "Imperfect Tense"];
+            break;
+        
+        case "1":   // Adjectives
+        case "2":   // Adverbs
+        case "3":   // Prepositions
+        case "4":   // Colors
+        case "5":   // Days
+        case "6":   // Months
+        case "7":   // Questions
+            items = ["None", "All Definitions", "English to Spanish", "Spanish to English"];
+            break;
+
+        case "8":   // Weather
+        case "15":  // Professions
+            items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
+                    "Nouns", "Verbs"];
+            break;
+
+        case "9":   // Family
+        case "10":  // Cloths
+            items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
+                    "Nouns", "Adjectives"];
+            break;
+        
+        case "11":  // Nature
+        case "12":  // House
+        case "13":  // Vacation
+        case "14":  // Childhood
+        case "16":  // Health
+            items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
+                    "Nouns", "Verbs", "Adjectives"];
+            break;
+    }
+
+    // Create html
+    var html = ""
+    for (var item of items) {
+        html += "<option>" + item + "</option>"
+    }
+
+    // Set html
+    filterId = setName.id.replace("settingsSetName", "settingsSetFilter");
+    document.getElementById(filterId).innerHTML = html;
+}
+
+
+
 // Shuffle the list of terms
 function ShuffleTerms() {
     var currentIndex = Terms.length, temporaryValue, randomIndex;

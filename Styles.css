@@ -15,6 +15,11 @@ body {
 }
 
 
+.settingsSetFilter {
+    width: 160px;
+}
+
+
 #settingsOther {
     text-align: left;
     margin: auto;

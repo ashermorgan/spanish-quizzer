@@ -23,7 +23,7 @@
             <template id="settingsSetTemplate">
                 <tr>
                     <td>
-                        <select id="settingsSetName">
+                        <select id="settingsSetName" onchange="settingsSetChanged(this)">
                             <optgroup label="Common Words">
                                 <option value="0">Verbs</option>
                                 <option value="1">Adjectives</option>
@@ -50,11 +50,16 @@
                         </select>
                     </td>
                     <td>
-                        <select id="settingsSetFilter">
+                        <select id="settingsSetFilter" class="settingsSetFilter">
+                            <option>None</option>
                             <option>All Definitions</option>
-                            <option>Spanish to English</option>
-                            <option>English to Spanish</option>
-                          </select>
+                            <option>All Conjugations</option>
+                            <option>Reverse Conjugations</option>
+                            <option>Present Participles</option>
+                            <option>Present Tense</option>
+                            <option>Preterite Tense</option>
+                            <option>Imperfect Tense</option>
+                        </select>
                     </td>
                     <td>
                         <button id="settingsSetRemove">Remove</button>
