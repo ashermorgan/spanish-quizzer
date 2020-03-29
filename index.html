@@ -23,7 +23,7 @@
             <template id="settingsSetTemplate">
                 <tr>
                     <td>
-                        <select id="settingsSetName" onchange="settingsSetChanged(this)">
+                        <select id="settingsSetName" class="settingsSetName" onchange="settingsSetChanged(this)">
                             <optgroup label="Common Words">
                                 <option value="0">Verbs</option>
                                 <option value="1">Adjectives</option>
@@ -74,10 +74,10 @@
 
             <table id="settingsSets">
                 <tr>
-                    <td>
+                    <td class="settingsSetName">
                         <label>Set</label>
                     </td>
-                    <td>
+                    <td class="settingsSetFilter">
                         <label>Filter</label>
                     </td>
                     <td>

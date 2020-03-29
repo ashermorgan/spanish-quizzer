@@ -27,6 +27,9 @@ function Load() {
     document.getElementById("quizzer").hidden = true;
     document.getElementById("settingsError").textContent = "";
 
+    // Add row to settingsSets
+    AddSet();
+
     // Load CSVs
     Sets = [];
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Verbs.csv", {
