@@ -9,28 +9,21 @@ body {
 
 
 /******** Settings styles ********/
-#settingsSets {
+#settingsSets, #settingsOther {
     margin: auto;
     text-align: left;
-    width: 353px;
-    border: 1px solid #808080;
+    width: 315px;
 }
 
 
-.settingsSetName {
-    width: 115px;
+.settingsSet {
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 
 .settingsSetFilter {
     width: 160px;
-}
-
-
-#settingsOther {
-    text-align: left;
-    margin: auto;
-    width: 300px;
 }
 
 
@@ -108,3 +101,4 @@ body.dark {
 .dark button:disabled {
     background-color: #404040;
     color: #808080;
+}
