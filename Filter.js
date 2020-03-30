@@ -50,40 +50,40 @@ class Filter {
             case "None":
                 return new Filter([], []);
 
-            case "2FieldsAll":
+            case "All Definitions":
                 return new Filter([[0,1], [1,0]], []);
 
-            case "2Fields1to2":
+            case "English to Spanish":
                 return new Filter([[0,1]], []);
 
-            case "2Fields2to1":
+            case "Spanish to English":
                 return new Filter([[1,0]], []);
             
-            case "VerbsConjugations":
+            case "All Conjugations":
                 return new Filter([[0,2], [0,4], [0,5], [0,6], [0,7], [0,8], [0,10], [0,11], [0,12], [0,13], [0,14], [0,16], [0,17], [0,18], [0,19], [0,20]], []);
             
-            case "VerbsEnglish":
+            case "Reverse Conjugations":
                 return new Filter([[2,0], [4,0], [5,0], [6,0], [7,0], [8,0], [10,0], [11,0], [12,0], [13,0], [14,0], [16,0], [17,0], [18,0], [19,0], [20,0]], []);
 
-            case "VerbPresentParticiples":
+            case "Present Participles":
                 return new Filter([[0,2]], []);
 
-            case "VerbsPresentTense":
+            case "Present Tense":
                 return new Filter([[0,4], [0,5], [0,6], [0,7], [0,8]], []);
 
-            case "VerbsPreteriteTense":
+            case "Preterite Tense":
                 return new Filter([[0,10], [0,11], [0,12], [0,13], [0,14]], []);
 
-            case "VerbsImperfectTense":
+            case "Imperfect Tense":
                 return new Filter([[0,16], [0,17], [0,18], [0,19], [0,20]], []);
 
-            case "2FieldsNouns":
+            case "Nouns":
                 return new Filter([[0,1], [1,0]], [[2, ["Noun"], false]]);
 
-            case "2FieldsVerbs":
+            case "Verbs":
                 return new Filter([[0,1], [1,0]], [[2, ["Verb"], false]]);
 
-            case "2FieldsAdjectives":
+            case "Adjectives":
                 return new Filter([[0,1], [1,0]], [[2, ["Adjective"], false]]);
 
             default:

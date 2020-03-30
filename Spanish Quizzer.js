@@ -1,7 +1,8 @@
 // Declare global variables
-var Sets;   // List of parsed sets
-var Terms;  // List of filtered terms
-var Term;   // Index of current term
+var Sets;       // List of parsed sets
+var Terms;      // List of filtered terms
+var Term;       // Index of current term
+var setId = 0;  // Next valid set id number
 
 
 
@@ -25,6 +26,9 @@ function Load() {
     document.getElementById("settings").hidden = false;
     document.getElementById("quizzer").hidden = true;
     document.getElementById("settingsError").textContent = "";
+
+    // Add row to settingsSets
+    AddSet();
 
     // Load CSVs
     Sets = [];
@@ -151,6 +155,84 @@ function Load() {
 
 
 
+// Add a filtered set
+function AddSet() {
+    // Create row
+    var clone = document.getElementById("settingsSetTemplate").content.cloneNode(true);
+
+    // Set row ids
+    clone.children[0].setAttribute("id", `settingsSet-${setId}`);
+    clone.getElementById("settingsSetName").setAttribute("id", `settingsSetName-${setId}`);
+    clone.getElementById("settingsSetFilter").setAttribute("id", `settingsSetFilter-${setId}`);
+    
+    // Add remove button onclick attribute
+    clone.getElementById("settingsSetRemove").setAttribute("onclick", `var element = document.getElementById('settingsSet-${setId}'); element.parentNode.removeChild(element);`);
+    
+    // Add row
+    document.getElementById("settingsSets").appendChild(clone);
+    
+    // Increment setId
+    setId++; // increment fileId to get a unique ID for the new element
+}
+
+
+
+// Update the filter option
+function settingsSetChanged(setName) {
+    // Get filter options
+    items = [];
+    switch(setName.value)
+    {
+        case "0":   // Verbs
+            items = ["None", "All Definitions", "All Conjugations", "Reverse Conjugations",
+                    "Present Participles", "Present Tense", "Preterite Tense", "Imperfect Tense"];
+            break;
+        
+        case "1":   // Adjectives
+        case "2":   // Adverbs
+        case "3":   // Prepositions
+        case "4":   // Colors
+        case "5":   // Days
+        case "6":   // Months
+        case "7":   // Questions
+            items = ["None", "All Definitions", "English to Spanish", "Spanish to English"];
+            break;
+
+        case "8":   // Weather
+        case "15":  // Professions
+            items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
+                    "Nouns", "Verbs"];
+            break;
+
+        case "9":   // Family
+        case "10":  // Cloths
+            items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
+                    "Nouns", "Adjectives"];
+            break;
+        
+        case "11":  // Nature
+        case "12":  // House
+        case "13":  // Vacation
+        case "14":  // Childhood
+        case "16":  // Health
+            items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
+                    "Nouns", "Verbs", "Adjectives"];
+            break;
+    }
+
+    // Create html
+    var html = ""
+    for (var item of items) {
+        html += "<option>" + item + "</option>"
+    }
+
+    // Set html
+    filterId = setName.id.replace("settingsSetName", "settingsSetFilter");
+    document.getElementById(filterId).innerHTML = html;
+}
+
+
+
 // Shuffle the list of terms
 function ShuffleTerms() {
     var currentIndex = Terms.length, temporaryValue, randomIndex;
@@ -174,23 +256,18 @@ function ShuffleTerms() {
 function Start() {
     // Filter and load Sets into Terms
     Terms = [];
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode0").value).Apply(Sets[0]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode1").value).Apply(Sets[1]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode2").value).Apply(Sets[2]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode3").value).Apply(Sets[3]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode4").value).Apply(Sets[4]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode5").value).Apply(Sets[5]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode6").value).Apply(Sets[6]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode7").value).Apply(Sets[7]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode8").value).Apply(Sets[8]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode9").value).Apply(Sets[9]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode10").value).Apply(Sets[10]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode11").value).Apply(Sets[11]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode12").value).Apply(Sets[12]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode13").value).Apply(Sets[13]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode14").value).Apply(Sets[14]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode15").value).Apply(Sets[15]));
-    Terms.push(...Filter.GetFilter(document.getElementById("settingsMode16").value).Apply(Sets[16]));
+    for (var i = 0; i < setId; i++)
+    {
+        if (document.getElementById(`settingsSet-${i}`))
+        {
+            // Get filter information
+            var set = document.getElementById(`settingsSetName-${i}`).value;
+            var filter = document.getElementById(`settingsSetFilter-${i}`).value;
+    
+            // Add filtered set
+            Terms.push(...Filter.GetFilter(filter).Apply(Sets[set]));
+        }
+    }
 
     // Shuffle terms
     ShuffleTerms();
