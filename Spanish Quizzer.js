@@ -36,119 +36,119 @@ function Load() {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[0] = results.data;
+            Sets["Verbs"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Adjectives.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[1] = results.data;
+            Sets["Adjectives"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Adverbs.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[2] = results.data;
+            Sets["Adverbs"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Prepositions.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[3] = results.data;
+            Sets["Prepositions"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Colors.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[4] = results.data;
+            Sets["Colors"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Days.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[5] = results.data;
+            Sets["Days"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Months.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[6] = results.data;
+            Sets["Months"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Questions.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[7] = results.data;
+            Sets["Questions"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Weather.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[8] = results.data;
+            Sets["Weather"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Family.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[9] = results.data;
+            Sets["Family"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Clothes.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[10] = results.data;
+            Sets["Clothes"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Nature.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[11] = results.data;
+            Sets["Nature"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/House.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[12] = results.data;
+            Sets["House"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Vacation.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[13] = results.data;
+            Sets["Vacation"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Childhood.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[14] = results.data;
+            Sets["Childhood"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Professions.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[15] = results.data;
+            Sets["Professions"] = results.data;
         }
     });
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Health.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
-            Sets[16] = results.data;
+            Sets["Health"] = results.data;
         }
     });
 }
@@ -183,38 +183,38 @@ function settingsSetChanged(setName) {
     items = [];
     switch(setName.value)
     {
-        case "0":   // Verbs
+        case "Verbs":
             items = ["None", "All Definitions", "All Conjugations", "Reverse Conjugations",
                     "Present Participles", "Present Tense", "Preterite Tense", "Imperfect Tense"];
             break;
         
-        case "1":   // Adjectives
-        case "2":   // Adverbs
-        case "3":   // Prepositions
-        case "4":   // Colors
-        case "5":   // Days
-        case "6":   // Months
-        case "7":   // Questions
+        case "Adjectives":
+        case "Adverbs":
+        case "Prepositions":
+        case "Colors":
+        case "Days":
+        case "Months":
+        case "Questions":
             items = ["None", "All Definitions", "English to Spanish", "Spanish to English"];
             break;
 
-        case "8":   // Weather
-        case "15":  // Professions
+        case "Weather":
+        case "Professions":
             items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
                     "Nouns", "Verbs"];
             break;
 
-        case "9":   // Family
-        case "10":  // Cloths
+        case "Family":
+        case "Clothes":
             items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
                     "Nouns", "Adjectives"];
             break;
         
-        case "11":  // Nature
-        case "12":  // House
-        case "13":  // Vacation
-        case "14":  // Childhood
-        case "16":  // Health
+        case "Nature":
+        case "House":
+        case "Vacation":
+        case "Childhood":
+        case "Health":
             items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
                     "Nouns", "Verbs", "Adjectives"];
             break;
