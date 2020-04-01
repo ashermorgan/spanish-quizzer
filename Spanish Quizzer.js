@@ -22,14 +22,6 @@ function Load() {
         }
     });
 
-    // Show and hide elements
-    document.getElementById("settings").hidden = false;
-    document.getElementById("quizzer").hidden = true;
-    document.getElementById("settingsError").textContent = "";
-
-    // Add row to settingsSets
-    AddSet();
-
     // Load CSVs
     Sets = [];
     Papa.parse("https://raw.githubusercontent.com/AsherMorgan/Spanish-Quizzer/master/Vocab/Verbs.csv", {
@@ -151,6 +143,18 @@ function Load() {
             Sets["Health"] = results.data;
         }
     });
+
+    // Show and hide elements
+    Reload();
+}
+
+
+
+// Reload the document
+function Reload() {
+    document.getElementById("settings").hidden = false;
+    document.getElementById("settingsError").textContent = "";
+    document.getElementById("quizzer").hidden = true;
 }
 
 
