@@ -308,7 +308,7 @@ function Reset() {
         ShuffleTerms();
         Term = 0;
     }
-    document.getElementById("quizzerProgress").textContent = `${Term + 1} / ${Terms.length}`;
+    document.getElementById("quizzerProgress").textContent = `${Term} / ${Terms.length}`;
 
     // Set prompt
     document.getElementById("quizzerPromptType").textContent = `${Terms[Term][0]}: `;
@@ -364,6 +364,22 @@ function Check() {
         document.getElementById("quizzerFeedback").scrollIntoView(false);
         document.getElementById("quizzerContinue").hidden = false;
         document.getElementById("quizzerInput").focus();
+
+        // Repeat prompt
+        switch (document.getElementById("settingsRepeatPrompts").value)
+        {
+            case "Never": // Don't repeat
+                break;
+            case "Immediately": // Repeat imitiately
+                Term--;
+                break;
+            case "5 prompts later":
+                var temp = Terms[Term];
+                Terms.splice(Term, 1);
+                Terms.splice(Term + 5, 0, temp);
+                Term--;
+                break;
+        }
     }
     else {
         // Responce was correct
