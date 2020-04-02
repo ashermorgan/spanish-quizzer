@@ -1,18 +1,16 @@
 # Spanish-Quizzer
 Quizzes you on spanish vocabulary through a web interface.
-Try it [here](https://ashermorgan.github.io/Spanish-Quizzer/).
+Try it out [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 
 ## Features
-- Customize which terms you're quizzed on.
-- Customize what you're prompted with.
-- Customize what you answer with.
-- View the correct answer when you make a mistake.
-- Easily type accented characters (``` a` ``` is converted into ```á```)
-- Easily type tildes (``` n` ``` and ``` n~ ``` are converted into ```ñ```)
 - Dark Mode
+- Lots of vocab sets and filters to customize what you're quizzed on.
+- View the correct answer when you make a mistake.
+- Get quizzed again on the prompts you missed.
+- Easily type special characters (``` a` ``` → ```á```, `n~` → `ñ`, `u~` → `ü`)
 
 ## Vocabulary Sets
-Spanish Quizzer currently supports the following vocabulary sets:
+Spanish-Quizzer comes with many vocabulary sets that can be filtered by word type, tense, direction, and more. Those vocabulary sets are:
 - Common Words:
     - Common Verbs (with conjugations)
     - Common Adjectives
