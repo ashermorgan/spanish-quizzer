@@ -47,9 +47,6 @@ class Filter {
     // Get a common filter
     static GetFilter(name) {
         switch (name) {
-            case "None":
-                return new Filter([], []);
-
             case "All Definitions":
                 return new Filter([[0,1], [1,0]], []);
 

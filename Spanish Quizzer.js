@@ -188,7 +188,7 @@ function settingsSetChanged(setName) {
     switch(setName.value)
     {
         case "Verbs":
-            items = ["None", "All Definitions", "All Conjugations", "Reverse Conjugations",
+            items = ["All Definitions", "All Conjugations", "Reverse Conjugations",
                     "Present Participles", "Present Tense", "Preterite Tense", "Imperfect Tense"];
             break;
         
@@ -199,18 +199,18 @@ function settingsSetChanged(setName) {
         case "Days":
         case "Months":
         case "Questions":
-            items = ["None", "All Definitions", "English to Spanish", "Spanish to English"];
+            items = ["All Definitions", "English to Spanish", "Spanish to English"];
             break;
 
         case "Weather":
         case "Professions":
-            items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
+            items = ["All Definitions", "English to Spanish", "Spanish to English", 
                     "Nouns", "Verbs"];
             break;
 
         case "Family":
         case "Clothes":
-            items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
+            items = ["All Definitions", "English to Spanish", "Spanish to English", 
                     "Nouns", "Adjectives"];
             break;
         
@@ -219,7 +219,7 @@ function settingsSetChanged(setName) {
         case "Vacation":
         case "Childhood":
         case "Health":
-            items = ["None", "All Definitions", "English to Spanish", "Spanish to English", 
+            items = ["All Definitions", "English to Spanish", "Spanish to English", 
                     "Nouns", "Verbs", "Adjectives"];
             break;
     }
