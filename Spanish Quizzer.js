@@ -317,7 +317,19 @@ function Reset() {
 
     // Reset responce
     document.getElementById("quizzerInput").value = "";
-} 
+
+    // Read prompt
+    if (document.getElementById("settingsReadPrompt").checked) {
+        var msg = new SpeechSynthesisUtterance(Terms[Term][1]);
+        if (Terms[Term][0].includes("English")) {
+            msg.lang = 'en';
+        }
+        else if (Terms[Term][0].includes("Spanish")){
+            msg.lang = 'es';
+        }
+        window.speechSynthesis.speak(msg);
+    }
+}
 
 
 
