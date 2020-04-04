@@ -8,10 +8,16 @@ var setId = 0;  // Next valid set id number
 
 // Load the document
 function Load() {
-    // Apply dark mode
+    // Load settings
     if (localStorage.getItem("darkMode") == "true") {
         document.body.classList.toggle("dark");
         document.getElementById("settingsDarkMode").checked = true;
+    }
+    if (localStorage.getItem("readPrompt") == "true") {
+        document.getElementById("settingsReadPrompt").checked = true;
+    }
+    if (localStorage.getItem("repeatPrompt")) {
+        document.getElementById("settingsRepeatPrompts").value = localStorage.getItem("repeatPrompt");
     }
 
     // Add event Listener
@@ -243,10 +249,11 @@ function settingsSetChanged(setName) {
 
 
 
-// Toggle dark mode
-function toggleDarkMode() {
-    document.body.classList.toggle("dark");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark"));
+// Update local storage
+function UpdateLocalStorage() {
+    localStorage.setItem("darkMode", document.getElementById("settingsDarkMode").checked);
+    localStorage.setItem("readPrompt", document.getElementById("settingsReadPrompt").checked);
+    localStorage.setItem("repeatPrompt", document.getElementById("settingsRepeatPrompts").value);
 }
 
 
