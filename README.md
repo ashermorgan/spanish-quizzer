@@ -8,6 +8,7 @@ Try it out [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 - View the correct answer when you make a mistake.
 - Get quizzed again on the prompts you missed.
 - Easily type special characters (``` a` ``` → ```á```, `n~` → `ñ`, `u~` → `ü`)
+- Reference Tables (available [here](https://ashermorgan.github.io/Spanish-Quizzer/Reference))
 
 ## Vocabulary Sets
 Spanish-Quizzer comes with many vocabulary sets that can be filtered by word type, tense, direction, and more. Those vocabulary sets are:

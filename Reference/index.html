@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, user-scalable=no"/>
+        <title>Reference Tables - Spanish-Quizzer</title>
+        <link rel="stylesheet" href="../Styles.css">
+        <script src="https://unpkg.com/papaparse@5.1.1/papaparse.min.js"></script>
+        <script src="../Filter.js"></script>
+        <script src="index.js"></script>
+    </head>
+
+    <body onload="Load()">
+        <a id="title" href="../">Spanish-Quizzer v2.2.0</a>
+        <br/>
+        <label class="text">Reference Tables</label>
+        <br/>
+        
+        <noscript>
+            <br/>
+            <label class="error">You must have JavaScript enabled to run Spanish-Quizzer.</label>
+            <br/>
+        </noscript>
+        
+        <br/>
+        <select id="referenceSet" onchange="referenceSetChanged()">
+            <option>Choose a vocab set</option>
+            <optgroup label="Common Words">
+                <option>Verbs</option>
+                <option>Adjectives</option>
+                <option>Adverbs</option>
+                <option>Prepositions</option>
+            </optgroup>
+            <optgroup label="Spanish 1">
+                <option>Colors</option>
+                <option>Days</option>
+                <option>Months</option>
+                <option>Questions</option>
+                <option>Weather</option>
+                <option>Family</option>
+                <option>Clothes</option>
+            </optgroup>
+            <optgroup label="Spanish 2">
+                <option>Nature</option>
+                <option>House</option>
+                <option>Vacation</option>
+                <option>Childhood</option>
+                <option>Professions</option>
+                <option>Health</option>
+            </optgroup>
+        </select>
+        <input type="text" id="referenceFilter" onkeyup="referenceFilterChanged()" placeholder="Search">
+        <br/>
+        
+        <br/>
+        <table id="referenceTable">
+        </table>
+    </body>
+</html>
