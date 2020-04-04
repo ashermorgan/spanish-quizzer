@@ -8,6 +8,12 @@ var setId = 0;  // Next valid set id number
 
 // Load the document
 function Load() {
+    // Apply dark mode
+    if (localStorage.getItem("darkMode") == "true") {
+        document.body.classList.toggle("dark");
+        document.getElementById("settingsDarkMode").checked = true;
+    }
+
     // Add event Listener
     var input = document.getElementById("quizzerInput");
     input.addEventListener("keydown", function (e) {
@@ -233,6 +239,14 @@ function settingsSetChanged(setName) {
     // Set html
     filterId = setName.id.replace("settingsSetName", "settingsSetFilter");
     document.getElementById(filterId).innerHTML = html;
+}
+
+
+
+// Toggle dark mode
+function toggleDarkMode() {
+    document.body.classList.toggle("dark");
+    localStorage.setItem("darkMode", document.body.classList.contains("dark"));
 }
 
 
