@@ -8,6 +8,28 @@ body {
 
 
 
+/******** Control styles ********/
+button, input, select {
+    background-color: #FFFFFF;
+    border: 1px solid #808080;
+    color: #000000;
+    border-radius: 0px;
+}
+
+
+button:hover:enabled {
+    cursor: pointer;
+    background-color: #F0F0F0;
+}
+
+
+button:disabled {
+    background-color: #F0F0F0;
+    color: #808080;
+}
+
+
+
 /******** Settings styles ********/
 #settingsSets, #settingsOther, #referenceTable {
     margin: auto;
@@ -38,7 +60,7 @@ body {
 
 
 
-/******** Label styles ********/
+/******** Other styles ********/
 #title {
     font-size: 25px;
     font-weight: bold;
@@ -63,25 +85,11 @@ body {
 }
 
 
-
-/******** Control styles ********/
-button, input, select {
-    background-color: #FFFFFF;
-    border: 1px solid #808080;
-    color: #000000;
-    border-radius: 0px;
-}
-
-
-button:hover:enabled {
-    cursor: pointer;
-    background-color: #F0F0F0;
-}
-
-
-button:disabled {
-    background-color: #F0F0F0;
-    color: #808080;
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 5px;
+    width: 100%;
 }
 
 
