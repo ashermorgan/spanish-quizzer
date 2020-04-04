@@ -269,7 +269,7 @@ function Start() {
             var filter = document.getElementById(`settingsSetFilter-${i}`).value;
     
             // Add filtered set
-            Terms.push(...Filter.GetFilter(filter).Apply(Sets[set]));
+            Terms.push(...ApplyFilter(Sets[set], filter));
         }
     }
 
