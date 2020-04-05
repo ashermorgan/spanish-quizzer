@@ -1,31 +1,41 @@
+/******** Variable styles ********/
+:root {
+    --border-color: #808080;
+    --foreground-color: #000000;
+    --background-color: #FFFFFF;
+    --hover-color: #F0F0F0;
+}
+
+
+
 /******** Body styles ********/
 body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
-    background-color: #FFFFFF;
-    color: #000000;
+    color: var(--foreground-color);
+    background-color: var(--background-color);
 }
 
 
 
 /******** Control styles ********/
 button, input, select {
-    background-color: #FFFFFF;
-    border: 1px solid #808080;
-    color: #000000;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    color: var(--foreground-color);
     border-radius: 0px;
 }
 
 
 button:hover:enabled {
     cursor: pointer;
-    background-color: #F0F0F0;
+    background-color: var(--hover-color);
 }
 
 
 button:disabled {
-    background-color: #F0F0F0;
-    color: #808080;
+    background-color:  var(--hover-color);
+    color: var(--border-color);
 }
 
 
@@ -103,24 +113,13 @@ button:disabled {
 
 /******** Dark mode styles ********/
 body.dark {
-    background-color: #000000;
-    color: #E0E0E0;
+    --background-color: #000000;
+    --foreground-color: #E0E0E0;
 }
 
 
 .dark button, .dark input, .dark select {
-    background-color: #303030;
-    color: #FFFFFF;
-}
-
-
-.dark button:hover:enabled {
-    cursor: pointer;
-    background-color: #404040;
-}
-
-
-.dark button:disabled {
-    background-color: #404040;
-    color: #808080;
+    --background-color: #303030;
+    --foreground-color: #FFFFFF;
+    --hover-color: #404040;
 }
