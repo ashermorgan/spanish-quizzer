@@ -60,6 +60,13 @@ button:disabled {
 
 
 
+/******** Quizzer styles ********/
+#quizzerPrompt.audio {
+    cursor: pointer;
+}
+
+
+
 /******** Other styles ********/
 #title {
     font-size: 25px;

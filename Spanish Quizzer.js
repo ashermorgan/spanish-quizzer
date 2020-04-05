@@ -13,8 +13,8 @@ function Load() {
         document.body.classList.toggle("dark");
         document.getElementById("settingsDarkMode").checked = true;
     }
-    if (localStorage.getItem("readPrompt") == "true") {
-        document.getElementById("settingsReadPrompt").checked = true;
+    if (localStorage.getItem("PromptType")) {
+        document.getElementById("settingsPromptType").value = localStorage.getItem("PromptType");
     }
     if (localStorage.getItem("repeatPrompt")) {
         document.getElementById("settingsRepeatPrompts").value = localStorage.getItem("repeatPrompt");
@@ -251,8 +251,9 @@ function settingsSetChanged(setName) {
 
 // Update local storage
 function UpdateLocalStorage() {
+    localStorage.clear();
     localStorage.setItem("darkMode", document.getElementById("settingsDarkMode").checked);
-    localStorage.setItem("readPrompt", document.getElementById("settingsReadPrompt").checked);
+    localStorage.setItem("PromptType", document.getElementById("settingsPromptType").value);
     localStorage.setItem("repeatPrompt", document.getElementById("settingsRepeatPrompts").value);
 }
 
@@ -272,6 +273,30 @@ function ShuffleTerms() {
         temporaryValue = Terms[currentIndex];
         Terms[currentIndex] = Terms[randomIndex];
         Terms[randomIndex] = temporaryValue;
+    }
+}
+
+
+
+// Reads a peice of text
+function Read(text, label)
+{
+    var msg = new SpeechSynthesisUtterance(text);
+    if (label.toLowerCase().includes("english")) {
+        msg.lang = 'en';
+    }
+    else if (label.toLowerCase().includes("spanish")){
+        msg.lang = 'es';
+    }
+    window.speechSynthesis.speak(msg);
+}
+
+
+
+// Read the prompt if audio is enabled
+function quizzerPromptClicked() {
+    if (document.getElementById("settingsPromptType").value != "Text") {
+        Read(Terms[Term][1], Terms[Term][0]);
     }
 }
 
@@ -304,6 +329,14 @@ function Start() {
         return;
     }
 
+    // Configure prompt audio
+    if (document.getElementById("settingsPromptType").value != "Text") {
+        document.getElementById("quizzerPrompt").classList.add("audio");
+    }
+    else {
+        document.getElementById("quizzerPrompt").classList.remove("audio");
+    }
+
     // Show and hide elements
     document.getElementById("settings").hidden = true;
     document.getElementById("quizzer").hidden = false;
@@ -333,22 +366,20 @@ function Reset() {
 
     // Set prompt
     document.getElementById("quizzerPromptType").textContent = `${Terms[Term][0]}: `;
-    document.getElementById("quizzerPrompt").textContent = Terms[Term][1];
+    if (document.getElementById("settingsPromptType").value != "Audio") {
+        document.getElementById("quizzerPrompt").textContent = Terms[Term][1];
+    }
+    else {
+        document.getElementById("quizzerPrompt").textContent = "Click to hear again";
+    }
     document.getElementById("quizzerInputType").textContent = `${Terms[Term][2]}: `;
 
     // Reset responce
     document.getElementById("quizzerInput").value = "";
 
     // Read prompt
-    if (document.getElementById("settingsReadPrompt").checked) {
-        var msg = new SpeechSynthesisUtterance(Terms[Term][1]);
-        if (Terms[Term][0].includes("English")) {
-            msg.lang = 'en';
-        }
-        else if (Terms[Term][0].includes("Spanish")){
-            msg.lang = 'es';
-        }
-        window.speechSynthesis.speak(msg);
+    if (document.getElementById("settingsPromptType").value != "Text") {
+        Read(Terms[Term][1], Terms[Term][0]);
     }
 }
 
