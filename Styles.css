@@ -26,53 +26,14 @@ button, input, select {
     border-radius: 0px;
 }
 
-
 button:hover:enabled {
     cursor: pointer;
     background-color: var(--hover-color);
 }
 
-
 button:disabled {
     background-color:  var(--hover-color);
     color: var(--border-color);
-}
-
-
-
-/******** Settings styles ********/
-#settingsSets, #settingsOther, #referenceTable {
-    margin: auto;
-    text-align: left;
-    width: 315px;
-}
-
-
-.settingsSet {
-    margin-top: 2px;
-    margin-bottom: 2px;
-}
-
-
-.settingsSetFilter {
-    width: 160px;
-}
-
-
-.settingsSetRemove {
-    cursor: pointer;
-}
-
-
-#settingsStart {
-    width: 75px;
-}
-
-
-
-/******** Quizzer styles ********/
-#quizzerPrompt.audio {
-    cursor: pointer;
 }
 
 
@@ -86,21 +47,17 @@ button:disabled {
     text-decoration: none;
 }
 
-
 .label {
     font-weight: bold;
 }
-
 
 .text {
     font-weight: normal;
 }
 
-
 .error {
 	color: red;
 }
-
 
 .footer {
     position: fixed;
@@ -111,12 +68,66 @@ button:disabled {
 
 
 
+/******** Settings styles ********/
+#settings {
+    margin: auto;
+    text-align: left;
+    max-width: 300px;
+    width: available;
+}
+
+.centered {
+    text-align: center;
+}
+
+#settingsSets {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.settingsSet {
+    padding-top: 5px;
+}
+
+.settingsSetName {
+    width: 115px;
+}
+
+.settingsSetFilter {
+    width: 160px;
+}
+
+.settingsSetRemove {
+    cursor: pointer;
+}
+
+#settingsStart {
+    width: 75px;
+}
+
+
+
+/******** Reference styles ********/
+#referenceTable {
+    margin: auto;
+    text-align: left;
+    overflow-x: auto;
+    max-width: fit-content;
+}
+
+
+
+/******** Quizzer styles ********/
+#quizzerPrompt.audio {
+    cursor: pointer;
+}
+
+
 /******** Dark mode styles ********/
 body.dark {
     --background-color: #000000;
     --foreground-color: #E0E0E0;
 }
-
 
 .dark button, .dark input, .dark select {
     --background-color: #303030;

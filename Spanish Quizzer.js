@@ -185,7 +185,7 @@ function AddSet() {
     clone.getElementById("settingsSetRemove").setAttribute("onclick", `var element = document.getElementById('settingsSet-${setId}'); element.parentNode.removeChild(element);`);
     
     // Add row
-    document.getElementById("settingsSets").appendChild(clone);
+    document.getElementById("settingsSetsInner").appendChild(clone);
     
     // Increment setId
     setId++; // increment fileId to get a unique ID for the new element

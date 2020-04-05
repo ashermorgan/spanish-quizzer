@@ -23,7 +23,7 @@
         <div id="settings">
             <template id="settingsSetTemplate">
                 <div class="settingsSet">
-                    <select id="settingsSetName" onchange="settingsSetChanged(this)">
+                    <select id="settingsSetName" class="settingsSetName" onchange="settingsSetChanged(this)">
                         <optgroup label="Common Words">
                             <option>Verbs</option>
                             <option>Adjectives</option>
@@ -62,41 +62,46 @@
             </template>
 
             <br/>
-            <label class="text">Choose your settings and then click start.</label>
+            <div class="centered">
+                <label class="text">Choose your settings and then click start.</label>
+            </div>
             <br/>
-            <br/>
+
+            <label class="label">Vocabulary Sets </label>
+            <button id="settingsAddSet" onclick="AddSet();">Add set</button>
 
             <div id="settingsSets">
-                <label class="label">Vocabulary Sets </label>
-                <button id="settingsAddSet" onclick="AddSet();">Add set</button>
+                <div id="settingsSetsInner">
+                </div>
             </div>
 
             <br/>
-            <div id="settingsOther">
-                <label class="label">Quizzer Settings</label>
-                <br/>
-                <input type="checkbox" id="settingsDarkMode" onchange="document.body.classList.toggle('dark');">
-                <label class="text" for="settingsDarkMode">Dark Mode</label>
-                <br/>
-                <label class="text" for="settingsPromptType">Prompt type</label>
-                <select id="settingsPromptType">
-                    <option>Text</option>
-                    <option>Audio</option>
-                    <option>Both</option>
-                </select>
-                <br/>
-                <label class="text" for="settingsRepeatPrompts">Repeat missed prompts</label>
-                <select id="settingsRepeatPrompts">
-                    <option>Never</option>
-                    <option>Immediately</option>
-                    <option>5 prompts later</option>
-                </select>
-            </div>
+            <label class="label">Quizzer Settings</label>
+            <br/>
+            <input type="checkbox" id="settingsDarkMode" onchange="document.body.classList.toggle('dark');">
+            <label class="text" for="settingsDarkMode">Dark Mode</label>
+            <br/>
+            <label class="text" for="settingsPromptType">Prompt type</label>
+            <select id="settingsPromptType">
+                <option>Text</option>
+                <option>Audio</option>
+                <option>Both</option>
+            </select>
+            <br/>
+            <label class="text" for="settingsRepeatPrompts">Repeat missed prompts</label>
+            <select id="settingsRepeatPrompts">
+                <option>Never</option>
+                <option>Immediately</option>
+                <option>5 prompts later</option>
+            </select>
             <br/>
 
-            <button id="settingsStart" onclick="Start()">Start</button>
             <br/>
-            <label id="settingsError" class="error"></label>
+            <div class="centered">
+                <button id="settingsStart" onclick="Start()">Start</button>
+                <br/>
+                <label id="settingsError" class="error"></label>
+            </div>
         </div>
         
         <div id="quizzer" hidden="true">

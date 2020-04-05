@@ -155,7 +155,7 @@ function referenceSetChanged() {
     }
 
     // Add html
-    document.getElementById("referenceTable").innerHTML = head + body;
+    document.getElementById("referenceTableInner").innerHTML = head + body;
 }
 
 
@@ -165,7 +165,7 @@ function referenceFilterChanged() {
     // Declare variables
     var match, txtValue
     var filter = document.getElementById("referenceFilter").value.toLowerCase();
-    var rows = document.getElementById("referenceTable").getElementsByTagName("tr");
+    var rows = document.getElementById("referenceTableInner").getElementsByTagName("tr");
 
     // Loop through rows
     for (row of rows)
