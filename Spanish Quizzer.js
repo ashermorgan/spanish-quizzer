@@ -359,9 +359,18 @@ function Reset() {
     // Get prompt
     Term++;
     if (Term == Terms.length) {
+        // The user just finished
         ShuffleTerms();
         Term = 0;
+        
+        // Congradulate user
+        document.getElementById("quizzerFeedback").classList.remove("bad");
+        document.getElementById("quizzerFeedback").classList.add("good");
+        document.getElementById("quizzerFeedback").textContent = "Congratulations! You made it back to the beginning!";
+        document.getElementById("quizzerFeedback").hidden = false;
     }
+
+    // Update progress
     document.getElementById("quizzerProgress").textContent = `${Term} / ${Terms.length}`;
 
     // Set prompt
@@ -419,6 +428,8 @@ function Check() {
     // Give user feedback
     if (!correct) {
         // Responce was incorrect
+        document.getElementById("quizzerFeedback").classList.remove("good");
+        document.getElementById("quizzerFeedback").classList.add("bad");
         document.getElementById("quizzerFeedback").textContent = `The correct answer is ${Terms[Term][3].toLowerCase()}.`;
         
         // Show and hide elements

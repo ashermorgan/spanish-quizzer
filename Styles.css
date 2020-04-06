@@ -55,7 +55,11 @@ button:disabled {
     font-weight: normal;
 }
 
-.error {
+.good {
+	color: green;
+}
+
+.bad {
 	color: red;
 }
 

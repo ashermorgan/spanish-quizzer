@@ -12,13 +12,14 @@
     </head>
 
     <body onload="Load()" onbeforeunload="UpdateLocalStorage()">
-        <div>
-            <label id="title" onclick="Reload()">Spanish-Quizzer v2.2.0</label>
-            <noscript>
-                <br/>
-                <label class="error">You must have JavaScript enabled to run Spanish-Quizzer.</label>
-            </noscript>
-        </div>
+        <label id="title" onclick="Reload()">Spanish-Quizzer v2.2.0</label>
+        <br/>
+
+        <noscript>
+            <br/>
+            <label class="bad">You must have JavaScript enabled to run Spanish-Quizzer.</label>
+            <br/>
+        </noscript>
 
         <div id="settings">
             <template id="settingsSetTemplate">
@@ -100,7 +101,7 @@
             <div class="centered">
                 <button id="settingsStart" onclick="Start()">Start</button>
                 <br/>
-                <label id="settingsError" class="error"></label>
+                <label id="settingsError" class="bad"></label>
             </div>
         </div>
         
@@ -116,7 +117,7 @@
             <button id="quizzerSubmit" onclick="Check()">Submit</button>
             <br/>
             <br/>
-            <label id="quizzerFeedback" class="error"></label>
+            <label id="quizzerFeedback" class="bad"></label>
             <button id="quizzerContinue" onclick="Reset()">Continue</button>
         </div>
 
