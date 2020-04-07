@@ -11,7 +11,7 @@
         <script src="Spanish Quizzer.js"></script>
     </head>
 
-    <body onload="Load()" onbeforeunload="UpdateLocalStorage()">
+    <body onload="Load()">
         <label id="title" onclick="Reload()">Spanish-Quizzer v2.2.0</label>
         <br/>
 
@@ -79,18 +79,18 @@
             <br/>
             <label class="label">Quizzer Settings</label>
             <br/>
-            <input type="checkbox" id="settingsDarkMode" onchange="document.body.classList.toggle('dark');">
+            <input type="checkbox" id="settingsDarkMode" onchange="document.body.classList.toggle('dark'); UpdateLocalStorage();">
             <label class="text" for="settingsDarkMode">Dark Mode</label>
             <br/>
             <label class="text" for="settingsPromptType">Prompt type</label>
-            <select id="settingsPromptType">
+            <select id="settingsPromptType" onchange="UpdateLocalStorage();">
                 <option>Text</option>
                 <option>Audio</option>
                 <option>Both</option>
             </select>
             <br/>
             <label class="text" for="settingsRepeatPrompts">Repeat missed prompts</label>
-            <select id="settingsRepeatPrompts">
+            <select id="settingsRepeatPrompts" onchange="UpdateLocalStorage();">
                 <option>Never</option>
                 <option>Immediately</option>
                 <option>5 prompts later</option>
