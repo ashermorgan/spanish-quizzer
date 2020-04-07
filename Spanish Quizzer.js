@@ -332,6 +332,11 @@ function Start() {
     // Configure prompt audio
     if (document.getElementById("settingsPromptType").value != "Text") {
         document.getElementById("quizzerPrompt").classList.add("audio");
+        
+        // Give iOS devices ringer warning
+        if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+            alert("Please make sure your ringer is on in order to hear audio prompts.");
+        }
     }
     else {
         document.getElementById("quizzerPrompt").classList.remove("audio");
