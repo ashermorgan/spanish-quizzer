@@ -137,6 +137,12 @@ function Load() {
 
 // Change the vocab set
 function referenceSetChanged() {
+    // Clear table
+    if (document.getElementById("referenceSet").value == "Choose a vocab set") {
+        document.getElementById("referenceTableInner").innerHTML = "";
+        return;
+    }
+
     // Get headers
     var head = '<tr>';
     for (column of Sets[document.getElementById("referenceSet").value][0]) {
