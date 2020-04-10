@@ -522,7 +522,7 @@ function Check() {
     responce = responce.replace("u~", "ü"); // Apply u with diaeresis shortcut
     var responces = responce.split(",");    // Split string by commas
     for (var i = 0; i < responces.length; i++) {
-        responces[i] = responces[i].trim(); // Trim whitespace
+        responces[i] = responces[i].split(" ").filter(function(x){return x !== "";}).join(" "); // Trim whitespace
     }
 
     // Parse answer
