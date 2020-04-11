@@ -4,6 +4,7 @@ Try it out [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 
 ## Features
 - Dark Mode
+- Audio prompts
 - Lots of vocab sets and filters to customize what you're quizzed on.
 - View the correct answer when you make a mistake.
 - Get quizzed again on the prompts you missed.
