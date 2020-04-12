@@ -122,6 +122,12 @@ button:disabled {
     max-width: fit-content;
 }
 
+#referenceTable th {
+    position: sticky;
+    top: 0;
+    background-color: var(--hover-color);
+}
+
 
 
 /******** Quizzer styles ********/

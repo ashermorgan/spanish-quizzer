@@ -3,12 +3,23 @@ var Sets;       // List of parsed sets
 
 
 
+// Set table height
+function setTableHeight() {
+    var tableY = document.getElementById("referenceTable").offsetTop;
+    document.getElementById("referenceTable").style.height = `${window.innerHeight - tableY - 50}px`;
+}
+
+
+
 // Load the document
 function Load() {
     // Apply dark mode
     if (localStorage.getItem("darkMode") == "true") {
         document.body.classList.toggle("dark");
     }
+
+    // Set table height
+    setTableHeight();
 
     // Load CSVs
     Sets = [];
