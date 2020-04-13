@@ -146,6 +146,21 @@ function Load() {
 
 
 
+// Reads a vocab word
+function Read(row, column)
+{
+    var msg = new SpeechSynthesisUtterance(Sets[document.getElementById("referenceSet").value][row][column]);
+    if (Sets[document.getElementById("referenceSet").value][0][column].toLowerCase().includes("english")) {
+        msg.lang = 'en';
+    }
+    else if (Sets[document.getElementById("referenceSet").value][0][column].toLowerCase().includes("spanish")){
+        msg.lang = 'es';
+    }
+    window.speechSynthesis.speak(msg);
+}
+
+
+
 // Change the vocab set
 function referenceSetChanged() {
     // Clear table
@@ -163,10 +178,12 @@ function referenceSetChanged() {
     
     // Get body
     var body = "";
-    for (row of Sets[document.getElementById("referenceSet").value].slice(1)) {
+    rows = Sets[document.getElementById("referenceSet").value].slice(1);
+    for (var row = 0; row < rows.length; row++) {
         body += '<tr>';
-        for (column of row) {
-            body += `<td style="border: 1px solid #808080;">${column}</td>`;
+        columns = rows[row];
+        for (var column = 0; column < columns.length; column++) {
+            body += `<td style="border: 1px solid #808080; cursor: pointer;" onclick="Read(${row + 1}, ${column})">${columns[column]}</td>`;
         }
         body += "</tr>";
     }
