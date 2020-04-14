@@ -51,6 +51,13 @@ function Load() {
             Sets["Prepositions"] = results.data;
         }
     });
+    Papa.parse("../Vocab/Transitions.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets["Transitions"] = results.data;
+        }
+    });
     Papa.parse("../Vocab/Colors.csv", {
         download: true,
         complete: function(results) {

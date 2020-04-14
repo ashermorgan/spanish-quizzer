@@ -64,6 +64,13 @@ function Load() {
             Sets["Prepositions"] = results.data;
         }
     });
+    Papa.parse("Vocab/Transitions.csv", {
+        download: true,
+        complete: function(results) {
+            // Set verbs
+            Sets["Transitions"] = results.data;
+        }
+    });
     Papa.parse("Vocab/Colors.csv", {
         download: true,
         complete: function(results) {
@@ -207,6 +214,7 @@ function settingsSetChanged(setName) {
         case "Adjectives":
         case "Adverbs":
         case "Prepositions":
+        case "Transitions":
         case "Colors":
         case "Days":
         case "Months":
