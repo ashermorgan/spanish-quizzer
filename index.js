@@ -512,14 +512,14 @@ function Reset() {
 function Check() {
     // Parse responce
     var responce = document.getElementById("quizzerInput").value.toLowerCase(); // Make responce lowercase
-    responce = responce.replace("a`", "á"); // Apply accented a shortcut
-    responce = responce.replace("e`", "é"); // Apply accented e shortcut
-    responce = responce.replace("i`", "í"); // Apply accented i shortcut
-    responce = responce.replace("n`", "ñ"); // Apply n with tilde shortcut
-    responce = responce.replace("n~", "ñ"); // Apply n with tilde shortcut
-    responce = responce.replace("o`", "ó"); // Apply accented o shortcut
-    responce = responce.replace("u`", "ú"); // Apply accented u shortcut
-    responce = responce.replace("u~", "ü"); // Apply u with diaeresis shortcut
+    responce = responce.replace(/a`/g, "á"); // Apply accented a shortcut
+    responce = responce.replace(/e`/g, "é"); // Apply accented e shortcut
+    responce = responce.replace(/i`/g, "í"); // Apply accented i shortcut
+    responce = responce.replace(/n`/g, "ñ"); // Apply n with tilde shortcut
+    responce = responce.replace(/n~/g, "ñ"); // Apply n with tilde shortcut
+    responce = responce.replace(/o`/g, "ó"); // Apply accented o shortcut
+    responce = responce.replace(/u`/g, "ú"); // Apply accented u shortcut
+    responce = responce.replace(/u~/g, "ü"); // Apply u with diaeresis shortcut
     var responces = responce.split(",");    // Split string by commas
     for (var i = 0; i < responces.length; i++) {
         responces[i] = responces[i].split(" ").filter(function(x){return x !== "";}).join(" "); // Trim whitespace
