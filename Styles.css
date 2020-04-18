@@ -148,6 +148,7 @@ button:disabled {
 body.dark {
     --background-color: #000000;
     --foreground-color: #E0E0E0;
+    --hover-color: #404040;
 }
 
 .dark button, .dark input, .dark select {
