@@ -15,6 +15,7 @@ body {
     color: var(--foreground-color);
     background-color: var(--background-color);
     margin-bottom: 50px;
+    touch-action: manipulation;
 }
 
 
