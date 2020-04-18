@@ -114,6 +114,18 @@ button:disabled {
 
 
 
+/******** Quizzer styles ********/
+#quizzerPrompt.audio {
+    cursor: pointer;
+}
+
+.quizzerButtons {
+    width: 75px;
+    height: 25px;
+}
+
+
+
 /******** Reference styles ********/
 #referenceTable {
     margin: auto;
@@ -129,12 +141,6 @@ button:disabled {
     background-color: var(--hover-color);
 }
 
-
-
-/******** Quizzer styles ********/
-#quizzerPrompt.audio {
-    cursor: pointer;
-}
 
 
 /******** Dark mode styles ********/

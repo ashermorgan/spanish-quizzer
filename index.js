@@ -20,17 +20,24 @@ function Load() {
         document.getElementById("settingsRepeatPrompts").value = localStorage.getItem("repeatPrompt");
     }
 
-    // Add event Listener
-    var input = document.getElementById("quizzerInput");
-    input.addEventListener("keydown", function (e) {
+    // Add event Listeners
+    document.getElementById("quizzerInput").addEventListener("keydown", function (e) {
         if (e.keyCode === 13) {
             // Key was enter
-            if (input.readOnly) {
+            if (document.getElementById("quizzerInput").readOnly) {
                 Reset();
             }
             else {
                 Check();
             }
+        }
+    });
+    document.getElementById("quizzerEnter").addEventListener("click", function (e) {
+        if (document.getElementById("quizzerInput").readOnly) {
+            Reset();
+        }
+        else {
+            Check();
         }
     });
 
@@ -474,9 +481,8 @@ function Start() {
 function Reset() {
     // Show and hide elements
     document.getElementById("quizzerInput").readOnly = false;
-    document.getElementById("quizzerSubmit").disabled = false;
+    document.getElementById("quizzerEnter").textContent = "Submit";
     document.getElementById("quizzerFeedback").hidden = true;
-    document.getElementById("quizzerContinue").hidden = true;
     
     // Get prompt
     Term++;
@@ -556,10 +562,9 @@ function Check() {
         
         // Show and hide elements
         document.getElementById("quizzerInput").readOnly = true;
-        document.getElementById("quizzerSubmit").disabled = true;
+        document.getElementById("quizzerEnter").textContent = "Continue";
         document.getElementById("quizzerFeedback").hidden = false;
         document.getElementById("quizzerFeedback").scrollIntoView(false);
-        document.getElementById("quizzerContinue").hidden = false;
         document.getElementById("quizzerInput").focus();
 
         // Repeat prompt
