@@ -136,10 +136,16 @@ button:disabled {
 }
 
 #referenceTable th {
+    border: 1px solid var(--border-color);
     position: sticky;
     position: -webkit-sticky;
     top: 0;
     background-color: var(--hover-color);
+}
+
+#referenceTable td {
+    border: 1px solid var(--border-color);
+    cursor: pointer;
 }
 
 

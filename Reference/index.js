@@ -179,7 +179,7 @@ function referenceSetChanged() {
     // Get headers
     var head = '<tr>';
     for (column of Sets[document.getElementById("referenceSet").value][0]) {
-        head += `<th style="border: 1px solid #808080;">${column}</th>`;
+        head += `<th>${column}</th>`;
     }
     head += "</tr>";
     
@@ -190,7 +190,7 @@ function referenceSetChanged() {
         body += '<tr>';
         columns = rows[row];
         for (var column = 0; column < columns.length; column++) {
-            body += `<td style="border: 1px solid #808080; cursor: pointer;" onclick="Read(${row + 1}, ${column})">${columns[column]}</td>`;
+            body += `<td onclick="Read(${row + 1}, ${column})">${columns[column]}</td>`;
         }
         body += "</tr>";
     }
