@@ -1,0 +1,20 @@
+/******** Reference Table styles ********/
+#referenceTable {
+    margin: auto;
+    text-align: left;
+    overflow-x: auto;
+    max-width: fit-content;
+}
+
+#referenceTable th {
+    border: 1px solid var(--border-color);
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background-color: var(--hover-color);
+}
+
+#referenceTable td {
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}

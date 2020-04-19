@@ -1,0 +1,36 @@
+/******** Settings styles ********/
+#settings {
+    margin: auto;
+    text-align: left;
+    max-width: 300px;
+    width: available;
+}
+
+.centered {
+    text-align: center;
+}
+
+#settingsSets {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.settingsSet {
+    padding-top: 5px;
+}
+
+.settingsSetName {
+    width: 115px;
+}
+
+.settingsSetFilter {
+    width: 160px;
+}
+
+.settingsSetRemove {
+    cursor: pointer;
+}
+
+#settingsStart {
+    width: 75px;
+}

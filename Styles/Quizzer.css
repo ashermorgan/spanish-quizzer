@@ -1,0 +1,9 @@
+/******** Quizzer styles ********/
+#quizzerPrompt.audio {
+    cursor: pointer;
+}
+
+.quizzerButtons {
+    width: 75px;
+    height: 25px;
+}

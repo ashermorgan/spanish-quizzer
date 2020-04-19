@@ -3,14 +3,6 @@ var Sets;       // List of parsed sets
 
 
 
-// Set table height
-function setTableHeight() {
-    var tableY = document.getElementById("referenceTable").offsetTop;
-    document.getElementById("referenceTable").style.height = `${window.innerHeight - tableY - 50}px`;
-}
-
-
-
 // Load the document
 function Load() {
     // Apply dark mode
@@ -153,17 +145,10 @@ function Load() {
 
 
 
-// Reads a vocab word
-function Read(row, column)
-{
-    var msg = new SpeechSynthesisUtterance(Sets[document.getElementById("referenceSet").value][row][column]);
-    if (Sets[document.getElementById("referenceSet").value][0][column].toLowerCase().includes("english")) {
-        msg.lang = 'en';
-    }
-    else if (Sets[document.getElementById("referenceSet").value][0][column].toLowerCase().includes("spanish")){
-        msg.lang = 'es';
-    }
-    window.speechSynthesis.speak(msg);
+// Set table height
+function setTableHeight() {
+    var tableY = document.getElementById("referenceTable").offsetTop;
+    document.getElementById("referenceTable").style.height = `${window.innerHeight - tableY - 50}px`;
 }
 
 
@@ -197,6 +182,21 @@ function referenceSetChanged() {
 
     // Add html
     document.getElementById("referenceTableInner").innerHTML = head + body;
+}
+
+
+
+// Reads a vocab word
+function Read(row, column)
+{
+    var msg = new SpeechSynthesisUtterance(Sets[document.getElementById("referenceSet").value][row][column]);
+    if (Sets[document.getElementById("referenceSet").value][0][column].toLowerCase().includes("english")) {
+        msg.lang = 'en';
+    }
+    else if (Sets[document.getElementById("referenceSet").value][0][column].toLowerCase().includes("spanish")){
+        msg.lang = 'es';
+    }
+    window.speechSynthesis.speak(msg);
 }
 
 
