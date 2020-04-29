@@ -19,6 +19,9 @@ function Load() {
     }
 
     // Add event Listeners
+    document.addEventListener("click", function (e) {
+        document.getElementById('share').hidden = true;
+    });
     document.getElementById("quizzerInput").addEventListener("keydown", function (e) {
         if (e.keyCode === 13) {
             // Key was enter
