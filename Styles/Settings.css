@@ -32,6 +32,8 @@
 }
 
 #settingsStart {
+    margin-top: 15px;
+    margin-bottom: 5px;
     width: 75px;
     height: 25px;
 }

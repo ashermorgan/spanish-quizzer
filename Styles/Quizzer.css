@@ -3,7 +3,12 @@
     cursor: pointer;
 }
 
-.quizzerButtons {
+#quizzerButtons {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.quizzerButton {
     width: 75px;
     height: 25px;
 }

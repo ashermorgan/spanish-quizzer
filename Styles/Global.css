@@ -49,12 +49,12 @@ button:disabled {
     text-decoration: none;
 }
 
-.label {
-    font-weight: bold;
+h3 {
+    margin-bottom: 5px;
 }
 
-.text {
-    font-weight: normal;
+.label {
+    font-weight: bold;
 }
 
 .good {
