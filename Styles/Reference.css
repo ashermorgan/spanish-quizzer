@@ -18,3 +18,27 @@
     border: 1px solid var(--border-color);
     cursor: pointer;
 }
+
+
+
+/******** Print styles ********/
+@media print {
+    body, body.dark {
+        --border-color: #000000;
+        --foreground-color: #000000;
+        --background-color: #FFFFFF;
+        --hover-color: #FFFFFF;
+    }
+
+    #title, #referenceFilter, #referenceSet, .footer, label, br {
+        display: none;
+    }
+    
+    #referenceTable {
+        overflow: visible;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+}
