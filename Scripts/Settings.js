@@ -211,12 +211,13 @@ function AddSet() {
 // Update the filter option
 function settingsSetChanged(setName) {
     // Get filter options
-    items = [];
+    var items = [];
     switch(setName.value)
     {
         case "Verbs":
             items = ["All Definitions", "All Conjugations", "Reverse Conjugations",
-                    "Present Participles", "Present Tense", "Preterite Tense", "Imperfect Tense"];
+                    "Present Participles", "Present Tense", "Preterite Tense", "Imperfect Tense",
+                    "Present non-Regular", "Preterite non-Regular", "Imperfect non-Regular"];
             break;
         
         case "Adjectives":

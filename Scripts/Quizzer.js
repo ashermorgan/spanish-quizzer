@@ -123,6 +123,21 @@ function ApplyFilter(vocabSet, name) {
             value = [[2, ["Adjective"], false]];
             break;
 
+        case "Present non-Regular":
+            io = [[0,5], [0,6], [0,7], [0,8], [0,9]];
+            value = [[4, ["Irregular", "Stem Changing"], false]];
+            break;
+
+        case "Preterite non-Regular":
+            io = [[0,11], [0,12], [0,13], [0,14], [0,15]];
+            value = [[10, ["Irregular", "Stem Changing", "Orthographic"], false]];
+            break;
+
+        case "Imperfect non-Regular":
+            io = [[0,17], [0,18], [0,19], [0,20], [0,21]];
+            value = [[16, ["Irregular", "Stem Changing"], false]];
+            break;
+
         default:
             io = [];
             value = [];
