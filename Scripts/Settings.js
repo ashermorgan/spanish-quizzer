@@ -202,6 +202,9 @@ function AddSet() {
     // Add row
     document.getElementById("settingsSetsInner").appendChild(clone);
     
+    // Add filters
+    settingsSetChanged(document.getElementById(`settingsSetName-${setId}`));
+    
     // Increment setId
     setId++; // increment fileId to get a unique ID for the new element
 }
