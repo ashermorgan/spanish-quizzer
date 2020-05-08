@@ -1,15 +1,13 @@
 # Spanish-Quizzer
-Quizzes you on spanish vocabulary through a web interface.
+Quizzes you on spanish vocabulary through a customizable web interface.
 Try it out [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 
 ## Features
-- Dark Mode
-- Audio prompts
-- Lots of vocab sets and filters to customize what you're quizzed on.
-- View the correct answer when you make a mistake.
+- Different prompt types (text, audio, etc.).
+- Lots of vocab sets and filters.
 - Get quizzed again on the prompts you missed.
 - Easily type special characters (``` a` ``` → ```á```, `n~` → `ñ`, `u~` → `ü`)
-- Reference Tables (available [here](https://ashermorgan.github.io/Spanish-Quizzer/Reference))
+- Spanish vocab reference tables (available [here](https://ashermorgan.github.io/Spanish-Quizzer/Reference))
 
 ## Vocabulary Sets
 Spanish-Quizzer comes with many vocabulary sets that can be filtered by word type, tense, direction, and more. Those vocabulary sets are:
@@ -18,6 +16,7 @@ Spanish-Quizzer comes with many vocabulary sets that can be filtered by word typ
     - Common Adjectives
     - Common Adverbs
     - Common Prepositions
+    - Common Transitions
 - Spanish 1:
     - Colors (Los Colores)
     - Days (Los Días)
