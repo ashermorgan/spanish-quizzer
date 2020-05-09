@@ -17,6 +17,7 @@ h3 {
     text-align: left;
     overflow-x: auto;
     max-width: fit-content;
+    max-width: -moz-fit-content;
 }
 
 #referenceTable th {
