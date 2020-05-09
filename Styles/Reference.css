@@ -1,4 +1,17 @@
 /******** Reference Table styles ********/
+h1 {
+    margin-bottom: 0px;
+}
+
+h3 {
+    margin-top: 0px;
+    font-weight: normal;
+}
+
+#controls {
+    margin-bottom: 15px;
+}
+
 #referenceTable {
     margin: auto;
     text-align: left;

@@ -13,56 +13,58 @@
     </head>
 
     <body onload="Load()" onresize="setTableHeight()">
-        <a id="title" href="../">Spanish-Quizzer v2.3.0</a>
-        <br/>
-        <label class="text">Reference Tables</label>
-        <br/>
+        <h1 id="title" onclick="window.location='..\\'">Spanish-Quizzer v2.3.0</h1>
+        <h3 class="text">Reference Tables</h3>
         
         <noscript>
-            <br/>
-            <label class="bad">You must have JavaScript enabled to run Spanish-Quizzer.</label>
-            <br/>
+            <h4 class="bad">You must have JavaScript enabled to run Spanish-Quizzer.</h4>
         </noscript>
         
-        <br/>
-        <select id="referenceSet" onchange="referenceSetChanged()">
-            <option>Choose a vocab set</option>
-            <optgroup label="Common Words">
-                <option>Verbs</option>
-                <option>Adjectives</option>
-                <option>Adverbs</option>
-                <option>Prepositions</option>
-                <option>Transitions</option>
-            </optgroup>
-            <optgroup label="Spanish 1">
-                <option>Colors</option>
-                <option>Days</option>
-                <option>Months</option>
-                <option>Questions</option>
-                <option>Weather</option>
-                <option>Family</option>
-                <option>Clothes</option>
-            </optgroup>
-            <optgroup label="Spanish 2">
-                <option>Nature</option>
-                <option>House</option>
-                <option>Vacation</option>
-                <option>Childhood</option>
-                <option>Professions</option>
-                <option>Health</option>
-            </optgroup>
-        </select>
-        <input type="text" id="referenceFilter" onkeyup="referenceFilterChanged()" placeholder="Search">
-        <br/>
+        <div id="controls">
+            <select id="referenceSet" onchange="referenceSetChanged()">
+                <option>Choose a vocab set</option>
+                <optgroup label="Common Words">
+                    <option>Verbs</option>
+                    <option>Adjectives</option>
+                    <option>Adverbs</option>
+                    <option>Prepositions</option>
+                    <option>Transitions</option>
+                </optgroup>
+                <optgroup label="Spanish 1">
+                    <option>Colors</option>
+                    <option>Days</option>
+                    <option>Months</option>
+                    <option>Questions</option>
+                    <option>Weather</option>
+                    <option>Family</option>
+                    <option>Clothes</option>
+                </optgroup>
+                <optgroup label="Spanish 2">
+                    <option>Nature</option>
+                    <option>House</option>
+                    <option>Vacation</option>
+                    <option>Childhood</option>
+                    <option>Professions</option>
+                    <option>Health</option>
+                </optgroup>
+            </select>
+            <input type="text" id="referenceFilter" onkeyup="referenceFilterChanged()" placeholder="Search">
+        </div>
         
-        <br/>
         <div id="referenceTable">
-            <table id="referenceTableInner">
-            </table>
+            <table id="referenceTableInner"></table>
         </div>
 
         <div class="footer">
-            <a href="../">Home</a>
+            <div id="share" hidden>
+                <a href="mailto:?Subject=Spanish-Quizzer&amp;Body=https://ashermorgan.github.io/Spanish-Quizzer/Reference">Email</a>&nbsp;
+                <a href="http://www.facebook.com/sharer.php?u=https://ashermorgan.github.io/Spanish-Quizzer/Reference" target="_blank">Facebook</a>&nbsp;
+                <a href="https://twitter.com/share?url=https://ashermorgan.github.io/Spanish-Quizzer/Reference&amp;text=Spanish-Quizzer" target="_blank">Twitter</a>&nbsp;
+                <a href="http://reddit.com/submit?url=https://ashermorgan.github.io/Spanish-Quizzer/Reference&amp;title=Spanish-Quizzer" target="_blank">Reddit</a>&nbsp;
+                <a id="shareSMS" href="sms:&body=https://ashermorgan.github.io/Spanish-Quizzer/Reference" hidden>SMS</a>&nbsp;
+            </div>
+            <a href="../">Home</a>&nbsp;
+            <a href="javascript:document.getElementById('share').hidden = false;">Share</a>&nbsp;
         </div>
     </body>
 </html>

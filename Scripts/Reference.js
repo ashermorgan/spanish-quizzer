@@ -13,6 +13,11 @@ function Load() {
     // Set table height
     setTableHeight();
 
+    // Add event Listeners
+    document.addEventListener("click", function (e) {
+        document.getElementById('share').hidden = true;
+    });
+
     // Load CSVs
     Sets = [];
     Papa.parse("../Vocab/Verbs.csv", {
