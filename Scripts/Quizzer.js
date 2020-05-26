@@ -108,6 +108,36 @@ function ApplyFilter(vocabSet, name) {
             value = [];
             break;
 
+        case "Present non-Regular":
+            io = [[0,5], [0,6], [0,7], [0,8], [0,9]];
+            value = [[4, ["Regular"], true]];
+            break;
+
+        case "Preterite non-Regular":
+            io = [[0,11], [0,12], [0,13], [0,14], [0,15]];
+            value = [[10, ["Regular"], true]];
+            break;
+
+        case "Imperfect non-Regular":
+            io = [[0,17], [0,18], [0,19], [0,20], [0,21]];
+            value = [[16, ["Regular"], true]];
+            break;
+
+        case "Present Regular":
+            io = [[0,5], [0,6], [0,7], [0,8], [0,9]];
+            value = [[4, ["Regular"], false]];
+            break;
+
+        case "Preterite Regular":
+            io = [[0,11], [0,12], [0,13], [0,14], [0,15]];
+            value = [[10, ["Regular"], false]];
+            break;
+
+        case "Imperfect Regular":
+            io = [[0,17], [0,18], [0,19], [0,20], [0,21]];
+            value = [[16, ["Regular"], false]];
+            break;
+
         case "Nouns":
             io = [[0,1], [1,0]];
             value = [[2, ["Noun"], false]];
@@ -121,21 +151,6 @@ function ApplyFilter(vocabSet, name) {
         case "Adjectives":
             io = [[0,1], [1,0]];
             value = [[2, ["Adjective"], false]];
-            break;
-
-        case "Present non-Regular":
-            io = [[0,5], [0,6], [0,7], [0,8], [0,9]];
-            value = [[4, ["Irregular", "Stem Changing"], false]];
-            break;
-
-        case "Preterite non-Regular":
-            io = [[0,11], [0,12], [0,13], [0,14], [0,15]];
-            value = [[10, ["Irregular", "Stem Changing", "Orthographic"], false]];
-            break;
-
-        case "Imperfect non-Regular":
-            io = [[0,17], [0,18], [0,19], [0,20], [0,21]];
-            value = [[16, ["Irregular", "Stem Changing"], false]];
             break;
 
         default:
