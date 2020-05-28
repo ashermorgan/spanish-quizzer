@@ -108,6 +108,11 @@ function ApplyFilter(vocabSet, name) {
             value = [];
             break;
 
+        case "Present Participle non-Regular":
+            io = [[0,3]];
+            value = [[2, ["Regular"], true]];
+            break;
+
         case "Present non-Regular":
             io = [[0,5], [0,6], [0,7], [0,8], [0,9]];
             value = [[4, ["Regular"], true]];
@@ -121,6 +126,11 @@ function ApplyFilter(vocabSet, name) {
         case "Imperfect non-Regular":
             io = [[0,17], [0,18], [0,19], [0,20], [0,21]];
             value = [[16, ["Regular"], true]];
+            break;
+
+        case "Present Participle Regular":
+            io = [[0,3]];
+            value = [[2, ["Regular"], false]];
             break;
 
         case "Present Regular":

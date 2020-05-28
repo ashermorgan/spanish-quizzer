@@ -220,8 +220,8 @@ function settingsSetChanged(setName) {
         case "Verbs":
             items = ["All Definitions", "All Conjugations", "Reverse Conjugations",
                     "Present Participles", "Present Tense", "Preterite Tense", "Imperfect Tense",
-                    "Present non-Regular", "Preterite non-Regular", "Imperfect non-Regular",
-                    "Present Regular", "Preterite Regular", "Imperfect Regular"];
+                    "Present Participle non-Regular", "Present non-Regular", "Preterite non-Regular", "Imperfect non-Regular",
+                    "Present Participle Regular", "Present Regular", "Preterite Regular", "Imperfect Regular"];
             break;
         
         case "Adjectives":
