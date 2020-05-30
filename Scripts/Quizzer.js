@@ -58,6 +58,42 @@ function Start() {
 
 
 
+// Resume the previous session
+function Resume() {
+    // Load terms and progress
+    Terms = JSON.parse(localStorage.getItem("terms"));
+    Term = parseInt(localStorage.getItem("term")) - 1;
+    
+    // Validate Terms
+    if (!Terms || Terms.length == 0 || !Term || Term < 0 || Term > Terms.length) {
+        document.getElementById("settingsError").textContent = "An error occured while resuming the previous session.";
+        document.getElementById("settingsError").scrollIntoView(false);
+        return;
+    }
+
+    // Configure prompt audio
+    if (document.getElementById("settingsPromptType").value != "Text") {
+        document.getElementById("quizzerPrompt").classList.add("audio");
+        
+        // Give iOS devices ringer warning
+        if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+            alert("Please make sure your ringer is on in order to hear audio prompts.");
+        }
+    }
+    else {
+        document.getElementById("quizzerPrompt").classList.remove("audio");
+    }
+
+    // Show and hide elements
+    document.getElementById("settings").hidden = true;
+    document.getElementById("quizzer").hidden = false;
+
+    // Give the user a prompt
+    Reset();
+}
+
+
+
 // Filters a vocabulary set given the filter name
 function ApplyFilter(vocabSet, name) {
     // Declare variables

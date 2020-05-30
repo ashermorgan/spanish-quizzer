@@ -35,7 +35,7 @@ h3 {
     cursor: pointer;
 }
 
-#settingsStart {
+#settingsStart, #settingsResume {
     margin-top: 15px;
     margin-bottom: 5px;
     width: 75px;
