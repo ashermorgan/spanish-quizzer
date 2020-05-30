@@ -31,6 +31,9 @@ function Start() {
         return;
     }
 
+    // Save terms to local storage
+    localStorage.setItem("terms", JSON.stringify(Terms));
+
     // Configure prompt audio
     if (document.getElementById("settingsPromptType").value != "Text") {
         document.getElementById("quizzerPrompt").classList.add("audio");
@@ -243,6 +246,9 @@ function Reset() {
         document.getElementById("quizzerFeedback").textContent = "Congratulations! You made it back to the beginning!";
         document.getElementById("quizzerFeedback").hidden = false;
     }
+
+    // Save progress to local storage
+    localStorage.setItem("term", Term);
 
     // Update progress
     document.getElementById("quizzerProgress").textContent = `${Term} / ${Terms.length}`;

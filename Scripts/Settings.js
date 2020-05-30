@@ -272,7 +272,6 @@ function settingsSetChanged(setName) {
 
 // Update local storage
 function UpdateLocalStorage() {
-    localStorage.clear();
     localStorage.setItem("darkMode", document.getElementById("settingsDarkMode").checked);
     localStorage.setItem("PromptType", document.getElementById("settingsPromptType").value);
     localStorage.setItem("repeatPrompt", document.getElementById("settingsRepeatPrompts").value);
