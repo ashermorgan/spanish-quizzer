@@ -31,6 +31,9 @@ function Start() {
         return;
     }
 
+    // Save terms to local storage
+    localStorage.setItem("terms", JSON.stringify(Terms));
+
     // Configure prompt audio
     if (document.getElementById("settingsPromptType").value != "Text") {
         document.getElementById("quizzerPrompt").classList.add("audio");
@@ -50,6 +53,42 @@ function Start() {
 
     // Give the user a prompt
     Term = -1;
+    Reset();
+}
+
+
+
+// Resume the previous session
+function Resume() {
+    // Load terms and progress
+    Terms = JSON.parse(localStorage.getItem("terms"));
+    Term = parseInt(localStorage.getItem("term")) - 1;
+    
+    // Validate Terms
+    if (!Terms || Terms.length == 0 || !Term || Term < 0 || Term > Terms.length) {
+        document.getElementById("settingsError").textContent = "An error occured while resuming the previous session.";
+        document.getElementById("settingsError").scrollIntoView(false);
+        return;
+    }
+
+    // Configure prompt audio
+    if (document.getElementById("settingsPromptType").value != "Text") {
+        document.getElementById("quizzerPrompt").classList.add("audio");
+        
+        // Give iOS devices ringer warning
+        if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+            alert("Please make sure your ringer is on in order to hear audio prompts.");
+        }
+    }
+    else {
+        document.getElementById("quizzerPrompt").classList.remove("audio");
+    }
+
+    // Show and hide elements
+    document.getElementById("settings").hidden = true;
+    document.getElementById("quizzer").hidden = false;
+
+    // Give the user a prompt
     Reset();
 }
 
@@ -243,6 +282,9 @@ function Reset() {
         document.getElementById("quizzerFeedback").textContent = "Congratulations! You made it back to the beginning!";
         document.getElementById("quizzerFeedback").hidden = false;
     }
+
+    // Save progress to local storage
+    localStorage.setItem("term", Term);
 
     // Update progress
     document.getElementById("quizzerProgress").textContent = `${Term} / ${Terms.length}`;
