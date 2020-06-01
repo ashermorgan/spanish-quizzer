@@ -60,12 +60,26 @@ function Start() {
 
 // Resume the previous session
 function Resume() {
+    // Validate selected sets
+    for (var i = 0; i < setId; i++)
+    {
+        if (document.getElementById(`settingsSet-${i}`))
+        {
+            if (confirm("This will remove the vocab sets you have already selected. Are you sure?")) {
+                break;
+            }
+            else {
+                return;
+            }
+        }
+    }
+
     // Load terms and progress
     Terms = JSON.parse(localStorage.getItem("terms"));
     Term = parseInt(localStorage.getItem("term")) - 1;
     
     // Validate Terms
-    if (!Terms || Terms.length == 0 || !Term || Term < 0 || Term > Terms.length) {
+    if (!Terms || Terms.length == 0 || !Term || Term < -1 || Term > Terms.length) {
         document.getElementById("settingsError").textContent = "An error occured while resuming the previous session.";
         document.getElementById("settingsError").scrollIntoView(false);
         return;
