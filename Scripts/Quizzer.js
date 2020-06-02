@@ -282,6 +282,7 @@ function Reset() {
     document.getElementById("quizzerInput").readOnly = false;
     document.getElementById("quizzerEnter").textContent = "Submit";
     document.getElementById("quizzerFeedback").hidden = true;
+    document.getElementById("quizzerCongrats").hidden = true;
     
     // Get prompt
     Term++;
@@ -291,10 +292,8 @@ function Reset() {
         Term = 0;
         
         // Congradulate user
-        document.getElementById("quizzerFeedback").classList.remove("bad");
-        document.getElementById("quizzerFeedback").classList.add("good");
-        document.getElementById("quizzerFeedback").textContent = "Congratulations! You made it back to the beginning!";
-        document.getElementById("quizzerFeedback").hidden = false;
+        document.getElementById("quizzerCongrats").textContent = "Congratulations! You made it back to the beginning!";
+        document.getElementById("quizzerCongrats").hidden = false;
     }
 
     // Save progress to local storage
@@ -382,14 +381,13 @@ function Check() {
     // Give user feedback
     if (!correct) {
         // Responce was incorrect
-        document.getElementById("quizzerFeedback").classList.remove("good");
-        document.getElementById("quizzerFeedback").classList.add("bad");
         document.getElementById("quizzerFeedback").textContent = `The correct answer is ${Terms[Term][3].toLowerCase()}.`;
         
         // Show and hide elements
         document.getElementById("quizzerInput").readOnly = true;
         document.getElementById("quizzerEnter").textContent = "Continue";
         document.getElementById("quizzerFeedback").hidden = false;
+        document.getElementById("quizzerCongrats").hidden = true;
         document.getElementById("quizzerFeedback").scrollIntoView(false);
         document.getElementById("quizzerInput").focus();
 
