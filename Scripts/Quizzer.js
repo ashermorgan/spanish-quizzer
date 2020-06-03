@@ -336,18 +336,30 @@ function Reset() {
 
     // Get voice input
     if (document.getElementById("settingsInputType").value != "Text") {
+        // Create recognition object
         var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+        
+        // Set language
         if (Terms[Term][2].toLowerCase().includes("english")) {
             recognition.lang = 'en-US';
         }
         else if (Terms[Term][2].toLowerCase().includes("spanish")) {
             recognition.lang = 'es-mx';
         }
-        recognition.interimResults = false;
+
+        // Set options
         recognition.continuous = true;
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 16;
+
+        // Start listening
         recognition.start();
         recognition.onresult = function(event) {
-            document.getElementById("quizzerInput").value = event.results[0][0].transcript;
+            responce = ""
+            for (var result of event.results[0]) {
+                responce += `${result.transcript}, `;
+            }
+            document.getElementById("quizzerInput").value = responce;
             Check()
         };
     }
