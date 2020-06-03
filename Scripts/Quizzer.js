@@ -319,6 +319,22 @@ function Reset() {
     if (document.getElementById("settingsPromptType").value != "Text") {
         Read(Terms[Term][1], Terms[Term][0]);
     }
+
+    // Get answer
+    var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+    if (Terms[Term][2].toLowerCase().includes("english")) {
+        recognition.lang = 'en-US';
+    }
+    else if (Terms[Term][2].toLowerCase().includes("spanish")) {
+        recognition.lang = 'es-mx';
+    }
+    recognition.interimResults = false;
+    recognition.continuous = true;
+    recognition.start();
+    recognition.onresult = function(event) {
+        document.getElementById("quizzerInput").value = event.results[0][0].transcript;
+        Check()
+    };
 }
 
 
