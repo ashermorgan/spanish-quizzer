@@ -320,21 +320,28 @@ function Reset() {
         Read(Terms[Term][1], Terms[Term][0]);
     }
 
-    // Get answer
-    var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-    if (Terms[Term][2].toLowerCase().includes("english")) {
-        recognition.lang = 'en-US';
+    // Disable textbox
+    if (document.getElementById("settingsInputType").value == "Voice") {
+        document.getElementById("quizzerInput").readOnly = true;
     }
-    else if (Terms[Term][2].toLowerCase().includes("spanish")) {
-        recognition.lang = 'es-mx';
+
+    // Get voice input
+    if (document.getElementById("settingsInputType").value != "Text") {
+        var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+        if (Terms[Term][2].toLowerCase().includes("english")) {
+            recognition.lang = 'en-US';
+        }
+        else if (Terms[Term][2].toLowerCase().includes("spanish")) {
+            recognition.lang = 'es-mx';
+        }
+        recognition.interimResults = false;
+        recognition.continuous = true;
+        recognition.start();
+        recognition.onresult = function(event) {
+            document.getElementById("quizzerInput").value = event.results[0][0].transcript;
+            Check()
+        };
     }
-    recognition.interimResults = false;
-    recognition.continuous = true;
-    recognition.start();
-    recognition.onresult = function(event) {
-        document.getElementById("quizzerInput").value = event.results[0][0].transcript;
-        Check()
-    };
 }
 
 
