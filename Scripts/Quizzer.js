@@ -6,15 +6,6 @@ var Term;       // Index of current term
 
 // Start the quizzer
 function Start() {
-    // Validate browser for voice input
-    if (document.getElementById("settingsInputType").value != "Text") {
-        if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
-            // Browser is not Googole Chrome or Microsoft (Chromium) Edge
-            alert("Your browser does not support voice input.");
-            return;
-        }
-    }
-
     // Filter and load Sets into Terms
     Terms = [];
     for (var i = 0; i < setId; i++)
@@ -38,6 +29,15 @@ function Start() {
         document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
         document.getElementById("settingsError").scrollIntoView(false);
         return;
+    }
+
+    // Validate browser for voice input
+    if (document.getElementById("settingsInputType").value != "Text") {
+        if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
+            // Browser is not Googole Chrome or Microsoft (Chromium) Edge
+            alert("Your browser does not support voice input.");
+            return;
+        }
     }
 
     // Save terms to local storage
