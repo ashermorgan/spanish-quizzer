@@ -31,6 +31,15 @@ function Start() {
         return;
     }
 
+    // Validate browser for voice input
+    if (document.getElementById("settingsInputType").value != "Text") {
+        if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
+            // Browser is not Googole Chrome or Microsoft (Chromium) Edge
+            alert("Your browser does not support voice input.");
+            return;
+        }
+    }
+
     // Save terms to local storage
     localStorage.setItem("terms", JSON.stringify(Terms));
 
@@ -318,6 +327,41 @@ function Reset() {
     // Read prompt
     if (document.getElementById("settingsPromptType").value != "Text") {
         Read(Terms[Term][1], Terms[Term][0]);
+    }
+
+    // Disable textbox
+    if (document.getElementById("settingsInputType").value == "Voice") {
+        document.getElementById("quizzerInput").readOnly = true;
+    }
+
+    // Get voice input
+    if (document.getElementById("settingsInputType").value != "Text") {
+        // Create recognition object
+        var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+        
+        // Set language
+        if (Terms[Term][2].toLowerCase().includes("english")) {
+            recognition.lang = 'en-US';
+        }
+        else if (Terms[Term][2].toLowerCase().includes("spanish")) {
+            recognition.lang = 'es-mx';
+        }
+
+        // Set options
+        recognition.continuous = true;
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 16;
+
+        // Start listening
+        recognition.start();
+        recognition.onresult = function(event) {
+            responce = ""
+            for (var result of event.results[0]) {
+                responce += `${result.transcript}, `;
+            }
+            document.getElementById("quizzerInput").value = responce;
+            Check()
+        };
     }
 }
 

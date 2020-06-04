@@ -88,6 +88,14 @@
                 </select>
             </div>
             <div>
+                <label for="settingsInputType">Input type</label>
+                <select id="settingsInputType" onchange="UpdateLocalStorage();">
+                    <option>Text</option>
+                    <option>Voice</option>
+                    <option>Either</option>
+                </select>
+            </div>
+            <div>
                 <label for="settingsRepeatPrompts">Repeat missed prompts</label>
                 <select id="settingsRepeatPrompts" onchange="UpdateLocalStorage();">
                     <option>Never</option>

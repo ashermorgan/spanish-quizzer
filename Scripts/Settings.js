@@ -14,6 +14,9 @@ function Load() {
     if (localStorage.getItem("PromptType")) {
         document.getElementById("settingsPromptType").value = localStorage.getItem("PromptType");
     }
+    if (localStorage.getItem("InputType")) {
+        document.getElementById("settingsInputType").value = localStorage.getItem("InputType");
+    }
     if (localStorage.getItem("repeatPrompt")) {
         document.getElementById("settingsRepeatPrompts").value = localStorage.getItem("repeatPrompt");
     }
@@ -274,5 +277,6 @@ function settingsSetChanged(setName) {
 function UpdateLocalStorage() {
     localStorage.setItem("darkMode", document.getElementById("settingsDarkMode").checked);
     localStorage.setItem("PromptType", document.getElementById("settingsPromptType").value);
+    localStorage.setItem("InputType", document.getElementById("settingsInputType").value);
     localStorage.setItem("repeatPrompt", document.getElementById("settingsRepeatPrompts").value);
 }
