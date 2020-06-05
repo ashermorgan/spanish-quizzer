@@ -83,12 +83,21 @@ function Resume() {
         }
     }
 
+    // Validate browser for voice input
+    if (document.getElementById("settingsInputType").value != "Text") {
+        if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
+            // Browser is not Googole Chrome or Microsoft (Chromium) Edge
+            alert("Your browser does not support voice input.");
+            return;
+        }
+    }
+
     // Load terms and progress
     Terms = JSON.parse(localStorage.getItem("terms"));
     Term = parseInt(localStorage.getItem("term")) - 1;
     
     // Validate Terms
-    if (!Terms || Terms.length == 0 || !Term || Term < -1 || Term > Terms.length) {
+    if (!Terms || Terms.length == 0 || isNaN(Term) || Term < -1 || Term > Terms.length) {
         document.getElementById("settingsError").textContent = "An error occured while resuming the previous session.";
         document.getElementById("settingsError").scrollIntoView(false);
         return;
