@@ -139,11 +139,13 @@ function ApplyFilter(vocabSet, name) {
             value = [];
             break;
 
+        case "Spanish Infinitives":
         case "English to Spanish":
             io = [[0,1]];
             value = [];
             break;
 
+        case "English Infinitives":
         case "Spanish to English":
             io = [[1,0]];
             value = [];

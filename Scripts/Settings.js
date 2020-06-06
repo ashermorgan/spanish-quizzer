@@ -221,7 +221,8 @@ function settingsSetChanged(setName) {
     switch(setName.value)
     {
         case "Verbs":
-            items = ["All Definitions", "All Conjugations", "Reverse Conjugations",
+            items = ["All Definitions", "Spanish Infinitives", "English Infinitives",
+                    "All Conjugations", "Reverse Conjugations",
                     "Present Participles", "Present Tense", "Preterite Tense", "Imperfect Tense",
                     "Present Participle non-Regular", "Present non-Regular", "Preterite non-Regular", "Imperfect non-Regular",
                     "Present Participle Regular", "Present Regular", "Preterite Regular", "Imperfect Regular"];
