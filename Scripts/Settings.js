@@ -174,6 +174,9 @@ function Load() {
         }
     });
 
+    // Add set
+    AddSet();
+
     // Show and hide elements
     Reload();
 }
