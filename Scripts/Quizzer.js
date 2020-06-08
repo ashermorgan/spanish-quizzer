@@ -371,7 +371,7 @@ function Reset() {
                 responce += `${result.transcript}, `;
             }
             document.getElementById("quizzerInput").value = responce;
-            Check()
+            Submit()
         };
     }
 }
@@ -402,8 +402,8 @@ function quizzerPromptClicked() {
 
 
 
-// Check the user's responce
-function Check() {
+// Processes a user's submitted responce
+function Submit() {
     // Parse responce
     var responce = document.getElementById("quizzerInput").value.toLowerCase(); // Make responce lowercase
     responce = responce.replace(/a`/g, "á"); // Apply accented a shortcut
@@ -445,25 +445,33 @@ function Check() {
         document.getElementById("quizzerCongrats").hidden = true;
         document.getElementById("quizzerFeedback").scrollIntoView(false);
         document.getElementById("quizzerInput").focus();
-
-        // Repeat prompt
-        switch (document.getElementById("settingsRepeatPrompts").value)
-        {
-            case "Never": // Don't repeat
-                break;
-            case "Immediately": // Repeat imitiately
-                Term--;
-                break;
-            case "5 prompts later":
-                var temp = Terms[Term];
-                Terms.splice(Term, 1);
-                Terms.splice(Term + 5, 0, temp);
-                Term--;
-                break;
-        }
     }
     else {
         // Responce was correct
         Reset();
     }
+}
+
+
+
+// Processes an incorrect responce and then resets the quizzer
+function Continue() {
+    // Repeat prompt
+    switch (document.getElementById("settingsRepeatPrompts").value)
+    {
+        case "Never": // Don't repeat
+            break;
+        case "Immediately": // Repeat imitiately
+            Term--;
+            break;
+        case "5 prompts later":
+            var temp = Terms[Term];
+            Terms.splice(Term, 1);
+            Terms.splice(Term + 5, 0, temp);
+            Term--;
+            break;
+    }
+
+    // Reset quizzer
+    Reset();
 }

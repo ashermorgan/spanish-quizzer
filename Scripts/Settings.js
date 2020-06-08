@@ -29,19 +29,19 @@ function Load() {
         if (e.keyCode === 13) {
             // Key was enter
             if (document.getElementById("quizzerInput").readOnly) {
-                Reset();
+                Continue();
             }
             else {
-                Check();
+                Submit();
             }
         }
     });
     document.getElementById("quizzerEnter").addEventListener("click", function (e) {
         if (document.getElementById("quizzerInput").readOnly) {
-            Reset();
+            Continue();
         }
         else {
-            Check();
+            Submit();
         }
     });
 
