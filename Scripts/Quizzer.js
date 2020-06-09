@@ -31,13 +31,20 @@ function Start() {
         return;
     }
 
-    // Validate browser for voice input
+    // Configure voice input
     if (document.getElementById("settingsInputType").value != "Text") {
+        // Validate browser
         if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
             // Browser is not Googole Chrome or Microsoft (Chromium) Edge
             alert("Your browser does not support voice input.");
             return;
         }
+
+        // Add audio attribute
+        document.getElementById("quizzerFeedback").classList.add("audio");
+    }
+    else {
+        document.getElementById("quizzerFeedback").classList.remove("audio");
     }
 
     // Save terms to local storage
@@ -397,6 +404,15 @@ function Read(text, label)
 function quizzerPromptClicked() {
     if (document.getElementById("settingsPromptType").value != "Text") {
         Read(Terms[Term][1], Terms[Term][0]);
+    }
+}
+
+
+
+// Read the answer if audio is enabled
+function quizzerFeedbackClicked() {
+    if (document.getElementById("settingsInputType").value != "Text") {
+        Read(Terms[Term][3], Terms[Term][2]);
     }
 }
 
