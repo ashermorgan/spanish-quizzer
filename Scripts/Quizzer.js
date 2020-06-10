@@ -378,6 +378,7 @@ function Reset() {
             responce = ""
             for (var result of event.results[0]) {
                 responce += `${result.transcript}, `;
+                responce += `${result.transcript.split(" or ").join(", ")}, `;
             }
             document.getElementById("quizzerInput").value = responce;
             Submit()
