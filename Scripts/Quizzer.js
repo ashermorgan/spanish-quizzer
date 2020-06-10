@@ -308,6 +308,7 @@ function Reset() {
     // Show and hide elements
     document.getElementById("quizzerInput").readOnly = false;
     document.getElementById("quizzerEnter").textContent = "Submit";
+    document.getElementById("quizzerEnter").disabled = false;
     document.getElementById("quizzerFeedback").hidden = true;
     document.getElementById("quizzerCongrats").hidden = true;
     
@@ -347,9 +348,10 @@ function Reset() {
         Read(Terms[Term][1], Terms[Term][0]);
     }
 
-    // Disable textbox
+    // Disable textbox and submit button
     if (document.getElementById("settingsInputType").value == "Voice") {
         document.getElementById("quizzerInput").readOnly = true;
+        document.getElementById("quizzerEnter").disabled = true;
     }
 
     // Get voice input
@@ -457,6 +459,7 @@ function Submit() {
         // Show and hide elements
         document.getElementById("quizzerInput").readOnly = true;
         document.getElementById("quizzerEnter").textContent = "Continue";
+        document.getElementById("quizzerEnter").disabled = false;
         document.getElementById("quizzerFeedback").hidden = false;
         document.getElementById("quizzerCongrats").hidden = true;
         document.getElementById("quizzerFeedback").scrollIntoView(false);
