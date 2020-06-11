@@ -1,8 +1,4 @@
 /******** Reference Table styles ********/
-h1 {
-    margin-bottom: 0px;
-}
-
 h3 {
     margin-top: 0px;
     font-weight: normal;
@@ -44,7 +40,7 @@ h3 {
         --hover-color: #FFFFFF;
     }
 
-    #title, #referenceFilter, #referenceSet, .footer, label, br {
+    #title, h3, #referenceFilter, #referenceSet, .footer, label, br {
         display: none;
     }
     
