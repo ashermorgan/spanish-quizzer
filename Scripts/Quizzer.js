@@ -491,6 +491,9 @@ function Continue() {
             Term--;
             break;
     }
+    
+    // Save terms to local storage
+    localStorage.setItem("terms", JSON.stringify(Terms));
 
     // Reset quizzer
     Reset();
