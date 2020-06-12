@@ -479,15 +479,25 @@ function Continue() {
     // Repeat prompt
     switch (document.getElementById("settingsRepeatPrompts").value)
     {
-        case "Never": // Don't repeat
+        case "Never":
+            // Don't repeat
             break;
-        case "Immediately": // Repeat imitiately
+        case "Immediately":
+            // Repeat imitiately
             Term--;
             break;
         case "5 prompts later":
+            // Repeat 5 prompts later
             var temp = Terms[Term];
             Terms.splice(Term, 1);
             Terms.splice(Term + 5, 0, temp);
+            Term--;
+            break;
+        case "At the end":
+            // Repeat at end of Terms
+            var temp = Terms[Term];
+            Terms.splice(Term, 1);
+            Terms.push(temp);
             Term--;
             break;
     }
