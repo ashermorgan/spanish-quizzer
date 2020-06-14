@@ -1,5 +1,5 @@
 /******** Quizzer styles ********/
-#quizzerPrompt.audio, #quizzerFeedback.audio {
+#quizzerPrompt, #quizzerFeedback {
     cursor: pointer;
 }
 

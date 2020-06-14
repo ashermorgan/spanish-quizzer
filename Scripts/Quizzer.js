@@ -31,36 +31,25 @@ function Start() {
         return;
     }
 
-    // Configure voice input
+    
+    // Validate browser for voice input
     if (document.getElementById("settingsInputType").value != "Text") {
-        // Validate browser
         if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
             // Browser is not Googole Chrome or Microsoft (Chromium) Edge
             alert("Your browser does not support voice input.");
             return;
         }
-
-        // Add audio attribute
-        document.getElementById("quizzerFeedback").classList.add("audio");
-    }
-    else {
-        document.getElementById("quizzerFeedback").classList.remove("audio");
     }
 
     // Save terms to local storage
     localStorage.setItem("terms", JSON.stringify(Terms));
 
-    // Configure prompt audio
+    
+    // Give iOS devices ringer warning for prompt audio
     if (document.getElementById("settingsPromptType").value != "Text") {
-        document.getElementById("quizzerPrompt").classList.add("audio");
-        
-        // Give iOS devices ringer warning
         if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
             alert("Please make sure your ringer is on in order to hear audio prompts.");
         }
-    }
-    else {
-        document.getElementById("quizzerPrompt").classList.remove("audio");
     }
 
     // Show and hide elements
@@ -110,17 +99,11 @@ function Resume() {
         return;
     }
 
-    // Configure prompt audio
+    // Give iOS devices ringer warning for prompt audio
     if (document.getElementById("settingsPromptType").value != "Text") {
-        document.getElementById("quizzerPrompt").classList.add("audio");
-        
-        // Give iOS devices ringer warning
         if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
             alert("Please make sure your ringer is on in order to hear audio prompts.");
         }
-    }
-    else {
-        document.getElementById("quizzerPrompt").classList.remove("audio");
     }
 
     // Show and hide elements
@@ -399,24 +382,6 @@ function Read(text, label)
         msg.lang = 'es';
     }
     window.speechSynthesis.speak(msg);
-}
-
-
-
-// Read the prompt if audio is enabled
-function quizzerPromptClicked() {
-    if (document.getElementById("settingsPromptType").value != "Text") {
-        Read(Terms[Term][1], Terms[Term][0]);
-    }
-}
-
-
-
-// Read the answer if audio is enabled
-function quizzerFeedbackClicked() {
-    if (document.getElementById("settingsInputType").value != "Text") {
-        Read(Terms[Term][3], Terms[Term][2]);
-    }
 }
 
 

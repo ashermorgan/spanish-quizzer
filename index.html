@@ -120,7 +120,7 @@
 
             <div>
                 <label for="quizzerPrompt" id="quizzerPromptType" class="label"></label>
-                <span id="quizzerPrompt" onclick="quizzerPromptClicked()"></span>
+                <span id="quizzerPrompt" onclick="Read(Terms[Term][1], Terms[Term][0]);"></span>
             </div>
             
             <div>
@@ -133,7 +133,7 @@
                 <button id="quizzerSkip" class="quizzerButton" onclick="Reset()">Skip</button>
             </div>
             
-            <div id="quizzerFeedback" onclick="quizzerFeedbackClicked()" class="bad"></div>
+            <div id="quizzerFeedback" onclick="Read(Terms[Term][3], Terms[Term][2]);" class="bad"></div>
             <div id="quizzerCongrats" class="good"></div>
         </div>
 
