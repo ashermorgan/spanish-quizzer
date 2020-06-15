@@ -420,7 +420,7 @@ function Submit() {
     // Give user feedback
     if (!correct) {
         // Responce was incorrect
-        document.getElementById("quizzerFeedback").textContent = `The correct answer is ${Terms[Term][3].toLowerCase()}.`;
+        document.getElementById("quizzerFeedbackTerm").textContent = Terms[Term][3].toLowerCase();
         
         // Show and hide elements
         document.getElementById("quizzerInput").readOnly = true;

@@ -11,7 +11,7 @@
     margin-top: 5px;
 }
 
-#quizzerPrompt, #quizzerFeedback {
+#quizzerPrompt, #quizzerFeedbackTerm {
     cursor: pointer;
 }
 

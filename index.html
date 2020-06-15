@@ -133,7 +133,10 @@
                 <button id="quizzerSkip" class="quizzerButton" onclick="Reset()">Skip</button>
             </div>
             
-            <div id="quizzerFeedback" onclick="Read(Terms[Term][3], Terms[Term][2]);" class="bad"></div>
+            <div id="quizzerFeedback" class="bad">
+                The correct answer is 
+                <span id="quizzerFeedbackTerm" onclick="Read(Terms[Term][3], Terms[Term][2]);"></span>.
+            </div>
             <div id="quizzerCongrats" class="good"></div>
         </div>
 
