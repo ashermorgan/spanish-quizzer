@@ -21,7 +21,7 @@
     margin-bottom: 15px;
 }
 
-.quizzerButton {
+#quizzerButtons button {
     width: 75px;
     height: 25px;
 }
