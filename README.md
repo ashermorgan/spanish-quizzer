@@ -3,8 +3,8 @@ Quizzes you on spanish vocabulary through a customizable web interface.
 Try it out [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 
 ## Features
+- Supports practice for all four language skills: reading, listening, writing, and speaking.
 - Lots of vocab sets and filters.
-- Support for voice input and audio prompts.
 - Easily type special characters (``` a` ``` → `á`, `n~` → `ñ`, `u~` → `ü`)
 - Spanish vocabulary reference tables (available [here](https://ashermorgan.github.io/Spanish-Quizzer/Reference))
 
@@ -31,3 +31,20 @@ Spanish-Quizzer comes with many vocabulary sets that can be filtered by word typ
     - Childhood (La Niñez)
     - Professions (Las Profesiones)
     - Health (La Salud)
+
+## Vocabulary Filters
+Spanish-Quizzer comes with many vocabulary filters. Not all filters may be used on every vocab set.
+- Language
+  - Spanish to English
+  - English to Spanish
+- Tense
+  - Present
+  - Preterite
+  - Imperfect
+- Word Type
+  - Noun
+  - Adjective
+  - Verb
+- Conjugation Type
+  - Regular
+  - Non-regular (includes irregular, stem changing, and orthographic conjugations)
