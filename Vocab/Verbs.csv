@@ -13,11 +13,11 @@ To bring,Traer,Irregular,Trayendo,Irregular,Traigo,Traes,Trae,Traemos,Traen,Irre
 To buy,Comprar,Regular,Comprando,Regular,Compro,Compras,Compra,Compramos,Compran,Regular,Compré,Compraste,Compró,Compramos,Compraron,Regular,Compraba,Comprabas,Compraba,Comprábamos,Compraban
 To call,Llamar,Regular,Llamando,Regular,Llamo,Llamas,Llama,Llamamos,Llaman,Regular,Llamé,Llamaste,Llamó,Llamamos,Llamaron,Regular,Llamaba,Llamabas,Llamaba,Llamábamos,Llamaban
 To clean,Limpiar,Regular,Limpiando,Regular,Limpio,Limpias,Limpia,Limpiamos,Limpian,Regular,Limpié,Limpiaste,Limpió,Limpiamos,Limpiaron,Regular,Limpiaba,Limpiabas,Limpiaba,Limpiábamos,Limpiaban
-To come,Venir,Regular,Veniendo,Irregular,Vengo,Venes,Vene,Venimos,Venen,Irregular,Vine,Viniste,Vino,Vinimos,Vinieron,Regular,Venía,Venías,Venía,Veníamos,Venían
+To come,Venir,Regular,Veniendo,Irregular,Vengo,Vienes,Viene,Venimos,Vienen,Irregular,Vine,Viniste,Vino,Vinimos,Vinieron,Regular,Venía,Venías,Venía,Veníamos,Venían
 To dance,Bailar,Regular,Bailando,Regular,Bailo,Bailas,Baila,Bailamos,Bailan,Regular,Bailé,Bailaste,Bailó,Bailamos,Bailaron,Regular,Bailaba,Bailabas,Bailaba,Bailábamos,Bailaban
 To die,Morir,Stem Changing,Muriendo,Stem Changing,Muero,Mueres,Muere,Morimos,Mueren,Stem Changing,Morí,Moriste,Murió,Morimos,Murieron,Regular,Moría,Morías,Moría,Moríamos,Morían
 To do,Hacer,Regular,Haciendo,Irregular,Hago,Haces,Hace,Hacemos,Hacen,Irregular,Hice,Hiciste,Hizo,Hicimos,Hicieron,Regular,Hacía,Hacías,Hacía,Hacíamos,Hacían
-To draw,Dibujar,Regular,Dibujando,Regular,Dibujo,Dibujas,Dibuja,Dibujamos,Dibujan,Regular,Dibujé,Dibujaste,Dibujó,Dibujamos,Dibujaron,Regular,Dibujaba,Dibujabas,Dibujaba,Dibujabábamos,Dibujaban
+To draw,Dibujar,Regular,Dibujando,Regular,Dibujo,Dibujas,Dibuja,Dibujamos,Dibujan,Regular,Dibujé,Dibujaste,Dibujó,Dibujamos,Dibujaron,Regular,Dibujaba,Dibujabas,Dibujaba,Dibujábamos,Dibujaban
 To drink,Beber,Regular,Bebiendo,Regular,Bebo,Bebes,Bebe,Bebemos,Beben,Regular,Bebí,Bebiste,Bebió,Bebimos,Bebieron,Regular,Bebía,Bebías,Bebía,Bebíamos,Bebían
 To eat,Comer,Regular,Comiendo,Regular,Como,Comes,Come,Comemos,Comen,Regular,Comí,Comiste,Comió,Comimos,Comieron,Regular,Comía,Comías,Comía,Comíamos,Comían
 To eat breakfast,Desayunar,Regular,Desayunando,Regular,Desayuno,Desayunas,Desayuna,Desayunamos,Desayunan,Regular,Desayuné,Desayunaste,Desayunó,Desayunamos,Desayunaron,Regular,Desayunaba,Desayunabas,Desayunaba,Desayunábamos,Desayunaban
@@ -25,7 +25,7 @@ To eat dinner,Cenar,Regular,Cenando,Regular,Ceno,Cenas,Cena,Cenamos,Cenan,Regula
 To eat lunch,Almorzar,Regular,Almorzando,Stem Changing,Almuerzo,Almuerzas,Almuerza,Almorzamos,Almuerzan,Orthographic,Almorcé,Almorzaste,Almorzó,Almorzamos,Almorzaron,Regular,Almorzaba,Almorzabas,Almorzaba,Almorzábamos,Almorzaban
 To enjoy oneself,Divertirse,Stem Changing,Divirtiendo,Stem Changing,Me divierto,Te diviertes,Se divierte,Nos divertimos,Se divierten,Stem Changing,Me divertí,Te divertiste,Se divirtió,Nos divertimos,Se divirtieron,Regular,Me divertía,Te divertías,Se divertía,Nos divertíamos,Se divertían
 To feel,Sentirse,Stem Changing,Sintiendo,Stem Changing,Me siento,Te sientes,Se siente,Nos sentimos,Se sienten,Stem Changing,Me sentí,Te sentiste,Se sintió,Nos sentimos,Se sintieron,Regular,Me sentía,Te sentías,Se sentía,Nos sentíamos,Se sentían
-To find,Encontrar,Regular,Encontrando,Stem Changing,Encuentro,Encuentras,Encuentra,Encuentramos,Encuentran,Regular,Encontré,Encontraste,Encontró,Encontramos,Encontraron,Regular,Encontraba,Encontrabas,Encontraba,Encontrábamos,Encontraban
+To find,Encontrar,Regular,Encontrando,Stem Changing,Encuentro,Encuentras,Encuentra,Encontramos,Encuentran,Regular,Encontré,Encontraste,Encontró,Encontramos,Encontraron,Regular,Encontraba,Encontrabas,Encontraba,Encontrábamos,Encontraban
 To get up,Levantarse,Regular,Levantando,Regular,Me levanto,Te levantas,Se levanta,Nos levantamos,Se levantan,Regular,Me levanté,Te levantaste,Se levantó,Nos levantamos,Se levantaron,Regular,Me levantaba,Te levantabas,Se levantaba,Nos levantábamos,Se levantaban
 To give,Dar,Regular,Dando,Irregular,Doy,Das,Da,Damos,Dan,Irregular,Di,Diste,Dio,Dimos,Dieron,Regular,Daba,Dabas,Daba,Dábamos,Daban
 To go,Ir,Irregular,Yendo,Irregular,Voy,Vas,Va,Vamos,Van,Irregular,Fui,Fuiste,Fue,Fuimos,Fueron,Irregular,Iba,Ibas,Iba,Íbamos,Iban
@@ -40,28 +40,28 @@ To listen,Escuchar,Regular,Escuchando,Regular,Escucho,Escuchas,Escucha,Escuchamo
 To live,Vivir,Regular,Viviendo,Regular,Vivo,Vives,Vive,Vivimos,Viven,Regular,Viví,Viviste,Vivió,Vivimos,Vivieron,Regular,Vivía,Vivías,Vivía,Vivíamos,Vivían
 To look,Mirar,Regular,Mirando,Regular,Miro,Miras,Mira,Miramos,Miran,Regular,Miré,Miraste,Miró,Miramos,Miraron,Regular,Miraba,Mirabas,Miraba,Mirábamos,Miraban
 To look for,Buscar,Regular,Buscando,Regular,Busco,Buscas,Busca,Buscamos,Buscan,Orthographic,Busqué,Buscaste,Buscó,Buscamos,Buscaron,Regular,Buscaba,Buscabas,Buscaba,Buscábamos,Buscaban
-To lose,Perder,Regular,Perdiendo,Stem Changing,Pierdo,Pierdes,Pierde,Pierdemos,Pierden,Regular,Perdí,Perdiste,Perdió,Perdimos,Perdieron,Regular,Perdía,Perdías,Perdía,Perdíamos,Perdían
+To lose,Perder,Regular,Perdiendo,Stem Changing,Pierdo,Pierdes,Pierde,Perdemos,Pierden,Regular,Perdí,Perdiste,Perdió,Perdimos,Perdieron,Regular,Perdía,Perdías,Perdía,Perdíamos,Perdían
 To make,Hacer,Regular,Haciendo,Irregular,Hago,Haces,Hace,Hacemos,Hacen,Irregular,Hice,Hiciste,Hizo,Hicimos,Hicieron,Regular,Hacía,Hacías,Hacía,Hacíamos,Hacían
-To meet,Encontrar,Regular,Encontrando,Stem Changing,Encuentro,Encuentras,Encuentra,Encuentramos,Encuentran,Regular,Encontré,Encontraste,Encontró,Encontramos,Encontraron,Regular,Encontraba,Encontrabas,Encontraba,Encontrábamos,Encontraban
+To meet,Encontrar,Regular,Encontrando,Stem Changing,Encuentro,Encuentras,Encuentra,Encontramos,Encuentran,Regular,Encontré,Encontraste,Encontró,Encontramos,Encontraron,Regular,Encontraba,Encontrabas,Encontraba,Encontrábamos,Encontraban
 To mount,Montar,Regular,Montando,Regular,Monto,Montas,Monta,Montamos,Montan,Regular,Monté,Montaste,Montó,Montamos,Montaron,Regular,Montaba,Montabas,Montaba,Montábamos,Montaban
 To need,Necesitar,Regular,Necesitando,Regular,Necesito,Necesitas,Necesita,Necesitamos,Necesitan,Regular,Necesité,Necesitaste,Necesitó,Necesitamos,Necesitaron,Regular,Necesitaba,Necesitabas,Necesitaba,Necesitábamos,Necesitaban
 To organize,Organizar,Regular,Organizando,Regular,Organizo,Organizas,Organiza,Organizamos,Organizan,Orthographic,Organicé,Organizaste,Organizó,Organizamos,Organizaron,Regular,Organizaba,Organizabas,Organizaba,Organizábamos,Organizaban
 To ought to,Deber,Regular,Debiendo,Regular,Debo,Debes,Debe,Debemos,Deben,Regular,Debí,Debiste,Debió,Debimos,Debieron,Regular,Debía,Debías,Debía,Debíamos,Debían
-To pay,Pagar,Regular,Pagando,Regular,Pago,Pagas,Paga,Pagamos,Pagan,Orthographic,Pagué,Pagaste,Pagó,Pagamost,Pagaron,Regular,Pagaba,Pagabas,Pagaba,Pagábamos,Pagaban
+To pay,Pagar,Regular,Pagando,Regular,Pago,Pagas,Paga,Pagamos,Pagan,Orthographic,Pagué,Pagaste,Pagó,Pagamos,Pagaron,Regular,Pagaba,Pagabas,Pagaba,Pagábamos,Pagaban
 To play,Jugar,Regular,Jugando,Stem Changing,Juego,Juegas,Juega,Jugamos,Juegan,Orthographic,Jugué,Jugaste,Jugó,Jugamos,Jugaron,Regular,Jugaba,Jugabas,Jugaba,Jugábamos,Jugaban
 To practice,Practicar,Regular,Practicando,Regular,Practico,Practicas,Practica,Practicamos,Practican,Orthographic,Practiqué,Practicaste,Practicó,Practicamos,Practicaron,Regular,Practicaba,Practicabas,Practicaba,Practicábamos,Practicaban
 To prepare,Preparar,Regular,Preparando,Regular,Preparo,Preparas,Prepara,Preparamos,Preparan,Regular,Preparé,Preparaste,Preparó,Preparamos,Prepararon,Regular,Preparaba,Preparabas,Preparaba,Preparábamos,Preparaban
 To put,Poner,Regular,Poniendo,Irregular,Pongo,Pones,Pone,Ponemos,Ponen,Irregular,Puse,Pusiste,Puso,Pusimos,Pusieron,Regular,Ponía,Ponías,Ponía,Poníamos,Ponían
-To read,Leer,Irregular,Leyendo,Regular,Leo,Lees,Lee,Leemos,Leen,Orthographic,Leí,Leíste,Leyó,Leímos,Leyeron,Regular,Leía,Leías,Lía,Leíamos,Leían
+To read,Leer,Irregular,Leyendo,Regular,Leo,Lees,Lee,Leemos,Leen,Orthographic,Leí,Leíste,Leyó,Leímos,Leyeron,Regular,Leía,Leías,Leía,Leíamos,Leían
 To receive,Recibir,Regular,Recibiendo,Regular,Recibo,Recibes,Recibe,Recibimos,Reciben,Regular,Recibí,Recibiste,Recibió,Recibimos,Recibieron,Regular,Recibía,Recibías,Recibía,Recibíamos,Recibían
-To relax,Descansar,Regular,Descansando,Regular,Descanso,Descansas,Descansa,Descansamos,Descansan,Regular,Descansé,Descansaste,Descansó,Descansamos,Descansaron,Regular,Descansaba,Descansabas,Descamsaba,Descansábamos,Descansaban
+To relax,Descansar,Regular,Descansando,Regular,Descanso,Descansas,Descansa,Descansamos,Descansan,Regular,Descansé,Descansaste,Descansó,Descansamos,Descansaron,Regular,Descansaba,Descansabas,Descansaba,Descansábamos,Descansaban
 To return,Regresar,Regular,Regresando,Regular,Regreso,Regresas,Regresa,Regresamos,Regresan,Regular,Regresé,Regresaste,Regresó,Regresamos,Regresaron,Regular,Regresaba,Regresabas,Regresaba,Regresábamos,Regresaban
 To ride,Montar,Regular,Montando,Regular,Monto,Montas,Monta,Montamos,Montan,Regular,Monté,Montaste,Montó,Montamos,Montaron,Regular,Montaba,Montabas,Montaba,Montábamos,Montaban
 To run,Correr,Regular,Corriendo,Regular,Corro,Corres,Corre,Corremos,Corren,Regular,Corrí,Corriste,Corrió,Corrimos,Corrieron,Regular,Corría,Corrías,Corría,Corríamos,Corrían
 To say,Decir,Regular,Deciendo,"Irregular, Stem Changing",Digo,Dices,Dice,Decimos,Dicen,Irregular,Dije,Dijiste,Dijo,Dijimos,Dijeron,Regular,Decía,Decías,Decía,Decíamos,Decían
-To see,Ver,Regular,Viendo,Irregular,Veo,Ves,Vene,Vemos,Ven,Irregular,Vi,Viste,Vio,Vimos,Vieron,Irregular,Veía,Veías,Veía,Veíamos,Veían
+To see,Ver,Regular,Viendo,Irregular,Veo,Ves,Ve,Vemos,Ven,Irregular,Vi,Viste,Vio,Vimos,Vieron,Irregular,Veía,Veías,Veía,Veíamos,Veían
 To show,Mostrar,Regular,Mostrando,Stem Changing,Muestro,Muestras,Muestra,Mostramos,Muestran,Regular,Mostré,Mostraste,Mostró,Mostramos,Mostraron,Regular,Mostraba,Mostrabas,Mostraba,Mostrábamos,Mostraban
-To sing,Cantar,Regular,Cantando,Regular,Canto,Cantas,Canta,Cantamos,Cantan,Regular,Canté,Cantaste,Cantó,Cantamos,Cantaron,Regular,Cantaba,Cantabas,Cantaba,Cantabamos,Cantaban
+To sing,Cantar,Regular,Cantando,Regular,Canto,Cantas,Canta,Cantamos,Cantan,Regular,Canté,Cantaste,Cantó,Cantamos,Cantaron,Regular,Cantaba,Cantabas,Cantaba,Cantábamos,Cantaban
 To sleep,Dormir,Stem Changing,Durmiendo,Stem Changing,Duermo,Duermes,Duerme,Dormimos,Duermen,Stem Changing,Dormí,Dormiste,Durmió,Dormimos,Durmieron,Regular,Dormía,Dormías,Dormía,Dormíamos,Dormían
 To speak,Hablar,Regular,Hablando,Regular,Hablo,Hablas,Habla,Hablamos,Hablan,Regular,Hablé,Hablaste,Habló,Hablamos,Hablaron,Regular,Hablaba,Hablabas,Hablaba,Hablábamos,Hablaban
 To spend time,Pasar,Regular,Pasando,Regular,Paso,Pasas,Pasa,Pasamos,Pasan,Regular,Pasé,Pasaste,Pasó,Pasamos,Pasaron,Regular,Pasaba,Pasabas,Pasaba,Pasábamos,Pasaban
@@ -74,7 +74,7 @@ To take out,Sacar,Regular,Sacando,Regular,Saco,Sacas,Saca,Sacamos,Sacan,Orthogra
 To teach,Enseñar,Regular,Enseñando,Regular,Enseño,Enseñas,Enseña,Enseñamos,Enseñan,Regular,Enseñé,Enseñaste,Enseñó,Enseñamos,Enseñaron,Regular,Enseñaba,Enseñabas,Enseñaba,Enseñábamos,Enseñaban
 To tell,Decir,Stem Changing,Diciendo,"Irregular, Stem Changing",Digo,Dices,Dice,Decimos,Dicen,Irregular,Dije,Dijiste,Dijo,Dijimos,Dijeron,Regular,Decía,Decías,Decía,Decíamos,Decían
 To touch,Tocar,Regular,Tocando,Regular,Toco,Tocas,Toca,Tocamos,Tocan,Orthographic,Toqué,Tocaste,Tocó,Tocamos,Tocaron,Regular,Tocaba,Tocabas,Tocaba,Tocábamos,Tocaban
-To understand,Entender,Regular,Entendiendo,Stem Changing,Entiendo,Entiendes,Entiende,Entendimos,Entienden,Regular,Entendí,Entendiste,Entendió,Entendimos,Entendieron,Regular,Entendía,Entendías,Entendía,Entendíamos,Entendían
+To understand,Entender,Regular,Entendiendo,Stem Changing,Entiendo,Entiendes,Entiende,Entendemos,Entienden,Regular,Entendí,Entendiste,Entendió,Entendimos,Entendieron,Regular,Entendía,Entendías,Entendía,Entendíamos,Entendían
 To wake up,Despertarse,Regular,Despertando,Stem Changing,Me despierto,Te despiertas,Se despierta,Nos despertamos,Se despiertan,Regular,Me desperté,Te despertaste,Se despertó,Nos despertamos,Se despertaron,Regular,Me despertaba,Te despertabas,Se despertaba,Nos despertábamos,Se despertaban
 To walk,Caminar,Regular,Caminando,Regular,Camino,Caminas,Camina,Caminamos,Caminan,Regular,Caminé,Caminaste,Caminó,Caminamos,Caminaron,Regular,Caminaba,Caminabas,Caminaba,Caminábamos,Caminaban
 To want,Querer,Regular,Queriendo,Stem Changing,Quiero,Quieres,Quiere,Queremos,Quieren,Irregular,Quise,Quisiste,Quiso,Quisimos,Quisieron,Regular,Quería,Querías,Quería,Queríamos,Querían
