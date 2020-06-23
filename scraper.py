@@ -56,7 +56,7 @@ def correctConjugations(filepath):
             # Compare and correct conjugations
             for i in range(len(row)):
                 if (temp[i] != None and temp[i].lower() != row[i].lower()):
-                    row[i] = temp[i]
+                    row[i] = temp[i].capitalize()
         except:
             print("Exception during {0}".format(row[1]))
 
