@@ -1,5 +1,6 @@
 # Import dependencies
 from bs4 import BeautifulSoup
+import csv
 import requests
 
 
@@ -27,3 +28,33 @@ def getConjugations(verb):
         None, conjugations[1][2], conjugations[2][2], conjugations[3][2], conjugations[4][2], conjugations[6][2], # Preterite conjugations
         None, conjugations[1][3], conjugations[2][3], conjugations[3][3], conjugations[4][3], conjugations[6][3]] # Imperfect conjugations
     return result
+
+
+
+def correctConjugations(filepath):
+    # Load csv
+    rows = []
+    with open(filepath, encoding="utf-8") as f:
+        csvreader = csv.reader(f) 
+        fields = next(csvreader)
+        for row in csv.reader(f): 
+            rows.append(row)
+    
+    # Iterate over rows
+    for row in rows[1:]:
+        try:
+            # Get correct conjugations
+            temp = getConjugations(row[1])
+        
+            # Compare and correct conjugations
+            for i in range(len(row)):
+                if (temp[i] != None and temp[i].lower() != row[i].lower()):
+                    row[i] = temp[i]
+        except:
+            print("Exception during {0}".format(row[1]))
+
+    # Save csv
+    with open(filepath, "w", newline="", encoding="utf-8") as f:
+        csvwriter = csv.writer(f)
+        csvwriter.writerow(fields)
+        csvwriter.writerows(rows)
