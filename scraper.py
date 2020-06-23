@@ -14,6 +14,12 @@ def getConjugations(verb):
     page = requests.get("https://www.spanishdict.com/conjugate/{0}".format(verb))
     soup = BeautifulSoup(page.text, "html.parser")
 
+    # Get English infinative
+    english = soup.find("div", class_="CMxOwuaP _1v-p9pvd").text
+    
+    # Get present participle
+    presentParticiple = soup.find("div", class_="_2xfncFkp").text
+
     # Get Indicative conjugations
     conjugations = []
     rows = soup.find("table", class_="_2qmJM3i9").find_all('tr')
@@ -22,8 +28,8 @@ def getConjugations(verb):
         conjugations += [[col.text for col in cols]]
 
     # Return verb info
-    result = [None,verb, # Infinatives
-        None,None, # Present participle
+    result = [english,verb, # Infinatives
+        None, presentParticiple, # Present participle
         None, conjugations[1][1], conjugations[2][1], conjugations[3][1], conjugations[4][1], conjugations[6][1], # Present conjugations
         None, conjugations[1][2], conjugations[2][2], conjugations[3][2], conjugations[4][2], conjugations[6][2], # Preterite conjugations
         None, conjugations[1][3], conjugations[2][3], conjugations[3][3], conjugations[4][3], conjugations[6][3]] # Imperfect conjugations
@@ -31,6 +37,7 @@ def getConjugations(verb):
 
 
 
+# Corrects the conjugations in a CSV file
 def correctConjugations(filepath):
     # Load csv
     rows = []
