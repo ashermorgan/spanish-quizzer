@@ -25,6 +25,7 @@ Dog,El perro,Noun
 Donkey,El burro,Noun
 Duck,El pato,Noun
 Elephant,El elefante,Noun
+Environment,El medioambiente,Noun
 Equipment,El equipo,Noun
 Fauna,La fauna,Noun
 Fierce,Feroz,Adjective
@@ -94,11 +95,10 @@ To light the fire,Prender fuego,Verb
 To navigate,Navegar,Verb
 To not litter,No tirar basura,Verb
 To observe,Observar,Verb
-To preserve the environment,Conservar el medioambiente,Verb
 To put out a fire,Apagar fuego,Verb
 To recycle,Reciciar,Verb
-To respect nature,Respetar la naturaleza,Verb
-To stay on the way,Quedar en el camino,Verb
+To respect,Respetar,Verb
+To stay,Quedar,Verb
 Toad,El soap,Noun
 Trees,Los árboles,Noun
 Turkey,El pavo,Noun
