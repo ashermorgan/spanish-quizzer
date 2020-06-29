@@ -1,0 +1,15 @@
+/******** Instruction styles ********/
+#instructions {
+    max-width: 500px;
+    text-align: left;
+    margin: auto;
+}
+
+h4 {
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+ol {
+    margin-top: 5px;
+}

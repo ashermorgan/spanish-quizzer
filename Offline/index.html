@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Spanish-Quizzer</title>
+        <meta name="description" content="Quiz yourself on Spanish vocabulary through a free and highly customizable web interface.">
+        <meta name="viewport" content="width=device-width, user-scalable=no"/>
+        <link rel="icon" type="image/png" href="../Images/favicon-32.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../Images/apple-touch-icon.png">
+        <link rel="stylesheet" href="../Styles/Global.css">
+        <link rel="stylesheet" href="../Styles/Offline.css">
+    </head>
+
+    <body>
+        <div id="title">
+            <h1 onclick="window.location='../'">Spanish-Quizzer</h1>
+        </div>
+
+        <h2>How to study offline</h2>
+
+        <div id="instructions">
+            <h4>Safari (iOS)</h4>
+            <ol>
+                <li>Go to the <a href="../">Spanish-Quizzer homepage</a>.</li>
+                <li>Tap the share icon and select "Add to Reading List".</li>
+                <li>Open the Settings app and select "Safari".</li>
+                <li>Scroll down to the "Reading List" section and enable "Automatically Save Offline".</li>
+                <li>When you are offline, return to the <a href="../">homepage</a> to study offline.</li>
+            </ol>
+            <h4>Chrome / Firefox / Edge</h4>
+            <ol>
+                <li>Go to the <a href="../">Spanish-Quizzer homepage</a>.</li>
+                <li>Click on the star on the right side of the address bar.</li>
+                <li>Click "Done".</li>
+                <li>When you are offline, return to the <a href="../">homepage</a> to study offline.</li>
+            </ol>
+        </div>
+
+        <div class="footer">
+            <div id="share" hidden>
+                <a href="mailto:?Subject=Spanish-Quizzer&amp;Body=https://ashermorgan.github.io/Spanish-Quizzer">Email</a>&nbsp;
+                <a href="http://www.facebook.com/sharer.php?u=https://ashermorgan.github.io/Spanish-Quizzer" target="_blank">Facebook</a>&nbsp;
+                <a href="https://twitter.com/share?url=https://ashermorgan.github.io/Spanish-Quizzer&amp;text=Spanish-Quizzer" target="_blank">Twitter</a>&nbsp;
+                <a href="http://reddit.com/submit?url=https://ashermorgan.github.io/Spanish-Quizzer&amp;title=Spanish-Quizzer" target="_blank">Reddit</a>&nbsp;
+                <a id="shareSMS" href="sms:&body=https://ashermorgan.github.io/Spanish-Quizzer" hidden>SMS</a>&nbsp;
+            </div>
+            <a href="../">Home</a>&nbsp;
+            <a href="../Reference">Reference Tables</a>&nbsp;
+            <a href="javascript:document.getElementById('share').hidden = false;">Share</a>&nbsp;
+        </div>
+    </body>
+</html>
