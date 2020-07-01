@@ -34,7 +34,11 @@ function Start() {
     
     // Validate browser for voice input
     if (document.getElementById("settingsInputType").value != "Text") {
-        if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
+        if (typeof InstallTrigger !== "undefined") {
+            // Browser is Firefox
+            alert("You must enable speech recognition in about:config.")
+        }
+        else if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
             // Browser is not Googole Chrome or Microsoft (Chromium) Edge
             alert("Your browser does not support voice input.");
             return;
@@ -81,7 +85,11 @@ function Resume() {
 
     // Validate browser for voice input
     if (document.getElementById("settingsInputType").value != "Text") {
-        if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
+        if (typeof InstallTrigger !== "undefined") {
+            // Browser is Firefox
+            alert("You must enable speech recognition in about:config.")
+        }
+        else if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
             // Browser is not Googole Chrome or Microsoft (Chromium) Edge
             alert("Your browser does not support voice input.");
             return;
