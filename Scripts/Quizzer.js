@@ -22,7 +22,7 @@ function Start() {
     }
 
     // Shuffle terms
-    ShuffleTerms();
+    Terms = Shuffle(Terms);
 
     // Validate Terms
     if (Terms.length == 0) {
@@ -275,21 +275,27 @@ function ApplyFilter(vocabSet, name) {
 
 
 
-// Shuffle the list of terms
-function ShuffleTerms() {
-    var currentIndex = Terms.length, temporaryValue, randomIndex;
+// Shuffles a list of items
+function Shuffle(items) {
+    // Initialize variables
+    var currentIndex = items.length;
+    var temp;
+    var randomIndex;
     
     // While there are more elements to shuffle
     while (0 !== currentIndex) {
         // Pick a remaining element
         randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
+        currentIndex--;
         
         // Swap the two elements
-        temporaryValue = Terms[currentIndex];
-        Terms[currentIndex] = Terms[randomIndex];
-        Terms[randomIndex] = temporaryValue;
+        temp = items[currentIndex];
+        items[currentIndex] = items[randomIndex];
+        items[randomIndex] = temp;
     }
+
+    // Return shuffled items
+    return items;
 }
 
 
@@ -307,7 +313,7 @@ function Reset() {
     Term++;
     if (Term == Terms.length) {
         // The user just finished
-        ShuffleTerms();
+        Terms = Shuffle(Terms);
         Term = 0;
         
         // Congradulate user
