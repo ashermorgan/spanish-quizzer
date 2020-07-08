@@ -31,8 +31,9 @@ h3 {
     width: 160px;
 }
 
-.settingsSetRemove {
+.settingsSetRemove, .dark .settingsSetRemove {
     cursor: pointer;
+    color: var(--foreground-color);
 }
 
 #settingsStart, #settingsResume {
