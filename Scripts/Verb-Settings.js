@@ -24,6 +24,14 @@ function Load() {
     document.addEventListener("click", function (e) {
         document.getElementById('share').hidden = true;
     });
+    document.getElementById("title").addEventListener("click", function (e) {
+        if (document.getElementById("quizzer").hidden == false) {
+            Reload();
+        }
+        else {
+            window.location = "/";
+        }
+    });
     document.getElementById("quizzerInput").addEventListener("keydown", function (e) {
         if (e.keyCode === 13) {
             // Key was enter
