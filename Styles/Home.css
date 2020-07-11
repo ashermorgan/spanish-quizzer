@@ -1,0 +1,25 @@
+h3 {
+    margin-bottom: 10px;
+}
+
+.option {
+    border: 1px solid var(--border-color);
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    margin: 10px;
+    display: inline-block;
+}
+
+.option:hover {
+    background-color: var(--hover-color);
+}
+
+a.option {
+    color: var(--foreground-color);
+    text-decoration: none;
+}
+
+#referenceLink {
+    margin-top: 10px;
+}
