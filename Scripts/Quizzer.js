@@ -45,22 +45,18 @@ function StartQuizzer(terms, term) {
     Term = term - 1;
 
     // Validate Terms
-    if (Terms.length == 0) {
-        document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
-        document.getElementById("settingsError").scrollIntoView(false);
-        return;
+    if (!Terms || isNaN(Term) || Term < -1 || Term > Terms.length) {
+        throw "Bad arguments.";
     }
-    else if (!Terms || isNaN(Term) || Term < -1 || Term > Terms.length) {
-        document.getElementById("settingsError").textContent = "An error occured while resuming the previous session.";
-        document.getElementById("settingsError").scrollIntoView(false);
-        return;
+    else if (Terms.length == 0) {
+        throw "Terms is empty.";
     }
     
     // Validate browser for voice input
     if (document.getElementById("settingsInputType").value != "Text") {
         if (typeof InstallTrigger !== "undefined") {
             // Browser is Firefox
-            alert("You must enable speech recognition in about:config.")
+            alert("You must enable speech recognition in about:config.");
         }
         else if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
             // Browser is not Googole Chrome or Microsoft (Chromium) Edge
@@ -78,10 +74,6 @@ function StartQuizzer(terms, term) {
             alert("Please make sure your ringer is on in order to hear audio prompts.");
         }
     }
-
-    // Show and hide elements
-    document.getElementById("settings").hidden = true;
-    document.getElementById("quizzer").hidden = false;
 
     // Give the user a prompt
     Reset();

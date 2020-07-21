@@ -96,8 +96,26 @@ function CreateSession() {
     // Shuffle terms
     terms = Shuffle(terms);
 
-    // Start quizzer
-    StartQuizzer(terms, 0);
+    try {
+        // Start quizzer
+        StartQuizzer(terms, 0);
+
+        // Show and hide elements
+        document.getElementById("settings").hidden = true;
+        document.getElementById("quizzer").hidden = false;
+    }
+    catch (e) {
+        switch (e) {
+            case "Terms is empty.":
+                document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
+                document.getElementById("settingsError").scrollIntoView(false);
+                break;
+            default:
+                document.getElementById("settingsError").textContent = "An error occured.";
+                document.getElementById("settingsError").scrollIntoView(false);
+                break;
+        }
+    }
 }
 
 
@@ -109,7 +127,29 @@ function ResumeSession() {
     let term = parseInt(localStorage.getItem("term"));
 
     // Start quizzer
-    StartQuizzer(terms, term);
+    try {
+        StartQuizzer(terms, term);
+
+        // Show and hide elements
+        document.getElementById("settings").hidden = true;
+        document.getElementById("quizzer").hidden = false;
+    }
+    catch (e) {
+        switch (e) {
+            case "Bad arguments.":
+                document.getElementById("settingsError").textContent = "An error occured while resuming the previous session.";
+                document.getElementById("settingsError").scrollIntoView(false);
+                break;
+            case "Terms is empty.":
+                document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
+                document.getElementById("settingsError").scrollIntoView(false);
+                break;
+            default:
+                document.getElementById("settingsError").textContent = "An error occured.";
+                document.getElementById("settingsError").scrollIntoView(false);
+                break;
+        }
+    }
 }
 
 
