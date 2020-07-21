@@ -1,191 +1,14 @@
-// Declare global variables
-var Terms;      // List of filtered terms
-var Term;       // Index of current term
-
-
-
-// Start the quizzer
-function Start() {
-    // Filter and load Sets into Terms
-    Terms = [];
-    for (var i = 0; i < setId; i++)
-    {
-        if (document.getElementById(`settingsSet-${i}`))
-        {
-            // Get filter information
-            var set = document.getElementById(`settingsSetName-${i}`).value;
-            var filter = document.getElementById(`settingsSetFilter-${i}`).value;
-    
-            // Add filtered set
-            Terms.push(...ApplyFilter(Sets[set], filter));
-        }
+// Reads a peice of text
+function Read(text, label)
+{
+    var msg = new SpeechSynthesisUtterance(text);
+    if (label.toLowerCase().includes("english")) {
+        msg.lang = 'en';
     }
-
-    // Shuffle terms
-    Terms = Shuffle(Terms);
-
-    // Validate Terms
-    if (Terms.length == 0) {
-        document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
-        document.getElementById("settingsError").scrollIntoView(false);
-        return;
+    else if (label.toLowerCase().includes("spanish")){
+        msg.lang = 'es';
     }
-
-    
-    // Validate browser for voice input
-    if (document.getElementById("settingsInputType").value != "Text") {
-        if (typeof InstallTrigger !== "undefined") {
-            // Browser is Firefox
-            alert("You must enable speech recognition in about:config.")
-        }
-        else if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
-            // Browser is not Googole Chrome or Microsoft (Chromium) Edge
-            alert("Your browser does not support voice input.");
-            return;
-        }
-    }
-
-    // Save terms to local storage
-    localStorage.setItem("terms", JSON.stringify(Terms));
-
-    
-    // Give iOS devices ringer warning for prompt audio
-    if (document.getElementById("settingsPromptType").value != "Text") {
-        if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
-            alert("Please make sure your ringer is on in order to hear audio prompts.");
-        }
-    }
-
-    // Show and hide elements
-    document.getElementById("settings").hidden = true;
-    document.getElementById("quizzer").hidden = false;
-
-    // Give the user a prompt
-    Term = -1;
-    Reset();
-}
-
-
-
-// Resume the previous session
-function Resume() {
-    // Validate selected sets
-    for (var i = 0; i < setId; i++)
-    {
-        if (document.getElementById(`settingsSet-${i}`))
-        {
-            if (confirm("This will remove the vocab sets you have already selected. Are you sure?")) {
-                break;
-            }
-            else {
-                return;
-            }
-        }
-    }
-
-    // Validate browser for voice input
-    if (document.getElementById("settingsInputType").value != "Text") {
-        if (typeof InstallTrigger !== "undefined") {
-            // Browser is Firefox
-            alert("You must enable speech recognition in about:config.")
-        }
-        else if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
-            // Browser is not Googole Chrome or Microsoft (Chromium) Edge
-            alert("Your browser does not support voice input.");
-            return;
-        }
-    }
-
-    // Load terms and progress
-    Terms = JSON.parse(localStorage.getItem("terms"));
-    Term = parseInt(localStorage.getItem("term")) - 1;
-    
-    // Validate Terms
-    if (!Terms || Terms.length == 0 || isNaN(Term) || Term < -1 || Term > Terms.length) {
-        document.getElementById("settingsError").textContent = "An error occured while resuming the previous session.";
-        document.getElementById("settingsError").scrollIntoView(false);
-        return;
-    }
-
-    // Give iOS devices ringer warning for prompt audio
-    if (document.getElementById("settingsPromptType").value != "Text") {
-        if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
-            alert("Please make sure your ringer is on in order to hear audio prompts.");
-        }
-    }
-
-    // Show and hide elements
-    document.getElementById("settings").hidden = true;
-    document.getElementById("quizzer").hidden = false;
-
-    // Give the user a prompt
-    Reset();
-}
-
-
-
-// Filters a vocabulary set given the filter name
-function ApplyFilter(vocabSet, name) {
-    // Declare variables
-    var io;     // Format: [[<output index>, <input index>]]
-    var value;  // Format: [[<index>, [<values>], exclude?]]
-
-    // Get filter
-    switch (name) {
-        case "All Definitions":
-            io = [[0,1], [1,0]];
-            value = [];
-            break;
-
-        case "Spanish Infinitives":
-        case "English to Spanish":
-            io = [[0,1]];
-            value = [];
-            break;
-
-        case "English Infinitives":
-        case "Spanish to English":
-            io = [[1,0]];
-            value = [];
-            break;
-        
-        case "Reverse Conjugations":
-            io = [[3,0], [5,0], [6,0], [7,0], [8,0], [9,0], [11,0], [12,0], [13,0], [14,0], [15,0], [17,0], [18,0], [19,0], [20,0], [21,0]];
-            value = [];
-            break;
-    }
-
-    // Filter terms by value
-    var vSet = vocabSet.slice(1);  // Format: same as vocabSet but without headers
-    for (var i = 0; i < value.length; i++) {
-        for (var j = 0; j < vSet.length; j++) {
-            if (value[i][2]) {
-                // Exclude values
-                if (value[i][1].includes(vSet[j][value[i][0]])) {
-                    vSet.splice(j, 1);  // Remove item
-                    j--;    // Adjust for the removal of an item
-                }
-            }
-            else {
-                // Include values
-                if (!value[i][1].includes(vSet[j][value[i][0]])) {
-                    vSet.splice(j, 1);  // Remove item
-                    j--;    // Adjust for the removal of an item
-                }
-            }
-        }
-    }
-
-    // Filter terms by input/output
-    var ioSet = []; // Format: [<output type>, <output>, <input type>, <input>]
-    for (var i = 0; i < io.length; i++) {
-        for (var j = 0; j < vSet.length; j++) {
-            ioSet.push([vocabSet[0][io[i][0]], vSet[j][io[i][0]], vocabSet[0][io[i][1]], vSet[j][io[i][1]]]);
-        }
-    }
-
-    // Return filtered set
-    return ioSet;
+    window.speechSynthesis.speak(msg);
 }
 
 
@@ -211,6 +34,57 @@ function Shuffle(items) {
 
     // Return shuffled items
     return items;
+}
+
+
+
+// Starts the quizzer
+function StartQuizzer(terms, term) {
+    // Set terms
+    Terms = terms;
+    Term = term - 1;
+
+    // Validate Terms
+    if (Terms.length == 0) {
+        document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
+        document.getElementById("settingsError").scrollIntoView(false);
+        return;
+    }
+    else if (!Terms || isNaN(Term) || Term < -1 || Term > Terms.length) {
+        document.getElementById("settingsError").textContent = "An error occured while resuming the previous session.";
+        document.getElementById("settingsError").scrollIntoView(false);
+        return;
+    }
+    
+    // Validate browser for voice input
+    if (document.getElementById("settingsInputType").value != "Text") {
+        if (typeof InstallTrigger !== "undefined") {
+            // Browser is Firefox
+            alert("You must enable speech recognition in about:config.")
+        }
+        else if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
+            // Browser is not Googole Chrome or Microsoft (Chromium) Edge
+            alert("Your browser does not support voice input.");
+            return;
+        }
+    }
+
+    // Save terms to local storage
+    localStorage.setItem("terms", JSON.stringify(Terms));
+    
+    // Give iOS devices ringer warning for prompt audio
+    if (document.getElementById("settingsPromptType").value != "Text") {
+        if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+            alert("Please make sure your ringer is on in order to hear audio prompts.");
+        }
+    }
+
+    // Show and hide elements
+    document.getElementById("settings").hidden = true;
+    document.getElementById("quizzer").hidden = false;
+
+    // Give the user a prompt
+    Reset();
 }
 
 
@@ -296,21 +170,6 @@ function Reset() {
             Submit()
         };
     }
-}
-
-
-
-// Reads a peice of text
-function Read(text, label)
-{
-    var msg = new SpeechSynthesisUtterance(text);
-    if (label.toLowerCase().includes("english")) {
-        msg.lang = 'en';
-    }
-    else if (label.toLowerCase().includes("spanish")){
-        msg.lang = 'es';
-    }
-    window.speechSynthesis.speak(msg);
 }
 
 

@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="Styles/Quizzer.css">
         <script src="https://unpkg.com/papaparse@5.1.1/papaparse.min.js"></script>
         <script src="Scripts/Verb-Settings.js"></script>
-        <script src="Scripts/Verb-Quizzer.js"></script>
+        <script src="Scripts/Quizzer.js"></script>
     </head>
 
     <body onload="Load()">
@@ -85,8 +85,8 @@
             </div>
 
             <div class="centered">
-                <button id="settingsStart" onclick="Start()">Start</button>
-                <button id="settingsResume" onclick="Resume()">Resume</button>
+                <button id="settingsStart" onclick="CreateSession()">Start</button>
+                <button id="settingsResume" onclick="ResumeSession()">Resume</button>
             </div>
             
             <div id="settingsError" class="centered bad"></div>
