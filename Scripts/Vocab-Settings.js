@@ -203,21 +203,21 @@ function Reload() {
 // Add a filtered set
 function AddSet() {
     // Create row
-    var clone = document.getElementById("settingsSetTemplate").content.cloneNode(true);
+    var clone = document.getElementById("vocabSetTemplate").content.cloneNode(true);
 
     // Set row ids
-    clone.children[0].setAttribute("id", `settingsSet-${setId}`);
-    clone.getElementById("settingsSetName").setAttribute("id", `settingsSetName-${setId}`);
-    clone.getElementById("settingsSetFilter").setAttribute("id", `settingsSetFilter-${setId}`);
+    clone.children[0].setAttribute("id", `vocabSet-${setId}`);
+    clone.getElementById("vocabSetName").setAttribute("id", `vocabSetName-${setId}`);
+    clone.getElementById("vocabSetFilter").setAttribute("id", `vocabSetFilter-${setId}`);
     
     // Add remove button onclick attribute
-    clone.getElementById("settingsSetRemove").setAttribute("onclick", `var element = document.getElementById('settingsSet-${setId}'); element.parentNode.removeChild(element);`);
+    clone.getElementById("vocabSetRemove").setAttribute("onclick", `var element = document.getElementById('vocabSet-${setId}'); element.parentNode.removeChild(element);`);
     
     // Add row
-    document.getElementById("settingsSetsInner").appendChild(clone);
+    document.getElementById("vocabSetsInner").appendChild(clone);
     
     // Add filters
-    settingsSetChanged(document.getElementById(`settingsSetName-${setId}`));
+    vocabSetChanged(document.getElementById(`vocabSetName-${setId}`));
     
     // Increment setId
     setId++; // increment fileId to get a unique ID for the new element
@@ -226,7 +226,7 @@ function AddSet() {
 
 
 // Update the filter option
-function settingsSetChanged(setName) {
+function vocabSetChanged(setName) {
     // Get filter options
     var items = [];
     switch(setName.value)
@@ -275,7 +275,7 @@ function settingsSetChanged(setName) {
     }
 
     // Set html
-    filterId = setName.id.replace("settingsSetName", "settingsSetFilter");
+    filterId = setName.id.replace("vocabSetName", "vocabSetFilter");
     document.getElementById(filterId).innerHTML = html;
 }
 
@@ -297,11 +297,11 @@ function CreateSession() {
     let terms = [];
     for (var i = 0; i < setId; i++)
     {
-        if (document.getElementById(`settingsSet-${i}`))
+        if (document.getElementById(`vocabSet-${i}`))
         {
             // Get filter information
-            var set = document.getElementById(`settingsSetName-${i}`).value;
-            var filter = document.getElementById(`settingsSetFilter-${i}`).value;
+            var set = document.getElementById(`vocabSetName-${i}`).value;
+            var filter = document.getElementById(`vocabSetFilter-${i}`).value;
     
             // Add filtered set
             terms.push(...ApplyFilter(Sets[set], filter));

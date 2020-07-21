@@ -14,24 +14,24 @@ h3 {
     text-align: center;
 }
 
-#settingsSets {
+#vocabSets {
     overflow-x: auto;
     white-space: nowrap;
 }
 
-.settingsSet {
+.vocabSet {
     padding-top: 5px;
 }
 
-.settingsSetName {
+.vocabSetName {
     width: 115px;
 }
 
-.settingsSetFilter {
+.vocabSetFilter {
     width: 160px;
 }
 
-.settingsSetRemove {
+.vocabSetRemove {
     cursor: pointer;
 }
 

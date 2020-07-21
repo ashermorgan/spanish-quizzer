@@ -90,7 +90,7 @@ function UpdateLocalStorage() {
 // Start a new session
 function CreateSession() {
     // Filter and load Sets into Terms
-    let filter = document.getElementById(`settingsSetFilter`).value;
+    let filter = document.getElementById(`verbSetFilter`).value;
     let terms = ApplyFilter(Verbs, filter);
 
     // Shuffle terms
