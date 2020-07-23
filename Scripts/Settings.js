@@ -96,8 +96,9 @@ function VocabSetChanged(setName) {
 
 // Start a new session
 function CreateSession() {
-    // Get terms
+    // Get terms and localStorage prefix
     let terms;
+    let prefix;
     if (!document.getElementById("vocabSettings").hidden) {
         // Filter and load Sets into Terms
         terms = [];
@@ -116,6 +117,9 @@ function CreateSession() {
 
         // Shuffle terms
         terms = Shuffle(terms);
+
+        // Set prefix
+        prefix = "vocab-"
     }
     else if (!document.getElementById("verbSettings").hidden) {
         // Filter and load Sets into Terms
@@ -124,12 +128,15 @@ function CreateSession() {
 
         // Shuffle terms
         terms = Shuffle(terms);
+
+        // Set prefix
+        prefix = "verb-"
     }
     
     // Start quizzer
     try {
         // Start quizzer
-        StartQuizzer(terms, 0);
+        StartQuizzer(terms, 0, prefix);
 
         // Show and hide elements
         Show("quizzer");
@@ -152,13 +159,22 @@ function CreateSession() {
 
 // Resume the previous session
 function ResumeSession() {
+    // Get localStorage prefix
+    let prefix;
+    if (!document.getElementById("vocabSettings").hidden) {
+        prefix = "vocab-"
+    }
+    else if (!document.getElementById("verbSettings").hidden) {
+        prefix = "verb-"
+    }
+
     // Load terms and progress
-    let terms = JSON.parse(localStorage.getItem("terms"));
-    let term = parseInt(localStorage.getItem("term"));
+    let terms = JSON.parse(localStorage.getItem(prefix + "terms"));
+    let term = parseInt(localStorage.getItem(prefix + "term"));
 
     // Start quizzer
     try {
-        StartQuizzer(terms, term);
+        StartQuizzer(terms, term, prefix);
 
         // Show and hide elements
         document.getElementById("settings").hidden = true;

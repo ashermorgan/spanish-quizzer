@@ -1,3 +1,10 @@
+// Declare global variables
+let Terms;  // List of prompts
+let Term;   // Index of current prompt
+let Prefix; // Localhost prefix
+
+
+
 // Reads a peice of text
 function Read(text, label)
 {
@@ -39,10 +46,11 @@ function Shuffle(items) {
 
 
 // Starts the quizzer
-function StartQuizzer(terms, term) {
-    // Set terms
+function StartQuizzer(terms, term, prefix) {
+    // Set variables
     Terms = terms;
     Term = term - 1;
+    Prefix = prefix;
 
     // Validate Terms
     if (!Terms || isNaN(Term) || Term < -1 || Term > Terms.length) {
@@ -66,7 +74,7 @@ function StartQuizzer(terms, term) {
     }
 
     // Save terms to local storage
-    localStorage.setItem("terms", JSON.stringify(Terms));
+    localStorage.setItem(Prefix + "terms", JSON.stringify(Terms));
     
     // Give iOS devices ringer warning for prompt audio
     if (document.getElementById("settingsPromptType").value != "Text") {
@@ -103,7 +111,7 @@ function Reset() {
     }
 
     // Save progress to local storage
-    localStorage.setItem("term", Term);
+    localStorage.setItem(Prefix + "term", Term);
 
     // Update progress
     document.getElementById("quizzerProgress").textContent = `${Term} / ${Terms.length}`;
@@ -248,7 +256,7 @@ function Continue() {
     }
     
     // Save terms to local storage
-    localStorage.setItem("terms", JSON.stringify(Terms));
+    localStorage.setItem(Prefix + "terms", JSON.stringify(Terms));
 
     // Reset quizzer
     Reset();
