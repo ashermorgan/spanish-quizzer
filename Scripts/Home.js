@@ -1,3 +1,9 @@
+// Declare global variables
+let Sets;               // List of parsed sets
+let quizzerType = null; // Type of quizzer
+
+
+
 // Load the document
 function Load() {
     // Load settings
@@ -186,21 +192,39 @@ function Show(div) {
 
     // Show elements
     switch (div) {
+        default:
         case "home":
             document.getElementById("home").hidden = false;
+            quizzerType = null;
             break;
         case "vocab":
             document.getElementById("settings").hidden = false;
             document.getElementById("vocabSettings").hidden = false;
             document.getElementById("quizzerSettings").hidden = false;
+            quizzerType = "vocab";
             break;
         case "verbs":
             document.getElementById("settings").hidden = false;
             document.getElementById("verbSettings").hidden = false;
             document.getElementById("quizzerSettings").hidden = false;
+            quizzerType = "verbs";
             break;
         case "quizzer":
             document.getElementById("quizzer").hidden = false;
             break;
+    }
+}
+
+
+
+// Controls navigation when user clicks on title
+function TitleClicked() {
+    if (!document.getElementById("quizzer").hidden) {
+        // Go to settings screen
+        Show(quizzerType);
+    }
+    else {
+        // Go to home screen
+        Show("home");
     }
 }

@@ -1,6 +1,5 @@
 // Declare global variables
-var Sets;       // List of parsed sets
-var setId = 0;  // Next valid set id number
+let setId = 0;  // Next valid vocab set id number
 
 
 
