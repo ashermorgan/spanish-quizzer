@@ -274,21 +274,6 @@ function ApplyVerbFilter(vocabSet, name) {
 
     // Get filter
     switch (name) {
-        case "All Definitions":
-            io = [[0,1], [1,0]];
-            value = [];
-            break;
-
-        case "Spanish Infinitives":
-            io = [[0,1]];
-            value = [];
-            break;
-
-        case "English Infinitives":
-            io = [[1,0]];
-            value = [];
-            break;
-        
         case "All Conjugations":
             io = [[0,3], [0,5], [0,6], [0,7], [0,8], [0,9], [0,11], [0,12], [0,13], [0,14], [0,15], [0,17], [0,18], [0,19], [0,20], [0,21]];
             value = [];
