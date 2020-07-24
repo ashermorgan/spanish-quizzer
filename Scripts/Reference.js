@@ -23,126 +23,126 @@ function Load() {
 
     // Load CSVs
     Sets = [];
-    Papa.parse("../Vocab/Verbs.csv", {
+    Papa.parse("Vocab/Verbs.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Verbs"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Adjectives.csv", {
+    Papa.parse("Vocab/Adjectives.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Adjectives"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Adverbs.csv", {
+    Papa.parse("Vocab/Adverbs.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Adverbs"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Prepositions.csv", {
+    Papa.parse("Vocab/Prepositions.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Prepositions"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Transitions.csv", {
+    Papa.parse("Vocab/Transitions.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Transitions"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Colors.csv", {
+    Papa.parse("Vocab/Colors.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Colors"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Days.csv", {
+    Papa.parse("Vocab/Days.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Days"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Months.csv", {
+    Papa.parse("Vocab/Months.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Months"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Questions.csv", {
+    Papa.parse("Vocab/Questions.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Questions"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Weather.csv", {
+    Papa.parse("Vocab/Weather.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Weather"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Family.csv", {
+    Papa.parse("Vocab/Family.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Family"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Clothes.csv", {
+    Papa.parse("Vocab/Clothes.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Clothes"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Nature.csv", {
+    Papa.parse("Vocab/Nature.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Nature"] = results.data;
         }
     });
-    Papa.parse("../Vocab/House.csv", {
+    Papa.parse("Vocab/House.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["House"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Vacation.csv", {
+    Papa.parse("Vocab/Vacation.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Vacation"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Childhood.csv", {
+    Papa.parse("Vocab/Childhood.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Childhood"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Professions.csv", {
+    Papa.parse("Vocab/Professions.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
             Sets["Professions"] = results.data;
         }
     });
-    Papa.parse("../Vocab/Health.csv", {
+    Papa.parse("Vocab/Health.csv", {
         download: true,
         complete: function(results) {
             // Set verbs
