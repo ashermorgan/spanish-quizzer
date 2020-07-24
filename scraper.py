@@ -65,3 +65,9 @@ def correctConjugations(filepath):
         csvwriter = csv.writer(f)
         csvwriter.writerow(fields)
         csvwriter.writerows(rows)
+
+
+
+# Correct conjugations in Verbs.csv
+if (__name__ == "__main__"):
+    correctConjugations("Vocab/Verbs.csv")

@@ -31,8 +31,9 @@ h3 {
     width: 160px;
 }
 
-.vocabSetRemove {
+.vocabSetRemove, .dark .vocabSetRemove {
     cursor: pointer;
+    color: var(--foreground-color);
 }
 
 #settingsStart, #settingsResume {

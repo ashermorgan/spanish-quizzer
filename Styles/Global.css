@@ -1,9 +1,10 @@
 /******** Variable styles ********/
 :root {
-    --border-color: #808080;
+    --theme-color: #00aad4;
     --foreground-color: #000000;
     --background-color: #FFFFFF;
     --hover-color: #F0F0F0;
+    --border-color: #808080;
 }
 
 
@@ -47,7 +48,7 @@ button:disabled {
     top: 0px;
     left: 0px;
     width: 100%;
-    background-color: #00aad4;
+    background-color: var(--theme-color);
 }
 
 h1 {
@@ -85,13 +86,17 @@ h1 {
 
 /******** Dark mode styles ********/
 body.dark {
-    --background-color: #000000;
+    --theme-color: #0088AA;
     --foreground-color: #E0E0E0;
-    --hover-color: #404040;
+    --background-color: #121416;
+    --hover-color: #323436;
+    --border-color: #505050;
 }
 
 .dark button, .dark input, .dark select {
-    --background-color: #303030;
-    --foreground-color: #FFFFFF;
-    --hover-color: #404040;
+    --background-color: #222426;
+}
+
+.dark a {
+    color: #0080ff;
 }
