@@ -6,7 +6,7 @@ Try it out [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 - Supports practice for all four language skills: reading, listening, writing, and speaking.
 - Lots of vocab sets and filters.
 - Easily type special characters (``` a` ``` → `á`, `n~` → `ñ`, `u~` → `ü`)
-- Spanish vocabulary reference tables (available [here](https://ashermorgan.github.io/Spanish-Quizzer/Reference.html))
+- Spanish vocabulary reference tables (available [here](https://ashermorgan.github.io/Spanish-Quizzer/reference.html))
 
 ## Vocabulary Sets
 Spanish-Quizzer comes with many vocabulary sets that can be filtered by word type, tense, direction, and more. Those vocabulary sets are:
