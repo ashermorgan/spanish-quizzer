@@ -1,0 +1,21 @@
+#home h3 {
+    margin-bottom: 10px;
+}
+
+#home button {
+    border: 1px solid var(--border-color);
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    margin: 10px;
+    display: inline-block;
+    font-size: 15px;
+}
+
+#home button:hover {
+    background-color: var(--hover-color);
+}
+
+#home #referenceLink {
+    margin-top: 10px;
+}
