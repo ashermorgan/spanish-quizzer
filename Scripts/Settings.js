@@ -38,6 +38,27 @@ function AddVocabSet() {
 
 
 
+// Add a verb filter
+function AddVerbFilter() {
+    // Create row
+    var clone = document.getElementById("verbFilterTemplate").content.cloneNode(true);
+
+    // Set row ids
+    clone.children[0].setAttribute("id", `verbFilter-${setId}`);
+    clone.getElementById("verbFilterType").setAttribute("id", `verbFilterType-${setId}`);
+    
+    // Add remove button onclick attribute
+    clone.getElementById("verbFilterRemove").setAttribute("onclick", `var element = document.getElementById('verbFilter-${setId}'); element.parentNode.removeChild(element);`);
+    
+    // Add row
+    document.getElementById("verbFiltersInner").appendChild(clone);
+    
+    // Increment setId
+    setId++; // increment fileId to get a unique ID for the new element
+}
+
+
+
 // Update the filter option
 function VocabSetChanged(setName) {
     // Get filter options
@@ -123,8 +144,18 @@ function CreateSession() {
     }
     else if (!document.getElementById("verbSettings").hidden) {
         // Filter and load Sets into Terms
-        let filter = document.getElementById(`verbSetFilter`).value;
-        terms = ApplyVerbFilter(Sets["Verbs"], filter);
+        terms = [];
+        for (var i = 0; i < setId; i++)
+        {
+            if (document.getElementById(`verbFilter-${i}`))
+            {
+                // Get filter information
+                var filter = document.getElementById(`verbFilterType-${i}`).value;
+
+                // Add filtered set
+                terms.push(...ApplyVerbFilter(Sets["Verbs"], filter));
+            }
+        }
 
         // Shuffle terms
         terms = Shuffle(terms);

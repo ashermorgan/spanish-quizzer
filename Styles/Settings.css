@@ -31,7 +31,7 @@ h3 {
     width: 160px;
 }
 
-.vocabSetRemove, .dark .vocabSetRemove {
+.itemRemove, .dark .itemRemove {
     cursor: pointer;
     color: var(--foreground-color);
 }
