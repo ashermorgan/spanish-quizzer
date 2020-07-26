@@ -25,6 +25,11 @@ function Load() {
     document.addEventListener("click", function (e) {
         document.getElementById('share').hidden = true;
     });
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+            TitleClicked();
+        }
+    });
     document.getElementById("quizzerInput").addEventListener("keydown", function (e) {
         if (e.keyCode === 13) {
             // Key was enter
