@@ -143,22 +143,76 @@ function CreateSession() {
         prefix = "vocab-"
     }
     else if (!document.getElementById("verbSettings").hidden) {
-        // Filter and load Sets into Terms
-        terms = [];
-        for (var i = 0; i < setId; i++)
+        // Get filters
+        let filters = [];
+        for (let i = 0; i < setId; i++)
         {
             if (document.getElementById(`verbFilter-${i}`))
             {
                 // Get filter information
-                var filter = document.getElementById(`verbFilterType-${i}`).value;
+                let filter = document.getElementById(`verbFilterType-${i}`).value;
+                
+                // Add filter
+                switch (filter) {
+                    case "Reverse Conjugations":
+                        // Reverse conjugations not supported yet
+                    case "All Conjugations":
+                        filters.push({tense: "All", regularity: "All"});
+                        break;
 
-                // Add filtered set
-                terms.push(...ApplyVerbFilter(Sets["Verbs"], filter));
+                    case "Present Participles":
+                        filters.push({tense: "Present Participle", regularity: "All"});
+                        break;
+
+                    case "Present Tense":
+                        filters.push({tense: "Present", regularity: "All"});
+                        break;
+
+                    case "Preterite Tense":
+                        filters.push({tense: "Preterite", regularity: "All"});
+                        break;
+
+                    case "Imperfect Tense":
+                        filters.push({tense: "Imperfect", regularity: "All"});
+                        break;
+
+                    case "Present Participle non-Regular":
+                        filters.push({tense: "Present Participle", regularity: "Nonregular"});
+                        break;
+
+                    case "Present non-Regular":
+                        filters.push({tense: "Present", regularity: "Nonregular"});
+                        break;
+
+                    case "Preterite non-Regular":
+                        filters.push({tense: "Preterite", regularity: "Nonregular"});
+                        break;
+
+                    case "Imperfect non-Regular":
+                        filters.push({tense: "Imperfect", regularity: "Nonregular"});
+                        break;
+
+                    case "Present Participle Regular":
+                        filters.push({tense: "Present Participle", regularity: "Regular"});
+                        break;
+
+                    case "Present Regular":
+                        filters.push({tense: "Present", regularity: "Regular"});
+                        break;
+
+                    case "Preterite Regular":
+                        filters.push({tense: "Preterite", regularity: "Regular"});
+                        break;
+
+                    case "Imperfect Regular":
+                        filters.push({tense: "Imperfect", regularity: "Regular"});
+                        break;
+                }
             }
         }
 
-        // Shuffle terms
-        terms = Shuffle(terms);
+        // Get terms
+        terms = Shuffle(ApplyVerbFilter(Sets["Verbs"], filters));
 
         // Set prefix
         prefix = "verb-"
@@ -302,119 +356,100 @@ function ApplyVocabFilter(vocabSet, name) {
 
 
 
-// Filters verbs set given the filter name
-function ApplyVerbFilter(vocabSet, name) {
-    // Declare variables
-    var io;     // Format: [[<output index>, <input index>]]
-    var value;  // Format: [[<index>, [<values>], exclude?]]
-
-    // Get filter
-    switch (name) {
-        case "All Conjugations":
-            io = [[0,3], [0,5], [0,6], [0,7], [0,8], [0,9], [0,11], [0,12], [0,13], [0,14], [0,15], [0,17], [0,18], [0,19], [0,20], [0,21]];
-            value = [];
-            break;
-        
-        case "Reverse Conjugations":
-            io = [[3,0], [5,0], [6,0], [7,0], [8,0], [9,0], [11,0], [12,0], [13,0], [14,0], [15,0], [17,0], [18,0], [19,0], [20,0], [21,0]];
-            value = [];
-            break;
-
-        case "Present Participles":
-            io = [[0,3]];
-            value = [];
-            break;
-
-        case "Present Tense":
-            io = [[0,5], [0,6], [0,7], [0,8], [0,9]];
-            value = [];
-            break;
-
-        case "Preterite Tense":
-            io = [[0,11], [0,12], [0,13], [0,14], [0,15]]
-            value = [];
-            break;
-
-        case "Imperfect Tense":
-            io = [[0,17], [0,18], [0,19], [0,20], [0,21]];
-            value = [];
-            break;
-
-        case "Present Participle non-Regular":
-            io = [[0,3]];
-            value = [[2, ["Regular"], true]];
-            break;
-
-        case "Present non-Regular":
-            io = [[0,5], [0,6], [0,7], [0,8], [0,9]];
-            value = [[4, ["Regular"], true]];
-            break;
-
-        case "Preterite non-Regular":
-            io = [[0,11], [0,12], [0,13], [0,14], [0,15]];
-            value = [[10, ["Regular"], true]];
-            break;
-
-        case "Imperfect non-Regular":
-            io = [[0,17], [0,18], [0,19], [0,20], [0,21]];
-            value = [[16, ["Regular"], true]];
-            break;
-
-        case "Present Participle Regular":
-            io = [[0,3]];
-            value = [[2, ["Regular"], false]];
-            break;
-
-        case "Present Regular":
-            io = [[0,5], [0,6], [0,7], [0,8], [0,9]];
-            value = [[4, ["Regular"], false]];
-            break;
-
-        case "Preterite Regular":
-            io = [[0,11], [0,12], [0,13], [0,14], [0,15]];
-            value = [[10, ["Regular"], false]];
-            break;
-
-        case "Imperfect Regular":
-            io = [[0,17], [0,18], [0,19], [0,20], [0,21]];
-            value = [[16, ["Regular"], false]];
-            break;
-
-        default:
-            io = [];
-            value = [];
-            break;
-    }
-
-    // Filter terms by value
-    var vSet = vocabSet.slice(1);  // Format: same as vocabSet but without headers
-    for (var i = 0; i < value.length; i++) {
-        for (var j = 0; j < vSet.length; j++) {
-            if (value[i][2]) {
-                // Exclude values
-                if (value[i][1].includes(vSet[j][value[i][0]])) {
-                    vSet.splice(j, 1);  // Remove item
-                    j--;    // Adjust for the removal of an item
-                }
-            }
-            else {
-                // Include values
-                if (!value[i][1].includes(vSet[j][value[i][0]])) {
-                    vSet.splice(j, 1);  // Remove item
-                    j--;    // Adjust for the removal of an item
-                }
-            }
+// Filters verbs set given the filter information
+function ApplyVerbFilter(terms, filterInfo) {
+    // Change regularity strings into regex
+    for (config of filterInfo) {
+        switch (config.regularity.toLowerCase()) {
+            case "regular":
+                config.regularity = "^Regular$";
+                break;
+            case "irregular":
+                config.regularity = "^Irregular$";
+                break;
+            case "stem changing":
+                config.regularity = "^Stem.Changing$";
+                break;
+            case "orthographic":
+                config.regularity = "^Orthographic$";
+                break;
+            case "non-regular":
+            case "non regular":
+            case "nonregular":
+                config.regularity = "^Irregular$|^Stem.Changing$|^Orthographic$";
+                break;
+            default:
+            case "all":
+                config.regularity = ".*";
         }
     }
 
-    // Filter terms by input/output
-    var ioSet = []; // Format: [<output type>, <output>, <input type>, <input>]
-    for (var i = 0; i < io.length; i++) {
-        for (var j = 0; j < vSet.length; j++) {
-            ioSet.push([vocabSet[0][io[i][0]], vSet[j][io[i][0]], vocabSet[0][io[i][1]], vSet[j][io[i][1]]]);
+    // Create filters
+    let filters = [];   // Format: [{outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
+    for (config of filterInfo) {
+        switch (config.tense.toLowerCase()) {
+            case "present participle":
+                filters.push({outputIndex:0, inputIndex:3, filterIndex:2, filterValue:config.regularity});
+                break;
+            case "present":
+            case "present tense":
+                filters.push({outputIndex:0, inputIndex:5, filterIndex:4, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:6, filterIndex:4, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:7, filterIndex:4, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:8, filterIndex:4, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:9, filterIndex:4, filterValue:config.regularity});
+                break;
+            case "preterite":
+            case "preterite tense":
+                filters.push({outputIndex:0, inputIndex:11, filterIndex:10, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:12, filterIndex:10, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:13, filterIndex:10, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:14, filterIndex:10, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:15, filterIndex:10, filterValue:config.regularity});
+                break;
+            case "imperfect":
+            case "imperfect tense":
+                filters.push({outputIndex:0, inputIndex:17, filterIndex:16, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:18, filterIndex:16, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:19, filterIndex:16, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:20, filterIndex:16, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:21, filterIndex:16, filterValue:config.regularity});
+                break;
+            default:
+            case "all":
+                filters.push({outputIndex:0, inputIndex:3, filterIndex:2, filterValue:config.regularity});
+
+                filters.push({outputIndex:0, inputIndex:5, filterIndex:4, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:6, filterIndex:4, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:7, filterIndex:4, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:8, filterIndex:4, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:9, filterIndex:4, filterValue:config.regularity});
+                
+                filters.push({outputIndex:0, inputIndex:11, filterIndex:10, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:12, filterIndex:10, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:13, filterIndex:10, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:14, filterIndex:10, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:15, filterIndex:10, filterValue:config.regularity});
+                
+                filters.push({outputIndex:0, inputIndex:17, filterIndex:16, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:18, filterIndex:16, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:19, filterIndex:16, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:20, filterIndex:16, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:21, filterIndex:16, filterValue:config.regularity});
+                break;
         }
     }
 
-    // Return filtered set
-    return ioSet;
+    // Filter terms
+    let results = [];   // Format: [[<output label>, <output>, <input label>, <input>]]
+    for (filter of filters) {
+        // Iterate over terms (minus headers)
+        for (term of terms.slice(1)) {
+            // Check against filters
+            if (term[filter.filterIndex].match(filter.filterValue)) {
+                results.push([terms[0][filter.outputIndex], term[filter.outputIndex], terms[0][filter.inputIndex], term[filter.inputIndex]]);
+            }
+        }
+    }
+    return results;
 }
