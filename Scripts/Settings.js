@@ -164,10 +164,15 @@ function CreateSession() {
         prefix = "verb-"
     }
     
+    // Get quizzer settings
+    inputType = document.getElementById("settingsInputType").value;
+    promptType = document.getElementById("settingsPromptType").value;
+    repeatPrompts = document.getElementById("settingsRepeatPrompts").value;
+    
     // Start quizzer
     try {
         // Start quizzer
-        StartQuizzer(terms, 0, prefix);
+        StartQuizzer(terms, 0, prefix, inputType, promptType, repeatPrompts);
 
         // Show and hide elements
         Show("quizzer");

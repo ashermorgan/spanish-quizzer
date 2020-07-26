@@ -1,7 +1,7 @@
 // Declare global variables
-let Terms;  // List of prompts
-let Term;   // Index of current prompt
-let Prefix; // Localhost prefix
+let Terms;          // List of prompts
+let Term;           // Index of current prompt
+let Settings = {};  // Dictionary of quizzer settings
 
 
 
@@ -46,11 +46,14 @@ function Shuffle(items) {
 
 
 // Starts the quizzer
-function StartQuizzer(terms, term, prefix) {
-    // Set variables
+function StartQuizzer(terms, term, prefix, inputType, promptType, repeatPrompts) {
+    // Set variables and settings
     Terms = terms;
     Term = term - 1;
-    Prefix = prefix;
+    Settings["Prefix"] = prefix;
+    Settings["InputType"] = inputType;
+    Settings["PromptType"] = promptType;
+    Settings["RepeatPrompts"] = repeatPrompts;
 
     // Validate Terms
     if (!Terms || isNaN(Term) || Term < -1 || Term > Terms.length) {
@@ -61,7 +64,7 @@ function StartQuizzer(terms, term, prefix) {
     }
     
     // Validate browser for voice input
-    if (document.getElementById("settingsInputType").value != "Text") {
+    if (Settings["InputType"] != "Text") {
         if (typeof InstallTrigger !== "undefined") {
             // Browser is Firefox
             alert("You must enable speech recognition in about:config.");
@@ -74,10 +77,10 @@ function StartQuizzer(terms, term, prefix) {
     }
 
     // Save terms to local storage
-    localStorage.setItem(Prefix + "terms", JSON.stringify(Terms));
+    localStorage.setItem(Settings["Prefix"] + "terms", JSON.stringify(Terms));
     
     // Give iOS devices ringer warning for prompt audio
-    if (document.getElementById("settingsPromptType").value != "Text") {
+    if (Settings["PromptType"] != "Text") {
         if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
             alert("Please make sure your ringer is on in order to hear audio prompts.");
         }
@@ -111,14 +114,14 @@ function Reset() {
     }
 
     // Save progress to local storage
-    localStorage.setItem(Prefix + "term", Term);
+    localStorage.setItem(Settings["Prefix"] + "term", Term);
 
     // Update progress
     document.getElementById("quizzerProgress").textContent = `${Term} / ${Terms.length}`;
 
     // Set prompt
     document.getElementById("quizzerPromptType").textContent = `${Terms[Term][0]}: `;
-    if (document.getElementById("settingsPromptType").value != "Audio") {
+    if (Settings["PromptType"] != "Audio") {
         document.getElementById("quizzerPrompt").textContent = Terms[Term][1];
     }
     else {
@@ -130,18 +133,18 @@ function Reset() {
     document.getElementById("quizzerInput").value = "";
 
     // Read prompt
-    if (document.getElementById("settingsPromptType").value != "Text") {
+    if (Settings["PromptType"] != "Text") {
         Read(Terms[Term][1], Terms[Term][0]);
     }
 
     // Disable textbox and submit button
-    if (document.getElementById("settingsInputType").value == "Voice") {
+    if (Settings["InputType"] == "Voice") {
         document.getElementById("quizzerInput").readOnly = true;
         document.getElementById("quizzerEnter").disabled = true;
     }
 
     // Get voice input
-    if (document.getElementById("settingsInputType").value != "Text") {
+    if (Settings["InputType"] != "Text") {
         // Create recognition object
         var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
         
@@ -230,7 +233,7 @@ function Submit() {
 // Processes an incorrect responce and then resets the quizzer
 function Continue() {
     // Repeat prompt
-    switch (document.getElementById("settingsRepeatPrompts").value)
+    switch (Settings["RepeatPrompts"])
     {
         case "Never":
             // Don't repeat
@@ -256,7 +259,7 @@ function Continue() {
     }
     
     // Save terms to local storage
-    localStorage.setItem(Prefix + "terms", JSON.stringify(Terms));
+    localStorage.setItem(Settings["Prefix"] + "terms", JSON.stringify(Terms));
 
     // Reset quizzer
     Reset();
