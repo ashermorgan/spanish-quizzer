@@ -154,8 +154,6 @@ function CreateSession() {
                 
                 // Add filter
                 switch (filter) {
-                    case "Reverse Conjugations":
-                        // Reverse conjugations not supported yet
                     case "All Conjugations":
                         filters.push({tense: "All", regularity: "All"});
                         break;
