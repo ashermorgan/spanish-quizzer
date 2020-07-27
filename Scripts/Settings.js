@@ -116,6 +116,53 @@ function VocabSetChanged(setName) {
 
 
 
+// Update the type filter options
+function VerbTenseChanged(filter) {
+    // Get type filter element
+    let types = document.getElementById(filter.id.replace("verbFilterTense", "verbFilterType"));
+
+    // Enable all types
+    types[0].disabled = false;
+    types[1].disabled = false;
+    types[2].disabled = false;
+    types[3].disabled = false;
+    types[4].disabled = false;
+    types[5].disabled = false;
+
+    // Disable unavailable types
+    switch(filter.value)
+    {
+        case "All Tenses":
+            break;
+        case "Present Participles":
+            types[4].disabled = true; // Orthographic
+            if (types.selectedIndex === 4) {
+                // Deselect unavailable types
+                types.selectedIndex = 0
+            }
+            break;
+        case "Present Tense":
+            types[4].disabled = true; // Orthographic
+            if (types.selectedIndex === 4) {
+                // Deselect unavailable types
+                types.selectedIndex = 0
+            }
+            break;
+        case "Preterite Tense":
+            break;
+        case "Imperfect Tense":
+            types[3].disabled = true; // Stem Changing
+            types[4].disabled = true; // Orthographic
+            if (types.selectedIndex === 3 || types.selectedIndex === 4) {
+                // Deselect unavailable types
+                types.selectedIndex = 0
+            }
+            break;
+    }
+}
+
+
+
 // Start a new session
 function CreateSession() {
     // Get terms and localStorage prefix
