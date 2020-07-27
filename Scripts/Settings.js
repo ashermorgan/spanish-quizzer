@@ -45,6 +45,7 @@ function AddVerbFilter() {
 
     // Set row ids
     clone.children[0].setAttribute("id", `verbFilter-${setId}`);
+    clone.getElementById("verbFilterTense").setAttribute("id", `verbFilterTense-${setId}`);
     clone.getElementById("verbFilterType").setAttribute("id", `verbFilterType-${setId}`);
     
     // Add remove button onclick attribute
@@ -150,62 +151,11 @@ function CreateSession() {
             if (document.getElementById(`verbFilter-${i}`))
             {
                 // Get filter information
-                let filter = document.getElementById(`verbFilterType-${i}`).value;
+                let tense = document.getElementById(`verbFilterTense-${i}`).value;
+                let type = document.getElementById(`verbFilterType-${i}`).value;
                 
                 // Add filter
-                switch (filter) {
-                    case "All Conjugations":
-                        filters.push({tense: "All", regularity: "All"});
-                        break;
-
-                    case "Present Participles":
-                        filters.push({tense: "Present Participle", regularity: "All"});
-                        break;
-
-                    case "Present Tense":
-                        filters.push({tense: "Present", regularity: "All"});
-                        break;
-
-                    case "Preterite Tense":
-                        filters.push({tense: "Preterite", regularity: "All"});
-                        break;
-
-                    case "Imperfect Tense":
-                        filters.push({tense: "Imperfect", regularity: "All"});
-                        break;
-
-                    case "Present Participle non-Regular":
-                        filters.push({tense: "Present Participle", regularity: "Nonregular"});
-                        break;
-
-                    case "Present non-Regular":
-                        filters.push({tense: "Present", regularity: "Nonregular"});
-                        break;
-
-                    case "Preterite non-Regular":
-                        filters.push({tense: "Preterite", regularity: "Nonregular"});
-                        break;
-
-                    case "Imperfect non-Regular":
-                        filters.push({tense: "Imperfect", regularity: "Nonregular"});
-                        break;
-
-                    case "Present Participle Regular":
-                        filters.push({tense: "Present Participle", regularity: "Regular"});
-                        break;
-
-                    case "Present Regular":
-                        filters.push({tense: "Present", regularity: "Regular"});
-                        break;
-
-                    case "Preterite Regular":
-                        filters.push({tense: "Preterite", regularity: "Regular"});
-                        break;
-
-                    case "Imperfect Regular":
-                        filters.push({tense: "Imperfect", regularity: "Regular"});
-                        break;
-                }
+                filters.push({tense: tense, regularity: type});
             }
         }
 
@@ -387,6 +337,7 @@ function ApplyVerbFilter(terms, filterInfo) {
     for (config of filterInfo) {
         switch (config.tense.toLowerCase()) {
             case "present participle":
+            case "present participles":
                 filters.push({outputIndex:0, inputIndex:3, filterIndex:2, filterValue:config.regularity});
                 break;
             case "present":
