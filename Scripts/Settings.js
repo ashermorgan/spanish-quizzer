@@ -315,6 +315,7 @@ function ApplyVerbFilter(terms, filterInfo) {
             case "irregular":
                 config.regularity = "^Irregular$";
                 break;
+            case "stem-changing":
             case "stem changing":
                 config.regularity = "^Stem.Changing$";
                 break;
