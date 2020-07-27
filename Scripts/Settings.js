@@ -310,22 +310,22 @@ function ApplyVerbFilter(terms, filterInfo) {
     for (config of filterInfo) {
         switch (config.regularity.toLowerCase()) {
             case "regular":
-                config.regularity = "^Regular$";
+                config.regularity = "Regular";
                 break;
             case "irregular":
-                config.regularity = "^Irregular$";
+                config.regularity = "Irregular";
                 break;
             case "stem-changing":
             case "stem changing":
-                config.regularity = "^Stem.Changing$";
+                config.regularity = "Stem.?Changing";
                 break;
             case "orthographic":
-                config.regularity = "^Orthographic$";
+                config.regularity = "Orthographic";
                 break;
             case "non-regular":
             case "non regular":
             case "nonregular":
-                config.regularity = "^Irregular$|^Stem.Changing$|^Orthographic$";
+                config.regularity = "Irregular|Stem.?Changing|Orthographic";
                 break;
             default:
             case "all":
