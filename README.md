@@ -45,7 +45,6 @@ Spanish-Quizzer comes with many vocabulary filters. Not all filters may be used 
 ## Verb Filters
 Spanish-Quizzer comes with many verb filters.
 - All Conjugations
-- Reverse Conjugations
 - All Present Participles
 - All Present Tense Conjugations
 - All Preterite Tense Conjugations

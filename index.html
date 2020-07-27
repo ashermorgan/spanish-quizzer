@@ -46,21 +46,20 @@
             <div id="verbSettings" hidden>
                 <template id="verbFilterTemplate">
                     <div class="verbFilter">
-                        <select id="verbFilterType" class="verbFilterType">
-                            <option>All Conjugations</option>
-                            <option>Reverse Conjugations</option>
+                        <select id="verbFilterTense" onchange="VerbTenseChanged(this);">
+                            <option>All Tenses</option>
                             <option>Present Participles</option>
                             <option>Present Tense</option>
                             <option>Preterite Tense</option>
                             <option>Imperfect Tense</option>
-                            <option>Present Participle non-Regular</option>
-                            <option>Present non-Regular</option>
-                            <option>Preterite non-Regular</option>
-                            <option>Imperfect non-Regular</option>
-                            <option>Present Participle Regular</option>
-                            <option>Present Regular</option>
-                            <option>Preterite Regular</option>
-                            <option>Imperfect Regular</option>
+                        </select>
+                        <select id="verbFilterType">
+                            <option>All Types</option>
+                            <option>Regular</option>
+                            <option>Nonregular</option>
+                            <option>Stem Changing</option>
+                            <option>Orthographic</option>
+                            <option>Irregular</option>
                         </select>
                         <a id="verbFilterRemove" class="itemRemove">╳</a>
                     </div>
