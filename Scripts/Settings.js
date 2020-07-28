@@ -257,9 +257,14 @@ function ResumeSession() {
     let terms = JSON.parse(localStorage.getItem(prefix + "terms"));
     let term = parseInt(localStorage.getItem(prefix + "term"));
 
+    // Get quizzer settings
+    inputType = document.getElementById("settingsInputType").value;
+    promptType = document.getElementById("settingsPromptType").value;
+    repeatPrompts = document.getElementById("settingsRepeatPrompts").value;
+
     // Start quizzer
     try {
-        StartQuizzer(terms, term, prefix);
+        StartQuizzer(terms, term, prefix, inputType, promptType, repeatPrompts);
 
         // Show and hide elements
         document.getElementById("settings").hidden = true;
