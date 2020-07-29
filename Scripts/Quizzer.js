@@ -95,11 +95,12 @@ function StartQuizzer(terms, term, prefix, inputType, promptType, repeatPrompts)
 // Give the user a new prompt
 function Reset() {
     // Show and hide elements
-    document.getElementById("quizzerInput").readOnly = false;
     document.getElementById("quizzerEnter").textContent = "Submit";
     document.getElementById("quizzerEnter").disabled = false;
     document.getElementById("quizzerFeedback").hidden = true;
     document.getElementById("quizzerCongrats").hidden = true;
+    document.getElementById("quizzerInput").readOnly = false;
+    document.getElementById("quizzerInput").focus();
     
     // Get prompt
     Term++;
