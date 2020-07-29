@@ -31,8 +31,12 @@ function Load() {
         }
     });
     document.getElementById("quizzerInput").addEventListener("keydown", function (e) {
-        if (e.keyCode === 13) {
-            // Key was enter
+        if (e.ctrlKey && e.keyCode === 13) {
+            // Key was Ctrl+Enter
+            Reset(); // Skip prompt
+        }
+        else if (e.keyCode === 13) {
+            // Key was Enter
             if (document.getElementById("quizzerInput").readOnly) {
                 Continue();
             }
