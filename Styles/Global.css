@@ -23,14 +23,14 @@ body {
 
 
 /******** Control styles ********/
-button, input, select {
+button:not(.itemRemove), input, select {
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     color: var(--foreground-color);
     border-radius: 0px;
 }
 
-button:hover:enabled {
+button:hover:enabled:not(.itemRemove) {
     cursor: pointer;
     background-color: var(--hover-color);
 }
@@ -93,7 +93,7 @@ body.dark {
     --border-color: #505050;
 }
 
-.dark button, .dark input, .dark select {
+.dark button:not(.itemRemove), .dark input, .dark select {
     --background-color: #222426;
 }
 
