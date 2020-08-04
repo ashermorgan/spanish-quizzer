@@ -43,17 +43,16 @@ Spanish-Quizzer comes with many vocabulary filters. Not all filters may be used 
   - Verb
 
 ## Verb Filters
-Spanish-Quizzer comes with many verb filters.
-- All Conjugations
-- All Present Participles
-- All Present Tense Conjugations
-- All Preterite Tense Conjugations
-- All Imperfect Tense Conjugations
-- Non-Regular Present Participles
-- Non-Regular Present Tense Conjugations
-- Non-Regular Preterite Tense Conjugations
-- Non-Regular Imperfect Tense Conjugations
-- Regular Present Participles
-- Regular Present Conjugations
-- Regular Preterite Conjugations
-- Regular Imperfect Conjugations
+- Tense filters
+  - All tenses
+  - Present Participles
+  - Present Tense
+  - Preterite Tense
+  - Imperfect Tense
+- Regularity filters
+  - All Conjugations
+  - Regular Conjugations
+  - Nonregular Conjugations
+  - Stem Changing Conjugations
+  - Orthographic Conjugations
+  - Irregular Conjugations
