@@ -51,6 +51,7 @@ Spanish-Quizzer comes with many vocabulary filters. Not all filters may be used 
   - Imperfect Tense
 - Regularity filters
   - All Conjugations
+  - Conjugations of reflexive verbs
   - Regular Conjugations
   - Nonregular Conjugations
   - Stem Changing Conjugations

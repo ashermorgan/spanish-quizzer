@@ -128,6 +128,7 @@ function VerbTenseChanged(filter) {
     types[3].disabled = false;
     types[4].disabled = false;
     types[5].disabled = false;
+    types[6].disabled = false;
 
     // Disable unavailable types
     switch(filter.value)
@@ -135,15 +136,16 @@ function VerbTenseChanged(filter) {
         case "All Tenses":
             break;
         case "Present Participles":
-            types[4].disabled = true; // Orthographic
-            if (types.selectedIndex === 4) {
+            types[1].disabled = true; // Reflexive
+            types[5].disabled = true; // Orthographic
+            if (types.selectedIndex === 1 || types.selectedIndex === 5) {
                 // Deselect unavailable types
                 types.selectedIndex = 0
             }
             break;
         case "Present Tense":
-            types[4].disabled = true; // Orthographic
-            if (types.selectedIndex === 4) {
+            types[5].disabled = true; // Orthographic
+            if (types.selectedIndex === 5) {
                 // Deselect unavailable types
                 types.selectedIndex = 0
             }
@@ -151,9 +153,9 @@ function VerbTenseChanged(filter) {
         case "Preterite Tense":
             break;
         case "Imperfect Tense":
-            types[3].disabled = true; // Stem Changing
-            types[4].disabled = true; // Orthographic
-            if (types.selectedIndex === 3 || types.selectedIndex === 4) {
+            types[4].disabled = true; // Stem Changing
+            types[5].disabled = true; // Orthographic
+            if (types.selectedIndex === 4 || types.selectedIndex === 5) {
                 // Deselect unavailable types
                 types.selectedIndex = 0
             }
@@ -363,6 +365,9 @@ function ApplyVerbFilter(terms, filterInfo) {
         switch (config.regularity.toLowerCase()) {
             case "regular":
                 config.regularity = "Regular";
+                break;
+            case "reflexive":
+                config.regularity = "Reflexive";
                 break;
             case "irregular":
                 config.regularity = "Irregular";
