@@ -24,7 +24,7 @@
         </noscript>
         
         <div id="controls">
-            <select id="referenceSet" onchange="referenceSetChanged()">
+            <select id="referenceSet" aria-label="Vocab Set" onchange="referenceSetChanged()">
                 <option>Choose a vocab set</option>
                 <optgroup label="Common Words">
                     <option>Verbs</option>
@@ -51,7 +51,7 @@
                     <option>Health</option>
                 </optgroup>
             </select>
-            <input type="text" id="referenceFilter" onkeyup="referenceFilterChanged()" placeholder="Search">
+            <input type="text" aria-label="Search" id="referenceFilter" onkeyup="referenceFilterChanged()" placeholder="Search">
         </div>
         
         <div id="referenceTable">
