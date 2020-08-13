@@ -25,11 +25,7 @@ function Load() {
     document.addEventListener("click", function (e) {
         document.getElementById('share').hidden = true;
     });
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-            TitleClicked();
-        }
-    });
+    document.addEventListener("keydown", KeyDown);
     document.getElementById("quizzerInput").addEventListener("keydown", function (e) {
         if (e.ctrlKey && e.keyCode === 13) {
             // Key was Ctrl+Enter
@@ -121,5 +117,37 @@ function TitleClicked() {
     else {
         // Go to home screen
         Show("home");
+    }
+}
+
+
+
+// Handles keyDown events (implements keyboard shortcuts)
+function KeyDown(e) {
+    if (e.key === "Escape") {
+        TitleClicked();
+    }
+
+    // Home shortcuts
+    if (document.getElementById("home").hidden == false) {
+        if (e.key === "c") {
+            Show("verbs");
+        }
+        if (e.key === "v") {
+            Show("vocab");
+        }
+        if (e.key === "r") {
+            window.location = "/reference.html";
+        }
+    }
+
+    // Settings shortcuts
+    if (document.getElementById("settings").hidden == false) {
+        if (e.key === "s") {
+            CreateSession();
+        }
+        if (e.key === "r") {
+            ResumeSession();
+        }
     }
 }
