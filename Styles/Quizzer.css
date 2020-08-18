@@ -1,4 +1,5 @@
 /******** Quizzer styles ********/
+/* Container */
 #quizzer {
     margin: auto;
     padding: 10px;
@@ -9,20 +10,45 @@
     box-shadow: 0 0 15px var(--border-color);
 }
 
+/* Progress */
 #quizzer h3 {
-    margin-top: 5px;
+    margin: 0px;
+    margin-bottom: 5px;
 }
 
-#quizzerPrompt, #quizzerFeedbackTerm {
-    cursor: pointer;
-}
-
-#quizzerButtons {
-    margin-top: 15px;
+/* Prompt */
+#quizzer section {
+    text-align: left;
     margin-bottom: 15px;
 }
+#quizzerPromptType, #quizzerInputType {
+    font-weight: bold;
+}
+#quizzerPrompt {
+    cursor: pointer;
+    font-size: 15px;
+}
 
+/* Responce*/
+#quizzerInput {
+    margin-top: 5px;
+    height: 30px;
+    padding: 5px;
+    box-sizing: border-box;
+    width: calc(100%); /* forces input onto new line */
+}
+
+/* Buttons */
 #quizzerButtons button {
     width: 75px;
     height: 25px;
+}
+
+/* Feedback */
+#quizzerFeedback {
+    margin-top: 15px;
+}
+#quizzerFeedbackTerm {
+    text-decoration-line: underline;
+    cursor: pointer;
 }
