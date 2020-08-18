@@ -14,9 +14,6 @@ function Load() {
     setTableHeight();
 
     // Add event Listeners
-    document.getElementById("title").addEventListener("click", function (e) {
-        window.location = "./";
-    });
     document.addEventListener("click", function (e) {
         document.getElementById('share').hidden = true;
     });

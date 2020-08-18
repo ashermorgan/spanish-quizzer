@@ -40,7 +40,7 @@ h3 {
         --hover-color: #FFFFFF;
     }
 
-    #title, h3, #referenceFilter, #referenceSet, .footer, label, br {
+    header, h3, #referenceFilter, #referenceSet, footer, label, br {
         display: none;
     }
     
