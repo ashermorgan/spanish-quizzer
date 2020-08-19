@@ -1,13 +1,17 @@
 /******** Reference Table styles ********/
+/* Heading */
 h3 {
     margin-top: 0px;
+    margin-bottom: 10px;
     font-weight: normal;
 }
 
+/* Controls */
 #controls {
     margin-bottom: 15px;
 }
 
+/* Table */
 #referenceTable {
     margin: auto;
     text-align: left;
@@ -15,7 +19,6 @@ h3 {
     max-width: fit-content;
     max-width: -moz-fit-content;
 }
-
 #referenceTable th {
     border: 1px solid var(--border-color);
     position: sticky;
@@ -23,7 +26,6 @@ h3 {
     top: 0;
     background-color: var(--hover-color);
 }
-
 #referenceTable td {
     border: 1px solid var(--border-color);
     cursor: pointer;
