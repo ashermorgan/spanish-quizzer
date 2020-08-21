@@ -18,192 +18,186 @@
     </head>
 
     <body onload="Load();">
-        <div id="title">
-            <h1 onclick="TitleClicked();">Spanish-Quizzer</h1>
-        </div>
+        <header onclick="window.location='../'">Spanish-Quizzer</header>
 
+        <main>
+            <noscript>
+                <h1 id="jsError">You must have JavaScript enabled to run Spanish-Quizzer.</h1>
+            </noscript>
 
-        <noscript>
-            <h4 class="bad">You must have JavaScript enabled to run Spanish-Quizzer.</h4>
-        </noscript>
-
-
-        <div id="home">
-            <h3>What do you want to study?</h3>
-
-            <div>
-                <button onclick="Show('verbs');" class="option">Conjugations</button>
-                <button onclick="Show('vocab');" class="option">Vocab</button>
+            <div id="home">
+                <h1>What do you want to study?</h1>
+    
+                <div>
+                    <button onclick="Show('verbs');">Conjugations</button>
+                    <button onclick="Show('vocab');">Vocab</button>
+                </div>
+        
+                <div>
+                    <a href="reference.html">Or look something up in the Reference Tables</a>
+                </div>
             </div>
     
-            <div id="referenceLink">
-                <a href="reference.html">Or look something up in the Reference Tables</a>
-            </div>
-        </div>
-
-
-        <div id="settings" hidden>
-            <div id="verbSettings" hidden>
-                <template id="verbFilterTemplate">
-                    <div class="verbFilter">
-                        <select id="verbFilterTense" onchange="VerbTenseChanged(this);">
-                            <option>All Tenses</option>
-                            <option>Present Participles</option>
-                            <option>Present Tense</option>
-                            <option>Preterite Tense</option>
-                            <option>Imperfect Tense</option>
-                        </select>
-                        <select id="verbFilterType">
-                            <option>All Types</option>
-                            <option>Reflexive</option>
-                            <option>Regular</option>
-                            <option>Nonregular</option>
-                            <option>Stem Changing</option>
-                            <option>Orthographic</option>
-                            <option>Irregular</option>
-                        </select>
-                        <button id="verbFilterRemove" class="itemRemove">╳</button>
+    
+            <div id="settings" hidden>
+                <div id="verbSettings" hidden>
+                    <template id="verbFilterTemplate">
+                        <div class="verbFilter">
+                            <select id="verbFilterTense" onchange="VerbTenseChanged(this);">
+                                <option>All Tenses</option>
+                                <option>Present Participles</option>
+                                <option>Present Tense</option>
+                                <option>Preterite Tense</option>
+                                <option>Imperfect Tense</option>
+                            </select>
+                            <select id="verbFilterType">
+                                <option>All Types</option>
+                                <option>Reflexive</option>
+                                <option>Regular</option>
+                                <option>Nonregular</option>
+                                <option>Stem Changing</option>
+                                <option>Orthographic</option>
+                                <option>Irregular</option>
+                            </select>
+                            <button id="verbFilterRemove" class="itemRemove">╳</button>
+                        </div>
+                    </template>
+                    
+                    <h1>Choose your settings and then click start.</h1>
+        
+                    <h2>
+                        Verb Filters
+                        <button id="verbAddFilter" onclick="AddVerbFilter();">Add Filter</button>
+                    </h2>
+        
+                    <div id="verbFilters">
+                        <div id="verbFiltersInner">
+                        </div>
                     </div>
-                </template>
+                </div>
+    
+    
+                <div id="vocabSettings" hidden>
+                    <template id="vocabSetTemplate">
+                        <div class="vocabSet">
+                            <select id="vocabSetName" class="vocabSetName" onchange="VocabSetChanged(this);">
+                                <optgroup label="Common Words">
+                                    <option>Verbs</option>
+                                    <option>Adjectives</option>
+                                    <option>Adverbs</option>
+                                    <option>Prepositions</option>
+                                    <option>Transitions</option>
+                                </optgroup>
+                                <optgroup label="Spanish 1">
+                                    <option>Colors</option>
+                                    <option>Days</option>
+                                    <option>Months</option>
+                                    <option>Questions</option>
+                                    <option>Weather</option>
+                                    <option>Family</option>
+                                    <option>Clothes</option>
+                                </optgroup>
+                                <optgroup label="Spanish 2">
+                                    <option>Nature</option>
+                                    <option>House</option>
+                                    <option>Vacation</option>
+                                    <option>Childhood</option>
+                                    <option>Professions</option>
+                                    <option>Health</option>
+                                </optgroup>
+                            </select>
+                            <select id="vocabSetFilter" class="vocabSetFilter">
+                                <!-- Generated by VocabSetChanged() -->
+                            </select>
+                            <button id="vocabSetRemove" class="itemRemove">╳</button>
+                        </div>
+                    </template>
+        
+                    <h1>Choose your settings and then click start.</h1>
+        
+                    <h2>
+                        Vocabulary Sets
+                        <button id="vocabAddSet" onclick="AddVocabSet();">Add set</button>
+                    </h2>
+        
+                    <div id="vocabSets">
+                        <div id="vocabSetsInner">
+                        </div>
+                    </div>
+                </div>
+    
+    
+                <div id="quizzerSettings">
+                    <h2>Quizzer Settings</h2>
+    
+                    <div>
+                        <input type="checkbox" id="settingsDarkMode" onchange="document.body.classList.toggle('dark'); UpdateLocalStorage();">
+                        <label for="settingsDarkMode">Dark Mode</label>
+                    </div>
+                    <div>
+                        <label for="settingsPromptType">Prompt type</label>
+                        <select id="settingsPromptType" onchange="UpdateLocalStorage();">
+                            <option>Text</option>
+                            <option>Audio</option>
+                            <option>Both</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="settingsInputType">Input type</label>
+                        <select id="settingsInputType" onchange="UpdateLocalStorage();">
+                            <option>Text</option>
+                            <option>Voice</option>
+                            <option>Either</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="settingsRepeatPrompts">Repeat missed prompts</label>
+                        <select id="settingsRepeatPrompts" onchange="UpdateLocalStorage();">
+                            <option>Never</option>
+                            <option>Immediately</option>
+                            <option>5 prompts later</option>
+                            <option>At the end</option>
+                        </select>
+                    </div>
+    
+                    <div id="settingButtons">
+                        <button id="settingsStart" onclick="CreateSession();">Start</button>
+                        <button id="settingsResume" onclick="ResumeSession();">Resume</button>
+                    </div>
+                    
+                    <div id="settingsError" class="centered bad"></div>
+                </div>
+            </div>
+    
+    
+            <div id="quizzer" hidden>
+                <p id="quizzerProgress"></p>
+    
+                <section>
+                    <label id="quizzerPromptType" for="quizzerPrompt"></label>
+                    <span id="quizzerPrompt" onclick="Read(Terms[Term][1], Terms[Term][0]);"></span>
+                </section>
                 
-                <div class="centered">
-                    Choose your settings and then click start.
-                </div>
+                <section>
+                    <label id="quizzerInputType" for="quizzerInput"></label>
+                    <input id="quizzerInput" type="text" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
+                </section>
     
-                <h3>
-                    Verb Filters
-                    <button id="verbAddFilter" onclick="AddVerbFilter();">Add Filter</button>
-                </h3>
-    
-                <div id="verbFilters">
-                    <div id="verbFiltersInner">
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="vocabSettings" hidden>
-                <template id="vocabSetTemplate">
-                    <div class="vocabSet">
-                        <select id="vocabSetName" class="vocabSetName" onchange="VocabSetChanged(this);">
-                            <optgroup label="Common Words">
-                                <option>Verbs</option>
-                                <option>Adjectives</option>
-                                <option>Adverbs</option>
-                                <option>Prepositions</option>
-                                <option>Transitions</option>
-                            </optgroup>
-                            <optgroup label="Spanish 1">
-                                <option>Colors</option>
-                                <option>Days</option>
-                                <option>Months</option>
-                                <option>Questions</option>
-                                <option>Weather</option>
-                                <option>Family</option>
-                                <option>Clothes</option>
-                            </optgroup>
-                            <optgroup label="Spanish 2">
-                                <option>Nature</option>
-                                <option>House</option>
-                                <option>Vacation</option>
-                                <option>Childhood</option>
-                                <option>Professions</option>
-                                <option>Health</option>
-                            </optgroup>
-                        </select>
-                        <select id="vocabSetFilter" class="vocabSetFilter">
-                            <!-- Generated by VocabSetChanged() -->
-                        </select>
-                        <button id="vocabSetRemove" class="itemRemove">╳</button>
-                    </div>
-                </template>
-    
-                <div class="centered">
-                    Choose your settings and then click start.
-                </div>
-    
-                <h3>
-                    Vocabulary Sets
-                    <button id="vocabAddSet" onclick="AddVocabSet();">Add set</button>
-                </h3>
-    
-                <div id="vocabSets">
-                    <div id="vocabSetsInner">
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="quizzerSettings">
-                <h3>Quizzer Settings</h3>
-
-                <div>
-                    <input type="checkbox" id="settingsDarkMode" onchange="document.body.classList.toggle('dark'); UpdateLocalStorage();">
-                    <label for="settingsDarkMode">Dark Mode</label>
-                </div>
-                <div>
-                    <label for="settingsPromptType">Prompt type</label>
-                    <select id="settingsPromptType" onchange="UpdateLocalStorage();">
-                        <option>Text</option>
-                        <option>Audio</option>
-                        <option>Both</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="settingsInputType">Input type</label>
-                    <select id="settingsInputType" onchange="UpdateLocalStorage();">
-                        <option>Text</option>
-                        <option>Voice</option>
-                        <option>Either</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="settingsRepeatPrompts">Repeat missed prompts</label>
-                    <select id="settingsRepeatPrompts" onchange="UpdateLocalStorage();">
-                        <option>Never</option>
-                        <option>Immediately</option>
-                        <option>5 prompts later</option>
-                        <option>At the end</option>
-                    </select>
-                </div>
-
-                <div class="centered">
-                    <button id="settingsStart" onclick="CreateSession();">Start</button>
-                    <button id="settingsResume" onclick="ResumeSession();">Resume</button>
+                <div id="quizzerButtons">
+                    <button id="quizzerEnter">Submit</button>
+                    <button id="quizzerSkip" onclick="Reset();">Skip</button>
                 </div>
                 
-                <div id="settingsError" class="centered bad"></div>
+                <div id="quizzerFeedback" class="bad">
+                    The correct answer is 
+                    <span id="quizzerFeedbackTerm" onclick="Read(Terms[Term][3], Terms[Term][2]);"></span>.
+                </div>
+                <div id="quizzerCongrats" class="good"></div>
             </div>
-        </div>
+        </main>
 
 
-        <div id="quizzer" hidden>
-            <h3 id="quizzerProgress"></h3>
-
-            <div>
-                <label for="quizzerPrompt" id="quizzerPromptType" class="label"></label>
-                <span id="quizzerPrompt" onclick="Read(Terms[Term][1], Terms[Term][0]);"></span>
-            </div>
-            
-            <div>
-                <label id="quizzerInputType" for="quizzerInput" class="label"></label>
-                <input id="quizzerInput" type="text" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
-            </div>
-
-            <div id="quizzerButtons">
-                <button id="quizzerEnter">Submit</button>
-                <button id="quizzerSkip" onclick="Reset();">Skip</button>
-            </div>
-            
-            <div id="quizzerFeedback" class="bad">
-                The correct answer is 
-                <span id="quizzerFeedbackTerm" onclick="Read(Terms[Term][3], Terms[Term][2]);"></span>.
-            </div>
-            <div id="quizzerCongrats" class="good"></div>
-        </div>
-
-
-        <div class="footer">
+        <footer>
             <div id="share" hidden>
                 <a href="mailto:?Subject=Spanish-Quizzer&amp;Body=https://ashermorgan.github.io/Spanish-Quizzer">Email</a>&nbsp;
                 <a rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ashermorgan.github.io/Spanish-Quizzer" target="_blank">Facebook</a>&nbsp;
@@ -213,6 +207,6 @@
             </div>
             <a href="Offline">Study Offline</a>&nbsp;
             <a href="javascript:document.getElementById('share').hidden = false; void 0;">Share</a>&nbsp;
-        </div>
+        </footer>
     </body>
 </html>

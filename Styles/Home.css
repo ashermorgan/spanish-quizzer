@@ -1,21 +1,21 @@
-#home h3 {
-    margin-bottom: 10px;
+/* Header */
+#home h1 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
+/* Vocab & Conjugation buttons*/
 #home button {
-    border: 1px solid var(--border-color);
     width: 150px;
     height: 50px;
     line-height: 50px;
     margin: 10px;
-    display: inline-block;
     font-size: 15px;
 }
 
-#home button:hover {
-    background-color: var(--hover-color);
-}
-
-#home #referenceLink {
+/* Link to Reference Tables */
+#home a {
     margin-top: 10px;
 }

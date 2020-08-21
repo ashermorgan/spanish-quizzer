@@ -5,31 +5,40 @@
     max-width: 300px;
 }
 
-h3 {
+
+
+/******** Vocab/Verb Settings styles ********/
+/* Instructions */
+#settings h1 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+/* Headings */
+h2 {
+    font-size: 18px;
+    margin-top: 15px;
     margin-bottom: 5px;
 }
-
-.centered {
-    text-align: center;
+h2 button {
+    padding: 2px 5px 2px 5px;
 }
 
-#vocabSets {
-    overflow-x: auto;
-    white-space: nowrap;
-}
-
-.vocabSet {
+/* List item */
+.vocabSet, .verbFilter {
     padding-top: 5px;
 }
 
+/* Vocab list item parts */
 .vocabSetName {
     width: 115px;
 }
-
 .vocabSetFilter {
     width: 160px;
 }
 
+/* List item remove */
 .itemRemove {
     border: none;
     padding: 0px;
@@ -39,7 +48,13 @@ h3 {
     background-color: var(--background-color);
 }
 
-#settingsStart, #settingsResume {
+
+
+/******** Settings Button styles ********/
+#settingButtons {
+    text-align: center;
+}
+#settingButtons button {
     margin-top: 15px;
     margin-bottom: 5px;
     width: 75px;

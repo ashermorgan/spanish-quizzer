@@ -14,52 +14,52 @@
     </head>
 
     <body onload="Load()" onresize="setTableHeight()">
-        <div id="title">
-            <h1>Spanish-Quizzer</h1>
-        </div>
+        <header onclick="window.location='../'">Spanish-Quizzer</header>
         
-        <h3 class="text">Reference Tables</h3>
-        
-        <noscript>
-            <h4 class="bad">You must have JavaScript enabled to run Spanish-Quizzer.</h4>
-        </noscript>
-        
-        <div id="controls">
-            <select id="referenceSet" aria-label="Vocab Set" onchange="referenceSetChanged()">
-                <option>Choose a vocab set</option>
-                <optgroup label="Common Words">
-                    <option>Verbs</option>
-                    <option>Adjectives</option>
-                    <option>Adverbs</option>
-                    <option>Prepositions</option>
-                    <option>Transitions</option>
-                </optgroup>
-                <optgroup label="Spanish 1">
-                    <option>Colors</option>
-                    <option>Days</option>
-                    <option>Months</option>
-                    <option>Questions</option>
-                    <option>Weather</option>
-                    <option>Family</option>
-                    <option>Clothes</option>
-                </optgroup>
-                <optgroup label="Spanish 2">
-                    <option>Nature</option>
-                    <option>House</option>
-                    <option>Vacation</option>
-                    <option>Childhood</option>
-                    <option>Professions</option>
-                    <option>Health</option>
-                </optgroup>
-            </select>
-            <input type="text" aria-label="Search" id="referenceFilter" onkeyup="referenceFilterChanged()" placeholder="Search">
-        </div>
-        
-        <div id="referenceTable">
-            <table id="referenceTableInner"></table>
-        </div>
+        <main>
+            <noscript>
+                <h1 id="jsError">You must have JavaScript enabled to run Spanish-Quizzer.</h1>
+            </noscript>
 
-        <div class="footer">
+            <h1>Reference Tables</h1>
+
+            <div id="controls">
+                <select id="referenceSet" aria-label="Vocab Set" onchange="referenceSetChanged()">
+                    <option>Choose a vocab set</option>
+                    <optgroup label="Common Words">
+                        <option>Verbs</option>
+                        <option>Adjectives</option>
+                        <option>Adverbs</option>
+                        <option>Prepositions</option>
+                        <option>Transitions</option>
+                    </optgroup>
+                    <optgroup label="Spanish 1">
+                        <option>Colors</option>
+                        <option>Days</option>
+                        <option>Months</option>
+                        <option>Questions</option>
+                        <option>Weather</option>
+                        <option>Family</option>
+                        <option>Clothes</option>
+                    </optgroup>
+                    <optgroup label="Spanish 2">
+                        <option>Nature</option>
+                        <option>House</option>
+                        <option>Vacation</option>
+                        <option>Childhood</option>
+                        <option>Professions</option>
+                        <option>Health</option>
+                    </optgroup>
+                </select>
+                <input type="text" aria-label="Search" id="referenceFilter" onkeyup="referenceFilterChanged()" placeholder="Search">
+            </div>
+            
+            <div id="referenceTable">
+                <table id="referenceTableInner"></table>
+            </div>
+        </main>
+
+        <footer>
             <div id="share" hidden>
                 <a href="mailto:?Subject=Spanish-Quizzer&amp;Body=https://ashermorgan.github.io/Spanish-Quizzer/Reference">Email</a>&nbsp;
                 <a rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ashermorgan.github.io/Spanish-Quizzer/Reference" target="_blank">Facebook</a>&nbsp;
@@ -70,6 +70,6 @@
             <a href="./">Home</a>&nbsp;
             <a href="Offline">Study Offline</a>&nbsp;
             <a href="javascript:document.getElementById('share').hidden = false; void 0;">Share</a>&nbsp;
-        </div>
+        </footer>
     </body>
 </html>

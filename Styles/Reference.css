@@ -1,29 +1,39 @@
-/******** Reference Table styles ********/
-h3 {
+/******** Reference Table Page styles ********/
+main {
+    overflow-x: hidden;
+}
+
+/* Heading */
+h1 {
     margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 20px;
     font-weight: normal;
 }
 
+/* Controls */
 #controls {
     margin-bottom: 15px;
 }
 
+
+
+/******** Reference Table styles ********/
 #referenceTable {
-    margin: auto;
     text-align: left;
     overflow-x: auto;
-    max-width: fit-content;
-    max-width: -moz-fit-content;
 }
 
+/* Header cells */
 #referenceTable th {
+    background-color: var(--hover-color);
     border: 1px solid var(--border-color);
     position: sticky;
     position: -webkit-sticky;
     top: 0;
-    background-color: var(--hover-color);
 }
 
+/* All cells */
 #referenceTable td {
     border: 1px solid var(--border-color);
     cursor: pointer;
@@ -40,7 +50,7 @@ h3 {
         --hover-color: #FFFFFF;
     }
 
-    #title, h3, #referenceFilter, #referenceSet, .footer, label, br {
+    header, h1, #referenceFilter, #referenceSet, footer, label, br {
         display: none;
     }
     
