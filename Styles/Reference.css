@@ -4,9 +4,10 @@ main {
 }
 
 /* Heading */
-h3 {
+h1 {
     margin-top: 0px;
     margin-bottom: 10px;
+    font-size: 20px;
     font-weight: normal;
 }
 
@@ -49,7 +50,7 @@ h3 {
         --hover-color: #FFFFFF;
     }
 
-    header, h3, #referenceFilter, #referenceSet, footer, label, br {
+    header, h1, #referenceFilter, #referenceSet, footer, label, br {
         display: none;
     }
     

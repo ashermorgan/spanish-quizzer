@@ -1,15 +1,16 @@
 /******** Instruction styles ********/
+/* Headers */
+h1 {
+    font-size: 24px;
+}
+h2 {
+    font-size: 18px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+/* Instructions */
 #instructions {
     max-width: 500px;
     text-align: left;
-    margin: auto;
-}
-
-h4 {
-    text-align: center;
-    margin-bottom: 0px;
-}
-
-ol, p {
-    margin-top: 5px;
 }
