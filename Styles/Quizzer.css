@@ -46,11 +46,14 @@
     height: 25px;
 }
 
-/* Feedback */
+/* Feedback and Congrats*/
 #quizzerFeedback {
     margin-top: 15px;
 }
 #quizzerFeedbackTerm {
     text-decoration-line: underline;
     cursor: pointer;
+}
+#quizzerCongrats {
+    margin-top: 15px;
 }
