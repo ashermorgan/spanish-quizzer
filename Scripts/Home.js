@@ -10,6 +10,29 @@ function Load() {
     // Initialize Vue
     app = new Vue({
         el: "#app", // Mount to app div
+
+        data: {
+            "state": "home"
+        },
+
+        methods: {
+            Back: function() {
+                switch (app.state) {
+                    case "verbQuizzer":
+                        app.state = "verbSettings";
+                        break;
+                    case "vocabQuizzer":
+                        app.state = "vocabSettings";
+                        break;
+                    case "verbSettings":
+                    case "vocabSettings":
+                    case "home":
+                    default:
+                        app.state = "home";
+                        break;
+                }
+            }
+        }
     });
 
     // Load settings
@@ -74,73 +97,19 @@ function Load() {
 
 
 
-// Shows specific groups of elements
-function Show(div) {
-    // Hide all elements
-    document.getElementById("home").hidden = true;
-    document.getElementById("settings").hidden = true;
-    document.getElementById("verbSettings").hidden = true;
-    document.getElementById("vocabSettings").hidden = true;
-    document.getElementById("quizzerSettings").hidden = true;
-    document.getElementById("quizzer").hidden = true;
-
-    // Reset settings error message
-    document.getElementById("settingsError").textContent = "";
-
-    // Show elements
-    switch (div) {
-        default:
-        case "home":
-            document.getElementById("home").hidden = false;
-            quizzerType = null;
-            break;
-        case "vocab":
-            document.getElementById("settings").hidden = false;
-            document.getElementById("vocabSettings").hidden = false;
-            document.getElementById("quizzerSettings").hidden = false;
-            quizzerType = "vocab";
-            break;
-        case "verbs":
-            document.getElementById("settings").hidden = false;
-            document.getElementById("verbSettings").hidden = false;
-            document.getElementById("quizzerSettings").hidden = false;
-            quizzerType = "verbs";
-            break;
-        case "quizzer":
-            document.getElementById("quizzer").hidden = false;
-            break;
-    }
-}
-
-
-
-// Controls navigation when user clicks on title
-function TitleClicked() {
-    if (!document.getElementById("quizzer").hidden) {
-        // Go to settings screen
-        Show(quizzerType);
-    }
-    else {
-        // Go to home screen
-        Show("home");
-    }
-}
-
-
-
 // Handles keyDown events (implements keyboard shortcuts)
 function KeyDown(e) {
     if (e.key === "Escape") {
-        TitleClicked();
+        app.Back();
     }
 
     // Home shortcuts
-    if (document.getElementById("home").hidden == false) {
+    if (app.state = "home") {
         if (e.key === "c") {
-            Show("verbs");
+            app.state = "verbSettings";
         }
         if (e.key === "v") {
-            Show("vocab");
+            app.state = "vocabSettings";
         }
         if (e.key === "r") {
             window.location = "/reference.html";
@@ -148,7 +117,7 @@ function KeyDown(e) {
     }
 
     // Settings shortcuts
-    if (document.getElementById("settings").hidden == false) {
+    if (app.state == "verbSettings" || app.state == "vocabSettings") {
         if (e.key === "s") {
             CreateSession();
         }

@@ -20,19 +20,19 @@
 
     <body onload="Load();">
         <div id="app">
-            <header onclick="TitleClicked();">Spanish-Quizzer</header>
+            <header @click="Back();">Spanish-Quizzer</header>
 
             <main>
                 <noscript>
                     <h1 id="jsError">You must have JavaScript enabled to run Spanish-Quizzer.</h1>
                 </noscript>
     
-                <div id="home">
+                <div id="home" v-show="state == 'home'">
                     <h1>What do you want to study?</h1>
         
                     <div>
-                        <button onclick="Show('verbs');">Conjugations</button>
-                        <button onclick="Show('vocab');">Vocab</button>
+                        <button @click="state = 'verbSettings';">Conjugations</button>
+                        <button @click="state = 'vocabSettings';">Vocab</button>
                     </div>
             
                     <div>
@@ -41,8 +41,8 @@
                 </div>
         
         
-                <div id="settings" hidden>
-                    <div id="verbSettings" hidden>
+                <div id="settings" v-show="state == 'verbSettings' || state == 'vocabSettings'">
+                    <div id="verbSettings" v-show="state == 'verbSettings'">
                         <div id="verbFilterTemplate" hidden>
                             <div class="verbFilter">
                                 <select id="verbFilterTense" class="verbFilterTense" onchange="VerbTenseChanged(this);">
@@ -79,7 +79,7 @@
                     </div>
         
         
-                    <div id="vocabSettings" hidden>
+                    <div id="vocabSettings" v-show="state == 'vocabSettings'">
                         <div id="vocabSetTemplate" hidden>
                             <div class="vocabSet">
                                 <select id="vocabSetName" class="vocabSetName" onchange="VocabSetChanged(this);">
@@ -172,7 +172,7 @@
                 </div>
         
         
-                <div id="quizzer" hidden>
+                <div id="quizzer" v-show="state == 'verbQuizzer' || state == 'vocabQuizzer'">
                     <p id="quizzerProgress"></p>
         
                     <section>

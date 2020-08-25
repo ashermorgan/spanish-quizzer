@@ -176,7 +176,7 @@ function CreateSession() {
     // Get terms and localStorage prefix
     let terms;
     let prefix;
-    if (!document.getElementById("vocabSettings").hidden) {
+    if (app.state == "vocabSettings") {
         // Filter and load Sets into Terms
         terms = [];
         for (var i = 0; i < setId; i++)
@@ -198,7 +198,7 @@ function CreateSession() {
         // Set prefix
         prefix = "vocab-"
     }
-    else if (!document.getElementById("verbSettings").hidden) {
+    else if (app.state == "verbSettings") {
         // Get filters
         let filters = [];
         for (let i = 0; i < setId; i++)
@@ -232,7 +232,12 @@ function CreateSession() {
         StartQuizzer(terms, 0, prefix, inputType, promptType, repeatPrompts);
 
         // Show and hide elements
-        Show("quizzer");
+        if (app.state == "verbSettings") {
+            app.state = "verbQuizzer";
+        }
+        if (app.state == "vocabSettings") {
+            app.state = "vocabQuizzer";
+        }
     }
     catch (e) {
         switch (e) {
@@ -254,10 +259,10 @@ function CreateSession() {
 function ResumeSession() {
     // Get localStorage prefix
     let prefix;
-    if (!document.getElementById("vocabSettings").hidden) {
+    if (app.state == "vocabSettings") {
         prefix = "vocab-"
     }
-    else if (!document.getElementById("verbSettings").hidden) {
+    else if (app.state == "verbSettings") {
         prefix = "verb-"
     }
 
@@ -275,8 +280,12 @@ function ResumeSession() {
         StartQuizzer(terms, term, prefix, inputType, promptType, repeatPrompts);
 
         // Show and hide elements
-        document.getElementById("settings").hidden = true;
-        document.getElementById("quizzer").hidden = false;
+        if (app.state == "verbSettings") {
+            app.state = "verbQuizzer";
+        }
+        if (app.state == "vocabSettings") {
+            app.state = "vocabQuizzer";
+        }
     }
     catch (e) {
         switch (e) {
