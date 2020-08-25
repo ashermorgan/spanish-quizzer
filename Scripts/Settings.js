@@ -16,15 +16,18 @@ function UpdateLocalStorage() {
 // Add a filtered set
 function AddVocabSet() {
     // Create row
-    var clone = document.getElementById("vocabSetTemplate").content.cloneNode(true);
+    var clone = document.getElementById("vocabSetTemplate").cloneNode(true);
 
     // Set row ids
     clone.children[0].setAttribute("id", `vocabSet-${setId}`);
-    clone.getElementById("vocabSetName").setAttribute("id", `vocabSetName-${setId}`);
-    clone.getElementById("vocabSetFilter").setAttribute("id", `vocabSetFilter-${setId}`);
+    clone.getElementsByClassName("vocabSetName")[0].setAttribute("id", `vocabSetName-${setId}`);
+    clone.getElementsByClassName("vocabSetFilter")[0].setAttribute("id", `vocabSetFilter-${setId}`);
     
     // Add remove button onclick attribute
-    clone.getElementById("vocabSetRemove").setAttribute("onclick", `var element = document.getElementById('vocabSet-${setId}'); element.parentNode.removeChild(element);`);
+    clone.getElementsByClassName("itemRemove")[0].setAttribute("onclick", `var element = document.getElementById('vocabSet-${setId}'); element.parentNode.removeChild(element);`);
+
+    // Make visible
+    clone.hidden = false;
     
     // Add row
     document.getElementById("vocabSetsInner").appendChild(clone);
@@ -41,15 +44,18 @@ function AddVocabSet() {
 // Add a verb filter
 function AddVerbFilter() {
     // Create row
-    var clone = document.getElementById("verbFilterTemplate").content.cloneNode(true);
+    var clone = document.getElementById("verbFilterTemplate").cloneNode(true);
 
     // Set row ids
     clone.children[0].setAttribute("id", `verbFilter-${setId}`);
-    clone.getElementById("verbFilterTense").setAttribute("id", `verbFilterTense-${setId}`);
-    clone.getElementById("verbFilterType").setAttribute("id", `verbFilterType-${setId}`);
+    clone.getElementsByClassName("verbFilterTense")[0].setAttribute("id", `verbFilterTense-${setId}`);
+    clone.getElementsByClassName("verbFilterType")[0].setAttribute("id", `verbFilterType-${setId}`);
     
     // Add remove button onclick attribute
-    clone.getElementById("verbFilterRemove").setAttribute("onclick", `var element = document.getElementById('verbFilter-${setId}'); element.parentNode.removeChild(element);`);
+    clone.getElementsByClassName("itemRemove")[0].setAttribute("onclick", `var element = document.getElementById('verbFilter-${setId}'); element.parentNode.removeChild(element);`);
+
+    // Make visible
+    clone.hidden = false;
     
     // Add row
     document.getElementById("verbFiltersInner").appendChild(clone);

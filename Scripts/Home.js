@@ -1,11 +1,17 @@
 // Declare global variables
 let Sets;               // List of parsed sets
 let quizzerType = null; // Type of quizzer
+let app;
 
 
 
 // Load the document
 function Load() {
+    // Initialize Vue
+    app = new Vue({
+        el: "#app", // Mount to app div
+    });
+
     // Load settings
     if (localStorage.getItem("darkMode") == "true") {
         document.body.classList.toggle("dark");
