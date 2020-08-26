@@ -13,161 +13,6 @@ function UpdateLocalStorage() {
 
 
 
-// Add a filtered set
-function AddVocabSet() {
-    // Create row
-    var clone = document.getElementById("vocabSetTemplate").cloneNode(true);
-
-    // Set row ids
-    clone.children[0].setAttribute("id", `vocabSet-${setId}`);
-    clone.getElementsByClassName("vocabSetName")[0].setAttribute("id", `vocabSetName-${setId}`);
-    clone.getElementsByClassName("vocabSetFilter")[0].setAttribute("id", `vocabSetFilter-${setId}`);
-    
-    // Add remove button onclick attribute
-    clone.getElementsByClassName("itemRemove")[0].setAttribute("onclick", `var element = document.getElementById('vocabSet-${setId}'); element.parentNode.removeChild(element);`);
-
-    // Make visible
-    clone.hidden = false;
-    
-    // Add row
-    document.getElementById("vocabSetsInner").appendChild(clone);
-    
-    // Add filters
-    VocabSetChanged(document.getElementById(`vocabSetName-${setId}`));
-    
-    // Increment setId
-    setId++; // increment fileId to get a unique ID for the new element
-}
-
-
-
-// Add a verb filter
-function AddVerbFilter() {
-    // Create row
-    var clone = document.getElementById("verbFilterTemplate").cloneNode(true);
-
-    // Set row ids
-    clone.children[0].setAttribute("id", `verbFilter-${setId}`);
-    clone.getElementsByClassName("verbFilterTense")[0].setAttribute("id", `verbFilterTense-${setId}`);
-    clone.getElementsByClassName("verbFilterType")[0].setAttribute("id", `verbFilterType-${setId}`);
-    
-    // Add remove button onclick attribute
-    clone.getElementsByClassName("itemRemove")[0].setAttribute("onclick", `var element = document.getElementById('verbFilter-${setId}'); element.parentNode.removeChild(element);`);
-
-    // Make visible
-    clone.hidden = false;
-    
-    // Add row
-    document.getElementById("verbFiltersInner").appendChild(clone);
-    
-    // Increment setId
-    setId++; // increment fileId to get a unique ID for the new element
-}
-
-
-
-// Update the filter option
-function VocabSetChanged(setName) {
-    // Get filter options
-    var items = [];
-    switch(setName.value)
-    {
-        case "Verbs":
-            items = ["All Definitions", "Spanish Infinitives", "English Infinitives", "Reverse Conjugations"];
-            break;
-        
-        case "Adjectives":
-        case "Adverbs":
-        case "Prepositions":
-        case "Transitions":
-        case "Colors":
-        case "Days":
-        case "Months":
-        case "Questions":
-            items = ["All Definitions", "English to Spanish", "Spanish to English"];
-            break;
-
-        case "Weather":
-        case "Professions":
-            items = ["All Definitions", "English to Spanish", "Spanish to English", 
-                    "Nouns", "Verbs"];
-            break;
-
-        case "Family":
-        case "Clothes":
-            items = ["All Definitions", "English to Spanish", "Spanish to English", 
-                    "Nouns", "Adjectives"];
-            break;
-        
-        case "Nature":
-        case "House":
-        case "Vacation":
-        case "Childhood":
-        case "Health":
-            items = ["All Definitions", "English to Spanish", "Spanish to English", 
-                    "Nouns", "Verbs", "Adjectives"];
-            break;
-    }
-
-    // Create html
-    var html = ""
-    for (var item of items) {
-        html += "<option>" + item + "</option>"
-    }
-
-    // Set html
-    filterId = setName.id.replace("vocabSetName", "vocabSetFilter");
-    document.getElementById(filterId).innerHTML = html;
-}
-
-
-
-// Update the type filter options
-function VerbTenseChanged(filter) {
-    // Get type filter element
-    let types = document.getElementById(filter.id.replace("verbFilterTense", "verbFilterType"));
-
-    // Enable all types
-    types[0].disabled = false;
-    types[1].disabled = false;
-    types[2].disabled = false;
-    types[3].disabled = false;
-    types[4].disabled = false;
-    types[5].disabled = false;
-    types[6].disabled = false;
-
-    // Disable unavailable types
-    switch(filter.value)
-    {
-        case "All Tenses":
-            break;
-        case "Present Participles":
-            types[1].disabled = true; // Reflexive
-            types[5].disabled = true; // Orthographic
-            if (types.selectedIndex === 1 || types.selectedIndex === 5) {
-                // Deselect unavailable types
-                types.selectedIndex = 0
-            }
-            break;
-        case "Present Tense":
-            types[5].disabled = true; // Orthographic
-            if (types.selectedIndex === 5) {
-                // Deselect unavailable types
-                types.selectedIndex = 0
-            }
-            break;
-        case "Preterite Tense":
-            break;
-        case "Imperfect Tense":
-            types[4].disabled = true; // Stem Changing
-            types[5].disabled = true; // Orthographic
-            if (types.selectedIndex === 4 || types.selectedIndex === 5) {
-                // Deselect unavailable types
-                types.selectedIndex = 0
-            }
-            break;
-    }
-}
 
 
 
@@ -179,17 +24,10 @@ function CreateSession() {
     if (app.state == "vocabSettings") {
         // Filter and load Sets into Terms
         terms = [];
-        for (var i = 0; i < setId; i++)
+        for (let filter of app.vocabFilters)
         {
-            if (document.getElementById(`vocabSet-${i}`))
-            {
-                // Get filter information
-                var set = document.getElementById(`vocabSetName-${i}`).value;
-                var filter = document.getElementById(`vocabSetFilter-${i}`).value;
-
-                // Add filtered set
-                terms.push(...ApplyVocabFilter(Sets[set], filter));
-            }
+            // Add filtered set
+            terms.push(...ApplyVocabFilter(Sets[filter.set], filter.type));
         }
 
         // Shuffle terms
@@ -199,23 +37,8 @@ function CreateSession() {
         prefix = "vocab-"
     }
     else if (app.state == "verbSettings") {
-        // Get filters
-        let filters = [];
-        for (let i = 0; i < setId; i++)
-        {
-            if (document.getElementById(`verbFilter-${i}`))
-            {
-                // Get filter information
-                let tense = document.getElementById(`verbFilterTense-${i}`).value;
-                let type = document.getElementById(`verbFilterType-${i}`).value;
-                
-                // Add filter
-                filters.push({tense: tense, regularity: type});
-            }
-        }
-
         // Get terms
-        terms = Shuffle(ApplyVerbFilter(Sets["Verbs"], filters));
+        terms = Shuffle(ApplyVerbFilter(Sets["Verbs"], app.verbFilters));
 
         // Set prefix
         prefix = "verb-"
@@ -375,89 +198,89 @@ function ApplyVocabFilter(vocabSet, name) {
 
 // Filters verbs set given the filter information
 function ApplyVerbFilter(terms, filterInfo) {
-    // Change regularity strings into regex
+    // Create filters
+    let filters = [];   // Format: [{outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
     for (config of filterInfo) {
-        switch (config.regularity.toLowerCase()) {
+        // Get regularity
+        let regularity;
+        switch (config.type.toLowerCase()) {
             case "regular":
-                config.regularity = "Regular";
+                regularity = "Regular";
                 break;
             case "reflexive":
-                config.regularity = "Reflexive";
+                regularity = "Reflexive";
                 break;
             case "irregular":
-                config.regularity = "Irregular";
+                regularity = "Irregular";
                 break;
             case "stem-changing":
             case "stem changing":
-                config.regularity = "Stem.?Changing";
+                regularity = "Stem.?Changing";
                 break;
             case "orthographic":
-                config.regularity = "Orthographic";
+                regularity = "Orthographic";
                 break;
             case "non-regular":
             case "non regular":
             case "nonregular":
-                config.regularity = "Irregular|Stem.?Changing|Orthographic";
+                regularity = "Irregular|Stem.?Changing|Orthographic";
                 break;
             default:
             case "all":
-                config.regularity = ".*";
+                regularity = ".*";
         }
-    }
 
-    // Create filters
-    let filters = [];   // Format: [{outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
-    for (config of filterInfo) {
+        // Create filter
         switch (config.tense.toLowerCase()) {
             case "present participle":
             case "present participles":
-                filters.push({outputIndex:0, inputIndex:3, filterIndex:2, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:3, filterIndex:2, filterValue:regularity});
                 break;
             case "present":
             case "present tense":
-                filters.push({outputIndex:0, inputIndex:5, filterIndex:4, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:6, filterIndex:4, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:7, filterIndex:4, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:8, filterIndex:4, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:9, filterIndex:4, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:5, filterIndex:4, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:6, filterIndex:4, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:7, filterIndex:4, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:8, filterIndex:4, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:9, filterIndex:4, filterValue:regularity});
                 break;
             case "preterite":
             case "preterite tense":
-                filters.push({outputIndex:0, inputIndex:11, filterIndex:10, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:12, filterIndex:10, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:13, filterIndex:10, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:14, filterIndex:10, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:15, filterIndex:10, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:11, filterIndex:10, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:12, filterIndex:10, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:13, filterIndex:10, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:14, filterIndex:10, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:15, filterIndex:10, filterValue:regularity});
                 break;
             case "imperfect":
             case "imperfect tense":
-                filters.push({outputIndex:0, inputIndex:17, filterIndex:16, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:18, filterIndex:16, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:19, filterIndex:16, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:20, filterIndex:16, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:21, filterIndex:16, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:17, filterIndex:16, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:18, filterIndex:16, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:19, filterIndex:16, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:20, filterIndex:16, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:21, filterIndex:16, filterValue:regularity});
                 break;
             default:
             case "all":
-                filters.push({outputIndex:0, inputIndex:3, filterIndex:2, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:3, filterIndex:2, filterValue:regularity});
 
-                filters.push({outputIndex:0, inputIndex:5, filterIndex:4, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:6, filterIndex:4, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:7, filterIndex:4, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:8, filterIndex:4, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:9, filterIndex:4, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:5, filterIndex:4, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:6, filterIndex:4, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:7, filterIndex:4, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:8, filterIndex:4, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:9, filterIndex:4, filterValue:regularity});
                 
-                filters.push({outputIndex:0, inputIndex:11, filterIndex:10, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:12, filterIndex:10, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:13, filterIndex:10, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:14, filterIndex:10, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:15, filterIndex:10, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:11, filterIndex:10, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:12, filterIndex:10, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:13, filterIndex:10, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:14, filterIndex:10, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:15, filterIndex:10, filterValue:regularity});
                 
-                filters.push({outputIndex:0, inputIndex:17, filterIndex:16, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:18, filterIndex:16, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:19, filterIndex:16, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:20, filterIndex:16, filterValue:config.regularity});
-                filters.push({outputIndex:0, inputIndex:21, filterIndex:16, filterValue:config.regularity});
+                filters.push({outputIndex:0, inputIndex:17, filterIndex:16, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:18, filterIndex:16, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:19, filterIndex:16, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:20, filterIndex:16, filterValue:regularity});
+                filters.push({outputIndex:0, inputIndex:21, filterIndex:16, filterValue:regularity});
                 break;
         }
     }

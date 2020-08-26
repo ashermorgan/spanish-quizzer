@@ -12,7 +12,9 @@ function Load() {
         el: "#app", // Mount to app div
 
         data: {
-            "state": "home"
+            state: "home",
+            verbFilters: [],
+            vocabFilters: [],
         },
 
         methods: {
@@ -31,6 +33,100 @@ function Load() {
                         app.state = "home";
                         break;
                 }
+            },
+            AddVerbFilter: function() {
+                this.verbFilters.push({"tense":"All Tenses", "type":"All Types"});
+            },
+            RemoveVerbFilter: function(index) {
+                // Remove filter
+                this.verbFilters.splice(index, 1);
+            },
+            AddVocabFilter: function() {
+                this.vocabFilters.push({"set":"Verbs", "type":"All Definitions"});
+            },
+            RemoveVocabFilter: function(index) {
+                // Remove filter
+                this.vocabFilters.splice(index, 1);
+            },
+            getTenseTypes: function(index) {
+                // Get filter options
+                let filters = {"All Types":true, "Reflexive":true, "Regular":true, "Nonregular":true, "Stem Changing":true, "Orthographic":true, "Irregular":true}
+                switch(this.verbFilters[index].tense)
+                {
+                    case "All Tenses":
+                        break;
+                    case "Present Participles":
+                        filters["Reflexive"] = false;       // Reflexive
+                        filters["Orthographic"] = false;    // Orthographic
+                        break;
+                    case "Present Tense":
+                        filters["Orthographic"] = false;    // Orthographic
+                        break;
+                    case "Preterite Tense":
+                        break;
+                    case "Imperfect Tense":
+                        filters["Stem Changing"] = false;   // Stem Changing
+                        filters["Orthographic"] = false;    // Orthographic
+                        break;
+                }
+
+                // Reset type if needed
+                if (!filters[this.verbFilters[index].type]) {
+                    this.verbFilters[index].type = "All Types";
+                }
+
+                // Return filters
+                return filters;
+            },
+            getSetFilters: function(index) {
+                // Get filter options
+                var filters = [];
+                switch(this.vocabFilters[index].set)
+                {
+                    case "Verbs":
+                        filters = ["All Definitions", "Spanish Infinitives", "English Infinitives", "Reverse Conjugations"];
+                        break;
+                    
+                    case "Adjectives":
+                    case "Adverbs":
+                    case "Prepositions":
+                    case "Transitions":
+                    case "Colors":
+                    case "Days":
+                    case "Months":
+                    case "Questions":
+                        filters = ["All Definitions", "English to Spanish", "Spanish to English"];
+                        break;
+
+                    case "Weather":
+                    case "Professions":
+                        filters = ["All Definitions", "English to Spanish", "Spanish to English", 
+                                "Nouns", "Verbs"];
+                        break;
+
+                    case "Family":
+                    case "Clothes":
+                        filters = ["All Definitions", "English to Spanish", "Spanish to English", 
+                                "Nouns", "Adjectives"];
+                        break;
+                    
+                    case "Nature":
+                    case "House":
+                    case "Vacation":
+                    case "Childhood":
+                    case "Health":
+                        filters = ["All Definitions", "English to Spanish", "Spanish to English", 
+                                "Nouns", "Verbs", "Adjectives"];
+                        break;
+                }
+
+                // Reset type if needed
+                if (!filters.includes(this.vocabFilters[index].type)) {
+                    this.vocabFilters[index].type = filters[0];
+                }
+
+                // Return filters
+                return filters;
             }
         }
     });
