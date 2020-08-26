@@ -13,6 +13,7 @@ function Load() {
 
         data: {
             state: "home",
+            darkTheme: false,
             verbFilters: [],
             vocabFilters: [],
         },
@@ -128,14 +129,36 @@ function Load() {
                 // Return filters
                 return filters;
             }
+        },
+
+        watch: {
+            darkTheme: function() {
+                // Get theme from localStorage if null
+                if (this.darkTheme === null) {
+                    this.darkTheme = JSON.parse(localStorage.getItem("darkTheme"));
+                }
+
+                // Detect preferred color scheme if null
+                if (this.darkTheme === null) {
+                    this.darkTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+                }
+
+                // Apply theme
+                if (this.darkTheme) {
+                    document.body.classList.add("dark");
+                }
+                else {
+                    document.body.classList.remove("dark");
+                }
+
+                // Save theme
+                localStorage.setItem("darkTheme", this.darkTheme);
+            }
         }
     });
 
     // Load settings
-    if (localStorage.getItem("darkMode") == "true") {
-        document.body.classList.toggle("dark");
-        document.getElementById("settingsDarkMode").checked = true;
-    }
+    app.darkTheme = null;   // Force theme to update
     if (localStorage.getItem("PromptType")) {
         document.getElementById("settingsPromptType").value = localStorage.getItem("PromptType");
     }

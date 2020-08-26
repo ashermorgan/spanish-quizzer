@@ -5,7 +5,6 @@ let setId = 0;  // Next valid vocab set id number
 
 // Update local storage
 function UpdateLocalStorage() {
-    localStorage.setItem("darkMode", document.getElementById("settingsDarkMode").checked);
     localStorage.setItem("PromptType", document.getElementById("settingsPromptType").value);
     localStorage.setItem("InputType", document.getElementById("settingsInputType").value);
     localStorage.setItem("repeatPrompt", document.getElementById("settingsRepeatPrompts").value);

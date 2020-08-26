@@ -117,8 +117,8 @@
                         <h2>Quizzer Settings</h2>
         
                         <div>
-                            <input type="checkbox" id="settingsDarkMode" onchange="document.body.classList.toggle('dark'); UpdateLocalStorage();">
-                            <label for="settingsDarkMode">Dark Mode</label>
+                            <input type="checkbox" id="settingsDarkTheme" v-model="darkTheme">
+                            <label for="settingsDarkTheme">Dark Mode</label>
                         </div>
                         <div>
                             <label for="settingsPromptType">Prompt type</label>
