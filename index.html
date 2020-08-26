@@ -122,7 +122,7 @@
                         </div>
                         <div>
                             <label for="settingsPromptType">Prompt type</label>
-                            <select id="settingsPromptType" onchange="UpdateLocalStorage();">
+                            <select id="settingsPromptType" v-model="promptType">
                                 <option>Text</option>
                                 <option>Audio</option>
                                 <option>Both</option>
@@ -130,7 +130,7 @@
                         </div>
                         <div>
                             <label for="settingsInputType">Input type</label>
-                            <select id="settingsInputType" onchange="UpdateLocalStorage();">
+                            <select id="settingsInputType" v-model="inputType">
                                 <option>Text</option>
                                 <option>Voice</option>
                                 <option>Either</option>
@@ -138,7 +138,7 @@
                         </div>
                         <div>
                             <label for="settingsRepeatPrompts">Repeat missed prompts</label>
-                            <select id="settingsRepeatPrompts" onchange="UpdateLocalStorage();">
+                            <select id="settingsRepeatPrompts" v-model="repeatPrompts">
                                 <option>Never</option>
                                 <option>Immediately</option>
                                 <option>5 prompts later</option>

@@ -43,15 +43,10 @@ function CreateSession() {
         prefix = "verb-"
     }
     
-    // Get quizzer settings
-    inputType = document.getElementById("settingsInputType").value;
-    promptType = document.getElementById("settingsPromptType").value;
-    repeatPrompts = document.getElementById("settingsRepeatPrompts").value;
-    
     // Start quizzer
     try {
         // Start quizzer
-        StartQuizzer(terms, 0, prefix, inputType, promptType, repeatPrompts);
+        StartQuizzer(terms, 0, prefix, app.inputType, app.promptType, app.repeatPrompts);
 
         // Show and hide elements
         if (app.state == "verbSettings") {
@@ -92,14 +87,9 @@ function ResumeSession() {
     let terms = JSON.parse(localStorage.getItem(prefix + "terms"));
     let term = parseInt(localStorage.getItem(prefix + "term"));
 
-    // Get quizzer settings
-    inputType = document.getElementById("settingsInputType").value;
-    promptType = document.getElementById("settingsPromptType").value;
-    repeatPrompts = document.getElementById("settingsRepeatPrompts").value;
-
     // Start quizzer
     try {
-        StartQuizzer(terms, term, prefix, inputType, promptType, repeatPrompts);
+        StartQuizzer(terms, term, prefix, app.inputType, app.promptType, app.repeatPrompts);
 
         // Show and hide elements
         if (app.state == "verbSettings") {

@@ -16,6 +16,9 @@ function Load() {
             darkTheme: false,
             verbFilters: [],
             vocabFilters: [],
+            promptType: localStorage.getItem("promptType") || "Text",
+            inputType: localStorage.getItem("inputType") || "Text",
+            repeatPrompts: localStorage.getItem("repeatPrompts") || "Never"
         },
 
         methods: {
@@ -153,21 +156,21 @@ function Load() {
 
                 // Save theme
                 localStorage.setItem("darkTheme", this.darkTheme);
+            },
+            promptType: function(value) {
+                localStorage.setItem("promptType", value);
+            },
+            inputType: function(value) {
+                localStorage.setItem("inputType", value);
+            },
+            repeatPrompts: function(value) {
+                localStorage.setItem("repeatPrompts", value);
             }
         }
     });
 
     // Load settings
     app.darkTheme = null;   // Force theme to update
-    if (localStorage.getItem("PromptType")) {
-        document.getElementById("settingsPromptType").value = localStorage.getItem("PromptType");
-    }
-    if (localStorage.getItem("InputType")) {
-        document.getElementById("settingsInputType").value = localStorage.getItem("InputType");
-    }
-    if (localStorage.getItem("repeatPrompt")) {
-        document.getElementById("settingsRepeatPrompts").value = localStorage.getItem("repeatPrompt");
-    }
 
     // Add event Listeners
     document.addEventListener("click", function (e) {
