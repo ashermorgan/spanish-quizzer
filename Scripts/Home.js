@@ -104,7 +104,7 @@ function KeyDown(e) {
     }
 
     // Home shortcuts
-    if (app.state = "home") {
+    if (app.state === "home") {
         if (e.key === "c") {
             app.state = "verbSettings";
         }
@@ -117,7 +117,7 @@ function KeyDown(e) {
     }
 
     // Settings shortcuts
-    if (app.state == "verbSettings" || app.state == "vocabSettings") {
+    if (app.state === "verbSettings" || app.state === "vocabSettings") {
         if (e.key === "s") {
             CreateSession();
         }
