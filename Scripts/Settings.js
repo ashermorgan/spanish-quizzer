@@ -1,20 +1,3 @@
-// Declare global variables
-let setId = 0;  // Next valid vocab set id number
-
-
-
-// Update local storage
-function UpdateLocalStorage() {
-    localStorage.setItem("PromptType", document.getElementById("settingsPromptType").value);
-    localStorage.setItem("InputType", document.getElementById("settingsInputType").value);
-    localStorage.setItem("repeatPrompt", document.getElementById("settingsRepeatPrompts").value);
-}
-
-
-
-
-
-
 // Start a new session
 function CreateSession() {
     // Get terms and localStorage prefix
@@ -46,7 +29,7 @@ function CreateSession() {
     // Start quizzer
     try {
         // Start quizzer
-        StartQuizzer(terms, 0, prefix, app.inputType, app.promptType, app.repeatPrompts);
+        StartQuizzer(terms, 0, prefix);
 
         // Show and hide elements
         if (app.state == "verbSettings") {
@@ -89,7 +72,7 @@ function ResumeSession() {
 
     // Start quizzer
     try {
-        StartQuizzer(terms, term, prefix, app.inputType, app.promptType, app.repeatPrompts);
+        StartQuizzer(terms, term, prefix);
 
         // Show and hide elements
         if (app.state == "verbSettings") {
