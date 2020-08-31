@@ -1,35 +1,37 @@
 // Start a new session
 function CreateSession() {
-    // Get terms and localStorage prefix
-    let terms;
+    // Get prompts and localStorage prefix
     let prefix;
     if (app.state == "vocabSettings") {
-        // Filter and load Sets into Terms
-        terms = [];
+        // Filter and load Sets into prompts
+        app.prompts = [];
         for (let filter of app.vocabFilters)
         {
             // Add filtered set
-            terms.push(...ApplyVocabFilter(Sets[filter.set], filter.type));
+            app.prompts.push(...ApplyVocabFilter(Sets[filter.set], filter.type));
         }
 
-        // Shuffle terms
-        terms = Shuffle(terms);
+        // Shuffle prompts
+        app.prompts = Shuffle(app.prompts);
 
         // Set prefix
         prefix = "vocab-"
     }
     else if (app.state == "verbSettings") {
-        // Get terms
-        terms = Shuffle(ApplyVerbFilter(Sets["Verbs"], app.verbFilters));
+        // Get prompts
+        app.prompts = Shuffle(ApplyVerbFilter(Sets["Verbs"], app.verbFilters));
 
         // Set prefix
         prefix = "verb-"
     }
+
+    // Set progress
+    app.prompt = 0;
     
     // Start quizzer
     try {
         // Start quizzer
-        StartQuizzer(terms, 0, prefix);
+        StartQuizzer(prefix);
 
         // Show and hide elements
         if (app.state == "verbSettings") {
@@ -66,13 +68,13 @@ function ResumeSession() {
         prefix = "verb-"
     }
 
-    // Load terms and progress
-    let terms = JSON.parse(localStorage.getItem(prefix + "terms"));
-    let term = parseInt(localStorage.getItem(prefix + "term"));
+    // Load prompts and progress
+    app.prompts = JSON.parse(localStorage.getItem(prefix + "prompts"));
+    app.prompt = parseInt(localStorage.getItem(prefix + "prompt"));
 
     // Start quizzer
     try {
-        StartQuizzer(terms, term, prefix);
+        StartQuizzer(prefix);
 
         // Show and hide elements
         if (app.state == "verbSettings") {

@@ -1,6 +1,4 @@
 // Declare global variables
-let Terms;          // List of prompts
-let Term;           // Index of current prompt
 let Prefix;         // Dictionary of quizzer settings
 
 
@@ -46,17 +44,16 @@ function Shuffle(items) {
 
 
 // Starts the quizzer
-function StartQuizzer(terms, term, prefix) {
+function StartQuizzer(prefix) {
     // Set variables and settings
-    Terms = terms;
-    Term = term - 1;
+    app.prompt--;
     Prefix = prefix;
 
     // Validate Terms
-    if (!Terms || isNaN(Term) || Term < -1 || Term > Terms.length) {
+    if (!app.prompts || isNaN(app.prompt) || app.prompt < -1 || app.prompt > app.prompts.length) {
         throw "Bad arguments.";
     }
-    else if (Terms.length == 0) {
+    else if (app.prompts.length == 0) {
         throw "Terms is empty.";
     }
     
@@ -74,7 +71,7 @@ function StartQuizzer(terms, term, prefix) {
     }
 
     // Save terms to local storage
-    localStorage.setItem(Prefix + "terms", JSON.stringify(Terms));
+    localStorage.setItem(Prefix + "prompts", JSON.stringify(app.prompts));
     
     // Give iOS devices ringer warning for prompt audio
     if (app.promptType != "Text") {
@@ -100,11 +97,11 @@ function Reset() {
     document.getElementById("quizzerInput").focus();
     
     // Get prompt
-    Term++;
-    if (Term == Terms.length) {
+    app.prompt++;
+    if (app.prompt == app.prompts.length) {
         // The user just finished
-        Terms = Shuffle(Terms);
-        Term = 0;
+        app.prompts = Shuffle(app.prompts);
+        app.prompt = 0;
         
         // Congradulate user
         document.getElementById("quizzerCongrats").textContent = "Congratulations! You made it back to the beginning!";
@@ -112,27 +109,27 @@ function Reset() {
     }
 
     // Save progress to local storage
-    localStorage.setItem(Prefix + "term", Term);
+    localStorage.setItem(Prefix + "prompt", app.prompt);
 
     // Update progress
-    document.getElementById("quizzerProgress").textContent = `${Term} / ${Terms.length}`;
+    document.getElementById("quizzerProgress").textContent = `${app.prompt} / ${app.prompts.length}`;
 
     // Set prompt
-    document.getElementById("quizzerPromptType").textContent = `${Terms[Term][0]}: `;
+    document.getElementById("quizzerPromptType").textContent = `${app.prompts[app.prompt][0]}: `;
     if (app.promptType != "Audio") {
-        document.getElementById("quizzerPrompt").textContent = Terms[Term][1];
+        document.getElementById("quizzerPrompt").textContent = app.prompts[app.prompt][1];
     }
     else {
         document.getElementById("quizzerPrompt").textContent = "Click to hear again";
     }
-    document.getElementById("quizzerInputType").textContent = `${Terms[Term][2]}: `;
+    document.getElementById("quizzerInputType").textContent = `${app.prompts[app.prompt][2]}: `;
 
     // Reset responce
     document.getElementById("quizzerInput").value = "";
 
     // Read prompt
     if (app.promptType != "Text") {
-        Read(Terms[Term][1], Terms[Term][0]);
+        Read(app.prompts[app.prompt][1], app.prompts[app.prompt][0]);
     }
 
     // Disable textbox and submit button
@@ -147,10 +144,10 @@ function Reset() {
         var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
         
         // Set language
-        if (Terms[Term][2].toLowerCase().includes("english")) {
+        if (app.prompts[app.prompt][2].toLowerCase().includes("english")) {
             recognition.lang = 'en-US';
         }
-        else if (Terms[Term][2].toLowerCase().includes("spanish")) {
+        else if (app.prompts[app.prompt][2].toLowerCase().includes("spanish")) {
             recognition.lang = 'es-mx';
         }
 
@@ -193,7 +190,7 @@ function Submit() {
     }
 
     // Parse answer
-    answers = Terms[Term][3].toLowerCase().split(","); // Split string by commas
+    answers = app.prompts[app.prompt][3].toLowerCase().split(","); // Split string by commas
     for (var i = 0; i < answers.length; i++) {
         answers[i] = answers[i].trim(); // Trim whitespace
     }
@@ -209,7 +206,7 @@ function Submit() {
     // Give user feedback
     if (!correct) {
         // Responce was incorrect
-        document.getElementById("quizzerFeedbackTerm").textContent = Terms[Term][3].toLowerCase();
+        document.getElementById("quizzerFeedbackTerm").textContent = app.prompts[app.prompt][3].toLowerCase();
         
         // Show and hide elements
         document.getElementById("quizzerInput").readOnly = true;
@@ -238,26 +235,26 @@ function Continue() {
             break;
         case "Immediately":
             // Repeat imitiately
-            Term--;
+            app.prompt--;
             break;
         case "5 prompts later":
             // Repeat 5 prompts later
-            var temp = Terms[Term];
-            Terms.splice(Term, 1);
-            Terms.splice(Term + 5, 0, temp);
-            Term--;
+            var temp = app.prompts[app.prompt];
+            app.prompts.splice(app.prompt, 1);
+            app.prompts.splice(app.prompt + 5, 0, temp);
+            app.prompt--;
             break;
         case "At the end":
             // Repeat at end of Terms
-            var temp = Terms[Term];
-            Terms.splice(Term, 1);
-            Terms.push(temp);
-            Term--;
+            var temp = app.prompts[app.prompt];
+            app.prompts.splice(app.prompt, 1);
+            app.prompts.push(temp);
+            app.prompt--;
             break;
     }
     
     // Save terms to local storage
-    localStorage.setItem(Prefix + "terms", JSON.stringify(Terms));
+    localStorage.setItem(Prefix + "terms", JSON.stringify(app.prompts));
 
     // Reset quizzer
     Reset();

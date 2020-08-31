@@ -161,7 +161,7 @@
         
                     <section>
                         <label id="quizzerPromptType" for="quizzerPrompt"></label>
-                        <span id="quizzerPrompt" onclick="Read(Terms[Term][1], Terms[Term][0]);"></span>
+                        <span id="quizzerPrompt" onclick="Read(app.prompts[app.prompt][1], app.prompts[app.prompt][0]);"></span>
                     </section>
                     
                     <section>
@@ -176,7 +176,7 @@
                     
                     <div id="quizzerFeedback" class="bad">
                         The correct answer is 
-                        <span id="quizzerFeedbackTerm" onclick="Read(Terms[Term][3], Terms[Term][2]);"></span>.
+                        <span id="quizzerFeedbackTerm" onclick="Read(app.prompts[app.prompt][3], app.prompts[app.prompt][2]);"></span>.
                     </div>
                     <div id="quizzerCongrats" class="good"></div>
                 </div>

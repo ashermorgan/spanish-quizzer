@@ -18,7 +18,10 @@ function Load() {
             vocabFilters: [],
             promptType: localStorage.getItem("promptType") || "Text",
             inputType: localStorage.getItem("inputType") || "Text",
-            repeatPrompts: localStorage.getItem("repeatPrompts") || "Never"
+            repeatPrompts: localStorage.getItem("repeatPrompts") || "Never",
+
+            prompts: [],
+            prompt: 0,
         },
 
         methods: {
