@@ -180,29 +180,6 @@ function Load() {
         document.getElementById('share').hidden = true;
     });
     document.addEventListener("keydown", KeyDown);
-    document.getElementById("quizzerInput").addEventListener("keydown", function (e) {
-        if (e.ctrlKey && e.keyCode === 13) {
-            // Key was Ctrl+Enter
-            Reset(); // Skip prompt
-        }
-        else if (e.keyCode === 13) {
-            // Key was Enter
-            if (document.getElementById("quizzerInput").readOnly) {
-                Continue();
-            }
-            else {
-                Submit();
-            }
-        }
-    });
-    document.getElementById("quizzerEnter").addEventListener("click", function (e) {
-        if (document.getElementById("quizzerInput").readOnly) {
-            Continue();
-        }
-        else {
-            Submit();
-        }
-    });
 
     // Load CSVs
     Sets = [];
@@ -222,7 +199,7 @@ function Load() {
 
 
 
-// Handles keyDown events (implements keyboard shortcuts)
+// Handles keyDown events (implements some keyboard shortcuts)
 function KeyDown(e) {
     if (e.key === "Escape") {
         app.Back();

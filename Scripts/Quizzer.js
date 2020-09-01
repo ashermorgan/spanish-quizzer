@@ -259,3 +259,15 @@ function Continue() {
     // Reset quizzer
     Reset();
 }
+
+
+
+// Called when the user hits enter or presses the enter button
+function Enter() {
+    if (document.getElementById("quizzerInput").readOnly) {
+        Continue();
+    }
+    else {
+        Submit();
+    }
+}

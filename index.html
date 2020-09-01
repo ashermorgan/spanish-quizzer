@@ -166,11 +166,12 @@
                     
                     <section>
                         <label id="quizzerInputType" for="quizzerInput"></label>
-                        <input id="quizzerInput" type="text" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
+                        <input id="quizzerInput" type="text" @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();"
+                            autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
                     </section>
         
                     <div id="quizzerButtons">
-                        <button id="quizzerEnter">Submit</button>
+                        <button id="quizzerEnter" @click="Enter();">Submit</button>
                         <button id="quizzerSkip" onclick="Reset();">Skip</button>
                     </div>
                     
