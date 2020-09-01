@@ -158,7 +158,7 @@
         
                 <div id="quizzer" v-show="state == 'verbQuizzer' || state == 'vocabQuizzer'">
                     <p id="quizzerProgress">{{ prompt }} / {{ prompts.length}}</p>
-        
+                    
                     <section>
                         <label id="quizzerPromptType" for="quizzerPrompt"></label>
                         <span id="quizzerPrompt" onclick="Read(app.prompts[app.prompt][1], app.prompts[app.prompt][0]);"></span>
@@ -166,16 +166,18 @@
                     
                     <section>
                         <label id="quizzerInputType" for="quizzerInput"></label>
-                        <input id="quizzerInput" type="text" v-model="responce" @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();"
+                        <input id="quizzerInput" type="text" v-model="responce" :readonly="!responceActive || inputType == 'Voice'"
+                            @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();"
                             autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
                     </section>
-        
+                    
                     <div id="quizzerButtons">
-                        <button id="quizzerEnter" @click="Enter();">Submit</button>
-                        <button id="quizzerSkip" onclick="Reset();">Skip</button>
+                        <button v-if="responceActive" :disabled="inputType == 'Voice'" @click="Submit();">Submit</button>
+                        <button v-else @click="Continue();">Continue</button>
+                        <button @click="Reset();">Skip</button>
                     </div>
                     
-                    <div id="quizzerFeedback" class="bad">
+                    <div id="quizzerFeedback" v-show="!responceActive" class="bad">
                         The correct answer is 
                         <span id="quizzerFeedbackTerm" onclick="Read(app.prompts[app.prompt][3], app.prompts[app.prompt][2]);"></span>.
                     </div>

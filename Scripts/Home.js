@@ -23,6 +23,7 @@ function Load() {
             prompts: [],
             prompt: 0,
             responce: "",
+            responceActive: true,
         },
 
         methods: {

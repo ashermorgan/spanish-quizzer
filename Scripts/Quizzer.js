@@ -89,12 +89,9 @@ function StartQuizzer(prefix) {
 // Give the user a new prompt
 function Reset() {
     // Show and hide elements
-    document.getElementById("quizzerEnter").textContent = "Submit";
-    document.getElementById("quizzerEnter").disabled = false;
-    document.getElementById("quizzerFeedback").hidden = true;
     document.getElementById("quizzerCongrats").hidden = true;
-    document.getElementById("quizzerInput").readOnly = false;
     document.getElementById("quizzerInput").focus();
+    app.responceActive = true;
     
     // Get prompt
     app.prompt++;
@@ -127,12 +124,6 @@ function Reset() {
     // Read prompt
     if (app.promptType != "Text") {
         Read(app.prompts[app.prompt][1], app.prompts[app.prompt][0]);
-    }
-
-    // Disable textbox and submit button
-    if (app.inputType == "Voice") {
-        document.getElementById("quizzerInput").readOnly = true;
-        document.getElementById("quizzerEnter").disabled = true;
     }
 
     // Get voice input
@@ -206,13 +197,10 @@ function Submit() {
         document.getElementById("quizzerFeedbackTerm").textContent = app.prompts[app.prompt][3].toLowerCase();
         
         // Show and hide elements
-        document.getElementById("quizzerInput").readOnly = true;
-        document.getElementById("quizzerEnter").textContent = "Continue";
-        document.getElementById("quizzerEnter").disabled = false;
-        document.getElementById("quizzerFeedback").hidden = false;
         document.getElementById("quizzerCongrats").hidden = true;
         document.getElementById("quizzerFeedback").scrollIntoView(false);
         document.getElementById("quizzerInput").focus();
+        app.responceActive = false;
     }
     else {
         // Responce was correct
@@ -261,7 +249,7 @@ function Continue() {
 
 // Called when the user hits enter or presses the enter button
 function Enter() {
-    if (document.getElementById("quizzerInput").readOnly) {
+    if (app.responceActive) {
         Continue();
     }
     else {
