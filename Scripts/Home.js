@@ -22,6 +22,7 @@ function Load() {
 
             prompts: [],
             prompt: 0,
+            responce: "",
         },
 
         methods: {

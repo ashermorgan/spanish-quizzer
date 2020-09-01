@@ -157,7 +157,7 @@
         
         
                 <div id="quizzer" v-show="state == 'verbQuizzer' || state == 'vocabQuizzer'">
-                    <p id="quizzerProgress"></p>
+                    <p id="quizzerProgress">{{ prompt }} / {{ prompts.length}}</p>
         
                     <section>
                         <label id="quizzerPromptType" for="quizzerPrompt"></label>
@@ -166,7 +166,7 @@
                     
                     <section>
                         <label id="quizzerInputType" for="quizzerInput"></label>
-                        <input id="quizzerInput" type="text" @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();"
+                        <input id="quizzerInput" type="text" v-model="responce" @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();"
                             autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
                     </section>
         

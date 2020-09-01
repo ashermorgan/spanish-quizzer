@@ -111,9 +111,6 @@ function Reset() {
     // Save progress to local storage
     localStorage.setItem(Prefix + "prompt", app.prompt);
 
-    // Update progress
-    document.getElementById("quizzerProgress").textContent = `${app.prompt} / ${app.prompts.length}`;
-
     // Set prompt
     document.getElementById("quizzerPromptType").textContent = `${app.prompts[app.prompt][0]}: `;
     if (app.promptType != "Audio") {
@@ -125,7 +122,7 @@ function Reset() {
     document.getElementById("quizzerInputType").textContent = `${app.prompts[app.prompt][2]}: `;
 
     // Reset responce
-    document.getElementById("quizzerInput").value = "";
+    app.responce = "";
 
     // Read prompt
     if (app.promptType != "Text") {
@@ -164,7 +161,7 @@ function Reset() {
                 responce += `${result.transcript}, `;
                 responce += `${result.transcript.split(" or ").join(", ")}, `;
             }
-            document.getElementById("quizzerInput").value = responce;
+            app.responce = responce;
             Submit()
         };
     }
@@ -175,7 +172,7 @@ function Reset() {
 // Processes a user's submitted responce
 function Submit() {
     // Parse responce
-    var responce = document.getElementById("quizzerInput").value.toLowerCase(); // Make responce lowercase
+    var responce = app.responce.toLowerCase(); // Make responce lowercase
     responce = responce.replace(/a`/g, "á"); // Apply accented a shortcut
     responce = responce.replace(/e`/g, "é"); // Apply accented e shortcut
     responce = responce.replace(/i`/g, "í"); // Apply accented i shortcut
