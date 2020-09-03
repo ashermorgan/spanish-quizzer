@@ -26,7 +26,7 @@ function CreateSession() {
     }
 
     // Set progress
-    app.prompt = 0;
+    app.promptIndex = 0;
     
     // Start quizzer
     try {
@@ -70,7 +70,7 @@ function ResumeSession() {
 
     // Load prompts and progress
     app.prompts = JSON.parse(localStorage.getItem(prefix + "prompts"));
-    app.prompt = parseInt(localStorage.getItem(prefix + "prompt"));
+    app.promptIndex = parseInt(localStorage.getItem(prefix + "prompt"));
 
     // Start quizzer
     try {

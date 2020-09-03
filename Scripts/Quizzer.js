@@ -46,11 +46,11 @@ function Shuffle(items) {
 // Starts the quizzer
 function StartQuizzer(prefix) {
     // Set variables and settings
-    app.prompt--;
+    app.promptIndex--;
     Prefix = prefix;
 
     // Validate Terms
-    if (!app.prompts || isNaN(app.prompt) || app.prompt < -1 || app.prompt > app.prompts.length) {
+    if (!app.prompts || isNaN(app.promptIndex) || app.promptIndex < -1 || app.promptIndex > app.prompts.length) {
         throw "Bad arguments.";
     }
     else if (app.prompts.length == 0) {
@@ -94,11 +94,11 @@ function Reset() {
     app.responceActive = true;
     
     // Get prompt
-    app.prompt++;
-    if (app.prompt == app.prompts.length) {
+    app.promptIndex++;
+    if (app.promptIndex == app.prompts.length) {
         // The user just finished
         app.prompts = Shuffle(app.prompts);
-        app.prompt = 0;
+        app.promptIndex = 0;
         
         // Congradulate user
         document.getElementById("quizzerCongrats").textContent = "Congratulations! You made it back to the beginning!";
@@ -106,24 +106,14 @@ function Reset() {
     }
 
     // Save progress to local storage
-    localStorage.setItem(Prefix + "prompt", app.prompt);
-
-    // Set prompt
-    document.getElementById("quizzerPromptType").textContent = `${app.prompts[app.prompt][0]}: `;
-    if (app.promptType != "Audio") {
-        document.getElementById("quizzerPrompt").textContent = app.prompts[app.prompt][1];
-    }
-    else {
-        document.getElementById("quizzerPrompt").textContent = "Click to hear again";
-    }
-    document.getElementById("quizzerInputType").textContent = `${app.prompts[app.prompt][2]}: `;
+    localStorage.setItem(Prefix + "prompt", app.promptIndex);
 
     // Reset responce
     app.responce = "";
 
     // Read prompt
     if (app.promptType != "Text") {
-        Read(app.prompts[app.prompt][1], app.prompts[app.prompt][0]);
+        Read(app.prompt[1], app.prompt[0]);
     }
 
     // Get voice input
@@ -132,10 +122,10 @@ function Reset() {
         var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
         
         // Set language
-        if (app.prompts[app.prompt][2].toLowerCase().includes("english")) {
+        if (app.prompt[2].toLowerCase().includes("english")) {
             recognition.lang = 'en-US';
         }
-        else if (app.prompts[app.prompt][2].toLowerCase().includes("spanish")) {
+        else if (app.prompt[2].toLowerCase().includes("spanish")) {
             recognition.lang = 'es-mx';
         }
 
@@ -178,7 +168,7 @@ function Submit() {
     }
 
     // Parse answer
-    answers = app.prompts[app.prompt][3].toLowerCase().split(","); // Split string by commas
+    answers = app.prompt[3].toLowerCase().split(","); // Split string by commas
     for (var i = 0; i < answers.length; i++) {
         answers[i] = answers[i].trim(); // Trim whitespace
     }
@@ -193,9 +183,6 @@ function Submit() {
 
     // Give user feedback
     if (!correct) {
-        // Responce was incorrect
-        document.getElementById("quizzerFeedbackTerm").textContent = app.prompts[app.prompt][3].toLowerCase();
-        
         // Show and hide elements
         document.getElementById("quizzerCongrats").hidden = true;
         document.getElementById("quizzerFeedback").scrollIntoView(false);
@@ -220,21 +207,21 @@ function Continue() {
             break;
         case "Immediately":
             // Repeat imitiately
-            app.prompt--;
+            app.promptIndex--;
             break;
         case "5 prompts later":
             // Repeat 5 prompts later
-            var temp = app.prompts[app.prompt];
-            app.prompts.splice(app.prompt, 1);
-            app.prompts.splice(app.prompt + 5, 0, temp);
-            app.prompt--;
+            var temp = app.prompt;
+            app.prompts.splice(app.promptIndex, 1);
+            app.prompts.splice(app.promptIndex + 5, 0, temp);
+            app.promptIndex--;
             break;
         case "At the end":
             // Repeat at end of Terms
-            var temp = app.prompts[app.prompt];
-            app.prompts.splice(app.prompt, 1);
+            var temp = app.prompt;
+            app.prompts.splice(app.promptIndex, 1);
             app.prompts.push(temp);
-            app.prompt--;
+            app.promptIndex--;
             break;
     }
     

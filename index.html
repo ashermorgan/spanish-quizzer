@@ -157,15 +157,15 @@
         
         
                 <div id="quizzer" v-show="state == 'verbQuizzer' || state == 'vocabQuizzer'">
-                    <p id="quizzerProgress">{{ prompt }} / {{ prompts.length}}</p>
+                    <p id="quizzerProgress">{{ promptIndex }} / {{ prompts.length}}</p>
                     
                     <section>
-                        <label id="quizzerPromptType" for="quizzerPrompt"></label>
-                        <span id="quizzerPrompt" onclick="Read(app.prompts[app.prompt][1], app.prompts[app.prompt][0]);"></span>
+                        <label id="quizzerPromptType" for="quizzerPrompt">{{ prompt[0] }}</label>
+                        <span id="quizzerPrompt" @click="Read(prompt[1], prompt[0]);">{{ prompt[1] }}</span>
                     </section>
                     
                     <section>
-                        <label id="quizzerInputType" for="quizzerInput"></label>
+                        <label id="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
                         <input id="quizzerInput" type="text" v-model="responce" :readonly="!responceActive || inputType == 'Voice'"
                             @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();"
                             autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
@@ -179,7 +179,7 @@
                     
                     <div id="quizzerFeedback" v-show="!responceActive" class="bad">
                         The correct answer is 
-                        <span id="quizzerFeedbackTerm" onclick="Read(app.prompts[app.prompt][3], app.prompts[app.prompt][2]);"></span>.
+                        <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
                     </div>
                     <div id="quizzerCongrats" class="good"></div>
                 </div>

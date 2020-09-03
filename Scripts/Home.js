@@ -21,7 +21,7 @@ function Load() {
             repeatPrompts: localStorage.getItem("repeatPrompts") || "Never",
 
             prompts: [],
-            prompt: 0,
+            promptIndex: 0,
             responce: "",
             responceActive: true,
         },
@@ -170,6 +170,17 @@ function Load() {
             },
             repeatPrompts: function(value) {
                 localStorage.setItem("repeatPrompts", value);
+            }
+        },
+
+        computed: {
+            prompt: function() {
+                if (this.promptIndex < this.prompts.length) {
+                    return this.prompts[this.promptIndex];
+                }
+                else {
+                    return ["", "", "", ""];
+                }
             }
         }
     });
