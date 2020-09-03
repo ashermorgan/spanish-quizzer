@@ -93,15 +93,12 @@ function Reset() {
     document.getElementById("quizzerInput").focus();
     app.responceActive = true;
     
-    // Get prompt
+    // Get new prompt
     app.promptIndex++;
     if (app.promptIndex == app.prompts.length) {
         // The user just finished
         app.prompts = Shuffle(app.prompts);
         app.promptIndex = 0;
-        
-        // Congradulate user
-        document.getElementById("quizzerCongrats").textContent = "Congratulations! You made it back to the beginning!";
         document.getElementById("quizzerCongrats").hidden = false;
     }
 
