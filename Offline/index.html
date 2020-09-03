@@ -9,9 +9,11 @@
         <link rel="apple-touch-icon" sizes="180x180" href="../Images/apple-touch-icon.png">
         <link rel="stylesheet" href="../Styles/Global.css">
         <link rel="stylesheet" href="../Styles/Offline.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+        <script src="../Scripts/Offline.js"></script>
     </head>
 
-    <body>
+    <body onload="Load();">
         <div id="app">
             <header onclick="window.location='../'">Spanish-Quizzer</header>
 
@@ -51,7 +53,7 @@
                 </div>
                 <a href="../">Home</a>&nbsp;
                 <a href="../reference.html">Reference Tables</a>&nbsp;
-                <a href="javascript:document.getElementById('share').hidden = false;">Share</a>&nbsp;
+                <a href="javascript:document.getElementById('share').hidden = false; void 0;">Share</a>&nbsp;
             </footer>
         </div>
     </body>
