@@ -26,7 +26,7 @@
                 <h1>Reference Tables</h1>
     
                 <div id="controls">
-                    <select id="referenceSet" aria-label="Vocab Set" onchange="referenceSetChanged()">
+                    <select aria-label="Vocab Set" v-model="set">
                         <option>Choose a vocab set</option>
                         <optgroup label="Common Words">
                             <option>Verbs</option>
@@ -53,11 +53,16 @@
                             <option>Health</option>
                         </optgroup>
                     </select>
-                    <input type="text" aria-label="Search" id="referenceFilter" onkeyup="referenceFilterChanged()" placeholder="Search">
+                    <input type="text" aria-label="Search" v-model="query" placeholder="Search">
                 </div>
                 
                 <div id="referenceTable">
-                    <table id="referenceTableInner"></table>
+                    <table>
+                        <tr v-for="(row, rowIndex) in sets[set]" v-show="rowIndex == 0 || row.join(',').toLowerCase().includes(query.toLowerCase())">
+                            <th v-if="rowIndex == 0" v-for="column in row">{{ column }}</th>
+                            <td v-if="rowIndex != 0" v-for="(column, columnIndex) in row" @click="Read(rowIndex, columnIndex)">{{ column }}</td>
+                        </tr>
+                    </table>
                 </div>
             </main>
     
