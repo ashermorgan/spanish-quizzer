@@ -42,6 +42,14 @@ function Load() {
         }
     });
 
+    // Unhide hidden divs
+    // Divs were hidden to improve interface for users with JS blocked
+    document.querySelector("h1").hidden = false;
+    document.getElementById("controls").hidden = false;
+    document.getElementById("referenceTable").hidden = false;
+    document.querySelector("footer").hidden = false;
+
+
     // Load settings
     app.darkTheme = null;   // Force theme to update
 

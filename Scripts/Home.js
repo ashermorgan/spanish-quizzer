@@ -185,6 +185,14 @@ function Load() {
         }
     });
 
+    // Unhide hidden divs
+    // Divs were hidden to improve interface for users with JS blocked
+    document.getElementById("home").hidden = false;
+    document.getElementById("settings").hidden = false;
+    document.getElementById("quizzer").hidden = false;
+    document.querySelector("footer").hidden = false;
+
+
     // Load settings
     app.darkTheme = null;   // Force theme to update
 

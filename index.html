@@ -27,7 +27,7 @@
                     <h1 id="jsError">You must have JavaScript enabled to run Spanish-Quizzer.</h1>
                 </noscript>
     
-                <div id="home" v-show="state == 'home'">
+                <div id="home" v-show="state == 'home'" hidden>
                     <h1>What do you want to study?</h1>
         
                     <div>
@@ -41,7 +41,7 @@
                 </div>
         
         
-                <div id="settings" v-show="state == 'verbSettings' || state == 'vocabSettings'">
+                <div id="settings" v-show="state == 'verbSettings' || state == 'vocabSettings'" hidden>
                     <div id="verbSettings" v-show="state == 'verbSettings'">
                         <h1>Choose your settings and then click start.</h1>
             
@@ -156,7 +156,7 @@
                 </div>
         
         
-                <div id="quizzer" v-show="state == 'verbQuizzer' || state == 'vocabQuizzer'">
+                <div id="quizzer" v-show="state == 'verbQuizzer' || state == 'vocabQuizzer'" hidden>
                     <p id="quizzerProgress">{{ promptIndex }} / {{ prompts.length}}</p>
                     
                     <section>
@@ -186,7 +186,7 @@
             </main>
     
     
-            <footer>
+            <footer hidden>
                 <div id="share" hidden>
                     <a href="mailto:?Subject=Spanish-Quizzer&amp;Body=https://ashermorgan.github.io/Spanish-Quizzer">Email</a>&nbsp;
                     <a rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ashermorgan.github.io/Spanish-Quizzer" target="_blank">Facebook</a>&nbsp;
