@@ -1,7 +1,5 @@
 // Declare global variables
-let Terms;          // List of prompts
-let Term;           // Index of current prompt
-let Settings = {};  // Dictionary of quizzer settings
+let Prefix;         // Dictionary of quizzer settings
 
 
 
@@ -46,25 +44,21 @@ function Shuffle(items) {
 
 
 // Starts the quizzer
-function StartQuizzer(terms, term, prefix, inputType, promptType, repeatPrompts) {
+function StartQuizzer(prefix) {
     // Set variables and settings
-    Terms = terms;
-    Term = term - 1;
-    Settings["Prefix"] = prefix;
-    Settings["InputType"] = inputType;
-    Settings["PromptType"] = promptType;
-    Settings["RepeatPrompts"] = repeatPrompts;
+    app.promptIndex--;
+    Prefix = prefix;
 
     // Validate Terms
-    if (!Terms || isNaN(Term) || Term < -1 || Term > Terms.length) {
+    if (!app.prompts || isNaN(app.promptIndex) || app.promptIndex < -1 || app.promptIndex > app.prompts.length) {
         throw "Bad arguments.";
     }
-    else if (Terms.length == 0) {
+    else if (app.prompts.length == 0) {
         throw "Terms is empty.";
     }
     
     // Validate browser for voice input
-    if (Settings["InputType"] != "Text") {
+    if (app.inputType != "Text") {
         if (typeof InstallTrigger !== "undefined") {
             // Browser is Firefox
             alert("You must enable speech recognition in about:config.");
@@ -77,10 +71,10 @@ function StartQuizzer(terms, term, prefix, inputType, promptType, repeatPrompts)
     }
 
     // Save terms to local storage
-    localStorage.setItem(Settings["Prefix"] + "terms", JSON.stringify(Terms));
+    localStorage.setItem(Prefix + "prompts", JSON.stringify(app.prompts));
     
     // Give iOS devices ringer warning for prompt audio
-    if (Settings["PromptType"] != "Text") {
+    if (app.promptType != "Text") {
         if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
             alert("Please make sure your ringer is on in order to hear audio prompts.");
         }
@@ -95,65 +89,40 @@ function StartQuizzer(terms, term, prefix, inputType, promptType, repeatPrompts)
 // Give the user a new prompt
 function Reset() {
     // Show and hide elements
-    document.getElementById("quizzerEnter").textContent = "Submit";
-    document.getElementById("quizzerEnter").disabled = false;
-    document.getElementById("quizzerFeedback").hidden = true;
     document.getElementById("quizzerCongrats").hidden = true;
-    document.getElementById("quizzerInput").readOnly = false;
     document.getElementById("quizzerInput").focus();
+    app.responceActive = true;
     
-    // Get prompt
-    Term++;
-    if (Term == Terms.length) {
+    // Get new prompt
+    app.promptIndex++;
+    if (app.promptIndex == app.prompts.length) {
         // The user just finished
-        Terms = Shuffle(Terms);
-        Term = 0;
-        
-        // Congradulate user
-        document.getElementById("quizzerCongrats").textContent = "Congratulations! You made it back to the beginning!";
+        app.prompts = Shuffle(app.prompts);
+        app.promptIndex = 0;
         document.getElementById("quizzerCongrats").hidden = false;
     }
 
     // Save progress to local storage
-    localStorage.setItem(Settings["Prefix"] + "term", Term);
-
-    // Update progress
-    document.getElementById("quizzerProgress").textContent = `${Term} / ${Terms.length}`;
-
-    // Set prompt
-    document.getElementById("quizzerPromptType").textContent = `${Terms[Term][0]}: `;
-    if (Settings["PromptType"] != "Audio") {
-        document.getElementById("quizzerPrompt").textContent = Terms[Term][1];
-    }
-    else {
-        document.getElementById("quizzerPrompt").textContent = "Click to hear again";
-    }
-    document.getElementById("quizzerInputType").textContent = `${Terms[Term][2]}: `;
+    localStorage.setItem(Prefix + "prompt", app.promptIndex);
 
     // Reset responce
-    document.getElementById("quizzerInput").value = "";
+    app.responce = "";
 
     // Read prompt
-    if (Settings["PromptType"] != "Text") {
-        Read(Terms[Term][1], Terms[Term][0]);
-    }
-
-    // Disable textbox and submit button
-    if (Settings["InputType"] == "Voice") {
-        document.getElementById("quizzerInput").readOnly = true;
-        document.getElementById("quizzerEnter").disabled = true;
+    if (app.promptType != "Text") {
+        Read(app.prompt[1], app.prompt[0]);
     }
 
     // Get voice input
-    if (Settings["InputType"] != "Text") {
+    if (app.inputType != "Text") {
         // Create recognition object
         var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
         
         // Set language
-        if (Terms[Term][2].toLowerCase().includes("english")) {
+        if (app.prompt[2].toLowerCase().includes("english")) {
             recognition.lang = 'en-US';
         }
-        else if (Terms[Term][2].toLowerCase().includes("spanish")) {
+        else if (app.prompt[2].toLowerCase().includes("spanish")) {
             recognition.lang = 'es-mx';
         }
 
@@ -170,7 +139,7 @@ function Reset() {
                 responce += `${result.transcript}, `;
                 responce += `${result.transcript.split(" or ").join(", ")}, `;
             }
-            document.getElementById("quizzerInput").value = responce;
+            app.responce = responce;
             Submit()
         };
     }
@@ -181,7 +150,7 @@ function Reset() {
 // Processes a user's submitted responce
 function Submit() {
     // Parse responce
-    var responce = document.getElementById("quizzerInput").value.toLowerCase(); // Make responce lowercase
+    var responce = app.responce.toLowerCase(); // Make responce lowercase
     responce = responce.replace(/a`/g, "á"); // Apply accented a shortcut
     responce = responce.replace(/e`/g, "é"); // Apply accented e shortcut
     responce = responce.replace(/i`/g, "í"); // Apply accented i shortcut
@@ -196,7 +165,7 @@ function Submit() {
     }
 
     // Parse answer
-    answers = Terms[Term][3].toLowerCase().split(","); // Split string by commas
+    answers = app.prompt[3].toLowerCase().split(","); // Split string by commas
     for (var i = 0; i < answers.length; i++) {
         answers[i] = answers[i].trim(); // Trim whitespace
     }
@@ -211,17 +180,11 @@ function Submit() {
 
     // Give user feedback
     if (!correct) {
-        // Responce was incorrect
-        document.getElementById("quizzerFeedbackTerm").textContent = Terms[Term][3].toLowerCase();
-        
         // Show and hide elements
-        document.getElementById("quizzerInput").readOnly = true;
-        document.getElementById("quizzerEnter").textContent = "Continue";
-        document.getElementById("quizzerEnter").disabled = false;
-        document.getElementById("quizzerFeedback").hidden = false;
         document.getElementById("quizzerCongrats").hidden = true;
         document.getElementById("quizzerFeedback").scrollIntoView(false);
         document.getElementById("quizzerInput").focus();
+        app.responceActive = false;
     }
     else {
         // Responce was correct
@@ -234,34 +197,46 @@ function Submit() {
 // Processes an incorrect responce and then resets the quizzer
 function Continue() {
     // Repeat prompt
-    switch (Settings["RepeatPrompts"])
+    switch (app.repeatPrompts)
     {
         case "Never":
             // Don't repeat
             break;
         case "Immediately":
             // Repeat imitiately
-            Term--;
+            app.promptIndex--;
             break;
         case "5 prompts later":
             // Repeat 5 prompts later
-            var temp = Terms[Term];
-            Terms.splice(Term, 1);
-            Terms.splice(Term + 5, 0, temp);
-            Term--;
+            var temp = app.prompt;
+            app.prompts.splice(app.promptIndex, 1);
+            app.prompts.splice(app.promptIndex + 5, 0, temp);
+            app.promptIndex--;
             break;
         case "At the end":
             // Repeat at end of Terms
-            var temp = Terms[Term];
-            Terms.splice(Term, 1);
-            Terms.push(temp);
-            Term--;
+            var temp = app.prompt;
+            app.prompts.splice(app.promptIndex, 1);
+            app.prompts.push(temp);
+            app.promptIndex--;
             break;
     }
     
     // Save terms to local storage
-    localStorage.setItem(Settings["Prefix"] + "terms", JSON.stringify(Terms));
+    localStorage.setItem(Prefix + "terms", JSON.stringify(app.prompts));
 
     // Reset quizzer
     Reset();
+}
+
+
+
+// Called when the user hits enter or presses the enter button
+function Enter() {
+    if (app.responceActive) {
+        Continue();
+    }
+    else {
+        Submit();
+    }
 }

@@ -1,54 +1,206 @@
 // Declare global variables
 let Sets;               // List of parsed sets
 let quizzerType = null; // Type of quizzer
+let app;
 
 
 
 // Load the document
 function Load() {
+    // Initialize Vue
+    app = new Vue({
+        el: "#app", // Mount to app div
+
+        data: {
+            state: "home",
+            darkTheme: false,
+            verbFilters: [],
+            vocabFilters: [],
+            promptType: localStorage.getItem("promptType") || "Text",
+            inputType: localStorage.getItem("inputType") || "Text",
+            repeatPrompts: localStorage.getItem("repeatPrompts") || "Never",
+
+            prompts: [],
+            promptIndex: 0,
+            responce: "",
+            responceActive: true,
+        },
+
+        methods: {
+            Back: function() {
+                switch (app.state) {
+                    case "verbQuizzer":
+                        app.state = "verbSettings";
+                        break;
+                    case "vocabQuizzer":
+                        app.state = "vocabSettings";
+                        break;
+                    case "verbSettings":
+                    case "vocabSettings":
+                    case "home":
+                    default:
+                        app.state = "home";
+                        break;
+                }
+            },
+            AddVerbFilter: function() {
+                this.verbFilters.push({"tense":"All Tenses", "type":"All Types"});
+            },
+            RemoveVerbFilter: function(index) {
+                // Remove filter
+                this.verbFilters.splice(index, 1);
+            },
+            AddVocabFilter: function() {
+                this.vocabFilters.push({"set":"Verbs", "type":"All Definitions"});
+            },
+            RemoveVocabFilter: function(index) {
+                // Remove filter
+                this.vocabFilters.splice(index, 1);
+            },
+            getTenseTypes: function(index) {
+                // Get filter options
+                let filters = {"All Types":true, "Reflexive":true, "Regular":true, "Nonregular":true, "Stem Changing":true, "Orthographic":true, "Irregular":true}
+                switch(this.verbFilters[index].tense)
+                {
+                    case "All Tenses":
+                        break;
+                    case "Present Participles":
+                        filters["Reflexive"] = false;       // Reflexive
+                        filters["Orthographic"] = false;    // Orthographic
+                        break;
+                    case "Present Tense":
+                        filters["Orthographic"] = false;    // Orthographic
+                        break;
+                    case "Preterite Tense":
+                        break;
+                    case "Imperfect Tense":
+                        filters["Stem Changing"] = false;   // Stem Changing
+                        filters["Orthographic"] = false;    // Orthographic
+                        break;
+                }
+
+                // Reset type if needed
+                if (!filters[this.verbFilters[index].type]) {
+                    this.verbFilters[index].type = "All Types";
+                }
+
+                // Return filters
+                return filters;
+            },
+            getSetFilters: function(index) {
+                // Get filter options
+                var filters = [];
+                switch(this.vocabFilters[index].set)
+                {
+                    case "Verbs":
+                        filters = ["All Definitions", "Spanish Infinitives", "English Infinitives", "Reverse Conjugations"];
+                        break;
+                    
+                    case "Adjectives":
+                    case "Adverbs":
+                    case "Prepositions":
+                    case "Transitions":
+                    case "Colors":
+                    case "Days":
+                    case "Months":
+                    case "Questions":
+                        filters = ["All Definitions", "English to Spanish", "Spanish to English"];
+                        break;
+
+                    case "Weather":
+                    case "Professions":
+                        filters = ["All Definitions", "English to Spanish", "Spanish to English", 
+                                "Nouns", "Verbs"];
+                        break;
+
+                    case "Family":
+                    case "Clothes":
+                        filters = ["All Definitions", "English to Spanish", "Spanish to English", 
+                                "Nouns", "Adjectives"];
+                        break;
+                    
+                    case "Nature":
+                    case "House":
+                    case "Vacation":
+                    case "Childhood":
+                    case "Health":
+                        filters = ["All Definitions", "English to Spanish", "Spanish to English", 
+                                "Nouns", "Verbs", "Adjectives"];
+                        break;
+                }
+
+                // Reset type if needed
+                if (!filters.includes(this.vocabFilters[index].type)) {
+                    this.vocabFilters[index].type = filters[0];
+                }
+
+                // Return filters
+                return filters;
+            }
+        },
+
+        watch: {
+            darkTheme: function() {
+                // Get theme from localStorage if null
+                if (this.darkTheme === null) {
+                    this.darkTheme = JSON.parse(localStorage.getItem("darkTheme"));
+                }
+
+                // Detect preferred color scheme if null
+                if (this.darkTheme === null) {
+                    this.darkTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+                }
+
+                // Apply theme
+                if (this.darkTheme) {
+                    document.body.classList.add("dark");
+                }
+                else {
+                    document.body.classList.remove("dark");
+                }
+
+                // Save theme
+                localStorage.setItem("darkTheme", this.darkTheme);
+            },
+            promptType: function(value) {
+                localStorage.setItem("promptType", value);
+            },
+            inputType: function(value) {
+                localStorage.setItem("inputType", value);
+            },
+            repeatPrompts: function(value) {
+                localStorage.setItem("repeatPrompts", value);
+            }
+        },
+
+        computed: {
+            prompt: function() {
+                if (this.promptIndex < this.prompts.length) {
+                    return this.prompts[this.promptIndex];
+                }
+                else {
+                    return ["", "", "", ""];
+                }
+            }
+        }
+    });
+
+    // Unhide hidden divs
+    // Divs were hidden to improve interface for users with JS blocked
+    document.getElementById("home").hidden = false;
+    document.getElementById("settings").hidden = false;
+    document.getElementById("quizzer").hidden = false;
+    document.querySelector("footer").hidden = false;
+
+
     // Load settings
-    if (localStorage.getItem("darkMode") == "true") {
-        document.body.classList.toggle("dark");
-        document.getElementById("settingsDarkMode").checked = true;
-    }
-    if (localStorage.getItem("PromptType")) {
-        document.getElementById("settingsPromptType").value = localStorage.getItem("PromptType");
-    }
-    if (localStorage.getItem("InputType")) {
-        document.getElementById("settingsInputType").value = localStorage.getItem("InputType");
-    }
-    if (localStorage.getItem("repeatPrompt")) {
-        document.getElementById("settingsRepeatPrompts").value = localStorage.getItem("repeatPrompt");
-    }
+    app.darkTheme = null;   // Force theme to update
 
     // Add event Listeners
     document.addEventListener("click", function (e) {
         document.getElementById('share').hidden = true;
     });
     document.addEventListener("keydown", KeyDown);
-    document.getElementById("quizzerInput").addEventListener("keydown", function (e) {
-        if (e.ctrlKey && e.keyCode === 13) {
-            // Key was Ctrl+Enter
-            Reset(); // Skip prompt
-        }
-        else if (e.keyCode === 13) {
-            // Key was Enter
-            if (document.getElementById("quizzerInput").readOnly) {
-                Continue();
-            }
-            else {
-                Submit();
-            }
-        }
-    });
-    document.getElementById("quizzerEnter").addEventListener("click", function (e) {
-        if (document.getElementById("quizzerInput").readOnly) {
-            Continue();
-        }
-        else {
-            Submit();
-        }
-    });
 
     // Load CSVs
     Sets = [];
@@ -68,73 +220,19 @@ function Load() {
 
 
 
-// Shows specific groups of elements
-function Show(div) {
-    // Hide all elements
-    document.getElementById("home").hidden = true;
-    document.getElementById("settings").hidden = true;
-    document.getElementById("verbSettings").hidden = true;
-    document.getElementById("vocabSettings").hidden = true;
-    document.getElementById("quizzerSettings").hidden = true;
-    document.getElementById("quizzer").hidden = true;
-
-    // Reset settings error message
-    document.getElementById("settingsError").textContent = "";
-
-    // Show elements
-    switch (div) {
-        default:
-        case "home":
-            document.getElementById("home").hidden = false;
-            quizzerType = null;
-            break;
-        case "vocab":
-            document.getElementById("settings").hidden = false;
-            document.getElementById("vocabSettings").hidden = false;
-            document.getElementById("quizzerSettings").hidden = false;
-            quizzerType = "vocab";
-            break;
-        case "verbs":
-            document.getElementById("settings").hidden = false;
-            document.getElementById("verbSettings").hidden = false;
-            document.getElementById("quizzerSettings").hidden = false;
-            quizzerType = "verbs";
-            break;
-        case "quizzer":
-            document.getElementById("quizzer").hidden = false;
-            break;
-    }
-}
-
-
-
-// Controls navigation when user clicks on title
-function TitleClicked() {
-    if (!document.getElementById("quizzer").hidden) {
-        // Go to settings screen
-        Show(quizzerType);
-    }
-    else {
-        // Go to home screen
-        Show("home");
-    }
-}
-
-
-
-// Handles keyDown events (implements keyboard shortcuts)
+// Handles keyDown events (implements some keyboard shortcuts)
 function KeyDown(e) {
     if (e.key === "Escape") {
-        TitleClicked();
+        app.Back();
     }
 
     // Home shortcuts
-    if (document.getElementById("home").hidden == false) {
+    if (app.state === "home") {
         if (e.key === "c") {
-            Show("verbs");
+            app.state = "verbSettings";
         }
         if (e.key === "v") {
-            Show("vocab");
+            app.state = "vocabSettings";
         }
         if (e.key === "r") {
             window.location = "/reference.html";
@@ -142,7 +240,7 @@ function KeyDown(e) {
     }
 
     // Settings shortcuts
-    if (document.getElementById("settings").hidden == false) {
+    if (app.state === "verbSettings" || app.state === "vocabSettings") {
         if (e.key === "s") {
             CreateSession();
         }

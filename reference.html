@@ -9,67 +9,75 @@
         <link rel="apple-touch-icon" sizes="180x180" href="Images/apple-touch-icon.png">
         <link rel="stylesheet" href="Styles/Global.css">
         <link rel="stylesheet" href="Styles/Reference.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
         <script src="https://unpkg.com/papaparse@5.1.1/papaparse.min.js"></script>
         <script src="Scripts/Reference.js"></script>
     </head>
 
     <body onload="Load()" onresize="setTableHeight()">
-        <header onclick="window.location='./'">Spanish-Quizzer</header>
+        <div id="app">
+            <header onclick="window.location='./'">Spanish-Quizzer</header>
         
-        <main>
-            <noscript>
-                <h1 id="jsError">You must have JavaScript enabled to run Spanish-Quizzer.</h1>
-            </noscript>
-
-            <h1>Reference Tables</h1>
-
-            <div id="controls">
-                <select id="referenceSet" aria-label="Vocab Set" onchange="referenceSetChanged()">
-                    <option>Choose a vocab set</option>
-                    <optgroup label="Common Words">
-                        <option>Verbs</option>
-                        <option>Adjectives</option>
-                        <option>Adverbs</option>
-                        <option>Prepositions</option>
-                        <option>Transitions</option>
-                    </optgroup>
-                    <optgroup label="Spanish 1">
-                        <option>Colors</option>
-                        <option>Days</option>
-                        <option>Months</option>
-                        <option>Questions</option>
-                        <option>Weather</option>
-                        <option>Family</option>
-                        <option>Clothes</option>
-                    </optgroup>
-                    <optgroup label="Spanish 2">
-                        <option>Nature</option>
-                        <option>House</option>
-                        <option>Vacation</option>
-                        <option>Childhood</option>
-                        <option>Professions</option>
-                        <option>Health</option>
-                    </optgroup>
-                </select>
-                <input type="text" aria-label="Search" id="referenceFilter" onkeyup="referenceFilterChanged()" placeholder="Search">
-            </div>
-            
-            <div id="referenceTable">
-                <table id="referenceTableInner"></table>
-            </div>
-        </main>
-
-        <footer>
-            <div id="share" hidden>
-                <a href="mailto:?Subject=Spanish-Quizzer&amp;Body=https://ashermorgan.github.io/Spanish-Quizzer/Reference">Email</a>&nbsp;
-                <a rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ashermorgan.github.io/Spanish-Quizzer/Reference" target="_blank">Facebook</a>&nbsp;
-                <a rel="noopener" href="https://twitter.com/share?url=https://ashermorgan.github.io/Spanish-Quizzer/Reference&amp;text=Spanish-Quizzer" target="_blank">Twitter</a>&nbsp;
-                <a rel="noopener" href="http://reddit.com/submit?url=https://ashermorgan.github.io/Spanish-Quizzer/Reference&amp;title=Spanish-Quizzer" target="_blank">Reddit</a>&nbsp;
-                <a id="shareSMS" href="sms:&body=https://ashermorgan.github.io/Spanish-Quizzer/Reference" hidden>SMS</a>&nbsp;
-            </div>
-            <a href="./">Home</a>&nbsp;
-            <a href="Offline">Study Offline</a>&nbsp;
-            <a href="javascript:document.getElementById('share').hidden = false; void 0;">Share</a>&nbsp;
-        </footer>
+            <main>
+                <noscript>
+                    <h1 id="jsError">You must have JavaScript enabled to run Spanish-Quizzer.</h1>
+                </noscript>
+    
+                <h1 hidden>Reference Tables</h1>
+    
+                <div id="controls" hidden>
+                    <select aria-label="Vocab Set" v-model="set">
+                        <option>Choose a vocab set</option>
+                        <optgroup label="Common Words">
+                            <option>Verbs</option>
+                            <option>Adjectives</option>
+                            <option>Adverbs</option>
+                            <option>Prepositions</option>
+                            <option>Transitions</option>
+                        </optgroup>
+                        <optgroup label="Spanish 1">
+                            <option>Colors</option>
+                            <option>Days</option>
+                            <option>Months</option>
+                            <option>Questions</option>
+                            <option>Weather</option>
+                            <option>Family</option>
+                            <option>Clothes</option>
+                        </optgroup>
+                        <optgroup label="Spanish 2">
+                            <option>Nature</option>
+                            <option>House</option>
+                            <option>Vacation</option>
+                            <option>Childhood</option>
+                            <option>Professions</option>
+                            <option>Health</option>
+                        </optgroup>
+                    </select>
+                    <input type="text" aria-label="Search" v-model="query" placeholder="Search">
+                </div>
+                
+                <div id="referenceTable" hidden>
+                    <table>
+                        <tr v-for="(row, rowIndex) in sets[set]" v-show="rowIndex == 0 || row.join(',').toLowerCase().includes(query.toLowerCase())">
+                            <th v-if="rowIndex == 0" v-for="column in row">{{ column }}</th>
+                            <td v-if="rowIndex != 0" v-for="(column, columnIndex) in row" @click="Read(rowIndex, columnIndex)">{{ column }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </main>
+    
+            <footer hidden>
+                <div id="share" hidden>
+                    <a href="mailto:?Subject=Spanish-Quizzer&amp;Body=https://ashermorgan.github.io/Spanish-Quizzer/Reference">Email</a>&nbsp;
+                    <a rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ashermorgan.github.io/Spanish-Quizzer/Reference" target="_blank">Facebook</a>&nbsp;
+                    <a rel="noopener" href="https://twitter.com/share?url=https://ashermorgan.github.io/Spanish-Quizzer/Reference&amp;text=Spanish-Quizzer" target="_blank">Twitter</a>&nbsp;
+                    <a rel="noopener" href="http://reddit.com/submit?url=https://ashermorgan.github.io/Spanish-Quizzer/Reference&amp;title=Spanish-Quizzer" target="_blank">Reddit</a>&nbsp;
+                    <a id="shareSMS" href="sms:&body=https://ashermorgan.github.io/Spanish-Quizzer/Reference" hidden>SMS</a>&nbsp;
+                </div>
+                <a href="./">Home</a>&nbsp;
+                <a href="Offline">Study Offline</a>&nbsp;
+                <a href="javascript:document.getElementById('share').hidden = false; void 0;">Share</a>&nbsp;
+            </footer>
+        </div>
     </body>
 </html>

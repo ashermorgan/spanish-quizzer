@@ -50,7 +50,7 @@ h1 {
         --hover-color: #FFFFFF;
     }
 
-    header, h1, #referenceFilter, #referenceSet, footer, label, br {
+    header, h1, #controls, footer, label, br {
         display: none;
     }
     
