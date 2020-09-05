@@ -192,7 +192,7 @@ function ApplyVocabFilter(vocabSet, name) {
 function ApplyVerbFilter(terms, filterInfo) {
     // Create filters
     let filters = [];   // Format: [{outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
-    for (config of filterInfo) {
+    for (let config of filterInfo) {
         // Get regularity
         let regularity;
         switch (config.type.toLowerCase()) {
@@ -279,9 +279,9 @@ function ApplyVerbFilter(terms, filterInfo) {
 
     // Filter terms
     let results = [];   // Format: [[<output label>, <output>, <input label>, <input>]]
-    for (filter of filters) {
+    for (let filter of filters) {
         // Iterate over terms (minus headers)
-        for (term of terms.slice(1)) {
+        for (let term of terms.slice(1)) {
             // Check against filters
             if (term[filter.filterIndex].match(filter.filterValue)) {
                 results.push([terms[0][filter.outputIndex], term[filter.outputIndex], terms[0][filter.inputIndex], term[filter.inputIndex]]);

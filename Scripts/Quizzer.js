@@ -165,14 +165,14 @@ function Submit() {
     }
 
     // Parse answer
-    answers = app.prompt[3].toLowerCase().split(","); // Split string by commas
+    let answers = app.prompt[3].toLowerCase().split(","); // Split string by commas
     for (var i = 0; i < answers.length; i++) {
         answers[i] = answers[i].trim(); // Trim whitespace
     }
 
     // Check responce
     var correct = true;
-    for(var answer of answers) {
+    for (var answer of answers) {
         if (!responces.includes(answer)) {
             correct = false;
         }
