@@ -160,14 +160,14 @@
                     <p id="quizzerProgress">{{ promptIndex }} / {{ prompts.length}}</p>
                     
                     <section>
-                        <label id="quizzerPromptType" for="quizzerPrompt">{{ prompt[0] }}</label>
+                        <label id="quizzerPromptType" for="quizzerPrompt" :lang="getLang(prompt[0])">{{ prompt[0] }}</label>
                         <span id="quizzerPrompt" @click="Read(prompt[1], prompt[0]);">{{ prompt[1] }}</span>
                     </section>
                     
                     <section>
                         <label id="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
                         <input id="quizzerInput" type="text" v-model="responce" :readonly="!responceActive || inputType == 'Voice'"
-                            @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();"
+                            @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();" :lang="getLang(prompt[2])"
                             autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
                     </section>
                     

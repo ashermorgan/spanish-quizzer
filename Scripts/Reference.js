@@ -16,6 +16,17 @@ function Load() {
             query: ""
         },
 
+        methods: {
+            getLang: function(label) {
+                if (label.toLowerCase().includes("spanish")) {
+                    return "es";
+                }
+                else {
+                    return "en";
+                }
+            }
+        },
+
         watch: {
             darkTheme: function() {
                 // Get theme from localStorage if null

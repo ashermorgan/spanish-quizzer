@@ -136,6 +136,14 @@ function Load() {
 
                 // Return filters
                 return filters;
+            },
+            getLang: function(label) {
+                if (label.toLowerCase().includes("spanish")) {
+                    return "es";
+                }
+                else {
+                    return "en";
+                }
             }
         },
 
