@@ -190,7 +190,13 @@ function Load() {
                     return ["", "", "", ""];
                 }
             }
-        }
+        },
+
+        // Called when the Vue is created
+        created: function() {
+            // Force theme to update
+            this.darkTheme = null;
+        },
     });
 
     // Unhide hidden divs
@@ -199,10 +205,6 @@ function Load() {
     document.getElementById("settings").hidden = false;
     document.getElementById("quizzer").hidden = false;
     document.querySelector("footer").hidden = false;
-
-
-    // Load settings
-    app.darkTheme = null;   // Force theme to update
 
     // Add event Listeners
     document.addEventListener("click", function (e) {
