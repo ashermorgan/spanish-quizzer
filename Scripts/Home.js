@@ -4,10 +4,7 @@ let quizzerType = null; // Type of quizzer
 let app;
 
 
-
-// Load the document
-function Load() {
-    // Initialize Vue
+function loadVue() {
     app = new Vue({
         el: "#app", // Mount to app div
 
@@ -198,6 +195,13 @@ function Load() {
             this.darkTheme = null;
         },
     });
+}
+
+
+
+// Load the document
+function Load() {
+    loadVue();
 
     // Unhide hidden divs
     // Divs were hidden to improve interface for users with JS blocked
