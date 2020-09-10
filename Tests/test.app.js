@@ -292,7 +292,6 @@ describe("App", function() {
             app.getSetFilters(0);
 
             // Assert selection not changed
-            console.log(app.vocabFilters)
             expect(app.vocabFilters[0]["type"]).to.equal("Verbs");
         });
     });
@@ -358,6 +357,54 @@ describe("App", function() {
             expect(app.prompt[1]).to.equal("b2");
             expect(app.prompt[2]).to.equal("c2");
             expect(app.prompt[3]).to.equal("d2");
+        });
+    });
+
+    describe("PromptType watch", function() {
+        it("Should update setting in localStorage", function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("promptType");
+
+            // Set promptType
+            app.promptType = "test";
+
+            // Assert localStorage setting updated
+            expect(localStorage.getItem("promptType")).to.equal("test");
+
+            // Restore original setting to localStorage
+            localStorage.setItem("promptType", originalValue);
+        });
+    });
+
+    describe("InputType watch", function() {
+        it("Should update setting in localStorage", function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("inputType");
+
+            // Set inputType
+            app.inputType = "test";
+
+            // Assert localStorage setting updated
+            expect(localStorage.getItem("inputType")).to.equal("test");
+
+            // Restore original setting to localStorage
+            localStorage.setItem("inputType", originalValue);
+        });
+    });
+
+    describe("RepeatPrompts watch", function() {
+        it("Should update setting in localStorage", function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("repeatPrompts");
+
+            // Set repeatPrompts
+            app.repeatPrompts = "test";
+
+            // Assert localStorage setting updated
+            expect(localStorage.getItem("repeatPrompts")).to.equal("test");
+
+            // Restore original setting to localStorage
+            localStorage.setItem("repeatPrompts", originalValue);
         });
     });
 });
