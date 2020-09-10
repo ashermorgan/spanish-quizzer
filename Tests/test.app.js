@@ -313,4 +313,51 @@ describe("App", function() {
             expect(app.getLang("SPANISH")).to.equal("es");
         })
     });
+
+    describe("Prompt property", function() {
+        it("Should be empty if there aren't any prompt", function() {
+            // Assert prompts and promptIndex are correct
+            expect(app.promptIndex).to.equal(0);
+            expect(app.prompts.length).to.equal(0);
+            
+            // Assert prompt is empty
+            expect(app.prompt.length).to.equal(4);
+            expect(app.prompt[0]).to.equal("");
+            expect(app.prompt[1]).to.equal("");
+            expect(app.prompt[2]).to.equal("");
+            expect(app.prompt[3]).to.equal("");
+        });
+        
+        it("Should be empty if promptIndex is invalid", function() {
+            // Initialize promptIndex
+            app.promptIndex = 2;
+            
+            // Assert prompts is correct
+            expect(app.prompts.length).to.equal(0);
+            
+            // Assert prompt is empty
+            expect(app.prompt.length).to.equal(4);
+            expect(app.prompt[0]).to.equal("");
+            expect(app.prompt[1]).to.equal("");
+            expect(app.prompt[2]).to.equal("");
+            expect(app.prompt[3]).to.equal("");
+        });
+        
+        it("Should be the current prompt if promptIndex is valid", function() {
+            // Initialize prompts and promptIndex
+            app.promptIndex = 1;
+            app.prompts = [
+                ["a1", "b1", "c1", "d1"],
+                ["a2", "b2", "c2", "d2"],
+                ["a3", "b3", "c3", "d3"],
+            ];
+            
+            // Assert prompt is correct
+            expect(app.prompt.length).to.equal(4);
+            expect(app.prompt[0]).to.equal("a2");
+            expect(app.prompt[1]).to.equal("b2");
+            expect(app.prompt[2]).to.equal("c2");
+            expect(app.prompt[3]).to.equal("d2");
+        });
+    });
 });
