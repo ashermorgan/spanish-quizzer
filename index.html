@@ -157,7 +157,8 @@
         
         
                 <quizzer id="quizzer" v-show="state == 'verbQuizzer' || state == 'vocabQuizzer'" 
-                    :starting-index="promptIndex" :prompts="prompts">
+                    :starting-index="promptIndex" :prompts="prompts"
+                    :prompt-type="promptType" :input-type="inputType" :repeat-prompts="repeatPrompts">
                 </quizzer>
             </main>
     
