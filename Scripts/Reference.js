@@ -3,9 +3,8 @@ let app;
 
 
 
-// Load the document
-function Load() {
-    // Initialize Vue
+// Initializes the Vue
+function loadVue() {
     app = new Vue({
         el: "#app", // Mount to app div
 
@@ -52,6 +51,14 @@ function Load() {
             }
         }
     });
+}
+
+
+
+// Load the document
+function Load() {
+    // Initialize the Vue
+    loadVue();
 
     // Unhide hidden divs
     // Divs were hidden to improve interface for users with JS blocked

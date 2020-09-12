@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Mocha Tests</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css"/>
+        <script src="https://unpkg.com/chai/chai.js"></script>
+        <script src="https://unpkg.com/mocha/mocha.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    </head>
+
+    <body>
+        <div id="mocha"></div>
+
+        <!-- Scripts being tested -->
+        <script src="../Scripts/Home.js"></script>
+        <script src="../Scripts/Quizzer.js"></script>
+        <script src="../Scripts/Settings.js"></script>
+
+        <!-- Setup tests -->
+        <script class="mocha-init">
+            mocha.setup('bdd');
+            mocha.checkLeaks();
+            let expect = chai.expect;
+        </script>
+
+        <!-- Tests -->
+        <script src="test.app.js"></script>
+        <script src="test.quizzer.js"></script>
+        <script src="test.settings.js"></script>
+        
+        <!-- Run tests -->
+        <script class="mocha-exec">
+            mocha.run();
+        </script>
+    </body>
+</html>
