@@ -156,33 +156,9 @@
                 </div>
         
         
-                <div id="quizzer" v-show="state == 'verbQuizzer' || state == 'vocabQuizzer'" hidden>
-                    <p id="quizzerProgress">{{ promptIndex }} / {{ prompts.length}}</p>
-                    
-                    <section>
-                        <label id="quizzerPromptType" for="quizzerPrompt" :lang="getLang(prompt[0])">{{ prompt[0] }}</label>
-                        <span id="quizzerPrompt" @click="Read(prompt[1], prompt[0]);">{{ prompt[1] }}</span>
-                    </section>
-                    
-                    <section>
-                        <label id="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
-                        <input id="quizzerInput" type="text" v-model="responce" :readonly="!responceActive || inputType == 'Voice'"
-                            @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();" :lang="getLang(prompt[2])"
-                            autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
-                    </section>
-                    
-                    <div id="quizzerButtons">
-                        <button v-if="responceActive" :disabled="inputType == 'Voice'" @click="Submit();">Submit</button>
-                        <button v-else @click="Continue();">Continue</button>
-                        <button @click="Reset();">Skip</button>
-                    </div>
-                    
-                    <div id="quizzerFeedback" v-show="!responceActive" class="bad">
-                        The correct answer is 
-                        <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
-                    </div>
-                    <div id="quizzerCongrats" class="good">Congratulations! You made it back to the beginning!</div>
-                </div>
+                <quizzer id="quizzer" v-show="state == 'verbQuizzer' || state == 'vocabQuizzer'" 
+                    :starting-index="promptIndex" :prompts="prompts">
+                </quizzer>
             </main>
     
     

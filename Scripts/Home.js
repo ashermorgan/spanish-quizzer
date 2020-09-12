@@ -19,8 +19,6 @@ function loadVue() {
 
             prompts: [],
             promptIndex: 0,
-            responce: "",
-            responceActive: true,
         },
 
         methods: {
@@ -175,17 +173,6 @@ function loadVue() {
             },
             repeatPrompts: function(value) {
                 localStorage.setItem("repeatPrompts", value);
-            }
-        },
-
-        computed: {
-            prompt: function() {
-                if (this.promptIndex < this.prompts.length) {
-                    return this.prompts[this.promptIndex];
-                }
-                else {
-                    return ["", "", "", ""];
-                }
             }
         },
 

@@ -30,9 +30,6 @@ function CreateSession() {
     
     // Start quizzer
     try {
-        // Start quizzer
-        StartQuizzer(prefix);
-
         // Show and hide elements
         if (app.state == "verbSettings") {
             app.state = "verbQuizzer";
@@ -74,8 +71,6 @@ function ResumeSession() {
 
     // Start quizzer
     try {
-        StartQuizzer(prefix);
-
         // Show and hide elements
         if (app.state == "verbSettings") {
             app.state = "verbQuizzer";
