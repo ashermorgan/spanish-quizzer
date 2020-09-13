@@ -35,6 +35,7 @@ Vue.component("quizzer", {
             promptIndex: this.startingIndex,
             responce: "",
             responceActive: true,
+            congratsActive: false,
         };
     },
 
@@ -83,9 +84,8 @@ Vue.component("quizzer", {
         // Give the user a new prompt
         Reset: function() {
             // Show and hide elements
-            document.getElementById("quizzerCongrats").hidden = true;
-            document.getElementById("quizzerInput").focus();
             this.responceActive = true;
+            this.congratsActive = false;
             
             // Get new prompt
             this.promptIndex++;
@@ -93,7 +93,7 @@ Vue.component("quizzer", {
                 // The user just finished
                 this.prompts = Shuffle(this.prompts);
                 this.promptIndex = 0;
-                document.getElementById("quizzerCongrats").hidden = false;
+                this.congratsActive = true;
             }
 
             // Save progress to local storage
@@ -173,9 +173,9 @@ Vue.component("quizzer", {
             // Give user feedback
             if (!correct) {
                 // Show and hide elements
-                document.getElementById("quizzerCongrats").hidden = true;
                 document.getElementById("quizzerFeedback").scrollIntoView(false);
                 document.getElementById("quizzerInput").focus();
+                this.congratsActive = false;
                 this.responceActive = false;
             }
             else {
@@ -277,7 +277,7 @@ Vue.component("quizzer", {
                 The correct answer is 
                 <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
             </div>
-            <div id="quizzerCongrats" class="good" hidden>Congratulations! You made it back to the beginning!</div>
+            <div id="quizzerCongrats" class="good" v-show="congratsActive">Congratulations! You made it back to the beginning!</div>
         </div>
     `,
 });
