@@ -139,6 +139,23 @@ function loadVue() {
                 else {
                     return "en";
                 }
+            },
+            updateProgress: function(prompts, index) {
+                // Get localStorage prefix
+                let prefix;
+                if (app.state === "vocabSettings" || app.state === "vocabQuizzer") {
+                    prefix = "vocab-"
+                }
+                else if (app.state === "verbSettings" || app.state === "verbQuizzer") {
+                    prefix = "verb-"
+                }
+                else {
+                    return;
+                }
+
+                // Save progress to local storage
+                localStorage.setItem(prefix + "prompts", JSON.stringify(prompts));
+                localStorage.setItem(prefix + "prompt", JSON.stringify(index));
             }
         },
 

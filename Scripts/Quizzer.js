@@ -66,9 +66,6 @@ Vue.component("quizzer", {
                     return;
                 }
             }
-
-            // Save terms to local storage
-            localStorage.setItem(Prefix + "prompts", JSON.stringify(this.prompts));
             
             // Give iOS devices ringer warning for prompt audio
             if (this.promptType != "Text") {
@@ -96,8 +93,8 @@ Vue.component("quizzer", {
                 this.congratsActive = true;
             }
 
-            // Save progress to local storage
-            localStorage.setItem(Prefix + "prompt", this.promptIndex);
+            // Emit new-prompt event
+            this.$emit("new-prompt", this.prompts, this.promptIndex);
 
             // Reset responce
             this.responce = "";
@@ -211,9 +208,6 @@ Vue.component("quizzer", {
                     this.promptIndex--;
                     break;
             }
-            
-            // Save terms to local storage
-            localStorage.setItem(Prefix + "terms", JSON.stringify(this.prompts));
 
             // Reset quizzer
             this.Reset();
