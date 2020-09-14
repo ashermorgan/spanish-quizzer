@@ -156,8 +156,8 @@
                 </div>
         
         
-                <quizzer id="quizzer" v-show="state == 'verbQuizzer' || state == 'vocabQuizzer'" 
-                    :starting-index="promptIndex" :prompts="prompts" @new-prompt="updateProgress"
+                <quizzer id="quizzer" v-show="state == 'verbQuizzer' || state == 'vocabQuizzer'" :active="state == 'verbQuizzer' || state == 'vocabQuizzer'" hidden
+                    :starting-index="promptIndex" :starting-prompts="prompts" @new-prompt="updateProgress"
                     :prompt-type="promptType" :input-type="inputType" :repeat-prompts="repeatPrompts">
                 </quizzer>
             </main>

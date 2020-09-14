@@ -5,7 +5,12 @@ let Prefix;         // Dictionary of quizzer settings
 
 Vue.component("quizzer", {
     props: {
-        prompts: {
+        active: {
+            type: Boolean,
+            default: false,
+        },
+
+        startingPrompts: {
             type: Array,
             default: function() {
                 return [];
@@ -32,69 +37,50 @@ Vue.component("quizzer", {
 
     data: function() {
         return {
-            promptIndex: this.startingIndex,
+            prompts: this.startingPrompts,
+            index: this.startingIndex,
             responce: "",
             responceActive: true,
             congratsActive: false,
         };
     },
 
-    methods: {
-        // Starts the quizzer
-        StartQuizzer: function(prefix) {
-            // Set variables and settings
-            this.promptIndex--;
-            Prefix = prefix;
-
-            // Validate Terms
-            if (!this.prompts || isNaN(this.promptIndex) || this.promptIndex < -1 || this.promptIndex > this.prompts.length) {
-                throw "Bad arguments.";
+    watch: {
+        active: function(value) {
+            if (value) {
+                // Update prompts
+                this.prompts = this.startingPrompts;
+                this.index = this.startingIndex - 1;
+                
+                // Reset quizzer
+                this.Reset();
             }
-            else if (this.prompts.length == 0) {
-                throw "Terms is empty.";
-            }
-            
-            // Validate browser for voice input
-            if (this.inputType != "Text") {
-                if (typeof InstallTrigger !== "undefined") {
-                    // Browser is Firefox
-                    alert("You must enable speech recognition in about:config.");
-                }
-                else if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
-                    // Browser is not Googole Chrome or Microsoft (Chromium) Edge
-                    alert("Your browser does not support voice input.");
-                    return;
-                }
-            }
-            
-            // Give iOS devices ringer warning for prompt audio
-            if (this.promptType != "Text") {
-                if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
-                    alert("Please make sure your ringer is on in order to hear audio prompts.");
-                }
-            }
-
-            // Give the user a prompt
-            this.Reset();
         },
+    },
 
+    methods: {
         // Give the user a new prompt
         Reset: function() {
+            // Check is Quizzer is active
+            if (!this.active) {
+                return;
+            }
+
             // Show and hide elements
             this.responceActive = true;
             this.congratsActive = false;
             
             // Get new prompt
-            this.promptIndex++;
-            if (this.promptIndex == this.prompts.length) {
+            this.index++;
+            if (this.index == this.prompts.length) {
                 // The user just finished
                 this.prompts = Shuffle(this.prompts);
-                this.promptIndex = 0;
+                this.index = 0;
                 this.congratsActive = true;
             }
 
             // Emit new-prompt event
-            this.$emit("new-prompt", this.prompts, this.promptIndex);
+            this.$emit("new-prompt", this.prompts, this.index);
 
             // Reset responce
             this.responce = "";
@@ -138,6 +124,11 @@ Vue.component("quizzer", {
 
         // Processes a user's submitted responce
         Submit: function() {
+            // Check is Quizzer is active
+            if (!this.active) {
+                return;
+            }
+
             // Parse responce
             var responce = this.responce.toLowerCase(); // Make responce lowercase
             responce = responce.replace(/a`/g, "á"); // Apply accented a shortcut
@@ -183,6 +174,11 @@ Vue.component("quizzer", {
 
         // Processes an incorrect responce and then resets the quizzer
         Continue: function() {
+            // Check is Quizzer is active
+            if (!this.active) {
+                return;
+            }
+            
             // Repeat prompt
             switch (this.repeatPrompts)
             {
@@ -191,21 +187,21 @@ Vue.component("quizzer", {
                     break;
                 case "Immediately":
                     // Repeat imitiately
-                    this.promptIndex--;
+                    this.index--;
                     break;
                 case "5 prompts later":
                     // Repeat 5 prompts later
                     var temp = this.prompt;
-                    this.prompts.splice(this.promptIndex, 1);
-                    this.prompts.splice(this.promptIndex + 5, 0, temp);
-                    this.promptIndex--;
+                    this.prompts.splice(this.index, 1);
+                    this.prompts.splice(this.index + 5, 0, temp);
+                    this.index--;
                     break;
                 case "At the end":
                     // Repeat at end of Terms
                     var temp = this.prompt;
-                    this.prompts.splice(this.promptIndex, 1);
+                    this.prompts.splice(this.index, 1);
                     this.prompts.push(temp);
-                    this.promptIndex--;
+                    this.index--;
                     break;
             }
 
@@ -215,6 +211,11 @@ Vue.component("quizzer", {
         
         // Called when the user hits enter or presses the enter button
         Enter: function() {
+            // Check is Quizzer is active
+            if (!this.active) {
+                return;
+            }
+            
             if (this.responceActive) {
                 this.Submit();
             }
@@ -231,13 +232,12 @@ Vue.component("quizzer", {
                 return "en";
             }
         },
-
     },
 
     computed: {
         prompt: function() {
-            if (this.promptIndex < this.prompts.length) {
-                return this.prompts[this.promptIndex];
+            if (this.index < this.prompts.length) {
+                return this.prompts[this.index];
             }
             else {
                 return ["", "", "", ""];
@@ -247,32 +247,32 @@ Vue.component("quizzer", {
     
     template: `
         <div>
-            <p id="quizzerProgress">{{ promptIndex }} / {{ prompts.length }}</p>
-            
-            <section>
-                <label id="quizzerPromptType" for="quizzerPrompt" :lang="getLang(prompt[0])">{{ prompt[0] }}</label>
-                <span id="quizzerPrompt" @click="Read(prompt[1], prompt[0]);">{{ prompt[1] }}</span>
-            </section>
-            
-            <section>
-                <label id="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
-                <input id="quizzerInput" type="text" v-model="responce" :readonly="!responceActive || inputType == 'Voice'"
-                    @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();" :lang="getLang(prompt[2])"
-                    autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
-            </section>
-            
-            <div id="quizzerButtons">
-                <button v-if="responceActive" :disabled="inputType == 'Voice'" @click="Submit();">Submit</button>
-                <button v-else @click="Continue();">Continue</button>
-                <button @click="Reset();">Skip</button>
-            </div>
-            
-            <div id="quizzerFeedback" v-show="!responceActive" class="bad">
-                The correct answer is 
-                <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
-            </div>
-            <div id="quizzerCongrats" class="good" v-show="congratsActive">Congratulations! You made it back to the beginning!</div>
+        <p id="quizzerProgress">{{ index }} / {{ prompts.length }}</p>
+        
+        <section>
+            <label id="quizzerPromptType" for="quizzerPrompt" :lang="getLang(prompt[0])">{{ prompt[0] }}</label>
+            <span id="quizzerPrompt" @click="Read(prompt[1], prompt[0]);">{{ prompt[1] }}</span>
+        </section>
+        
+        <section>
+            <label id="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
+            <input id="quizzerInput" type="text" v-model="responce" :readonly="!responceActive || inputType == 'Voice'"
+                @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();" :lang="getLang(prompt[2])"
+                autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
+        </section>
+        
+        <div id="quizzerButtons">
+            <button v-if="responceActive" :disabled="inputType == 'Voice'" @click="Submit();">Submit</button>
+            <button v-else @click="Continue();">Continue</button>
+            <button @click="Reset();">Skip</button>
         </div>
+        
+        <div id="quizzerFeedback" v-show="!responceActive" class="bad">
+            The correct answer is 
+            <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
+        </div>
+        <div id="quizzerCongrats" class="good" v-show="congratsActive">Congratulations! You made it back to the beginning!</div>
+    </div>
     `,
 });
 
