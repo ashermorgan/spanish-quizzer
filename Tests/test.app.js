@@ -8,6 +8,7 @@ describe("App", function() {
         it("State should be 'home'", function() {
             expect(app.state).to.equal("home");
         });
+        
         it("VerFilters should be empty", function() {
             expect(app.verbFilters.length).to.equal(0);
         });
@@ -16,20 +17,16 @@ describe("App", function() {
             expect(app.vocabFilters.length).to.equal(0);
         });
 
+        it("ErrorMsg should be empty", function() {
+            expect(app.errorMsg).to.equal("");
+        });
+
         it("Prompts should be empty", function() {
             expect(app.vocabFilters.length).to.equal(0);
         });
 
         it("PromptIndex should be 0", function() {
             expect(app.promptIndex).to.equal(0);
-        });
-
-        it("Responce should be empty", function() {
-            expect(app.responce).to.equal("");
-        });
-
-        it("ResponceActive should be true", function() {
-            expect(app.responceActive).to.equal(true);
         });
     });
 
@@ -311,53 +308,6 @@ describe("App", function() {
             expect(app.getLang("test spanish test")).to.equal("es");
             expect(app.getLang("SPANISH")).to.equal("es");
         })
-    });
-
-    describe("Prompt property", function() {
-        it("Should be empty if there aren't any prompt", function() {
-            // Assert prompts and promptIndex are correct
-            expect(app.promptIndex).to.equal(0);
-            expect(app.prompts.length).to.equal(0);
-            
-            // Assert prompt is empty
-            expect(app.prompt.length).to.equal(4);
-            expect(app.prompt[0]).to.equal("");
-            expect(app.prompt[1]).to.equal("");
-            expect(app.prompt[2]).to.equal("");
-            expect(app.prompt[3]).to.equal("");
-        });
-        
-        it("Should be empty if promptIndex is invalid", function() {
-            // Initialize promptIndex
-            app.promptIndex = 2;
-            
-            // Assert prompts is correct
-            expect(app.prompts.length).to.equal(0);
-            
-            // Assert prompt is empty
-            expect(app.prompt.length).to.equal(4);
-            expect(app.prompt[0]).to.equal("");
-            expect(app.prompt[1]).to.equal("");
-            expect(app.prompt[2]).to.equal("");
-            expect(app.prompt[3]).to.equal("");
-        });
-        
-        it("Should be the current prompt if promptIndex is valid", function() {
-            // Initialize prompts and promptIndex
-            app.promptIndex = 1;
-            app.prompts = [
-                ["a1", "b1", "c1", "d1"],
-                ["a2", "b2", "c2", "d2"],
-                ["a3", "b3", "c3", "d3"],
-            ];
-            
-            // Assert prompt is correct
-            expect(app.prompt.length).to.equal(4);
-            expect(app.prompt[0]).to.equal("a2");
-            expect(app.prompt[1]).to.equal("b2");
-            expect(app.prompt[2]).to.equal("c2");
-            expect(app.prompt[3]).to.equal("d2");
-        });
     });
 
     describe("PromptType watch", function() {

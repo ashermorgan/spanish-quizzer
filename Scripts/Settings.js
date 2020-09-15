@@ -90,11 +90,14 @@ function ResumeSession() {
 // Performs validations and then starts the quizzer
 function StartSession() {
     // Validate prompts and promptIndex
-    if (!app.prompts || isNaN(app.promptIndex) || app.promptIndex < -1 || app.promptIndex > app.prompts.length) {
+    if (!app.prompts) {
         throw "Bad arguments.";
     }
     else if (app.prompts.length == 0) {
         throw "Terms is empty.";
+    }
+    else if (isNaN(app.promptIndex) || app.promptIndex < 0 || app.promptIndex >= app.prompts.length) {
+        throw "Bad arguments.";
     }
 
     // Validate browser for voice input
@@ -316,4 +319,29 @@ function ApplyVerbFilter(terms, filterInfo) {
         }
     }
     return results;
+}
+
+
+
+// Shuffles a list of items
+function Shuffle(items) {
+    // Initialize variables
+    var currentIndex = items.length;
+    var temp;
+    var randomIndex;
+    
+    // While there are more elements to shuffle
+    while (0 !== currentIndex) {
+        // Pick a remaining element
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        
+        // Swap the two elements
+        temp = items[currentIndex];
+        items[currentIndex] = items[randomIndex];
+        items[randomIndex] = temp;
+    }
+
+    // Return shuffled items
+    return items;
 }

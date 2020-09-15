@@ -1,9 +1,4 @@
-// Declare global variables
-let Prefix;         // Dictionary of quizzer settings
-
-
-
-Vue.component("quizzer", {
+let quizzer = Vue.component("quizzer", {
     props: {
         active: {
             type: Boolean,
@@ -289,29 +284,4 @@ function Read(text, label)
         msg.lang = 'es';
     }
     window.speechSynthesis.speak(msg);
-}
-
-
-
-// Shuffles a list of items
-function Shuffle(items) {
-    // Initialize variables
-    var currentIndex = items.length;
-    var temp;
-    var randomIndex;
-    
-    // While there are more elements to shuffle
-    while (0 !== currentIndex) {
-        // Pick a remaining element
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-        
-        // Swap the two elements
-        temp = items[currentIndex];
-        items[currentIndex] = items[randomIndex];
-        items[randomIndex] = temp;
-    }
-
-    // Return shuffled items
-    return items;
 }
