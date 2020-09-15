@@ -30,13 +30,7 @@ function CreateSession() {
     
     // Start quizzer
     try {
-        // Show and hide elements
-        if (app.state == "verbSettings") {
-            app.state = "verbQuizzer";
-        }
-        if (app.state == "vocabSettings") {
-            app.state = "vocabQuizzer";
-        }
+        StartSession();
     }
     catch (e) {
         switch (e) {
@@ -47,7 +41,7 @@ function CreateSession() {
             default:
                 document.getElementById("settingsError").textContent = "An error occured.";
                 document.getElementById("settingsError").scrollIntoView(false);
-                break;
+                throw e;
         }
     }
 }
@@ -71,13 +65,7 @@ function ResumeSession() {
 
     // Start quizzer
     try {
-        // Show and hide elements
-        if (app.state == "verbSettings") {
-            app.state = "verbQuizzer";
-        }
-        if (app.state == "vocabSettings") {
-            app.state = "vocabQuizzer";
-        }
+        StartSession();
     }
     catch (e) {
         switch (e) {
@@ -92,8 +80,52 @@ function ResumeSession() {
             default:
                 document.getElementById("settingsError").textContent = "An error occured.";
                 document.getElementById("settingsError").scrollIntoView(false);
-                break;
+                throw e;
         }
+    }
+}
+
+
+
+// Performs validations and then starts the quizzer
+function StartSession() {
+    // Validate prompts and promptIndex
+    if (!app.prompts || isNaN(app.promptIndex) || app.promptIndex < -1 || app.promptIndex > app.prompts.length) {
+        throw "Bad arguments.";
+    }
+    else if (app.prompts.length == 0) {
+        throw "Terms is empty.";
+    }
+
+    // Validate browser for voice input
+    if (app.inputType != "Text") {
+        if (typeof InstallTrigger !== "undefined") {
+            // Browser is Firefox
+            alert("You must enable speech recognition in about:config.");
+        }
+        else if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
+            // Browser is not Googole Chrome or Microsoft (Chromium) Edge
+            alert("Your browser does not support voice input.");
+            return;
+        }
+    }
+
+    // Give iOS devices ringer warning for prompt audio
+    if (app.promptType != "Text") {
+        if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+            alert("Please make sure your ringer is on in order to hear audio prompts.");
+        }
+    }
+
+    // Show and hide elements (also enables the quizzer)
+    if (app.state == "verbSettings") {
+        app.state = "verbQuizzer";
+    }
+    else if (app.state == "vocabSettings") {
+        app.state = "vocabQuizzer";
+    }
+    else {
+        app.state = "quizzer";
     }
 }
 
