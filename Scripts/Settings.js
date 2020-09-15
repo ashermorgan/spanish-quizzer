@@ -35,11 +35,11 @@ function CreateSession() {
     catch (e) {
         switch (e) {
             case "Terms is empty.":
-                document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
+                app.errorMsg = "Your custom vocabulary set must contain at least one term.";
                 document.getElementById("settingsError").scrollIntoView(false);
                 break;
             default:
-                document.getElementById("settingsError").textContent = "An error occured.";
+                app.errorMsg = "An error occured.";
                 document.getElementById("settingsError").scrollIntoView(false);
                 throw e;
         }
@@ -70,15 +70,15 @@ function ResumeSession() {
     catch (e) {
         switch (e) {
             case "Bad arguments.":
-                document.getElementById("settingsError").textContent = "An error occured while resuming the previous session.";
+                app.errorMsg = "An error occured while resuming the previous session.";
                 document.getElementById("settingsError").scrollIntoView(false);
                 break;
             case "Terms is empty.":
-                document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
+                app.errorMsg = "Your custom vocabulary set must contain at least one term.";
                 document.getElementById("settingsError").scrollIntoView(false);
                 break;
             default:
-                document.getElementById("settingsError").textContent = "An error occured.";
+                app.errorMsg = "An error occured.";
                 document.getElementById("settingsError").scrollIntoView(false);
                 throw e;
         }

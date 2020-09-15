@@ -151,7 +151,7 @@
                             <button id="settingsResume" onclick="ResumeSession();">Resume</button>
                         </div>
                         
-                        <div id="settingsError" class="centered bad"></div>
+                        <div id="settingsError" v-show="errorMsg" class="centered bad">{{ errorMsg }}</div>
                     </div>
                 </div>
         

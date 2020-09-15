@@ -13,6 +13,7 @@ function loadVue() {
             darkTheme: false,
             verbFilters: [],
             vocabFilters: [],
+            errorMsg: "",
             promptType: localStorage.getItem("promptType") || "Text",
             inputType: localStorage.getItem("inputType") || "Text",
             repeatPrompts: localStorage.getItem("repeatPrompts") || "Never",
@@ -190,6 +191,10 @@ function loadVue() {
             },
             repeatPrompts: function(value) {
                 localStorage.setItem("repeatPrompts", value);
+            },
+            state: function() {
+                // Reset error message
+                app.errorMsg = "";
             }
         },
 
