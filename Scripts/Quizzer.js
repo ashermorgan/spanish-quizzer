@@ -156,10 +156,14 @@ let quizzer = Vue.component("quizzer", {
             // Give user feedback
             if (!correct) {
                 // Show and hide elements
-                document.getElementById("quizzerFeedback").scrollIntoView(false);
-                document.getElementById("quizzerInput").focus();
-                this.congratsActive = false;
-                this.responceActive = false;
+                    this.congratsActive = false;
+                    this.responceActive = false;
+                try {
+                    // Will fail if not mounted
+                    this.$refs.feedback.scrollIntoView(false);
+                    this.$refs.input.focus();
+                }
+                catch { }
             }
             else {
                 // Responce was correct
@@ -251,7 +255,7 @@ let quizzer = Vue.component("quizzer", {
         
         <section>
             <label id="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
-            <input id="quizzerInput" type="text" v-model="responce" :readonly="!responceActive || inputType == 'Voice'"
+            <input id="quizzerInput" ref="input" type="text" v-model="responce" :readonly="!responceActive || inputType == 'Voice'"
                 @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();" :lang="getLang(prompt[2])"
                 autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
         </section>
@@ -262,7 +266,7 @@ let quizzer = Vue.component("quizzer", {
             <button @click="Reset();">Skip</button>
         </div>
         
-        <div id="quizzerFeedback" v-show="!responceActive" class="bad">
+        <div id="quizzerFeedback" ref="feedback" v-show="!responceActive" class="bad">
             The correct answer is 
             <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
         </div>

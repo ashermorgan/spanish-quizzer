@@ -146,6 +146,19 @@ describe("Quizzer", function() {
             expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
         });
     
+        it("Should set responceActive to false if responce is incorrect", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
+            Quizzer.responce = "A5";
+
+            // Call Submit
+            Quizzer.Submit();
+
+            // Assert responceActive set to false
+            expect(Quizzer.responceActive).to.equal(false);
+        });
+    
         it("Should accept multiple responces", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -171,6 +184,20 @@ describe("Quizzer", function() {
             // Assert answer accepted
             expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
         });
+        
+        it("Should require all answers", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.prompts = [["A1", "A2", "A3", "A1, A2, A3, A4"]]
+            Quizzer.responce = "A1, A2, A3";
+
+            // Call Submit
+            Quizzer.Submit();
+
+            // Assert answer no accepted
+            expect(Quizzer.responceActive).to.equal(false);
+        });
+        
         it("Should accept mixed-case responces", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -219,7 +246,7 @@ describe("Quizzer", function() {
             Quizzer.repeatPrompts = "At the end";
             Quizzer.responceActive = false;  // Will be changed if Reset is called
             
-            // Run Submit
+            // Run Continue
             Quizzer.Continue();
 
             // Assert nothing changed
