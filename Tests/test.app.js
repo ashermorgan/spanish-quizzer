@@ -359,4 +359,55 @@ describe("App", function() {
             expect(app.prompt[3]).to.equal("d2");
         });
     });
+
+    describe("PromptType watch", function() {
+        it("Should update setting in localStorage", async function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("promptType");
+
+            // Set promptType
+            app.promptType = "test";
+            await app.$nextTick();
+
+            // Assert localStorage setting updated
+            expect(localStorage.getItem("promptType")).to.equal("test");
+
+            // Restore original setting to localStorage
+            localStorage.setItem("promptType", originalValue);
+        });
+    });
+
+    describe("InputType watch", function() {
+        it("Should update setting in localStorage", async function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("inputType");
+
+            // Set inputType
+            app.inputType = "test";
+            await app.$nextTick();
+
+            // Assert localStorage setting updated
+            expect(localStorage.getItem("inputType")).to.equal("test");
+
+            // Restore original setting to localStorage
+            localStorage.setItem("inputType", originalValue);
+        });
+    });
+
+    describe("RepeatPrompts watch", function() {
+        it("Should update setting in localStorage", async function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("repeatPrompts");
+
+            // Set repeatPrompts
+            app.repeatPrompts = "test";
+            await app.$nextTick();
+
+            // Assert localStorage setting updated
+            expect(localStorage.getItem("repeatPrompts")).to.equal("test");
+
+            // Restore original setting to localStorage
+            localStorage.setItem("repeatPrompts", originalValue);
+        });
+    });
 });
