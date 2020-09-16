@@ -1,7 +1,6 @@
 // Start a new session
 function CreateSession() {
-    // Get prompts and localStorage prefix
-    let prefix;
+    // Get prompts
     if (app.state == "vocabSettings") {
         // Filter and load Sets into prompts
         app.prompts = [];
@@ -13,16 +12,10 @@ function CreateSession() {
 
         // Shuffle prompts
         app.prompts = Shuffle(app.prompts);
-
-        // Set prefix
-        prefix = "vocab-"
     }
     else if (app.state == "verbSettings") {
         // Get prompts
         app.prompts = Shuffle(ApplyVerbFilter(Sets["Verbs"], app.verbFilters));
-
-        // Set prefix
-        prefix = "verb-"
     }
 
     // Set progress
@@ -30,27 +23,18 @@ function CreateSession() {
     
     // Start quizzer
     try {
-        // Start quizzer
-        StartQuizzer(prefix);
-
-        // Show and hide elements
-        if (app.state == "verbSettings") {
-            app.state = "verbQuizzer";
-        }
-        if (app.state == "vocabSettings") {
-            app.state = "vocabQuizzer";
-        }
+        StartSession();
     }
     catch (e) {
         switch (e) {
             case "Terms is empty.":
-                document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
+                app.errorMsg = "Your custom vocabulary set must contain at least one term.";
                 document.getElementById("settingsError").scrollIntoView(false);
                 break;
             default:
-                document.getElementById("settingsError").textContent = "An error occured.";
+                app.errorMsg = "An error occured.";
                 document.getElementById("settingsError").scrollIntoView(false);
-                break;
+                throw e;
         }
     }
 }
@@ -74,31 +58,67 @@ function ResumeSession() {
 
     // Start quizzer
     try {
-        StartQuizzer(prefix);
-
-        // Show and hide elements
-        if (app.state == "verbSettings") {
-            app.state = "verbQuizzer";
-        }
-        if (app.state == "vocabSettings") {
-            app.state = "vocabQuizzer";
-        }
+        StartSession();
     }
     catch (e) {
         switch (e) {
             case "Bad arguments.":
-                document.getElementById("settingsError").textContent = "An error occured while resuming the previous session.";
+                app.errorMsg = "An error occured while resuming the previous session.";
                 document.getElementById("settingsError").scrollIntoView(false);
                 break;
             case "Terms is empty.":
-                document.getElementById("settingsError").textContent = "Your custom vocabulary set must contain at least one term.";
+                app.errorMsg = "Your custom vocabulary set must contain at least one term.";
                 document.getElementById("settingsError").scrollIntoView(false);
                 break;
             default:
-                document.getElementById("settingsError").textContent = "An error occured.";
+                app.errorMsg = "An error occured.";
                 document.getElementById("settingsError").scrollIntoView(false);
-                break;
+                throw e;
         }
+    }
+}
+
+
+
+// Performs validations and then starts the quizzer
+function StartSession() {
+    // Validate prompts and promptIndex
+    if (!app.prompts) {
+        throw "Bad arguments.";
+    }
+    else if (app.prompts.length == 0) {
+        throw "Terms is empty.";
+    }
+    else if (isNaN(app.promptIndex) || app.promptIndex < 0 || app.promptIndex >= app.prompts.length) {
+        throw "Bad arguments.";
+    }
+
+    // Validate browser for voice input
+    if (app.inputType != "Text") {
+        if (typeof InstallTrigger !== "undefined") {
+            // Browser is Firefox
+            alert("You must enable speech recognition in about:config.");
+        }
+        else if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
+            // Browser is not Googole Chrome or Microsoft (Chromium) Edge
+            alert("Your browser does not support voice input.");
+            return;
+        }
+    }
+
+    // Give iOS devices ringer warning for prompt audio
+    if (app.promptType != "Text") {
+        if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+            alert("Please make sure your ringer is on in order to hear audio prompts.");
+        }
+    }
+
+    // Show and hide elements (also enables the quizzer)
+    if (app.state == "verbSettings") {
+        app.state = "verbQuizzer";
+    }
+    else if (app.state == "vocabSettings") {
+        app.state = "vocabQuizzer";
     }
 }
 
@@ -289,4 +309,29 @@ function ApplyVerbFilter(terms, filterInfo) {
         }
     }
     return results;
+}
+
+
+
+// Shuffles a list of items
+function Shuffle(items) {
+    // Initialize variables
+    var currentIndex = items.length;
+    var temp;
+    var randomIndex;
+    
+    // While there are more elements to shuffle
+    while (0 !== currentIndex) {
+        // Pick a remaining element
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        
+        // Swap the two elements
+        temp = items[currentIndex];
+        items[currentIndex] = items[randomIndex];
+        items[randomIndex] = temp;
+    }
+
+    // Return shuffled items
+    return items;
 }

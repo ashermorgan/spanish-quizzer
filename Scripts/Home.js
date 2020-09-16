@@ -13,14 +13,13 @@ function loadVue() {
             darkTheme: false,
             verbFilters: [],
             vocabFilters: [],
+            errorMsg: "",
             promptType: localStorage.getItem("promptType") || "Text",
             inputType: localStorage.getItem("inputType") || "Text",
             repeatPrompts: localStorage.getItem("repeatPrompts") || "Never",
 
             prompts: [],
             promptIndex: 0,
-            responce: "",
-            responceActive: true,
         },
 
         methods: {
@@ -141,6 +140,23 @@ function loadVue() {
                 else {
                     return "en";
                 }
+            },
+            updateProgress: function(prompts, index) {
+                // Get localStorage prefix
+                let prefix;
+                if (app.state === "vocabSettings" || app.state === "vocabQuizzer") {
+                    prefix = "vocab-"
+                }
+                else if (app.state === "verbSettings" || app.state === "verbQuizzer") {
+                    prefix = "verb-"
+                }
+                else {
+                    return;
+                }
+
+                // Save progress to local storage
+                localStorage.setItem(prefix + "prompts", JSON.stringify(prompts));
+                localStorage.setItem(prefix + "prompt", JSON.stringify(index));
             }
         },
 
@@ -175,17 +191,10 @@ function loadVue() {
             },
             repeatPrompts: function(value) {
                 localStorage.setItem("repeatPrompts", value);
-            }
-        },
-
-        computed: {
-            prompt: function() {
-                if (this.promptIndex < this.prompts.length) {
-                    return this.prompts[this.promptIndex];
-                }
-                else {
-                    return ["", "", "", ""];
-                }
+            },
+            state: function() {
+                // Reset error message
+                app.errorMsg = "";
             }
         },
 
