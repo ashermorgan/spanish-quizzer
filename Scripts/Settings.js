@@ -1,7 +1,6 @@
 // Start a new session
 function CreateSession() {
-    // Get prompts and localStorage prefix
-    let prefix;
+    // Get prompts
     if (app.state == "vocabSettings") {
         // Filter and load Sets into prompts
         app.prompts = [];
@@ -13,16 +12,10 @@ function CreateSession() {
 
         // Shuffle prompts
         app.prompts = Shuffle(app.prompts);
-
-        // Set prefix
-        prefix = "vocab-"
     }
     else if (app.state == "verbSettings") {
         // Get prompts
         app.prompts = Shuffle(ApplyVerbFilter(Sets["Verbs"], app.verbFilters));
-
-        // Set prefix
-        prefix = "verb-"
     }
 
     // Set progress
@@ -126,9 +119,6 @@ function StartSession() {
     }
     else if (app.state == "vocabSettings") {
         app.state = "vocabQuizzer";
-    }
-    else {
-        app.state = "quizzer";
     }
 }
 
