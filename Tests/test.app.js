@@ -311,12 +311,13 @@ describe("App", function() {
     });
 
     describe("PromptType watch", function() {
-        it("Should update setting in localStorage", function() {
+        it("Should update setting in localStorage", async function() {
             // Save original setting from localStorage
             let originalValue = localStorage.getItem("promptType");
 
             // Set promptType
             app.promptType = "test";
+            await app.$nextTick();
 
             // Assert localStorage setting updated
             expect(localStorage.getItem("promptType")).to.equal("test");
@@ -327,12 +328,13 @@ describe("App", function() {
     });
 
     describe("InputType watch", function() {
-        it("Should update setting in localStorage", function() {
+        it("Should update setting in localStorage", async function() {
             // Save original setting from localStorage
             let originalValue = localStorage.getItem("inputType");
 
             // Set inputType
             app.inputType = "test";
+            await app.$nextTick();
 
             // Assert localStorage setting updated
             expect(localStorage.getItem("inputType")).to.equal("test");
@@ -343,12 +345,13 @@ describe("App", function() {
     });
 
     describe("RepeatPrompts watch", function() {
-        it("Should update setting in localStorage", function() {
+        it("Should update setting in localStorage", async function() {
             // Save original setting from localStorage
             let originalValue = localStorage.getItem("repeatPrompts");
 
             // Set repeatPrompts
             app.repeatPrompts = "test";
+            await app.$nextTick();
 
             // Assert localStorage setting updated
             expect(localStorage.getItem("repeatPrompts")).to.equal("test");

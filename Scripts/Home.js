@@ -258,7 +258,7 @@ function KeyDown(e) {
             app.state = "vocabSettings";
         }
         if (e.key === "r") {
-            window.location = "/reference.html";
+            window.location = "reference.html";
         }
     }
 

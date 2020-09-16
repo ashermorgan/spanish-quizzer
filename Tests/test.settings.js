@@ -148,7 +148,7 @@ describe("Settings", function() {
         // Headers are capitalized to tell them apart from the other rows
         let verbs = [
             ["KEY", "SPANISH INF", "TYPE",      "1A", "TYPE",       "2A", "2B", "2C", "2D", "2E", "TYPE",           "3A", "3B", "3C", "3D", "3E", "TYPE",           "4A", "4B", "4C", "4D", "4E"],
-            ["key", "spanish inf", "Regular",   "1a", "Irregular",  "2a", "2b", "2c", "2d", "2e", "Orthographic",   "3a", "3b", "3c", "3d", "3e", "Stem Changing",  "4a", "4b", "4c", "4d", "4e"],
+            ["key", "spanish inf", "Regular",   "1a", "Irregular",  "2a", "2b", "2c", "2d", "2e", "Orthographic",   "3a", "3b", "3c", "3d", "3e", "Reflexive,Stem Changing",  "4a", "4b", "4c", "4d", "4e"],
         ];
 
         it("Should correctly filter verbs for All Conjugatinos", function() {
@@ -281,6 +281,29 @@ describe("Settings", function() {
 
             // Filter verbs
             let actual = ApplyVerbFilter(verbs, [{"tense":"all", "type":"Regular"}]);
+
+            // Assert filtered verbs are correct
+            expect(actual.length).to.equal(expected.length);
+            for (let i = 0; i < expected.length; i++) {
+                expect(actual[i].length).to.equal(4);
+                for (let j = 0; j < expected[i].length; j++) {
+                    expect(actual[i][j]).to.equal(expected[i][j]);
+                }
+            }
+        });
+        
+        it("Should correctly filter reflexive verbs", function() {
+            // Initialize expected
+            let expected = [
+                ["KEY", "key", "4A", "4a"],
+                ["KEY", "key", "4B", "4b"],
+                ["KEY", "key", "4C", "4c"],
+                ["KEY", "key", "4D", "4d"],
+                ["KEY", "key", "4E", "4e"],
+            ];
+
+            // Filter verbs
+            let actual = ApplyVerbFilter(verbs, [{"tense":"all", "type":"Reflexive"}]);
 
             // Assert filtered verbs are correct
             expect(actual.length).to.equal(expected.length);
