@@ -145,6 +145,70 @@ describe("Quizzer", function() {
             // Assert Reset called
             expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
         });
+    
+        it("Should accept multiple responces", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
+            Quizzer.responce = "A1, A2, A3, A4";
+
+            // Call Submit
+            Quizzer.Submit();
+
+            // Assert responce accepted
+            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+        });
+
+        it("Should accept multiple answers", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.prompts = [["A1", "A2", "A3", "A1, A2, A3, A4"]]
+            Quizzer.responce = "A1, A2, A3, A4";
+
+            // Call Submit
+            Quizzer.Submit();
+
+            // Assert answer accepted
+            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+        });
+        it("Should accept mixed-case responces", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
+            Quizzer.responce = "a4";
+
+            // Call Submit
+            Quizzer.Submit();
+
+            // Assert responce accepted
+            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+        });
+
+        it("Should accept responces with extra spaces", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
+            Quizzer.responce = "  a4  ";
+
+            // Call Submit
+            Quizzer.Submit();
+
+            // Assert responce accepted
+            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+        });
+    
+        it("Should convert accented characters", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.prompts = [["A1", "A2", "A3", "Á4"]]
+            Quizzer.responce = "a`4";
+
+            // Call Submit
+            Quizzer.Submit();
+
+            // Assert responce accepted
+            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+        });
     });
 
     describe("Continue method", function() {
@@ -420,5 +484,4 @@ describe("Quizzer", function() {
             expect(Quizzer.prompt[3]).to.equal("d2");
         });
     });
-
 });
