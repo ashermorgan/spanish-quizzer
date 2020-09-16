@@ -234,9 +234,9 @@ function Continue() {
 // Called when the user hits enter or presses the enter button
 function Enter() {
     if (app.responceActive) {
-        Continue();
+        Submit();
     }
     else {
-        Submit();
+        Continue();
     }
 }
