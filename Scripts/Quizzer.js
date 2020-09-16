@@ -105,13 +105,13 @@ let quizzer = Vue.component("quizzer", {
 
                 // Start listening
                 recognition.start();
-                recognition.onresult = function(event) {
-                    responce = ""
+                recognition.onresult = (event) => {
+                    let parsed_responce = ""
                     for (var result of event.results[0]) {
-                        responce += `${result.transcript}, `;
-                        responce += `${result.transcript.split(" or ").join(", ")}, `;
+                        parsed_responce += `${result.transcript}, `;
+                        parsed_responce += `${result.transcript.split(" or ").join(", ")}, `;
                     }
-                    this.responce = responce;
+                    this.responce = parsed_responce;
                     this.Submit();
                 };
             }
