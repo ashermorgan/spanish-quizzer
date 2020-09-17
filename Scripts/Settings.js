@@ -1,4 +1,6 @@
-// Start a new session
+/**
+ * Start a new quizzer session
+ */
 function CreateSession() {
     // Get prompts
     if (app.state == "vocabSettings") {
@@ -41,7 +43,9 @@ function CreateSession() {
 
 
 
-// Resume the previous session
+/**
+ * Resume the previous quizzer session.
+ */
 function ResumeSession() {
     // Get localStorage prefix
     let prefix;
@@ -80,7 +84,9 @@ function ResumeSession() {
 
 
 
-// Performs validations and then starts the quizzer
+/**
+ * Perform validation checks and then start the quizzer.
+ */
 function StartSession() {
     // Validate prompts and promptIndex
     if (!app.prompts) {
@@ -124,7 +130,11 @@ function StartSession() {
 
 
 
-// Filters a vocabulary set given the filter name
+/**
+ * Filter a vocab set.
+ * @param {Array} vocabSet - The vocab set to filter.
+ * @param {String} name - The name of the filter.
+ */
 function ApplyVocabFilter(vocabSet, name) {
     // Declare variables
     var io;     // Format: [[<output index>, <input index>]]
@@ -208,7 +218,11 @@ function ApplyVocabFilter(vocabSet, name) {
 
 
 
-// Filters verbs set given the filter information
+/**
+ * Filter verb conjugations.
+ * @param {Array} terms - The list of verb conjugations to filter.
+ * @param {Array} filterInfo - A list of filters,
+ */
 function ApplyVerbFilter(terms, filterInfo) {
     // Create filters
     let filters = [];   // Format: [{outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
@@ -313,7 +327,10 @@ function ApplyVerbFilter(terms, filterInfo) {
 
 
 
-// Shuffles a list of items
+/**
+ * Shuffles an array of items.
+ * @param {Array} items - The array.
+ */
 function Shuffle(items) {
     // Initialize variables
     var currentIndex = items.length;

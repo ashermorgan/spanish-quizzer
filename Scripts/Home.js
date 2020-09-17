@@ -1,9 +1,12 @@
 // Declare global variables
 let Sets;               // List of parsed sets
-let quizzerType = null; // Type of quizzer
 let app;
 
 
+
+/**
+ * Initialize the Vue app
+ */
 function loadVue() {
     app = new Vue({
         el: "#app", // Mount to app div
@@ -23,6 +26,9 @@ function loadVue() {
         },
 
         methods: {
+            /**
+             * Return to the previous state.
+             */
             Back: function() {
                 switch (app.state) {
                     case "verbQuizzer":
@@ -39,20 +45,44 @@ function loadVue() {
                         break;
                 }
             },
+
+            /**
+             * Add a verb filter on the settings page.
+             */
             AddVerbFilter: function() {
                 this.verbFilters.push({"tense":"All Tenses", "type":"All Types"});
             },
+
+            /**
+             * Remove a verb filter from the settings page.
+             * @param {Number} index - The index of the verb filter.
+             */
             RemoveVerbFilter: function(index) {
                 // Remove filter
                 this.verbFilters.splice(index, 1);
             },
+
+            /**
+             * Add a vocab filter on the settings page.
+             */
             AddVocabFilter: function() {
                 this.vocabFilters.push({"set":"Verbs", "type":"All Definitions"});
             },
+
+            /**
+             * Remove a vocab filter from the settings page.
+             * @param {Number} index - The index of the vocab filter.
+             */
             RemoveVocabFilter: function(index) {
                 // Remove filter
                 this.vocabFilters.splice(index, 1);
             },
+
+            /**
+             * Get the regularity filters available for a verb filter.
+             * @param {Number} index - The index of the verb filter.
+             * @returns {object} - An object with boolean properties for each regularity filter.
+             */
             getTenseTypes: function(index) {
                 // Get filter options
                 let filters = {"All Types":true, "Reflexive":true, "Regular":true, "Nonregular":true, "Stem Changing":true, "Orthographic":true, "Irregular":true}
@@ -83,6 +113,12 @@ function loadVue() {
                 // Return filters
                 return filters;
             },
+
+            /**
+             * Get the filters available for a vocab Set.
+             * @param {Number} index - The index of the vocab filter.
+             * @returns {Array} - An array containing available filters.
+             */
             getSetFilters: function(index) {
                 // Get filter options
                 var filters = [];
@@ -133,6 +169,12 @@ function loadVue() {
                 // Return filters
                 return filters;
             },
+
+            /**
+             * Get the language code that matches a label.
+             * @param {String} label - The label.
+             * @returns {String} - The language code ("en", "es", etc.)
+             */
             getLang: function(label) {
                 if (label.toLowerCase().includes("spanish")) {
                     return "es";
@@ -141,6 +183,12 @@ function loadVue() {
                     return "en";
                 }
             },
+
+            /**
+             * Update the user's progress in localStorage.
+             * @param {Array} prompts - The list of prompts.
+             * @param {Number} index - The index of the current prompt.
+             */
             updateProgress: function(prompts, index) {
                 // Get localStorage prefix
                 let prefix;
@@ -161,6 +209,9 @@ function loadVue() {
         },
 
         watch: {
+            /**
+             * Update the app theme.
+             */
             darkTheme: function() {
                 // Get theme from localStorage if null
                 if (this.darkTheme === null) {
@@ -183,22 +234,40 @@ function loadVue() {
                 // Save theme
                 localStorage.setItem("darkTheme", this.darkTheme);
             },
+
+            /**
+             * Update the promptType setting in localStorage.
+             * @param {String} value - The prompt type.
+             */
             promptType: function(value) {
                 localStorage.setItem("promptType", value);
             },
+
+            /**
+             * Update the inputType setting in localStorage.
+             * @param {String} value - The input type.
+             */
             inputType: function(value) {
                 localStorage.setItem("inputType", value);
             },
+
+            /**
+             * Update the repeatPrompts setting in localStorage.
+             * @param {String} value - The repeat prompts setting value.
+             */
             repeatPrompts: function(value) {
                 localStorage.setItem("repeatPrompts", value);
             },
+
+            /**
+             * Clear the error message when the state changes.
+             */
             state: function() {
                 // Reset error message
                 app.errorMsg = "";
             }
         },
 
-        // Called when the Vue is created
         created: function() {
             // Force theme to update
             this.darkTheme = null;
@@ -208,8 +277,11 @@ function loadVue() {
 
 
 
-// Load the document
+/**
+ * Load the document.
+ */
 function Load() {
+    // Initialize the Vue app
     loadVue();
 
     // Unhide hidden divs
@@ -243,7 +315,10 @@ function Load() {
 
 
 
-// Handles keyDown events (implements some keyboard shortcuts)
+/**
+ * Handle a keyDown event (implements some keyboard shortcuts).
+ * @param {object} e - The event args.
+ */
 function KeyDown(e) {
     if (e.key === "Escape") {
         app.Back();

@@ -3,7 +3,9 @@ let app;
 
 
 
-// Load the document
+/**
+ * Load the document.
+ */
 function Load() {
     // Initialize Vue
     app = new Vue({
@@ -14,6 +16,9 @@ function Load() {
         },
 
         watch: {
+            /**
+             * Update the app theme.
+             */
             darkTheme: function() {
                 // Get theme from localStorage if null
                 if (this.darkTheme === null) {

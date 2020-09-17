@@ -3,7 +3,9 @@ let app;
 
 
 
-// Initializes the Vue
+/**
+ * Initializes the Vue app
+ */
 function loadVue() {
     app = new Vue({
         el: "#app", // Mount to app div
@@ -16,6 +18,11 @@ function loadVue() {
         },
 
         methods: {
+            /**
+             * Get the language code that matches a label.
+             * @param {String} label - The label.
+             * @returns {String} - The language code ("en", "es", etc.)
+             */
             getLang: function(label) {
                 if (label.toLowerCase().includes("spanish")) {
                     return "es";
@@ -27,6 +34,9 @@ function loadVue() {
         },
 
         watch: {
+            /**
+             * Update the app theme.
+             */
             darkTheme: function() {
                 // Get theme from localStorage if null
                 if (this.darkTheme === null) {
@@ -55,7 +65,9 @@ function loadVue() {
 
 
 
-// Load the document
+/**
+ * Load the document
+ */
 function Load() {
     // Initialize the Vue
     loadVue();
@@ -96,7 +108,9 @@ function Load() {
 
 
 
-// Set table height
+/**
+ * Set the table height.
+ */
 function setTableHeight() {
     var tableY = document.getElementById("referenceTable").offsetTop;
     document.getElementById("referenceTable").style.height = `${window.innerHeight - tableY - 50}px`;
@@ -104,7 +118,11 @@ function setTableHeight() {
 
 
 
-// Reads a vocab word
+/**
+ * Read a term.
+ * @param {Number} row - The row of the term.
+ * @param {Number} column - The column of the term. 
+ */
 function Read(row, column)
 {
     var msg = new SpeechSynthesisUtterance(app.sets[app.set][row][column]);

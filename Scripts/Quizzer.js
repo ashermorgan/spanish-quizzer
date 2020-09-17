@@ -41,6 +41,10 @@ let quizzer = Vue.component("quizzer", {
     },
 
     watch: {
+        /**
+         * Activates/deactivates the quizzer.
+         * @param {Boolean} value - The boolean value.
+         */
         active: function(value) {
             if (value) {
                 // Update prompts
@@ -54,7 +58,9 @@ let quizzer = Vue.component("quizzer", {
     },
 
     methods: {
-        // Give the user a new prompt
+        /**
+         * Give the user the next prompt and reset the quizzer.
+         */
         Reset: function() {
             // Check is Quizzer is active
             if (!this.active) {
@@ -117,7 +123,9 @@ let quizzer = Vue.component("quizzer", {
             }
         },
 
-        // Processes a user's submitted responce
+        /**
+         * Process the user's responce.
+         */
         Submit: function() {
             // Check is Quizzer is active
             if (!this.active) {
@@ -171,7 +179,9 @@ let quizzer = Vue.component("quizzer", {
             }
         },
 
-        // Processes an incorrect responce and then resets the quizzer
+        /**
+         * Process an incorrect responce and then reset the quizzer.
+         */
         Continue: function() {
             // Check is Quizzer is active
             if (!this.active) {
@@ -208,7 +218,9 @@ let quizzer = Vue.component("quizzer", {
             this.Reset();
         },
         
-        // Called when the user hits enter or presses the enter button
+        /**
+         * Calls Submit or Continue depending on the value of responceActive.
+         */
         Enter: function() {
             // Check is Quizzer is active
             if (!this.active) {
@@ -223,6 +235,11 @@ let quizzer = Vue.component("quizzer", {
             }
         },
         
+        /**
+         * Get the language code that matches a label.
+         * @param {String} label - The label.
+         * @returns {String} - The language code ("en", "es", etc.)
+         */
         getLang: function(label) {
             if (label.toLowerCase().includes("spanish")) {
                 return "es";
@@ -234,6 +251,10 @@ let quizzer = Vue.component("quizzer", {
     },
 
     computed: {
+        /**
+         * Get The current prompt.
+         * @returns {Array} - The current prompt.
+         */
         prompt: function() {
             if (this.index < this.prompts.length) {
                 return this.prompts[this.index];
@@ -277,7 +298,11 @@ let quizzer = Vue.component("quizzer", {
 
 
 
-// Reads a peice of text
+/**
+ * Read a peice of text.
+ * @param {String} text - The text to read.
+ * @param {String} label - The language of the text.
+ */
 function Read(text, label)
 {
     var msg = new SpeechSynthesisUtterance(text);
