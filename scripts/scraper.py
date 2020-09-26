@@ -70,4 +70,4 @@ def correctConjugations(filepath):
 
 # Correct conjugations in Verbs.csv
 if (__name__ == "__main__"):
-    correctConjugations("Vocab/Verbs.csv")
+    correctConjugations("../vocab/Verbs.csv")

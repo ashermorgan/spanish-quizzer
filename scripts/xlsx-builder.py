@@ -85,4 +85,4 @@ def createXlsx(csvPath, xlsxPath):
 
 # Create spreadsheet from Verbs.csv
 if (__name__ == "__main__"):
-    createXlsx("Vocab/Verbs.csv", "Vocab/Verbs.xlsx")
+    createXlsx("../vocab/Verbs.csv", "../vocab/Verbs.xlsx")

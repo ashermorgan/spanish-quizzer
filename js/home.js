@@ -303,7 +303,7 @@ function Load() {
                     "Colors", "Days", "Months", "Questions", "Weather", "Family", "Clothes",
                     "Nature", "House", "Vacation", "Childhood", "Professions", "Health"];
     for (let setName of setNames) {
-        Papa.parse(`Vocab/${setName}.csv`, {
+        Papa.parse(`vocab/${setName}.csv`, {
             download: true,
             complete: function(results) {
                 // Set verbs
