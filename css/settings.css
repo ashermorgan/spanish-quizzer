@@ -1,62 +1,102 @@
-/******** Settings styles ********/
+/* Settings */
 #settings {
-    margin: auto;
-    text-align: left;
-    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-
-
-/******** vocab/Verb Settings styles ********/
-/* Instructions */
 #settings h1 {
-    text-align: center;
     font-size: 16px;
     font-weight: normal;
+    margin-bottom: 10px;
 }
-
-/* Headings */
-h2 {
-    font-size: 18px;
-    margin-top: 15px;
+#settings h2 {
+    font-size: 20px;
     margin-bottom: 5px;
 }
-h2 button {
-    padding: 2px 5px 2px 5px;
+#vocabSettings, #verbSettings, #quizzerSettings, #studyMethodDiv {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
 }
 
-/* List item */
-.vocabSet, .verbFilter {
-    padding-top: 5px;
-}
 
-/* Vocab list item parts */
-.vocabSetName {
-    width: 115px;
-}
-.vocabSetFilter {
-    width: 160px;
-}
 
-/* List item remove */
-.itemRemove {
-    border: none;
-    padding: 0px;
-    margin: 0px;
-    cursor: pointer;
-    color: var(--foreground-color);
+/* Filters */
+#vocabSettings h2 button, #verbSettings h2 button {
+    padding: 3px;
+}
+.filter {
+    width: max-content;
+
     background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 15px var(--border-color);
+    
+    margin: 5px auto;
+    padding: 5px;
+    border-radius: 5px;
+}
+.filter button {
+    border: none;
+    background-color: var(--background-color);
+    color: var(--foreground-color);
+    cursor: pointer;
 }
 
 
 
-/******** Settings Button styles ********/
+/* Quizzer Settings div */
+#quizzerSettings div {
+    text-align: left;
+}
+#quizzerSettings input[type=number] {
+    width: 50px;
+}
+
+
+
+/* Start/Resume Button */
 #settingButtons {
-    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 #settingButtons button {
-    margin-top: 15px;
-    margin-bottom: 5px;
-    width: 75px;
-    height: 25px;
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+    margin: 0px 5px;
+}
+
+
+
+/* Error Message */
+#settingsError {
+    margin: 0px 10px;
+}
+
+
+
+@media only screen and (max-width: 300px) {
+    /* Filters */
+    #vocabSettings, #verbSettings {
+        width: calc(100% - 20px);
+    }
+    .filter {
+        width: 100%;
+        margin: 10px auto;
+    }
+    .filter select, .filter button {
+        width: 100%;
+        height: 30px;
+        margin: 3px 0px;
+    }
+
+    /* Start/Resume Buttons */
+    #settingButtons {
+        width: calc(100% - 10px);
+    }
+    #settingButtons button {
+        width: calc(50% - 15px);
+        height: 50px;
+    }
 }

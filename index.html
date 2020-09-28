@@ -49,21 +49,19 @@
                             Verb Filters
                             <button @click="AddVerbFilter();">Add Filter</button>
                         </h2>
-            
-                        <div id="verbFilters">
-                            <div v-for="(filter, index) in verbFilters" class="verbFilter">
-                                <select v-model="filter.tense">
-                                    <option>All Tenses</option>
-                                    <option>Present Participles</option>
-                                    <option>Present Tense</option>
-                                    <option>Preterite Tense</option>
-                                    <option>Imperfect Tense</option>
-                                </select>
-                                <select v-model="filter.type">
-                                    <option v-for="(available, type) in getTenseTypes(index)" :disabled="!available">{{ type }}</option>
-                                </select>
-                                <button class="itemRemove" @click="RemoveVerbFilter(index);">╳</button>
-                            </div>
+                        
+                        <div v-for="(filter, index) in verbFilters" class="filter">
+                            <select v-model="filter.tense">
+                                <option>All Tenses</option>
+                                <option>Present Participles</option>
+                                <option>Present Tense</option>
+                                <option>Preterite Tense</option>
+                                <option>Imperfect Tense</option>
+                            </select>
+                            <select v-model="filter.type">
+                                <option v-for="(available, type) in getTenseTypes(index)" :disabled="!available">{{ type }}</option>
+                            </select>
+                            <button class="itemRemove" @click="RemoveVerbFilter(index);">╳</button>
                         </div>
                     </div>
         
@@ -76,39 +74,37 @@
                             <button @click="AddVocabFilter();">Add set</button>
                         </h2>
             
-                        <div id="vocabSets">
-                            <div v-for="(filter, index) in vocabFilters" class="vocabSet">
-                                <select class="vocabSetName" v-model="filter.set">
-                                    <optgroup label="Common Words">
-                                        <option>Verbs</option>
-                                        <option>Adjectives</option>
-                                        <option>Adverbs</option>
-                                        <option>Prepositions</option>
-                                        <option>Transitions</option>
-                                    </optgroup>
-                                    <optgroup label="Spanish 1">
-                                        <option>Colors</option>
-                                        <option>Days</option>
-                                        <option>Months</option>
-                                        <option>Questions</option>
-                                        <option>Weather</option>
-                                        <option>Family</option>
-                                        <option>Clothes</option>
-                                    </optgroup>
-                                    <optgroup label="Spanish 2">
-                                        <option>Nature</option>
-                                        <option>House</option>
-                                        <option>Vacation</option>
-                                        <option>Childhood</option>
-                                        <option>Professions</option>
-                                        <option>Health</option>
-                                    </optgroup>
-                                </select>
-                                <select class="vocabSetFilter" v-model="filter.type">
-                                    <option v-for="type in getSetFilters(index)" >{{ type }}</option>
-                                </select>
-                                <button class="itemRemove" @click="RemoveVocabFilter(index);">╳</button>
-                            </div>
+                        <div v-for="(filter, index) in vocabFilters" class="filter">
+                            <select class="vocabSetName" v-model="filter.set">
+                                <optgroup label="Common Words">
+                                    <option>Verbs</option>
+                                    <option>Adjectives</option>
+                                    <option>Adverbs</option>
+                                    <option>Prepositions</option>
+                                    <option>Transitions</option>
+                                </optgroup>
+                                <optgroup label="Spanish 1">
+                                    <option>Colors</option>
+                                    <option>Days</option>
+                                    <option>Months</option>
+                                    <option>Questions</option>
+                                    <option>Weather</option>
+                                    <option>Family</option>
+                                    <option>Clothes</option>
+                                </optgroup>
+                                <optgroup label="Spanish 2">
+                                    <option>Nature</option>
+                                    <option>House</option>
+                                    <option>Vacation</option>
+                                    <option>Childhood</option>
+                                    <option>Professions</option>
+                                    <option>Health</option>
+                                </optgroup>
+                            </select>
+                            <select class="vocabSetFilter" v-model="filter.type">
+                                <option v-for="type in getSetFilters(index)" >{{ type }}</option>
+                            </select>
+                            <button class="itemRemove" @click="RemoveVocabFilter(index);">╳</button>
                         </div>
                     </div>
         
@@ -145,14 +141,14 @@
                                 <option>At the end</option>
                             </select>
                         </div>
-        
-                        <div id="settingButtons">
-                            <button id="settingsStart" onclick="CreateSession();">Start</button>
-                            <button id="settingsResume" onclick="ResumeSession();">Resume</button>
-                        </div>
-                        
-                        <div id="settingsError" v-show="errorMsg" class="centered bad">{{ errorMsg }}</div>
                     </div>
+
+                    <div id="settingButtons">
+                        <button id="settingsStart" onclick="CreateSession();">Start</button>
+                        <button id="settingsResume" onclick="ResumeSession();">Resume</button>
+                    </div>
+                    
+                    <div id="settingsError" v-show="errorMsg" class="centered bad">{{ errorMsg }}</div>
                 </div>
         
         

@@ -1,7 +1,9 @@
 /******** Quizzer styles ********/
 /* Container */
 #quizzer {
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
     padding: 10px;
     width: fit-content;
     width: -moz-fit-content;
