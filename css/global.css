@@ -36,6 +36,7 @@ body {
 
     display: grid;
     grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 1fr auto 1fr;
 }
 
 #jsError {
@@ -72,6 +73,7 @@ button:disabled {
 /******** Other styles ********/
 header {
     grid-row: 1;
+    grid-column: 1 / 4;
     text-align: center;
     width: 100%;
     background-color: var(--theme-color);
@@ -87,6 +89,7 @@ header {
 
 main {
     grid-row: 2;
+    grid-column: 2;
     text-align: center;
 }
 
@@ -104,6 +107,7 @@ main {
 
 footer {
     grid-row: 4;
+    grid-column: 2;
     text-align: center;
     padding-bottom: 5px;
     padding-top: 5px;
