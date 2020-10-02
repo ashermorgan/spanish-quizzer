@@ -173,16 +173,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"all", "type":"all"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"all types"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
         
         it("Should correctly filter verbs for Present Participles", function() {
@@ -192,16 +186,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"Present Participles", "type":"all"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"Present Participles", type:"all types"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
         
         it("Should correctly filter verbs for Present Tense", function() {
@@ -215,16 +203,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"Present Tense", "type":"all"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"Present Tense", type:"all types"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
         
         it("Should correctly filter verbs for Preterite Tense", function() {
@@ -238,16 +220,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"Preterite Tense", "type":"all"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"Preterite Tense", type:"all types"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
         
         it("Should correctly filter verbs for Imperfect Tense", function() {
@@ -261,16 +237,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"Imperfect Tense", "type":"all"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"Imperfect Tense", type:"all types"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
         
         it("Should correctly filter regular verbs", function() {
@@ -280,16 +250,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"all", "type":"Regular"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Regular"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
         
         it("Should correctly filter reflexive verbs", function() {
@@ -303,16 +267,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"all", "type":"Reflexive"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Reflexive"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
         
         it("Should correctly filter stem changing verbs", function() {
@@ -326,16 +284,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"all", "type":"Stem Changing"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Stem Changing"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
         
         it("Should correctly filter orthographic verbs", function() {
@@ -349,16 +301,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"all", "type":"Orthographic"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Orthographic"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
         
         it("Should correctly filter irregular verbs", function() {
@@ -372,16 +318,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"all", "type":"irregular"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"irregular"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
         
         it("Should correctly filter nonregular verbs", function() {
@@ -405,16 +345,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"all", "type":"Nonregular"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Nonregular"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
         
         it("Should correctly filter verbs for multiple filters", function() {
@@ -450,16 +384,10 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{"tense":"all", "type":"Nonregular"}, {"tense":"Present Tense", "type":"all"}, {"tense":"all", "type":"Stem Changing"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Nonregular"}, {tense:"present tense", type:"all types"}, {"tense":"all tenses", type:"stem changing"}]);
 
             // Assert filtered verbs are correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
     });
 
