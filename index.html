@@ -61,6 +61,9 @@
                             <select v-model="filter.type">
                                 <option v-for="(available, type) in getTenseTypes(index)" :disabled="!available">{{ type }}</option>
                             </select>
+                            <select v-model="filter.subject">
+                                <option v-for="(available, subject) in getTenseSubjects(index)" :disabled="!available">{{ subject }}</option>
+                            </select>
                             <button class="itemRemove" @click="RemoveVerbFilter(index);">╳</button>
                         </div>
                     </div>

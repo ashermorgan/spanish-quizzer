@@ -228,13 +228,13 @@ function ApplyVerbFilter(terms, filterInfo) {
     let filters = [];   // Format: [{tense:"specific tense", subject:"specific subject", type:"regex"}]
     for (let filter of filterInfo) {
         if (filter.tense.toLowerCase() == "all tenses") {
-            filters.push({ tense: "present participles", subject: "all subjects", type: filter.type });
-            filters.push({ tense: "present tense", subject: "all subjects", type: filter.type });
-            filters.push({ tense: "preterite tense", subject: "all subjects", type: filter.type });
-            filters.push({ tense: "imperfect tense", subject: "all subjects", type: filter.type });
+            filters.push({ tense: "present participles", subject: filter.subject, type: filter.type });
+            filters.push({ tense: "present tense", subject: filter.subject, type: filter.type });
+            filters.push({ tense: "preterite tense", subject: filter.subject, type: filter.type });
+            filters.push({ tense: "imperfect tense", subject: filter.subject, type: filter.type });
         }
         else {
-            filters.push({ tense: filter.tense.toLowerCase(), subject: "all subjects", type: filter.type });
+            filters.push({ tense: filter.tense.toLowerCase(), subject: filter.subject, type: filter.type });
         }
     }
     

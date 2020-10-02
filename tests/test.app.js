@@ -231,6 +231,87 @@ describe("App", function() {
         });
     });
 
+
+    describe("GetTenseSubjects method", function() {
+        it("Should be correct for All Tenses", function() {
+            // Initialize filters
+            app.verbFilters = [
+                {"tense":"All Types", "type":"All Types"}
+            ]
+
+            // Get filters
+            let filters = app.getTenseSubjects(0);
+
+            // Assert filters are correct
+            expect(filters["All Subjects"]).to.equal(true);
+            expect(filters["Yo"]).to.equal(true);
+            expect(filters["Tú"]).to.equal(true);
+            expect(filters["Él"]).to.equal(true);
+            expect(filters["Nosotros"]).to.equal(true);
+            expect(filters["Ellos"]).to.equal(true);
+        });
+
+        it("Should be correct for Present Participles", function() {
+            // Initialize filters
+            app.verbFilters = [
+                {"tense":"Present Participles", "subject":"All Subjects", "type":"All Types"}
+            ]
+
+            // Get filters
+            let filters = app.getTenseSubjects(0);
+
+            // Assert filters are correct
+            expect(filters["All Subjects"]).to.equal(true);
+            expect(filters["Yo"]).to.equal(false);
+            expect(filters["Tú"]).to.equal(false);
+            expect(filters["Él"]).to.equal(false);
+            expect(filters["Nosotros"]).to.equal(false);
+            expect(filters["Ellos"]).to.equal(false);
+        });
+
+        it("Should change selection if not available", function() {
+            // Initialize filters
+            app.verbFilters = [
+                {"tense":"Present Participles", "subject":"Yo", "type":"All Types"}
+            ]
+
+            // Get filters
+            let filters = app.getTenseSubjects(0);
+
+            // Assert filters are correct
+            expect(filters["All Subjects"]).to.equal(true);
+            expect(filters["Yo"]).to.equal(false);
+            expect(filters["Tú"]).to.equal(false);
+            expect(filters["Él"]).to.equal(false);
+            expect(filters["Nosotros"]).to.equal(false);
+            expect(filters["Ellos"]).to.equal(false);
+
+            // Assert selection changed
+            expect(app.verbFilters[0]["subject"]).to.equal("All Subjects");
+        });
+
+        it("Should not change selection if available", function() {
+            // Initialize filters
+            app.verbFilters = [
+                {"tense":"Preterite Tense", "subject":"Yo", "type":"All Types"}
+            ]
+
+            // Get filters
+            let filters = app.getTenseSubjects(0);
+
+            // Assert filters are correct
+            expect(filters["All Subjects"]).to.equal(true);
+            expect(filters["Yo"]).to.equal(true);
+            expect(filters["Tú"]).to.equal(true);
+            expect(filters["Él"]).to.equal(true);
+            expect(filters["Nosotros"]).to.equal(true);
+            expect(filters["Ellos"]).to.equal(true);
+
+            // Assert selection not changed
+            expect(app.verbFilters[0]["subject"]).to.equal("Yo");
+        });
+    });
+
     describe("GetSetFilters method", function() {
         it("Should be correct for Verbs", function() {
             // Initialize filters

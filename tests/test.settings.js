@@ -173,179 +173,7 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"all types"}]);
-
-            // Assert filtered verbs are correct
-            expect(actual).to.have.deep.members(expected);
-        });
-        
-        it("Should correctly filter verbs for Present Participles", function() {
-            // Initialize expected
-            let expected = [
-                ["KEY", "key", "1A", "1a"],
-            ];
-
-            // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"Present Participles", type:"all types"}]);
-
-            // Assert filtered verbs are correct
-            expect(actual).to.have.deep.members(expected);
-        });
-        
-        it("Should correctly filter verbs for Present Tense", function() {
-            // Initialize expected
-            let expected = [
-                ["KEY", "key", "2A", "2a"],
-                ["KEY", "key", "2B", "2b"],
-                ["KEY", "key", "2C", "2c"],
-                ["KEY", "key", "2D", "2d"],
-                ["KEY", "key", "2E", "2e"],
-            ];
-
-            // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"Present Tense", type:"all types"}]);
-
-            // Assert filtered verbs are correct
-            expect(actual).to.have.deep.members(expected);
-        });
-        
-        it("Should correctly filter verbs for Preterite Tense", function() {
-            // Initialize expected
-            let expected = [
-                ["KEY", "key", "3A", "3a"],
-                ["KEY", "key", "3B", "3b"],
-                ["KEY", "key", "3C", "3c"],
-                ["KEY", "key", "3D", "3d"],
-                ["KEY", "key", "3E", "3e"],
-            ];
-
-            // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"Preterite Tense", type:"all types"}]);
-
-            // Assert filtered verbs are correct
-            expect(actual).to.have.deep.members(expected);
-        });
-        
-        it("Should correctly filter verbs for Imperfect Tense", function() {
-            // Initialize expected
-            let expected = [
-                ["KEY", "key", "4A", "4a"],
-                ["KEY", "key", "4B", "4b"],
-                ["KEY", "key", "4C", "4c"],
-                ["KEY", "key", "4D", "4d"],
-                ["KEY", "key", "4E", "4e"],
-            ];
-
-            // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"Imperfect Tense", type:"all types"}]);
-
-            // Assert filtered verbs are correct
-            expect(actual).to.have.deep.members(expected);
-        });
-        
-        it("Should correctly filter regular verbs", function() {
-            // Initialize expected
-            let expected = [
-                ["KEY", "key", "1A", "1a"],
-            ];
-
-            // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Regular"}]);
-
-            // Assert filtered verbs are correct
-            expect(actual).to.have.deep.members(expected);
-        });
-        
-        it("Should correctly filter reflexive verbs", function() {
-            // Initialize expected
-            let expected = [
-                ["KEY", "key", "4A", "4a"],
-                ["KEY", "key", "4B", "4b"],
-                ["KEY", "key", "4C", "4c"],
-                ["KEY", "key", "4D", "4d"],
-                ["KEY", "key", "4E", "4e"],
-            ];
-
-            // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Reflexive"}]);
-
-            // Assert filtered verbs are correct
-            expect(actual).to.have.deep.members(expected);
-        });
-        
-        it("Should correctly filter stem changing verbs", function() {
-            // Initialize expected
-            let expected = [
-                ["KEY", "key", "4A", "4a"],
-                ["KEY", "key", "4B", "4b"],
-                ["KEY", "key", "4C", "4c"],
-                ["KEY", "key", "4D", "4d"],
-                ["KEY", "key", "4E", "4e"],
-            ];
-
-            // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Stem Changing"}]);
-
-            // Assert filtered verbs are correct
-            expect(actual).to.have.deep.members(expected);
-        });
-        
-        it("Should correctly filter orthographic verbs", function() {
-            // Initialize expected
-            let expected = [
-                ["KEY", "key", "3A", "3a"],
-                ["KEY", "key", "3B", "3b"],
-                ["KEY", "key", "3C", "3c"],
-                ["KEY", "key", "3D", "3d"],
-                ["KEY", "key", "3E", "3e"],
-            ];
-
-            // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Orthographic"}]);
-
-            // Assert filtered verbs are correct
-            expect(actual).to.have.deep.members(expected);
-        });
-        
-        it("Should correctly filter irregular verbs", function() {
-            // Initialize expected
-            let expected = [
-                ["KEY", "key", "2A", "2a"],
-                ["KEY", "key", "2B", "2b"],
-                ["KEY", "key", "2C", "2c"],
-                ["KEY", "key", "2D", "2d"],
-                ["KEY", "key", "2E", "2e"],
-            ];
-
-            // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"irregular"}]);
-
-            // Assert filtered verbs are correct
-            expect(actual).to.have.deep.members(expected);
-        });
-        
-        it("Should correctly filter nonregular verbs", function() {
-            // Initialize expected
-            let expected = [
-                ["KEY", "key", "2A", "2a"],
-                ["KEY", "key", "2B", "2b"],
-                ["KEY", "key", "2C", "2c"],
-                ["KEY", "key", "2D", "2d"],
-                ["KEY", "key", "2E", "2e"],
-                ["KEY", "key", "3A", "3a"],
-                ["KEY", "key", "3B", "3b"],
-                ["KEY", "key", "3C", "3c"],
-                ["KEY", "key", "3D", "3d"],
-                ["KEY", "key", "3E", "3e"],
-                ["KEY", "key", "4A", "4a"],
-                ["KEY", "key", "4B", "4b"],
-                ["KEY", "key", "4C", "4c"],
-                ["KEY", "key", "4D", "4d"],
-                ["KEY", "key", "4E", "4e"],
-            ];
-
-            // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Nonregular"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"all types"}]);
 
             // Assert filtered verbs are correct
             expect(actual).to.have.deep.members(expected);
@@ -376,18 +204,276 @@ describe("Settings", function() {
                 ["KEY", "key", "2D", "2d"],
                 ["KEY", "key", "2E", "2e"],
                 
-                ["KEY", "key", "4A", "4a"],
-                ["KEY", "key", "4B", "4b"],
-                ["KEY", "key", "4C", "4c"],
                 ["KEY", "key", "4D", "4d"],
-                ["KEY", "key", "4E", "4e"],
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", type:"Nonregular"}, {tense:"present tense", type:"all types"}, {"tense":"all tenses", type:"stem changing"}]);
+            let actual = ApplyVerbFilter(verbs, [
+                { tense:"all tenses", subject:"all subjects", type:"Nonregular" },
+                { tense:"present tense", subject:"all subjects", type:"all types" },
+                { "tense":"all tenses", subject:"nosotros", type:"stem changing" }
+            ]);
 
             // Assert filtered verbs are correct
             expect(actual).to.have.deep.members(expected);
+        });
+
+        describe("Tense filters", function() {
+            it("Should correctly filter verbs for Present Participles", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "1A", "1a"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"Present Participles", subject:"all subjects", type:"all types"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+            
+            it("Should correctly filter verbs for Present Tense", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "2A", "2a"],
+                    ["KEY", "key", "2B", "2b"],
+                    ["KEY", "key", "2C", "2c"],
+                    ["KEY", "key", "2D", "2d"],
+                    ["KEY", "key", "2E", "2e"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"Present Tense", subject:"all subjects", type:"all types"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+            
+            it("Should correctly filter verbs for Preterite Tense", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "3A", "3a"],
+                    ["KEY", "key", "3B", "3b"],
+                    ["KEY", "key", "3C", "3c"],
+                    ["KEY", "key", "3D", "3d"],
+                    ["KEY", "key", "3E", "3e"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"Preterite Tense", subject:"all subjects", type:"all types"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+            
+            it("Should correctly filter verbs for Imperfect Tense", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "4A", "4a"],
+                    ["KEY", "key", "4B", "4b"],
+                    ["KEY", "key", "4C", "4c"],
+                    ["KEY", "key", "4D", "4d"],
+                    ["KEY", "key", "4E", "4e"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"Imperfect Tense", subject:"all subjects", type:"all types"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+        });
+
+        describe("Regularity filters", function() {
+            it("Should correctly filter regular verbs", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "1A", "1a"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Regular"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+            
+            it("Should correctly filter reflexive verbs", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "4A", "4a"],
+                    ["KEY", "key", "4B", "4b"],
+                    ["KEY", "key", "4C", "4c"],
+                    ["KEY", "key", "4D", "4d"],
+                    ["KEY", "key", "4E", "4e"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Reflexive"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+            
+            it("Should correctly filter stem changing verbs", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "4A", "4a"],
+                    ["KEY", "key", "4B", "4b"],
+                    ["KEY", "key", "4C", "4c"],
+                    ["KEY", "key", "4D", "4d"],
+                    ["KEY", "key", "4E", "4e"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Stem Changing"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+            
+            it("Should correctly filter orthographic verbs", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "3A", "3a"],
+                    ["KEY", "key", "3B", "3b"],
+                    ["KEY", "key", "3C", "3c"],
+                    ["KEY", "key", "3D", "3d"],
+                    ["KEY", "key", "3E", "3e"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Orthographic"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+            
+            it("Should correctly filter irregular verbs", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "2A", "2a"],
+                    ["KEY", "key", "2B", "2b"],
+                    ["KEY", "key", "2C", "2c"],
+                    ["KEY", "key", "2D", "2d"],
+                    ["KEY", "key", "2E", "2e"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"irregular"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+            
+            it("Should correctly filter nonregular verbs", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "2A", "2a"],
+                    ["KEY", "key", "2B", "2b"],
+                    ["KEY", "key", "2C", "2c"],
+                    ["KEY", "key", "2D", "2d"],
+                    ["KEY", "key", "2E", "2e"],
+                    ["KEY", "key", "3A", "3a"],
+                    ["KEY", "key", "3B", "3b"],
+                    ["KEY", "key", "3C", "3c"],
+                    ["KEY", "key", "3D", "3d"],
+                    ["KEY", "key", "3E", "3e"],
+                    ["KEY", "key", "4A", "4a"],
+                    ["KEY", "key", "4B", "4b"],
+                    ["KEY", "key", "4C", "4c"],
+                    ["KEY", "key", "4D", "4d"],
+                    ["KEY", "key", "4E", "4e"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Nonregular"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+        });
+        
+        describe("Subject filters", function() {
+            it("Should correctly filter yo subjects", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "1A", "1a"],
+                    ["KEY", "key", "2A", "2a"],
+                    ["KEY", "key", "3A", "3a"],
+                    ["KEY", "key", "4A", "4a"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"yo", type:"all types"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should correctly filter tú subjects", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "1A", "1a"],
+                    ["KEY", "key", "2B", "2b"],
+                    ["KEY", "key", "3B", "3b"],
+                    ["KEY", "key", "4B", "4b"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"tú", type:"all types"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should correctly filter él subjects", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "1A", "1a"],
+                    ["KEY", "key", "2C", "2c"],
+                    ["KEY", "key", "3C", "3c"],
+                    ["KEY", "key", "4C", "4c"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"él", type:"all types"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should correctly filter nosotros subjects", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "1A", "1a"],
+                    ["KEY", "key", "2D", "2d"],
+                    ["KEY", "key", "3D", "3d"],
+                    ["KEY", "key", "4D", "4d"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"nosotros", type:"all types"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should correctly filter ellos subjects", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "1A", "1a"],
+                    ["KEY", "key", "2E", "2e"],
+                    ["KEY", "key", "3E", "3e"],
+                    ["KEY", "key", "4E", "4e"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"ellos", type:"all types"}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
         });
     });
 

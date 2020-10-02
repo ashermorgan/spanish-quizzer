@@ -50,7 +50,7 @@ function loadVue() {
              * Add a verb filter on the settings page.
              */
             AddVerbFilter: function() {
-                this.verbFilters.push({"tense":"All Tenses", "type":"All Types"});
+                this.verbFilters.push({tense:"All Tenses", subject:"All Subjects", type:"All Types"});
             },
 
             /**
@@ -108,6 +108,31 @@ function loadVue() {
                 // Reset type if needed
                 if (!filters[this.verbFilters[index].type]) {
                     this.verbFilters[index].type = "All Types";
+                }
+
+                // Return filters
+                return filters;
+            },
+
+            /**
+             * Get the subject filters available for a verb filter.
+             * @param {Number} index - The index of the verb filter.
+             * @returns {object} - An object with boolean properties for each subject filter.
+             */
+            getTenseSubjects: function(index) {
+                // Set default filters
+                let filters = {"All Subjects":true, "Yo":true, "Tú":true, "Él":true, "Nosotros":true, "Ellos":true}
+                
+                if (this.verbFilters[index].tense === "Present Participles") {
+                    // Override filters
+                    filters["Yo"] = false;
+                    filters["Tú"] = false;
+                    filters["Él"] = false;
+                    filters["Nosotros"] = false;
+                    filters["Ellos"] = false;
+                    
+                    // Reset subject
+                    this.verbFilters[index].subject = "All Subjects";
                 }
 
                 // Return filters
