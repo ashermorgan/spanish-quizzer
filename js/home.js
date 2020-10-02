@@ -150,7 +150,7 @@ function loadVue() {
                 switch(this.vocabFilters[index].set)
                 {
                     case "Verbs":
-                        filters = ["All Definitions", "Spanish Infinitives", "English Infinitives", "Reverse Conjugations"];
+                        filters = ["All Definitions", "Spanish Infinitives", "English Infinitives"];
                         break;
                     
                     case "Adjectives":

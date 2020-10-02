@@ -323,7 +323,7 @@ describe("App", function() {
             let actual = app.getSetFilters(0);
 
             // Assert filters are correct
-            let expected = ["All Definitions", "Spanish Infinitives", "English Infinitives", "Reverse Conjugations"];
+            let expected = ["All Definitions", "Spanish Infinitives", "English Infinitives"];
             expect(actual.length).to.equal(expected.length);
             for (let i = 0; i < expected.length; i++) {
                 expect(actual[i]).to.equal(expected[i]);
