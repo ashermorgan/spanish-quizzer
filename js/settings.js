@@ -228,13 +228,13 @@ function ApplyVerbFilter(terms, filterInfo) {
     let filters = [];   // Format: [{tense:"specific tense", subject:"specific subject", type:"regex"}]
     for (let filter of filterInfo) {
         if (filter.tense.toLowerCase() == "all tenses") {
-            filters.push({ tense: "present participles", subject: filter.subject, type: filter.type });
-            filters.push({ tense: "present tense", subject: filter.subject, type: filter.type });
-            filters.push({ tense: "preterite tense", subject: filter.subject, type: filter.type });
-            filters.push({ tense: "imperfect tense", subject: filter.subject, type: filter.type });
+            filters.push({ tense: "present participles", type: filter.type, subject: filter.subject, direction: filter.direction });
+            filters.push({ tense: "present tense", type: filter.type, subject: filter.subject, direction: filter.direction });
+            filters.push({ tense: "preterite tense", type: filter.type, subject: filter.subject, direction: filter.direction });
+            filters.push({ tense: "imperfect tense", type: filter.type, subject: filter.subject, direction: filter.direction });
         }
         else {
-            filters.push({ tense: filter.tense.toLowerCase(), subject: filter.subject, type: filter.type });
+            filters.push({ tense: filter.tense.toLowerCase(), type: filter.type, subject: filter.subject, direction: filter.direction });
         }
     }
     
@@ -242,10 +242,10 @@ function ApplyVerbFilter(terms, filterInfo) {
     for (let filter of filters) {
         if (filter.subject.toLowerCase() == "all subjects" && filter.tense != "present participles") {
             filter.subject = "yo";
-            filters.push({ tense: filter.tense, subject: "tú", type: filter.type });
-            filters.push({ tense: filter.tense, subject: "él", type: filter.type });
-            filters.push({ tense: filter.tense, subject: "nosotros", type: filter.type });
-            filters.push({ tense: filter.tense, subject: "ellos", type: filter.type });
+            filters.push({ tense: filter.tense, type: filter.type, subject: "tú", direction: filter.direction });
+            filters.push({ tense: filter.tense, type: filter.type, subject: "él", direction: filter.direction });
+            filters.push({ tense: filter.tense, type: filter.type, subject: "nosotros", direction: filter.direction });
+            filters.push({ tense: filter.tense, type: filter.type, subject: "ellos", direction: filter.direction });
         }
         else {
             filter.subject = filter.subject.toLowerCase();
@@ -285,7 +285,13 @@ function ApplyVerbFilter(terms, filterInfo) {
     let ioFilters = [];   // Format: [{outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
     for (let filter of filters) {
         // Get output index
-        let outputIndex = 0;
+        let outputIndex;
+        if (filter.direction.toLowerCase().includes("eng")) {
+            outputIndex = 0;
+        }
+        else if (filter.direction.toLowerCase().includes("esp")) {
+            outputIndex = 1;
+        }
 
         // Get input index and filter index
         let inputIndex;
@@ -366,7 +372,13 @@ function ApplyVerbFilter(terms, filterInfo) {
         }
 
         // Create filter
-        ioFilters.push({outputIndex:outputIndex, inputIndex:inputIndex, filterIndex:filterIndex, filterValue:filter.type})
+        if (filter.direction.toLowerCase().startsWith("conj")) {
+            // Swap input and output
+            ioFilters.push({outputIndex:inputIndex, inputIndex:outputIndex, filterIndex:filterIndex, filterValue:filter.type})
+        }
+        else {
+            ioFilters.push({outputIndex:outputIndex, inputIndex:inputIndex, filterIndex:filterIndex, filterValue:filter.type})
+        }
     }
 
     // Filter terms

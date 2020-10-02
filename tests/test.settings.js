@@ -173,7 +173,7 @@ describe("Settings", function() {
             ];
 
             // Filter verbs
-            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"all types"}]);
+            let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"all types", direction:"Eng. => Conj."}]);
 
             // Assert filtered verbs are correct
             expect(actual).to.have.deep.members(expected);
@@ -204,14 +204,14 @@ describe("Settings", function() {
                 ["KEY", "key", "2D", "2d"],
                 ["KEY", "key", "2E", "2e"],
                 
-                ["KEY", "key", "4D", "4d"],
+                ["4D", "4d", "SPANISH INF", "spanish inf"],
             ];
 
             // Filter verbs
             let actual = ApplyVerbFilter(verbs, [
-                { tense:"all tenses", subject:"all subjects", type:"Nonregular" },
-                { tense:"present tense", subject:"all subjects", type:"all types" },
-                { "tense":"all tenses", subject:"nosotros", type:"stem changing" }
+                { tense:"all tenses", subject:"all subjects", type:"Nonregular", direction:"Eng. => Conj." },
+                { tense:"present tense", subject:"all subjects", type:"all types", direction:"Eng. => Conj." },
+                { "tense":"all tenses", subject:"nosotros", type:"stem changing", direction:"Conj. => Esp." }
             ]);
 
             // Assert filtered verbs are correct
@@ -226,7 +226,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"Present Participles", subject:"all subjects", type:"all types"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"Present Participles", subject:"all subjects", type:"all types", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -243,7 +243,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"Present Tense", subject:"all subjects", type:"all types"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"Present Tense", subject:"all subjects", type:"all types", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -260,7 +260,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"Preterite Tense", subject:"all subjects", type:"all types"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"Preterite Tense", subject:"all subjects", type:"all types", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -277,7 +277,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"Imperfect Tense", subject:"all subjects", type:"all types"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"Imperfect Tense", subject:"all subjects", type:"all types", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -292,7 +292,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Regular"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Regular", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -309,7 +309,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Reflexive"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Reflexive", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -326,7 +326,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Stem Changing"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Stem Changing", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -343,7 +343,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Orthographic"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Orthographic", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -360,7 +360,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"irregular"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"irregular", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -387,7 +387,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Nonregular"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"all subjects", type:"Nonregular", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -405,7 +405,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"yo", type:"all types"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"yo", type:"all types", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -421,7 +421,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"tú", type:"all types"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"tú", type:"all types", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -437,7 +437,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"él", type:"all types"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"él", type:"all types", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -453,7 +453,7 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"nosotros", type:"all types"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"nosotros", type:"all types", direction:"Eng. => Conj."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
@@ -469,7 +469,61 @@ describe("Settings", function() {
                 ];
 
                 // Filter verbs
-                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"ellos", type:"all types"}]);
+                let actual = ApplyVerbFilter(verbs, [{tense:"all tenses", subject:"ellos", type:"all types", direction:"Eng. => Conj."}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+        });
+    
+        describe("Direction filters", function() {
+            it("Should correctly filter English to Conjugations", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "1A", "1a"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"present participles", subject:"all subjects", type:"all types", direction:"Eng. => Conj."}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should correctly filter Spanish to Conjugations", function() {
+                // Initialize expected
+                let expected = [
+                    ["SPANISH INF", "spanish inf", "1A", "1a"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"present participles", subject:"all subjects", type:"all types", direction:"Esp. => Conj."}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should correctly filter Conjugations to English", function() {
+                // Initialize expected
+                let expected = [
+                    ["1A", "1a", "KEY", "key"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"present participles", subject:"all subjects", type:"all types", direction:"Conj. => Eng."}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should correctly filter Conjugations to Spanish", function() {
+                // Initialize expected
+                let expected = [
+                    ["1A", "1a", "SPANISH INF", "spanish inf"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"present participles", subject:"all subjects", type:"all types", direction:"Conj. => Esp."}]);
 
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);

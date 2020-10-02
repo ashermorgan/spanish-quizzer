@@ -50,7 +50,7 @@ function loadVue() {
              * Add a verb filter on the settings page.
              */
             AddVerbFilter: function() {
-                this.verbFilters.push({tense:"All Tenses", subject:"All Subjects", type:"All Types"});
+                this.verbFilters.push({tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."});
             },
 
             /**

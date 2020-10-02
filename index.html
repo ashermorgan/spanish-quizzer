@@ -64,6 +64,12 @@
                             <select v-model="filter.subject">
                                 <option v-for="(available, subject) in getTenseSubjects(index)" :disabled="!available">{{ subject }}</option>
                             </select>
+                            <select v-model="filter.direction">
+                                <option>Eng. → Conj.</option>
+                                <option>Esp. → Conj.</option>
+                                <option>Conj. → Eng.</option>
+                                <option>Conj. → Esp.</option>
+                            </select>
                             <button class="itemRemove" @click="RemoveVerbFilter(index);">╳</button>
                         </div>
                     </div>
