@@ -33,23 +33,25 @@ Spanish-Quizzer comes with many vocabulary sets that can be filtered by word typ
     - Health (La Salud)
 
 ## Vocabulary Filters
-Spanish-Quizzer comes with many vocabulary filters. Not all filters may be used on every vocab set.
-- Language
-  - Spanish to English
+The following filters can be used on vocabulary sets:
+- Language filters
+  - Enlish to and from Spanish
   - English to Spanish
-- Word Type
-  - Noun
+  - Spanish to English
+- Word type filters
   - Adjective
+  - Noun
   - Verb
 
 ## Verb Filters
+The following filters can be used on verb conjugations:
 - Tense filters
   - All tenses
   - Present Participles
   - Present Tense
   - Preterite Tense
   - Imperfect Tense
-- Regularity filters
+- Conjugation type filters
   - All Conjugations
   - Conjugations of reflexive verbs
   - Regular Conjugations
@@ -57,3 +59,15 @@ Spanish-Quizzer comes with many vocabulary filters. Not all filters may be used 
   - Stem Changing Conjugations
   - Orthographic Conjugations
   - Irregular Conjugations
+- Subject filters
+  - All subjects
+  - Yo
+  - Tú
+  - Él
+  - Nosotros
+  - Ellos
+- Direction filters
+  - English infinitives to Spanish conjugations
+  - Spanish infinitives to Spanish conjugations
+  - Spanish conjugations to English infinitives
+  - Spanish conjugations to Spanish infinitives
