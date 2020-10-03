@@ -9,7 +9,7 @@ function CreateSession() {
         for (let filter of app.vocabFilters)
         {
             // Add filtered set
-            app.prompts.push(...ApplyVocabFilter(Sets[filter.set], filter.type));
+            app.prompts.push(...ApplyVocabFilter(Sets[filter.set], filter.type, filter.direction));
         }
 
         // Shuffle prompts
@@ -133,82 +133,51 @@ function StartSession() {
 /**
  * Filter a vocab set.
  * @param {Array} vocabSet - The vocab set to filter.
- * @param {String} name - The name of the filter.
+ * @param {String} type - The word type filter.
+ * @param {String} direction - The direction filter.
+ * @returns {Array} - A list of prompts.
  */
-function ApplyVocabFilter(vocabSet, name) {
-    // Declare variables
-    var io;     // Format: [[<output index>, <input index>]]
-    var value;  // Format: [[<index>, [<values>], exclude?]]
-
-    // Get filter
-    switch (name) {
-        case "All Definitions":
-            io = [[0,1], [1,0]];
-            value = [];
+function ApplyVocabFilter(terms, type, direction) {
+    // Get type regex filter
+    let regularity;
+    switch (type.toLowerCase()) {
+        case "adjectives":
+            regularity = "Adjective";
             break;
-
-        case "Spanish Infinitives":
-        case "English to Spanish":
-            io = [[0,1]];
-            value = [];
+        case "nouns":
+            regularity = "Noun";
             break;
-
-        case "English Infinitives":
-        case "Spanish to English":
-            io = [[1,0]];
-            value = [];
+        case "verbs":
+            regularity = "Verb";
             break;
-
-        case "Nouns":
-            io = [[0,1], [1,0]];
-            value = [[2, ["Noun"], false]];
+        case "all types":
+            regularity = ".*";
             break;
-        case "Verbs":
-            io = [[0,1], [1,0]];
-            value = [[2, ["Verb"], false]];
-            break;
-        case "Adjectives":
-            io = [[0,1], [1,0]];
-            value = [[2, ["Adjective"], false]];
-            break;
-
         default:
-            io = [];
-            value = [];
-            break;
+            throw `Unrecognized filter: ${type}.`;
     }
 
-    // Filter terms by value
-    var vSet = vocabSet.slice(1);  // Format: same as vocabSet but without headers
-    for (var i = 0; i < value.length; i++) {
-        for (var j = 0; j < vSet.length; j++) {
-            if (value[i][2]) {
-                // Exclude values
-                if (value[i][1].includes(vSet[j][value[i][0]])) {
-                    vSet.splice(j, 1);  // Remove item
-                    j--;    // Adjust for the removal of an item
-                }
+    // Filter terms
+    let results = [];   // Format: [[<output label>, <output>, <input label>, <input>]]
+    for (let term of terms.slice(1)) {
+        // Check against filters
+        if (term[2].match(regularity)) {
+            if (direction === "Eng. ↔ Esp.") {
+                results.push([terms[0][0], term[0], terms[0][1], term[1]]);
+                results.push([terms[0][1], term[1], terms[0][0], term[0]]);
+            }
+            else if (direction === "Eng. → Esp.") {
+                results.push([terms[0][0], term[0], terms[0][1], term[1]]);
+            }
+            else if (direction === "Esp. → Eng.") {
+                results.push([terms[0][1], term[1], terms[0][0], term[0]]);
             }
             else {
-                // Include values
-                if (!value[i][1].includes(vSet[j][value[i][0]])) {
-                    vSet.splice(j, 1);  // Remove item
-                    j--;    // Adjust for the removal of an item
-                }
+                throw `Unrecognized direction: ${direction}.`;
             }
         }
     }
-
-    // Filter terms by input/output
-    var ioSet = []; // Format: [<output type>, <output>, <input type>, <input>]
-    for (var i = 0; i < io.length; i++) {
-        for (var j = 0; j < vSet.length; j++) {
-            ioSet.push([vocabSet[0][io[i][0]], vSet[j][io[i][0]], vocabSet[0][io[i][1]], vSet[j][io[i][1]]]);
-        }
-    }
-
-    // Return filtered set
-    return ioSet;
+    return results;
 }
 
 
@@ -216,7 +185,8 @@ function ApplyVocabFilter(vocabSet, name) {
 /**
  * Filter verb conjugations.
  * @param {Array} terms - The list of verb conjugations to filter.
- * @param {Array} filterInfo - A list of filters,
+ * @param {Array} filterInfo - A list of filters.
+ * @returns {Array} - A list of prompts.
  */
 function ApplyVerbFilter(terms, filterInfo) {
     // Expand "All Tenses" filters

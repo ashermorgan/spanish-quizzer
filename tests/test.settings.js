@@ -20,16 +20,10 @@ describe("Settings", function() {
             ];
 
             // Filter vocab
-            let actual = ApplyVocabFilter(vocab, "All Definitions");
+            let actual = ApplyVocabFilter(vocab, "All Types", "Eng. ↔ Esp.");
 
             // Assert filtered vocab is correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
 
         it("Should correctly filter vocab for English to Spanish", function() {
@@ -41,16 +35,10 @@ describe("Settings", function() {
             ];
 
             // Filter vocab
-            let actual = ApplyVocabFilter(vocab, "English to Spanish");
+            let actual = ApplyVocabFilter(vocab, "All Types", "Eng. → Esp.");
 
             // Assert filtered vocab is correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
 
         it("Should correctly filter vocab for Spanish to English", function() {
@@ -62,16 +50,10 @@ describe("Settings", function() {
             ];
 
             // Filter vocab
-            let actual = ApplyVocabFilter(vocab, "Spanish to English");
+            let actual = ApplyVocabFilter(vocab, "All Types", "Esp. → Eng.");
 
             // Assert filtered vocab is correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
     
         it("Should correctly filter vocab for Nouns", function() {
@@ -82,16 +64,10 @@ describe("Settings", function() {
             ];
 
             // Filter vocab
-            let actual = ApplyVocabFilter(vocab, "Nouns");
+            let actual = ApplyVocabFilter(vocab, "Nouns", "Eng. ↔ Esp.");
 
             // Assert filtered vocab is correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
     
         it("Should correctly filter vocab for Adjectives", function() {
@@ -102,16 +78,10 @@ describe("Settings", function() {
             ];
 
             // Filter vocab
-            let actual = ApplyVocabFilter(vocab, "Adjectives");
+            let actual = ApplyVocabFilter(vocab, "Adjectives", "Eng. ↔ Esp.");
 
             // Assert filtered vocab is correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
     
         it("Should correctly filter vocab for Verbs", function() {
@@ -122,24 +92,23 @@ describe("Settings", function() {
             ];
 
             // Filter vocab
-            let actual = ApplyVocabFilter(vocab, "Verbs");
+            let actual = ApplyVocabFilter(vocab, "Verbs", "Eng. ↔ Esp.");
 
             // Assert filtered vocab is correct
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i].length).to.equal(4);
-                for (let j = 0; j < expected[i].length; j++) {
-                    expect(actual[i][j]).to.equal(expected[i][j]);
-                }
-            }
+            expect(actual).to.have.deep.members(expected);
         });
     
-        it("Should return empty list by default", function() {
-            // Assert result is empty by default
-            expect(ApplyVocabFilter(vocab, "test").length).to.equal(0);
-            expect(ApplyVocabFilter(vocab, "").length).to.equal(0);
-            expect(ApplyVocabFilter(vocab, 1).length).to.equal(0);
-            expect(ApplyVocabFilter(vocab, null).length).to.equal(0);
+        it("Should throw error by default", function() {
+            // Assert throws error by default
+            expect(() => ApplyVocabFilter(vocab, "test", "Eng. ↔ Esp.")).to.throw()
+            expect(() => ApplyVocabFilter(vocab, "", "Eng. ↔ Esp.")).to.throw()
+            expect(() => ApplyVocabFilter(vocab, 1, "Eng. ↔ Esp.")).to.throw()
+            expect(() => ApplyVocabFilter(vocab, null, "Eng. ↔ Esp.")).to.throw()
+            
+            expect(() => ApplyVocabFilter(vocab, "Verbs", "test")).to.throw()
+            expect(() => ApplyVocabFilter(vocab, "Verbs", "")).to.throw()
+            expect(() => ApplyVocabFilter(vocab, "Verbs", "1")).to.throw()
+            expect(() => ApplyVocabFilter(vocab, "Verbs", null)).to.throw()
         });
     });
 

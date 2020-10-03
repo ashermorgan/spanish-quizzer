@@ -66,7 +66,7 @@ function loadVue() {
              * Add a vocab filter on the settings page.
              */
             AddVocabFilter: function() {
-                this.vocabFilters.push({"set":"Verbs", "type":"All Definitions"});
+                this.vocabFilters.push({set:"Verbs", type:"All Types", direction:"Eng. ↔ Esp."});
             },
 
             /**
@@ -146,34 +146,52 @@ function loadVue() {
              */
             getSetFilters: function(index) {
                 // Get filter options
-                var filters = [];
+                let filters = {"All Types":true, "Adjectives":true, "Nouns":true, "Verbs":true}
                 switch(this.vocabFilters[index].set)
                 {
                     case "Verbs":
-                        filters = ["All Definitions", "Spanish Infinitives", "English Infinitives"];
+                        filters["Adjectives"] = false;
+                        filters["Nouns"] = false;
                         break;
                     
                     case "Adjectives":
-                    case "Adverbs":
-                    case "Prepositions":
-                    case "Transitions":
-                    case "Colors":
-                    case "Days":
-                    case "Months":
-                    case "Questions":
-                        filters = ["All Definitions", "English to Spanish", "Spanish to English"];
+                        filters["Nouns"] = false;
+                        filters["Verbs"] = false;
                         break;
 
+                    case "Adverbs":
+                        filters["Adjectives"] = false;
+                        filters["Nouns"] = false;
+                        filters["Verbs"] = false;
+                        break;
+
+                    case "Prepositions":
+                    case "Transitions":
+                    case "Questions":
+                        filters["Adjectives"] = false;
+                        filters["Nouns"] = false;
+                        filters["Verbs"] = false;
+                        break;
+                    
+                    case "Colors":
+                        filters["Nouns"] = false;
+                        filters["Verbs"] = false;
+                        break;
+                    
+                    case "Days":
+                    case "Months":
+                        filters["Adjectives"] = false;
+                        filters["Verbs"] = false;
+                        break;
+                    
                     case "Weather":
                     case "Professions":
-                        filters = ["All Definitions", "English to Spanish", "Spanish to English", 
-                                "Nouns", "Verbs"];
+                        filters["Adjectives"] = false;
                         break;
 
                     case "Family":
                     case "Clothes":
-                        filters = ["All Definitions", "English to Spanish", "Spanish to English", 
-                                "Nouns", "Adjectives"];
+                        filters["Verbs"] = false;
                         break;
                     
                     case "Nature":
@@ -181,14 +199,12 @@ function loadVue() {
                     case "Vacation":
                     case "Childhood":
                     case "Health":
-                        filters = ["All Definitions", "English to Spanish", "Spanish to English", 
-                                "Nouns", "Verbs", "Adjectives"];
                         break;
                 }
 
                 // Reset type if needed
-                if (!filters.includes(this.vocabFilters[index].type)) {
-                    this.vocabFilters[index].type = filters[0];
+                if (!filters[this.vocabFilters[index].type]) {
+                    this.vocabFilters[index].type = "All Types";
                 }
 
                 // Return filters

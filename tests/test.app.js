@@ -87,6 +87,8 @@ describe("App", function() {
             expect(app.verbFilters.length).to.equal(1);
             expect(app.verbFilters[0]["tense"]).to.equal("All Tenses");
             expect(app.verbFilters[0]["type"]).to.equal("All Types");
+            expect(app.verbFilters[0]["subject"]).to.equal("All Subjects");
+            expect(app.verbFilters[0]["direction"]).to.equal("Eng. → Conj.");
         });
     });
 
@@ -122,7 +124,8 @@ describe("App", function() {
             // Assert filter added
             expect(app.vocabFilters.length).to.equal(1);
             expect(app.vocabFilters[0]["set"]).to.equal("Verbs");
-            expect(app.vocabFilters[0]["type"]).to.equal("All Definitions");
+            expect(app.vocabFilters[0]["type"]).to.equal("All Types");
+            expect(app.vocabFilters[0]["direction"]).to.equal("Eng. ↔ Esp.");
         });
     });
 
@@ -231,7 +234,6 @@ describe("App", function() {
         });
     });
 
-
     describe("GetTenseSubjects method", function() {
         it("Should be correct for All Tenses", function() {
             // Initialize filters
@@ -320,14 +322,13 @@ describe("App", function() {
             ]
 
             // Get filters
-            let actual = app.getSetFilters(0);
+            let filters = app.getSetFilters(0);
 
             // Assert filters are correct
-            let expected = ["All Definitions", "Spanish Infinitives", "English Infinitives"];
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i]).to.equal(expected[i]);
-            }
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Adjectives"]).to.equal(false);
+            expect(filters["Nouns"]).to.equal(false);
+            expect(filters["Verbs"]).to.equal(true);
         });
         
         it("Should be correct for sets with 1 type", function() {
@@ -337,14 +338,13 @@ describe("App", function() {
             ]
 
             // Get filters
-            let actual = app.getSetFilters(0);
+            let filters = app.getSetFilters(0);
 
             // Assert filters are correct
-            let expected = ["All Definitions", "English to Spanish", "Spanish to English"];
-            expect(actual.length).to.equal(expected.length);
-            for (let i = 0; i < expected.length; i++) {
-                expect(actual[i]).to.equal(expected[i]);
-            }
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Adjectives"]).to.equal(true);
+            expect(filters["Nouns"]).to.equal(false);
+            expect(filters["Verbs"]).to.equal(false);
         });
 
         it("Should change selection if not available", function() {
@@ -354,10 +354,14 @@ describe("App", function() {
             ]
 
             // Get filters
-            app.getSetFilters(0);
+            let filters = app.getSetFilters(0);
 
             // Assert selection changed
-            expect(app.vocabFilters[0]["type"]).to.equal("All Definitions");
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Adjectives"]).to.equal(true);
+            expect(filters["Nouns"]).to.equal(false);
+            expect(filters["Verbs"]).to.equal(false);
+            expect(app.vocabFilters[0]["type"]).to.equal("All Types");
         });
 
         it("Should not change selection if available", function() {
@@ -367,9 +371,13 @@ describe("App", function() {
             ]
 
             // Get filters
-            app.getSetFilters(0);
+            let filters = app.getSetFilters(0);
 
             // Assert selection not changed
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Adjectives"]).to.equal(false);
+            expect(filters["Nouns"]).to.equal(true);
+            expect(filters["Verbs"]).to.equal(true);
             expect(app.vocabFilters[0]["type"]).to.equal("Verbs");
         });
     });
