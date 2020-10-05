@@ -152,6 +152,7 @@ function loadVue() {
                     case "Verbs":
                         filters["Adjectives"] = false;
                         filters["Nouns"] = false;
+                        filters["Verbs"] = false;
                         break;
                     
                     case "Adjectives":

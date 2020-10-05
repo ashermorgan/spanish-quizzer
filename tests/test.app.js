@@ -328,7 +328,7 @@ describe("App", function() {
             expect(filters["All Types"]).to.equal(true);
             expect(filters["Adjectives"]).to.equal(false);
             expect(filters["Nouns"]).to.equal(false);
-            expect(filters["Verbs"]).to.equal(true);
+            expect(filters["Verbs"]).to.equal(false);
         });
         
         it("Should be correct for sets with 1 type", function() {
