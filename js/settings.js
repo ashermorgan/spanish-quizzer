@@ -9,7 +9,7 @@ function CreateSession() {
         for (let filter of app.vocabFilters)
         {
             // Add filtered set
-            app.prompts.push(...ApplyVocabFilter(Sets[filter.set], filter.type));
+            app.prompts.push(...ApplyVocabFilter(Sets[filter.set], filter.type, filter.direction));
         }
 
         // Shuffle prompts
@@ -133,87 +133,51 @@ function StartSession() {
 /**
  * Filter a vocab set.
  * @param {Array} vocabSet - The vocab set to filter.
- * @param {String} name - The name of the filter.
+ * @param {String} type - The word type filter.
+ * @param {String} direction - The direction filter.
+ * @returns {Array} - A list of prompts.
  */
-function ApplyVocabFilter(vocabSet, name) {
-    // Declare variables
-    var io;     // Format: [[<output index>, <input index>]]
-    var value;  // Format: [[<index>, [<values>], exclude?]]
-
-    // Get filter
-    switch (name) {
-        case "All Definitions":
-            io = [[0,1], [1,0]];
-            value = [];
+function ApplyVocabFilter(terms, type, direction) {
+    // Get type regex filter
+    let regularity;
+    switch (type.toLowerCase()) {
+        case "adjectives":
+            regularity = "Adjective";
             break;
-
-        case "Spanish Infinitives":
-        case "English to Spanish":
-            io = [[0,1]];
-            value = [];
+        case "nouns":
+            regularity = "Noun";
             break;
-
-        case "English Infinitives":
-        case "Spanish to English":
-            io = [[1,0]];
-            value = [];
+        case "verbs":
+            regularity = "Verb";
             break;
-        
-        case "Reverse Conjugations":
-            io = [[3,0], [5,0], [6,0], [7,0], [8,0], [9,0], [11,0], [12,0], [13,0], [14,0], [15,0], [17,0], [18,0], [19,0], [20,0], [21,0]];
-            value = [];
+        case "all types":
+            regularity = ".*";
             break;
-
-        case "Nouns":
-            io = [[0,1], [1,0]];
-            value = [[2, ["Noun"], false]];
-            break;
-        case "Verbs":
-            io = [[0,1], [1,0]];
-            value = [[2, ["Verb"], false]];
-            break;
-        case "Adjectives":
-            io = [[0,1], [1,0]];
-            value = [[2, ["Adjective"], false]];
-            break;
-
         default:
-            io = [];
-            value = [];
-            break;
+            throw `Unrecognized filter: ${type}.`;
     }
 
-    // Filter terms by value
-    var vSet = vocabSet.slice(1);  // Format: same as vocabSet but without headers
-    for (var i = 0; i < value.length; i++) {
-        for (var j = 0; j < vSet.length; j++) {
-            if (value[i][2]) {
-                // Exclude values
-                if (value[i][1].includes(vSet[j][value[i][0]])) {
-                    vSet.splice(j, 1);  // Remove item
-                    j--;    // Adjust for the removal of an item
-                }
+    // Filter terms
+    let results = [];   // Format: [[<output label>, <output>, <input label>, <input>]]
+    for (let term of terms.slice(1)) {
+        // Check against filters
+        if (term[2].match(regularity)) {
+            if (direction === "Eng. ↔ Esp.") {
+                results.push([terms[0][0], term[0], terms[0][1], term[1]]);
+                results.push([terms[0][1], term[1], terms[0][0], term[0]]);
+            }
+            else if (direction === "Eng. → Esp.") {
+                results.push([terms[0][0], term[0], terms[0][1], term[1]]);
+            }
+            else if (direction === "Esp. → Eng.") {
+                results.push([terms[0][1], term[1], terms[0][0], term[0]]);
             }
             else {
-                // Include values
-                if (!value[i][1].includes(vSet[j][value[i][0]])) {
-                    vSet.splice(j, 1);  // Remove item
-                    j--;    // Adjust for the removal of an item
-                }
+                throw `Unrecognized direction: ${direction}.`;
             }
         }
     }
-
-    // Filter terms by input/output
-    var ioSet = []; // Format: [<output type>, <output>, <input type>, <input>]
-    for (var i = 0; i < io.length; i++) {
-        for (var j = 0; j < vSet.length; j++) {
-            ioSet.push([vocabSet[0][io[i][0]], vSet[j][io[i][0]], vocabSet[0][io[i][1]], vSet[j][io[i][1]]]);
-        }
-    }
-
-    // Return filtered set
-    return ioSet;
+    return results;
 }
 
 
@@ -221,99 +185,170 @@ function ApplyVocabFilter(vocabSet, name) {
 /**
  * Filter verb conjugations.
  * @param {Array} terms - The list of verb conjugations to filter.
- * @param {Array} filterInfo - A list of filters,
+ * @param {Array} filterInfo - A list of filters.
+ * @returns {Array} - A list of prompts.
  */
 function ApplyVerbFilter(terms, filterInfo) {
-    // Create filters
-    let filters = [];   // Format: [{outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
-    for (let config of filterInfo) {
-        // Get regularity
-        let regularity;
-        switch (config.type.toLowerCase()) {
+    // Expand "All Tenses" filters
+    let filters = [];   // Format: [{tense:"specific tense", subject:"specific subject", type:"regex"}]
+    for (let filter of filterInfo) {
+        if (filter.tense.toLowerCase() == "all tenses") {
+            filters.push({ tense: "present participles", type: filter.type, subject: filter.subject, direction: filter.direction });
+            filters.push({ tense: "present tense", type: filter.type, subject: filter.subject, direction: filter.direction });
+            filters.push({ tense: "preterite tense", type: filter.type, subject: filter.subject, direction: filter.direction });
+            filters.push({ tense: "imperfect tense", type: filter.type, subject: filter.subject, direction: filter.direction });
+        }
+        else {
+            filters.push({ tense: filter.tense.toLowerCase(), type: filter.type, subject: filter.subject, direction: filter.direction });
+        }
+    }
+    
+    // Expand "All Subjects" filters
+    for (let filter of filters) {
+        if (filter.subject.toLowerCase() == "all subjects" && filter.tense != "present participles") {
+            filter.subject = "yo";
+            filters.push({ tense: filter.tense, type: filter.type, subject: "tú", direction: filter.direction });
+            filters.push({ tense: filter.tense, type: filter.type, subject: "él", direction: filter.direction });
+            filters.push({ tense: filter.tense, type: filter.type, subject: "nosotros", direction: filter.direction });
+            filters.push({ tense: filter.tense, type: filter.type, subject: "ellos", direction: filter.direction });
+        }
+        else {
+            filter.subject = filter.subject.toLowerCase();
+        }
+    }
+
+    // Replace regularities with regex filters
+    for (let filter of filters) {
+        switch (filter.type.toLowerCase()) {
             case "regular":
-                regularity = "Regular";
+                filter.type = "Regular";
                 break;
             case "reflexive":
-                regularity = "Reflexive";
+                filter.type = "Reflexive";
                 break;
             case "irregular":
-                regularity = "Irregular";
+                filter.type = "Irregular";
                 break;
-            case "stem-changing":
             case "stem changing":
-                regularity = "Stem.?Changing";
+                filter.type = "Stem.?Changing";
                 break;
             case "orthographic":
-                regularity = "Orthographic";
+                filter.type = "Orthographic";
                 break;
-            case "non-regular":
-            case "non regular":
             case "nonregular":
-                regularity = "Irregular|Stem.?Changing|Orthographic";
+                filter.type = "Irregular|Stem.?Changing|Orthographic";
+                break;
+            case "all types":
+                filter.type = ".*";
                 break;
             default:
-            case "all":
-                regularity = ".*";
+                throw `Unrecognized filter: ${filter.type}.`;
+        }
+    }
+
+    // Create io filters
+    let ioFilters = [];   // Format: [{outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
+    for (let filter of filters) {
+        // Get output index
+        let outputIndex;
+        if (filter.direction.toLowerCase().includes("eng")) {
+            outputIndex = 0;
+        }
+        else if (filter.direction.toLowerCase().includes("esp")) {
+            outputIndex = 1;
+        }
+
+        // Get input index and filter index
+        let inputIndex;
+        let filterIndex;
+        switch (filter.tense) {
+            case "present participles":
+                filterIndex = 2;
+                inputIndex = 3;
+                break;
+            case "present tense":
+                filterIndex = 4;
+                switch (filter.subject) {
+                    case "yo":
+                        inputIndex = 5;
+                        break;
+                    case "tú":
+                        inputIndex = 6;
+                        break;
+                    case "él":
+                        inputIndex = 7;
+                        break;
+                    case "nosotros":
+                        inputIndex = 8;
+                        break;
+                    case "ellos":
+                        inputIndex = 9;
+                        break;
+                    default:
+                        throw `Unrecognized subject: ${filter.subject}.`;
+                }
+                break;
+            case "preterite tense":
+                filterIndex = 10;
+                switch (filter.subject) {
+                    case "yo":
+                        inputIndex = 11;
+                        break;
+                    case "tú":
+                        inputIndex = 12;
+                        break;
+                    case "él":
+                        inputIndex = 13;
+                        break;
+                    case "nosotros":
+                        inputIndex = 14;
+                        break;
+                    case "ellos":
+                        inputIndex = 15;
+                        break;
+                    default:
+                        throw `Unrecognized subject: ${filter.subject}.`;
+                }
+                break;
+            case "imperfect tense":
+                filterIndex = 16;
+                switch (filter.subject) {
+                    case "yo":
+                        inputIndex = 17;
+                        break;
+                    case "tú":
+                        inputIndex = 18;
+                        break;
+                    case "él":
+                        inputIndex = 19;
+                        break;
+                    case "nosotros":
+                        inputIndex = 20;
+                        break;
+                    case "ellos":
+                        inputIndex = 21;
+                        break;
+                    default:
+                        throw `Unrecognized subject: ${filter.subject}.`;
+                }
+                break;
+            default:
+                throw `Unrecognized tense: ${filter.tense}.`;
         }
 
         // Create filter
-        switch (config.tense.toLowerCase()) {
-            case "present participle":
-            case "present participles":
-                filters.push({outputIndex:0, inputIndex:3, filterIndex:2, filterValue:regularity});
-                break;
-            case "present":
-            case "present tense":
-                filters.push({outputIndex:0, inputIndex:5, filterIndex:4, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:6, filterIndex:4, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:7, filterIndex:4, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:8, filterIndex:4, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:9, filterIndex:4, filterValue:regularity});
-                break;
-            case "preterite":
-            case "preterite tense":
-                filters.push({outputIndex:0, inputIndex:11, filterIndex:10, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:12, filterIndex:10, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:13, filterIndex:10, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:14, filterIndex:10, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:15, filterIndex:10, filterValue:regularity});
-                break;
-            case "imperfect":
-            case "imperfect tense":
-                filters.push({outputIndex:0, inputIndex:17, filterIndex:16, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:18, filterIndex:16, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:19, filterIndex:16, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:20, filterIndex:16, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:21, filterIndex:16, filterValue:regularity});
-                break;
-            default:
-            case "all":
-                filters.push({outputIndex:0, inputIndex:3, filterIndex:2, filterValue:regularity});
-
-                filters.push({outputIndex:0, inputIndex:5, filterIndex:4, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:6, filterIndex:4, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:7, filterIndex:4, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:8, filterIndex:4, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:9, filterIndex:4, filterValue:regularity});
-                
-                filters.push({outputIndex:0, inputIndex:11, filterIndex:10, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:12, filterIndex:10, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:13, filterIndex:10, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:14, filterIndex:10, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:15, filterIndex:10, filterValue:regularity});
-                
-                filters.push({outputIndex:0, inputIndex:17, filterIndex:16, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:18, filterIndex:16, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:19, filterIndex:16, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:20, filterIndex:16, filterValue:regularity});
-                filters.push({outputIndex:0, inputIndex:21, filterIndex:16, filterValue:regularity});
-                break;
+        if (filter.direction.toLowerCase().startsWith("conj")) {
+            // Swap input and output
+            ioFilters.push({outputIndex:inputIndex, inputIndex:outputIndex, filterIndex:filterIndex, filterValue:filter.type})
+        }
+        else {
+            ioFilters.push({outputIndex:outputIndex, inputIndex:inputIndex, filterIndex:filterIndex, filterValue:filter.type})
         }
     }
 
     // Filter terms
     let results = [];   // Format: [[<output label>, <output>, <input label>, <input>]]
-    for (let filter of filters) {
+    for (let filter of ioFilters) {
         // Iterate over terms (minus headers)
         for (let term of terms.slice(1)) {
             // Check against filters

@@ -61,6 +61,15 @@
                             <select v-model="filter.type">
                                 <option v-for="(available, type) in getTenseTypes(index)" :disabled="!available">{{ type }}</option>
                             </select>
+                            <select v-model="filter.subject">
+                                <option v-for="(available, subject) in getTenseSubjects(index)" :disabled="!available">{{ subject }}</option>
+                            </select>
+                            <select v-model="filter.direction">
+                                <option>Eng. → Conj.</option>
+                                <option>Esp. → Conj.</option>
+                                <option>Conj. → Eng.</option>
+                                <option>Conj. → Esp.</option>
+                            </select>
                             <button class="itemRemove" @click="RemoveVerbFilter(index);">╳</button>
                         </div>
                     </div>
@@ -101,8 +110,13 @@
                                     <option>Health</option>
                                 </optgroup>
                             </select>
-                            <select class="vocabSetFilter" v-model="filter.type">
-                                <option v-for="type in getSetFilters(index)" >{{ type }}</option>
+                            <select v-model="filter.type">
+                                <option v-for="(available, type) in getSetFilters(index)" :disabled="!available">{{ type }}</option>
+                            </select>
+                            <select v-model="filter.direction">
+                                <option>Eng. ↔ Esp.</option>
+                                <option>Eng. → Esp.</option>
+                                <option>Esp. → Eng.</option>
                             </select>
                             <button class="itemRemove" @click="RemoveVocabFilter(index);">╳</button>
                         </div>
