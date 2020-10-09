@@ -13,7 +13,7 @@ function loadVue() {
 
         data: {
             state: "home",
-            darkTheme: false,
+            darkTheme: document.body.classList.contains("dark"),
             verbFilters: [],
             vocabFilters: [],
             errorMsg: "",
@@ -254,27 +254,8 @@ function loadVue() {
             /**
              * Update the app theme.
              */
-            darkTheme: function() {
-                // Get theme from localStorage if null
-                if (this.darkTheme === null) {
-                    this.darkTheme = JSON.parse(localStorage.getItem("darkTheme"));
-                }
-
-                // Detect preferred color scheme if null
-                if (this.darkTheme === null) {
-                    this.darkTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
-                }
-
-                // Apply theme
-                if (this.darkTheme) {
-                    document.body.classList.add("dark");
-                }
-                else {
-                    document.body.classList.remove("dark");
-                }
-
-                // Save theme
-                localStorage.setItem("darkTheme", this.darkTheme);
+            darkTheme: function(value) {
+                SetTheme(value);
             },
 
             /**
@@ -309,11 +290,6 @@ function loadVue() {
                 app.errorMsg = "";
             }
         },
-
-        created: function() {
-            // Force theme to update
-            this.darkTheme = null;
-        },
     });
 }
 
@@ -323,6 +299,9 @@ function loadVue() {
  * Load the document.
  */
 function Load() {
+    // Call LoadPage method from global.js
+    LoadPage();
+
     // Initialize the Vue app
     loadVue();
 
@@ -334,9 +313,6 @@ function Load() {
     document.querySelector("footer").hidden = false;
 
     // Add event Listeners
-    document.addEventListener("click", function (e) {
-        document.getElementById('share').hidden = true;
-    });
     document.addEventListener("keydown", KeyDown);
 
     // Load CSVs
