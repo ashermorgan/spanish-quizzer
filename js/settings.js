@@ -3,7 +3,7 @@
  */
 function CreateSession() {
     // Get prompts
-    if (app.state == "vocabSettings") {
+    if (app.state === "vocabSettings") {
         // Filter and load Sets into prompts
         app.prompts = [];
         for (let filter of app.vocabFilters)
@@ -15,7 +15,7 @@ function CreateSession() {
         // Shuffle prompts
         app.prompts = Shuffle(app.prompts);
     }
-    else if (app.state == "verbSettings") {
+    else if (app.state === "verbSettings") {
         // Get prompts
         app.prompts = Shuffle(ApplyVerbFilter(Sets["Verbs"], app.verbFilters));
     }
@@ -49,10 +49,10 @@ function CreateSession() {
 function ResumeSession() {
     // Get localStorage prefix
     let prefix;
-    if (app.state == "vocabSettings") {
+    if (app.state === "vocabSettings") {
         prefix = "vocab-"
     }
-    else if (app.state == "verbSettings") {
+    else if (app.state === "verbSettings") {
         prefix = "verb-"
     }
 
@@ -92,7 +92,7 @@ function StartSession() {
     if (!app.prompts) {
         throw "Bad arguments.";
     }
-    else if (app.prompts.length == 0) {
+    else if (app.prompts.length === 0) {
         throw "Terms is empty.";
     }
     else if (isNaN(app.promptIndex) || app.promptIndex < 0 || app.promptIndex >= app.prompts.length) {
@@ -100,7 +100,7 @@ function StartSession() {
     }
 
     // Validate browser for voice input
-    if (app.inputType != "Text") {
+    if (app.inputType !== "Text") {
         if (typeof InstallTrigger !== "undefined") {
             // Browser is Firefox
             alert("You must enable speech recognition in about:config.");
@@ -113,17 +113,17 @@ function StartSession() {
     }
 
     // Give iOS devices ringer warning for prompt audio
-    if (app.promptType != "Text") {
+    if (app.promptType !== "Text") {
         if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
             alert("Please make sure your ringer is on in order to hear audio prompts.");
         }
     }
 
     // Show and hide elements (also enables the quizzer)
-    if (app.state == "verbSettings") {
+    if (app.state === "verbSettings") {
         app.state = "verbQuizzer";
     }
-    else if (app.state == "vocabSettings") {
+    else if (app.state === "vocabSettings") {
         app.state = "vocabQuizzer";
     }
 }
@@ -192,7 +192,7 @@ function ApplyVerbFilter(terms, filterInfo) {
     // Expand "All Tenses" filters
     let filters = [];   // Format: [{tense:"specific tense", subject:"specific subject", type:"regex"}]
     for (let filter of filterInfo) {
-        if (filter.tense.toLowerCase() == "all tenses") {
+        if (filter.tense.toLowerCase() === "all tenses") {
             filters.push({ tense: "present participles", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "present tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "preterite tense", type: filter.type, subject: filter.subject, direction: filter.direction });
@@ -205,7 +205,7 @@ function ApplyVerbFilter(terms, filterInfo) {
     
     // Expand "All Subjects" filters
     for (let filter of filters) {
-        if (filter.subject.toLowerCase() == "all subjects" && filter.tense != "present participles") {
+        if (filter.subject.toLowerCase() === "all subjects" && filter.tense !== "present participles") {
             filter.subject = "yo";
             filters.push({ tense: filter.tense, type: filter.type, subject: "tú", direction: filter.direction });
             filters.push({ tense: filter.tense, type: filter.type, subject: "él", direction: filter.direction });
