@@ -18,15 +18,19 @@ describe("Quizzer", function() {
             expect(Quizzer.startingIndex).to.equal(0);
         });
 
-        it("PromptType should be text", function() {
+        it("PromptType should be 'Text'", function() {
             expect(Quizzer.promptType).to.equal("Text");
         });
 
-        it("InputType should be text", function() {
+        it("InputType should be 'Text'", function() {
             expect(Quizzer.inputType).to.equal("Text");
         });
 
-        it("RepeatPrompts should be never", function() {
+        it("OnMissedPrompt should be 'Correct me'", function() {
+            expect(Quizzer.onMissedPrompt).to.equal("Correct me");
+        });
+
+        it("RepeatPrompts should be 'Never'", function() {
             expect(Quizzer.repeatPrompts).to.equal("Never");
         });
 
@@ -146,6 +150,34 @@ describe("Quizzer", function() {
             expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
         });
     
+        it("Should call Reset if onMissedPrompt is set to 'Ignore it'", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.onMissedPrompt = "Ignore it";
+            Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
+            Quizzer.responce = "A5";
+
+            // Call Submit
+            Quizzer.Submit();
+
+            // Assert Reset called
+            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+        });
+    
+        it("Should not call Reset if onMissedPrompt is set to 'Tell me'", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.onMissedPrompt = "Tell me";
+            Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
+            Quizzer.responce = "A5";
+
+            // Call Submit
+            Quizzer.Submit();
+
+            // Assert responceActive set to false
+            expect(Quizzer.responceActive).to.equal(false);
+        });
+
         it("Should set responceActive to false if responce is incorrect", function() {
             // Initialize variables
             Quizzer.active = true;

@@ -148,6 +148,14 @@
                             </select>
                         </div>
                         <div>
+                            <label for="settingsRepeatPrompts">When I miss a prompt</label>
+                            <select id="settingsRepeatPrompts" v-model="onMissedPrompt">
+                                <option>Correct me</option>
+                                <option>Tell me</option>
+                                <option>Ignore it</option>
+                            </select>
+                        </div>
+                        <div>
                             <label for="settingsRepeatPrompts">Repeat missed prompts</label>
                             <select id="settingsRepeatPrompts" v-model="repeatPrompts">
                                 <option>Never</option>
@@ -169,7 +177,7 @@
         
                 <quizzer id="quizzer" v-show="state === 'verbQuizzer' || state === 'vocabQuizzer'" :active="state === 'verbQuizzer' || state === 'vocabQuizzer'" hidden
                     :starting-index="promptIndex" :starting-prompts="prompts" @new-prompt="updateProgress"
-                    :prompt-type="promptType" :input-type="inputType" :repeat-prompts="repeatPrompts">
+                    :prompt-type="promptType" :input-type="inputType" :on-missed-prompt="onMissedPrompt" :repeat-prompts="repeatPrompts">
                 </quizzer>
             </main>
     

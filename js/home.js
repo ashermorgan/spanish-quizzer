@@ -19,6 +19,7 @@ function loadVue() {
             errorMsg: "",
             promptType: localStorage.getItem("promptType") || "Text",
             inputType: localStorage.getItem("inputType") || "Text",
+            onMissedPrompt: localStorage.getItem("onMissedPrompt") || "Correct me",
             repeatPrompts: localStorage.getItem("repeatPrompts") || "Never",
 
             prompts: [],
@@ -272,6 +273,14 @@ function loadVue() {
              */
             inputType: function(value) {
                 localStorage.setItem("inputType", value);
+            },
+
+            /**
+             * Update the onMissedPrompt setting in localStorage.
+             * @param {String} value - The onMissedPrompt setting value.
+             */
+            onMissedPrompt: function(value) {
+                localStorage.setItem("onMissedPrompt", value);
             },
 
             /**

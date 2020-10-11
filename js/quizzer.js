@@ -24,6 +24,10 @@ let quizzer = Vue.component("quizzer", {
             type: String,
             default: "Text",
         },
+        onMissedPrompt: {
+            type: String,
+            default: "Correct me",
+        },
         repeatPrompts: {
             type: String,
             default: "Never",
@@ -162,10 +166,10 @@ let quizzer = Vue.component("quizzer", {
             }
 
             // Give user feedback
-            if (!correct) {
+            if (!correct && (this.onMissedPrompt === "Correct me" || this.onMissedPrompt === "Tell me")) {
                 // Show and hide elements
-                    this.congratsActive = false;
-                    this.responceActive = false;
+                this.congratsActive = false;
+                this.responceActive = false;
                 try {
                     // Will fail if not mounted
                     this.$refs.feedback.scrollIntoView(false);
@@ -288,8 +292,13 @@ let quizzer = Vue.component("quizzer", {
         </div>
         
         <div id="quizzerFeedback" ref="feedback" v-show="!responceActive" class="bad">
-            The correct answer is 
-            <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
+            <span v-if="onMissedPrompt === 'Correct me'">
+                The correct answer is 
+                <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
+            </span>
+            <span v-if="onMissedPrompt === 'Tell me'">
+                Incorrect.
+            </span>
         </div>
         <div id="quizzerCongrats" class="good" v-show="congratsActive">Congratulations! You made it back to the beginning!</div>
     </div>
