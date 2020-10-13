@@ -1,0 +1,14 @@
+main {
+    max-width: 500px;
+    margin: auto;
+    padding: 10px;
+    text-align: left;
+}
+
+h2 {
+    margin-top: 15px;
+}
+
+li {
+    margin-left: 30px;
+}
