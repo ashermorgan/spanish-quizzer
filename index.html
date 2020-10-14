@@ -25,7 +25,11 @@
 
             <main>
                 <noscript>
-                    <h1 id="jsError">You must have JavaScript enabled to run Spanish-Quizzer.</h1>
+                    <div id="jsError">
+                        <h1>You must have JavaScript enabled to run Spanish-Quizzer.</h1>
+                        <p>Spanish-Quizzer uses JavaScript to load vocab, apply filters, and check your answers.</p>
+                        <p>You can still view the <a href="vocab/">vocab sets</a>, but you can't use the Quizzer or the Reference Tables.</p>
+                    </div>
                 </noscript>
     
                 <div id="home" v-show="state === 'home'" hidden>

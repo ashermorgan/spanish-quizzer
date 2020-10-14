@@ -39,13 +39,19 @@ body {
     grid-template-columns: 1fr auto 1fr;
 }
 
+
+
+/******** Noscript styles ********/
 #jsError {
     grid-row: 2;
-    color: red;
-    font-weight: normal;
-    font-size: 20px;
-    text-align: center;
+    margin-top: 15px;
     margin-bottom: 10px;
+    text-align: center;
+}
+#jsError h1 {
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: red;
 }
 
 

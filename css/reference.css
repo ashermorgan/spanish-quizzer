@@ -4,7 +4,7 @@ main {
 }
 
 /* Heading */
-h1 {
+h1:not(#jsError h1) {
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 20px;
