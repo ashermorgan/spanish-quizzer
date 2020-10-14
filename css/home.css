@@ -1,5 +1,5 @@
 /* Header */
-#home h1:not(#jsError h1) {
+#home > h1 {
     font-size: 20px;
     font-weight: bold;
     margin-top: 15px;
