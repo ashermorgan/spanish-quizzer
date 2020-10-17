@@ -447,23 +447,6 @@ describe("Quizzer", function() {
         });
     });
 
-    describe("GetLang method", function () {
-        it("Should return English by default", function() {
-            expect(Quizzer.getLang("")).to.equal("en");
-            expect(Quizzer.getLang("test")).to.equal("en");
-        });
-        
-        it("Should return English for English labels", function() {
-            expect(Quizzer.getLang("test english test")).to.equal("en");
-            expect(Quizzer.getLang("ENGLISH")).to.equal("en");
-        });
-        
-        it("Should return Spanish for Spanish labels", function() {
-            expect(Quizzer.getLang("test spanish test")).to.equal("es");
-            expect(Quizzer.getLang("SPANISH")).to.equal("es");
-        });
-    });
-
     describe("Active watch", function() {
         it("Should update prompts and index", async function() {
             // Initialize variables

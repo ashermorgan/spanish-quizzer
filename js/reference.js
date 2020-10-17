@@ -14,22 +14,6 @@ function loadVue() {
             set: "Choose a vocab set",
             sets: {"Choose a vocab set":[]},
             query: ""
-        },
-
-        methods: {
-            /**
-             * Get the language code that matches a label.
-             * @param {String} label - The label.
-             * @returns {String} - The language code ("en", "es", etc.)
-             */
-            getLang: function(label) {
-                if (label.toLowerCase().includes("spanish")) {
-                    return "es";
-                }
-                else {
-                    return "en";
-                }
-            }
         }
     });
 }

@@ -238,20 +238,6 @@ let quizzer = Vue.component("quizzer", {
                 this.Continue();
             }
         },
-        
-        /**
-         * Get the language code that matches a label.
-         * @param {String} label - The label.
-         * @returns {String} - The language code ("en", "es", etc.)
-         */
-        getLang: function(label) {
-            if (label.toLowerCase().includes("spanish")) {
-                return "es";
-            }
-            else {
-                return "en";
-            }
-        },
     },
 
     computed: {
@@ -270,12 +256,12 @@ let quizzer = Vue.component("quizzer", {
     },
     
     template: `
-        <div>
+    <div>
         <p id="quizzerProgress">{{ index }} / {{ prompts.length }}</p>
         
         <section>
-            <label id="quizzerPromptType" for="quizzerPrompt" :lang="getLang(prompt[0])">{{ prompt[0] }}</label>
-            <span id="quizzerPrompt" @click="Read(prompt[1], prompt[0]);">{{ prompt[1] }}</span>
+            <label id="quizzerPromptType" for="quizzerPrompt">{{ prompt[0] }}</label>
+            <span id="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">{{ prompt[1] }}</span>
         </section>
         
         <section>

@@ -382,23 +382,6 @@ describe("App", function() {
         });
     });
     
-    describe("GetLang method", function () {
-        it("Should return English by default", function() {
-            expect(app.getLang("")).to.equal("en");
-            expect(app.getLang("test")).to.equal("en");
-        });
-        
-        it("Should return English for English labels", function() {
-            expect(app.getLang("test english test")).to.equal("en");
-            expect(app.getLang("ENGLISH")).to.equal("en");
-        })
-        
-        it("Should return Spanish for Spanish labels", function() {
-            expect(app.getLang("test spanish test")).to.equal("es");
-            expect(app.getLang("SPANISH")).to.equal("es");
-        })
-    });
-
     describe("PromptType watch", function() {
         it("Should update setting in localStorage", async function() {
             // Save original setting from localStorage

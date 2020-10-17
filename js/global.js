@@ -47,3 +47,19 @@ function LoadPage() {
     // Update theme
     SetTheme(null);
 }
+
+
+
+/**
+ * Get the language code that matches a label.
+ * @param {String} label - The label.
+ * @returns {String} - The language code ("en", "es", etc.)
+ */
+function getLang(label) {
+    if (label.toLowerCase().includes("spanish")) {
+        return "es";
+    }
+    else {
+        return "en";
+    }
+}

@@ -214,20 +214,6 @@ function loadVue() {
             },
 
             /**
-             * Get the language code that matches a label.
-             * @param {String} label - The label.
-             * @returns {String} - The language code ("en", "es", etc.)
-             */
-            getLang: function(label) {
-                if (label.toLowerCase().includes("spanish")) {
-                    return "es";
-                }
-                else {
-                    return "en";
-                }
-            },
-
-            /**
              * Update the user's progress in localStorage.
              * @param {Array} prompts - The list of prompts.
              * @param {Number} index - The index of the current prompt.
