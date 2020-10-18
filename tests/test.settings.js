@@ -1,4 +1,398 @@
 describe("Settings", function() {
+    let Settings;
+    beforeEach(function() {
+        // Create settings component
+        Settings = new settings();
+    });
+
+    describe("Created lifecycle hook", function() {
+        it("Category should be 'verbs'", function() {
+            expect(Settings.category).to.equal("verbs");
+        });
+        
+        it("VerFilters should be empty", function() {
+            expect(Settings.verbFilters.length).to.equal(0);
+        });
+
+        it("VocabFilters should be empty", function() {
+            expect(Settings.vocabFilters.length).to.equal(0);
+        });
+
+        it("ErrorMsg should be empty", function() {
+            expect(Settings.errorMsg).to.equal("");
+        });
+    });
+
+    describe("AddFilter method", function() {
+        it("Should add a verb filter if category is 'verbs'", function() {
+            // Initialize variables
+            Settings.category = "verbs";
+            expect(Settings.verbFilters.length).to.equal(0);
+            expect(Settings.vocabFilters.length).to.equal(0);
+
+            // Add filter
+            Settings.AddFilter();
+
+            // Assert filter added
+            expect(Settings.verbFilters.length).to.equal(1);
+            expect(Settings.verbFilters[0]["tense"]).to.equal("All Tenses");
+            expect(Settings.verbFilters[0]["type"]).to.equal("All Types");
+            expect(Settings.verbFilters[0]["subject"]).to.equal("All Subjects");
+            expect(Settings.verbFilters[0]["direction"]).to.equal("Eng. → Conj.");
+            expect(Settings.vocabFilters.length).to.equal(0);
+        });
+
+        it("Should add a vocab filter if category is 'vocab'", function() {
+            // Initialize variables
+            Settings.category = "vocab";
+            expect(Settings.verbFilters.length).to.equal(0);
+            expect(Settings.vocabFilters.length).to.equal(0);
+
+            // Add filter
+            Settings.AddFilter();
+
+            // Assert filter added
+            expect(Settings.vocabFilters.length).to.equal(1);
+            expect(Settings.vocabFilters[0]["set"]).to.equal("Verbs");
+            expect(Settings.vocabFilters[0]["type"]).to.equal("All Types");
+            expect(Settings.vocabFilters[0]["direction"]).to.equal("Eng. ↔ Esp.");
+            expect(Settings.verbFilters.length).to.equal(0);
+        });
+    });
+
+    describe("RemoveFilter method", function() {
+        it("Should remove the specified verb filter", function() {
+            // Initialize filters
+            Settings.category = "verbs";
+            Settings.verbFilters = [
+                "verb1",
+                "verb2",
+                "verb3",
+            ];
+            Settings.vocabFilters = [
+                "vocab1",
+                "vocab2",
+                "vocab3",
+            ];
+
+            // Remove filter
+            Settings.RemoveFilter(1);
+
+            // Assert filter removed
+            expect(Settings.verbFilters.length).to.equal(2);
+            expect(Settings.verbFilters[0]).to.equal("verb1");
+            expect(Settings.verbFilters[1]).to.equal("verb3");
+            expect(Settings.vocabFilters.length).to.equal(3);
+        });
+
+        it("Should remove the specified vocab filter", function() {
+            // Initialize filters
+            Settings.category = "vocab";
+            Settings.verbFilters = [
+                "verb1",
+                "verb2",
+                "verb3",
+            ];
+            Settings.vocabFilters = [
+                "vocab1",
+                "vocab2",
+                "vocab3",
+            ];
+
+            // Remove filter
+            Settings.RemoveFilter(1);
+
+            // Assert filter removed
+            expect(Settings.verbFilters.length).to.equal(3);
+            expect(Settings.vocabFilters.length).to.equal(2);
+            expect(Settings.vocabFilters[0]).to.equal("vocab1");
+            expect(Settings.vocabFilters[1]).to.equal("vocab3");
+        });
+    });
+
+    describe("GetTenseTypes method", function() {
+        it("Should be correct for All Tenses", function() {
+            // Initialize filters
+            Settings.verbFilters = [
+                {"tense":"All Types", "type":"All Types"}
+            ]
+
+            // Get filters
+            let filters = Settings.getTenseTypes(0);
+
+            // Assert filters are correct
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Reflexive"]).to.equal(true);
+            expect(filters["Regular"]).to.equal(true);
+            expect(filters["Nonregular"]).to.equal(true);
+            expect(filters["Stem Changing"]).to.equal(true);
+            expect(filters["Orthographic"]).to.equal(true);
+            expect(filters["Irregular"]).to.equal(true);
+        });
+
+        it("Should be correct for Present Tense", function() {
+            // Initialize filters
+            Settings.verbFilters = [
+                {"tense":"Present Tense", "type":"All Types"}
+            ]
+
+            // Get filters
+            let filters = Settings.getTenseTypes(0);
+
+            // Assert filters are correct
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Reflexive"]).to.equal(true);
+            expect(filters["Regular"]).to.equal(true);
+            expect(filters["Nonregular"]).to.equal(true);
+            expect(filters["Stem Changing"]).to.equal(true);
+            expect(filters["Orthographic"]).to.equal(false);
+            expect(filters["Irregular"]).to.equal(true);
+        });
+
+        it("Should change selection if not available", function() {
+            // Initialize filters
+            Settings.verbFilters = [
+                {"tense":"Present Tense", "type":"Orthographic"}
+            ]
+
+            // Get filters
+            let filters = Settings.getTenseTypes(0);
+
+            // Assert filters are correct
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Reflexive"]).to.equal(true);
+            expect(filters["Regular"]).to.equal(true);
+            expect(filters["Nonregular"]).to.equal(true);
+            expect(filters["Stem Changing"]).to.equal(true);
+            expect(filters["Orthographic"]).to.equal(false);
+            expect(filters["Irregular"]).to.equal(true);
+
+            // Assert selection changed
+            expect(Settings.verbFilters[0]["type"]).to.equal("All Types");
+        });
+
+        it("Should not change selection if available", function() {
+            // Initialize filters
+            Settings.verbFilters = [
+                {"tense":"Preterite Tense", "type":"Orthographic"}
+            ]
+
+            // Get filters
+            let filters = Settings.getTenseTypes(0);
+
+            // Assert filters are correct
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Reflexive"]).to.equal(true);
+            expect(filters["Regular"]).to.equal(true);
+            expect(filters["Nonregular"]).to.equal(true);
+            expect(filters["Stem Changing"]).to.equal(true);
+            expect(filters["Orthographic"]).to.equal(true);
+            expect(filters["Irregular"]).to.equal(true);
+
+            // Assert selection not changed
+            expect(Settings.verbFilters[0]["type"]).to.equal("Orthographic");
+        });
+    });
+
+    describe("GetTenseSubjects method", function() {
+        it("Should be correct for All Tenses", function() {
+            // Initialize filters
+            Settings.verbFilters = [
+                {"tense":"All Types", "type":"All Types"}
+            ]
+
+            // Get filters
+            let filters = Settings.getTenseSubjects(0);
+
+            // Assert filters are correct
+            expect(filters["All Subjects"]).to.equal(true);
+            expect(filters["Yo"]).to.equal(true);
+            expect(filters["Tú"]).to.equal(true);
+            expect(filters["Él"]).to.equal(true);
+            expect(filters["Nosotros"]).to.equal(true);
+            expect(filters["Ellos"]).to.equal(true);
+        });
+
+        it("Should be correct for Present Participles", function() {
+            // Initialize filters
+            Settings.verbFilters = [
+                {"tense":"Present Participles", "subject":"All Subjects", "type":"All Types"}
+            ]
+
+            // Get filters
+            let filters = Settings.getTenseSubjects(0);
+
+            // Assert filters are correct
+            expect(filters["All Subjects"]).to.equal(true);
+            expect(filters["Yo"]).to.equal(false);
+            expect(filters["Tú"]).to.equal(false);
+            expect(filters["Él"]).to.equal(false);
+            expect(filters["Nosotros"]).to.equal(false);
+            expect(filters["Ellos"]).to.equal(false);
+        });
+
+        it("Should change selection if not available", function() {
+            // Initialize filters
+            Settings.verbFilters = [
+                {"tense":"Present Participles", "subject":"Yo", "type":"All Types"}
+            ]
+
+            // Get filters
+            let filters = Settings.getTenseSubjects(0);
+
+            // Assert filters are correct
+            expect(filters["All Subjects"]).to.equal(true);
+            expect(filters["Yo"]).to.equal(false);
+            expect(filters["Tú"]).to.equal(false);
+            expect(filters["Él"]).to.equal(false);
+            expect(filters["Nosotros"]).to.equal(false);
+            expect(filters["Ellos"]).to.equal(false);
+
+            // Assert selection changed
+            expect(Settings.verbFilters[0]["subject"]).to.equal("All Subjects");
+        });
+
+        it("Should not change selection if available", function() {
+            // Initialize filters
+            Settings.verbFilters = [
+                {"tense":"Preterite Tense", "subject":"Yo", "type":"All Types"}
+            ]
+
+            // Get filters
+            let filters = Settings.getTenseSubjects(0);
+
+            // Assert filters are correct
+            expect(filters["All Subjects"]).to.equal(true);
+            expect(filters["Yo"]).to.equal(true);
+            expect(filters["Tú"]).to.equal(true);
+            expect(filters["Él"]).to.equal(true);
+            expect(filters["Nosotros"]).to.equal(true);
+            expect(filters["Ellos"]).to.equal(true);
+
+            // Assert selection not changed
+            expect(Settings.verbFilters[0]["subject"]).to.equal("Yo");
+        });
+    });
+
+    describe("GetSetFilters method", function() {
+        it("Should be correct for Verbs", function() {
+            // Initialize filters
+            Settings.vocabFilters = [
+                {"set":"Verbs", "type":"All Definitions"}
+            ]
+
+            // Get filters
+            let filters = Settings.getSetFilters(0);
+
+            // Assert filters are correct
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Adjectives"]).to.equal(false);
+            expect(filters["Nouns"]).to.equal(false);
+            expect(filters["Verbs"]).to.equal(false);
+        });
+        
+        it("Should be correct for sets with 1 type", function() {
+            // Initialize filters
+            Settings.vocabFilters = [
+                {"set":"Colors", "type":"All Definitions"}
+            ]
+
+            // Get filters
+            let filters = Settings.getSetFilters(0);
+
+            // Assert filters are correct
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Adjectives"]).to.equal(true);
+            expect(filters["Nouns"]).to.equal(false);
+            expect(filters["Verbs"]).to.equal(false);
+        });
+
+        it("Should change selection if not available", function() {
+            // Initialize filters
+            Settings.vocabFilters = [
+                {"set":"Colors", "type":"Verbs"}
+            ]
+
+            // Get filters
+            let filters = Settings.getSetFilters(0);
+
+            // Assert selection changed
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Adjectives"]).to.equal(true);
+            expect(filters["Nouns"]).to.equal(false);
+            expect(filters["Verbs"]).to.equal(false);
+            expect(Settings.vocabFilters[0]["type"]).to.equal("All Types");
+        });
+
+        it("Should not change selection if available", function() {
+            // Initialize filters
+            Settings.vocabFilters = [
+                {"set":"Professions", "type":"Verbs"}
+            ]
+
+            // Get filters
+            let filters = Settings.getSetFilters(0);
+
+            // Assert selection not changed
+            expect(filters["All Types"]).to.equal(true);
+            expect(filters["Adjectives"]).to.equal(false);
+            expect(filters["Nouns"]).to.equal(true);
+            expect(filters["Verbs"]).to.equal(true);
+            expect(Settings.vocabFilters[0]["type"]).to.equal("Verbs");
+        });
+    });
+
+    describe("PromptType watch", function() {
+        it("Should update setting in localStorage", async function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("promptType");
+
+            // Set promptType
+            Settings.promptType = "test";
+            await Settings.$nextTick();
+
+            // Assert localStorage setting updated
+            expect(localStorage.getItem("promptType")).to.equal("test");
+
+            // Restore original setting to localStorage
+            localStorage.setItem("promptType", originalValue);
+        });
+    });
+
+    describe("InputType watch", function() {
+        it("Should update setting in localStorage", async function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("inputType");
+
+            // Set inputType
+            Settings.inputType = "test";
+            await Settings.$nextTick();
+
+            // Assert localStorage setting updated
+            expect(localStorage.getItem("inputType")).to.equal("test");
+
+            // Restore original setting to localStorage
+            localStorage.setItem("inputType", originalValue);
+        });
+    });
+
+    describe("RepeatPrompts watch", function() {
+        it("Should update setting in localStorage", async function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("repeatPrompts");
+
+            // Set repeatPrompts
+            Settings.repeatPrompts = "test";
+            await Settings.$nextTick();
+
+            // Assert localStorage setting updated
+            expect(localStorage.getItem("repeatPrompts")).to.equal("test");
+
+            // Restore original setting to localStorage
+            localStorage.setItem("repeatPrompts", originalValue);
+        });
+    });
+
     describe("ApplyVocabFilter method", function() {
         // Initialize vocab
         let vocab = [
@@ -497,49 +891,6 @@ describe("Settings", function() {
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
             });
-        });
-    });
-
-    describe("StartSession method", function() {
-        beforeEach(function() {
-            // Initialize Vue
-            loadVue();
-        });
-    
-        it("Should throw \"Bad Arguments\" when prompts is null", function() {
-            // Initialize prompts and promptIndex
-            app.prompts = null;
-            app.promptIndex = 0;
-
-            // Assert raises error
-            expect(StartSession).to.throw("Bad arguments.");
-        });
-    
-        it("Should throw \"Bad Arguments\" when promptIndex is negative", function() {
-            // Initialize prompts and promptIndex
-            app.prompts = ["a", "b", "c"];
-            app.promptIndex = -1;
-
-            // Assert raises error
-            expect(StartSession).to.throw("Bad arguments.");
-        });
-    
-        it("Should throw \"Bad Arguments\" when promptIndex is invalid", function() {
-            // Initialize prompts and promptIndex
-            app.prompts = ["a", "b", "c"];
-            app.promptIndex = 3;
-
-            // Assert raises error
-            expect(StartSession).to.throw("Bad arguments.");
-        });
-        
-        it("Should throw \"Terms is empty\" when prompts is empty", function() {
-            // Initialize prompts and promptIndex
-            app.prompts = [];
-            app.promptIndex = 0;
-
-            // Assert raises error
-            expect(StartSession).to.throw("Terms is empty.");
         });
     });
 
