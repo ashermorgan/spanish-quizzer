@@ -13,14 +13,10 @@ function loadVue() {
 
         data: {
             state: "home",
-            darkTheme: document.body.classList.contains("dark"),
-            verbFilters: [],
-            vocabFilters: [],
-            errorMsg: "",
-            promptType: localStorage.getItem("promptType") || "Text",
-            inputType: localStorage.getItem("inputType") || "Text",
-            onMissedPrompt: localStorage.getItem("onMissedPrompt") || "Correct me",
-            repeatPrompts: localStorage.getItem("repeatPrompts") || "Never",
+            promptType: "Text",
+            inputType: "Text",
+            onMissedPrompt: "Correct me",
+            repeatPrompts: "Never",
 
             prompts: [],
             promptIndex: 0,
@@ -48,172 +44,6 @@ function loadVue() {
             },
 
             /**
-             * Add a verb filter on the settings page.
-             */
-            AddVerbFilter: function() {
-                this.verbFilters.push({tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."});
-            },
-
-            /**
-             * Remove a verb filter from the settings page.
-             * @param {Number} index - The index of the verb filter.
-             */
-            RemoveVerbFilter: function(index) {
-                // Remove filter
-                this.verbFilters.splice(index, 1);
-            },
-
-            /**
-             * Add a vocab filter on the settings page.
-             */
-            AddVocabFilter: function() {
-                this.vocabFilters.push({set:"Verbs", type:"All Types", direction:"Eng. ↔ Esp."});
-            },
-
-            /**
-             * Remove a vocab filter from the settings page.
-             * @param {Number} index - The index of the vocab filter.
-             */
-            RemoveVocabFilter: function(index) {
-                // Remove filter
-                this.vocabFilters.splice(index, 1);
-            },
-
-            /**
-             * Get the regularity filters available for a verb filter.
-             * @param {Number} index - The index of the verb filter.
-             * @returns {object} - An object with boolean properties for each regularity filter.
-             */
-            getTenseTypes: function(index) {
-                // Get filter options
-                let filters = {"All Types":true, "Reflexive":true, "Regular":true, "Nonregular":true, "Stem Changing":true, "Orthographic":true, "Irregular":true}
-                switch(this.verbFilters[index].tense)
-                {
-                    case "All Tenses":
-                        break;
-                    case "Present Participles":
-                        filters["Reflexive"] = false;       // Reflexive
-                        filters["Orthographic"] = false;    // Orthographic
-                        break;
-                    case "Present Tense":
-                        filters["Orthographic"] = false;    // Orthographic
-                        break;
-                    case "Preterite Tense":
-                        break;
-                    case "Imperfect Tense":
-                        filters["Stem Changing"] = false;   // Stem Changing
-                        filters["Orthographic"] = false;    // Orthographic
-                        break;
-                }
-
-                // Reset type if needed
-                if (!filters[this.verbFilters[index].type]) {
-                    this.verbFilters[index].type = "All Types";
-                }
-
-                // Return filters
-                return filters;
-            },
-
-            /**
-             * Get the subject filters available for a verb filter.
-             * @param {Number} index - The index of the verb filter.
-             * @returns {object} - An object with boolean properties for each subject filter.
-             */
-            getTenseSubjects: function(index) {
-                // Set default filters
-                let filters = {"All Subjects":true, "Yo":true, "Tú":true, "Él":true, "Nosotros":true, "Ellos":true}
-                
-                if (this.verbFilters[index].tense === "Present Participles") {
-                    // Override filters
-                    filters["Yo"] = false;
-                    filters["Tú"] = false;
-                    filters["Él"] = false;
-                    filters["Nosotros"] = false;
-                    filters["Ellos"] = false;
-                    
-                    // Reset subject
-                    this.verbFilters[index].subject = "All Subjects";
-                }
-
-                // Return filters
-                return filters;
-            },
-
-            /**
-             * Get the filters available for a vocab Set.
-             * @param {Number} index - The index of the vocab filter.
-             * @returns {Array} - An array containing available filters.
-             */
-            getSetFilters: function(index) {
-                // Get filter options
-                let filters = {"All Types":true, "Adjectives":true, "Nouns":true, "Verbs":true}
-                switch(this.vocabFilters[index].set)
-                {
-                    case "Verbs":
-                        filters["Adjectives"] = false;
-                        filters["Nouns"] = false;
-                        filters["Verbs"] = false;
-                        break;
-                    
-                    case "Adjectives":
-                        filters["Nouns"] = false;
-                        filters["Verbs"] = false;
-                        break;
-
-                    case "Adverbs":
-                        filters["Adjectives"] = false;
-                        filters["Nouns"] = false;
-                        filters["Verbs"] = false;
-                        break;
-
-                    case "Prepositions":
-                    case "Transitions":
-                    case "Questions":
-                        filters["Adjectives"] = false;
-                        filters["Nouns"] = false;
-                        filters["Verbs"] = false;
-                        break;
-                    
-                    case "Colors":
-                        filters["Nouns"] = false;
-                        filters["Verbs"] = false;
-                        break;
-                    
-                    case "Days":
-                    case "Months":
-                        filters["Adjectives"] = false;
-                        filters["Verbs"] = false;
-                        break;
-                    
-                    case "Weather":
-                    case "Professions":
-                        filters["Adjectives"] = false;
-                        break;
-
-                    case "Family":
-                    case "Clothes":
-                        filters["Verbs"] = false;
-                        break;
-                    
-                    case "Nature":
-                    case "House":
-                    case "Vacation":
-                    case "Childhood":
-                    case "Health":
-                        break;
-                }
-
-                // Reset type if needed
-                if (!filters[this.vocabFilters[index].type]) {
-                    this.vocabFilters[index].type = "All Types";
-                }
-
-                // Return filters
-                return filters;
-            },
-
-            /**
              * Update the user's progress in localStorage.
              * @param {Array} prompts - The list of prompts.
              * @param {Number} index - The index of the current prompt.
@@ -234,55 +64,55 @@ function loadVue() {
                 // Save progress to local storage
                 localStorage.setItem(prefix + "prompts", JSON.stringify(prompts));
                 localStorage.setItem(prefix + "prompt", JSON.stringify(index));
-            }
-        },
-
-        watch: {
-            /**
-             * Update the app theme.
-             */
-            darkTheme: function(value) {
-                SetTheme(value);
             },
 
             /**
-             * Update the promptType setting in localStorage.
-             * @param {String} value - The prompt type.
+             * Perform validation checks and then start the quizzer.
+             * @param {Array} prompts - The list of prompts.
+             * @param {Number} promptIndex - The index of the current prompt.
+             * @param {String} promptType - The prompt type.
+             * @param {String} inputType - The input type.
+             * @param {String} onMissedPrompt - The onMissedPrompt setting value.
+             * @param {String} repeatPrompts - The repeat prompts setting value.
              */
-            promptType: function(value) {
-                localStorage.setItem("promptType", value);
-            },
+            StartSession: function(prompts, promptIndex, promptType, inputType, onMissedPrompt, repeatPrompts) {
+                // Validate browser for voice input
+                if (this.inputType !== "Text") {
+                    if (typeof InstallTrigger !== "undefined") {
+                        // Browser is Firefox
+                        alert("You must enable speech recognition in about:config.");
+                    }
+                    else if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
+                        // Browser is not Googole Chrome or Microsoft (Chromium) Edge
+                        alert("Your browser does not support voice input.");
+                        return;
+                    }
+                }
 
-            /**
-             * Update the inputType setting in localStorage.
-             * @param {String} value - The input type.
-             */
-            inputType: function(value) {
-                localStorage.setItem("inputType", value);
-            },
+                // Give iOS devices ringer warning for prompt audio
+                if (this.promptType !== "Text") {
+                    if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+                        alert("Please make sure your ringer is on in order to hear audio prompts.");
+                    }
+                }
 
-            /**
-             * Update the onMissedPrompt setting in localStorage.
-             * @param {String} value - The onMissedPrompt setting value.
-             */
-            onMissedPrompt: function(value) {
-                localStorage.setItem("onMissedPrompt", value);
-            },
+                // Copy over prompts and promptIndex
+                this.prompts = prompts;
+                this.promptIndex = promptIndex;
 
-            /**
-             * Update the repeatPrompts setting in localStorage.
-             * @param {String} value - The repeat prompts setting value.
-             */
-            repeatPrompts: function(value) {
-                localStorage.setItem("repeatPrompts", value);
-            },
+                // Copy over settings
+                this.promptType = promptType
+                this.inputType = inputType
+                this.onMissedPrompt = onMissedPrompt
+                this.repeatPrompts = repeatPrompts
 
-            /**
-             * Clear the error message when the state changes.
-             */
-            state: function() {
-                // Reset error message
-                app.errorMsg = "";
+                // Show and hide elements (also enables the quizzer)
+                if (this.state === "verbSettings") {
+                    this.state = "verbQuizzer";
+                }
+                else if (this.state === "vocabSettings") {
+                    this.state = "vocabQuizzer";
+                }
             }
         },
     });
