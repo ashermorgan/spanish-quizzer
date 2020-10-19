@@ -9,20 +9,24 @@ describe("App", function() {
             expect(app.state).to.equal("home");
         });
         
-        it("VerFilters should be empty", function() {
-            expect(app.verbFilters.length).to.equal(0);
+        it("PromptType should be 'Text'", function() {
+            expect(app.promptType).to.equal("Text");
         });
 
-        it("VocabFilters should be empty", function() {
-            expect(app.vocabFilters.length).to.equal(0);
+        it("InputType should be 'Text'", function() {
+            expect(app.inputType).to.equal("Text");
         });
 
-        it("ErrorMsg should be empty", function() {
-            expect(app.errorMsg).to.equal("");
+        it("OnMissedPrompt should be 'Correct me'", function() {
+            expect(app.onMissedPrompt).to.equal("Correct me");
+        });
+
+        it("RepeatPrompts should be 'Never'", function() {
+            expect(app.repeatPrompts).to.equal("Never");
         });
 
         it("Prompts should be empty", function() {
-            expect(app.vocabFilters.length).to.equal(0);
+            expect(app.prompts.length).to.equal(0);
         });
 
         it("PromptIndex should be 0", function() {
@@ -75,361 +79,40 @@ describe("App", function() {
         });
     });
 
-    describe("AddVerbFilter method", function() {
-        it("Should add a verb filter", function() {
-            // Assert filters is empty
-            expect(app.verbFilters.length).to.equal(0);
+    describe("StartSession method", function() {
+        it("Should import parameter values", function() {
+            // Call StartSession
+            app.StartSession([1, 2, 3], 4, "a", "b", "c", "d");
 
-            // Add filter
-            app.AddVerbFilter();
-
-            // Assert filter added
-            expect(app.verbFilters.length).to.equal(1);
-            expect(app.verbFilters[0]["tense"]).to.equal("All Tenses");
-            expect(app.verbFilters[0]["type"]).to.equal("All Types");
-            expect(app.verbFilters[0]["subject"]).to.equal("All Subjects");
-            expect(app.verbFilters[0]["direction"]).to.equal("Eng. → Conj.");
-        });
-    });
-
-    describe("RemoveVerbFilter method", function() {
-        it("Should remove the specified filter", function() {
-            // Initialize filters
-            app.verbFilters = [
-                {"tense":"Present Tense", "type":"All Types"},
-                {"tense":"Preterite Tense", "type":"All Types"},
-                {"tense":"Imperfect Tense", "type":"All Types"}
-            ]
-
-            // Remove filter
-            app.RemoveVerbFilter(1);
-
-            // Assert filter removed
-            expect(app.verbFilters.length).to.equal(2);
-            expect(app.verbFilters[0]["tense"]).to.equal("Present Tense");
-            expect(app.verbFilters[0]["type"]).to.equal("All Types");
-            expect(app.verbFilters[1]["tense"]).to.equal("Imperfect Tense");
-            expect(app.verbFilters[1]["type"]).to.equal("All Types");
-        });
-    });
-
-    describe("AddVocabFilter method", function() {
-        it("Should add a vocab filter", function() {
-            // Assert filters is empty
-            expect(app.vocabFilters.length).to.equal(0);
-
-            // Add filter
-            app.AddVocabFilter();
-
-            // Assert filter added
-            expect(app.vocabFilters.length).to.equal(1);
-            expect(app.vocabFilters[0]["set"]).to.equal("Verbs");
-            expect(app.vocabFilters[0]["type"]).to.equal("All Types");
-            expect(app.vocabFilters[0]["direction"]).to.equal("Eng. ↔ Esp.");
-        });
-    });
-
-    describe("RemoveVocabFilter method", function() {
-        it("Should remove the specified filter", function() {
-            // Initialize filters
-            app.vocabFilters = [
-                {"set":"Verbs", "type":"All Definitions"},
-                {"set":"Adjectives", "type":"All Definitions"},
-                {"set":"Adverbs", "type":"All Definitions"},
-            ]
-
-            // Remove filter
-            app.RemoveVocabFilter(1);
-
-            // Assert filter removed
-            expect(app.vocabFilters.length).to.equal(2);
-            expect(app.vocabFilters[0]["set"]).to.equal("Verbs");
-            expect(app.vocabFilters[0]["type"]).to.equal("All Definitions");
-            expect(app.vocabFilters[1]["set"]).to.equal("Adverbs");
-            expect(app.vocabFilters[1]["type"]).to.equal("All Definitions");
-        });
-    });
-
-    describe("GetTenseTypes method", function() {
-        it("Should be correct for All Tenses", function() {
-            // Initialize filters
-            app.verbFilters = [
-                {"tense":"All Types", "type":"All Types"}
-            ]
-
-            // Get filters
-            let filters = app.getTenseTypes(0);
-
-            // Assert filters are correct
-            expect(filters["All Types"]).to.equal(true);
-            expect(filters["Reflexive"]).to.equal(true);
-            expect(filters["Regular"]).to.equal(true);
-            expect(filters["Nonregular"]).to.equal(true);
-            expect(filters["Stem Changing"]).to.equal(true);
-            expect(filters["Orthographic"]).to.equal(true);
-            expect(filters["Irregular"]).to.equal(true);
+            // Assert parameters imported
+            expect(app.prompts).to.have.members([1, 2, 3]);
+            expect(app.promptIndex).to.equal(4);
+            expect(app.promptType).to.equal("a");
+            expect(app.inputType).to.equal("b");
+            expect(app.onMissedPrompt).to.equal("c");
+            expect(app.repeatPrompts).to.equal("d");
         });
 
-        it("Should be correct for Present Tense", function() {
-            // Initialize filters
-            app.verbFilters = [
-                {"tense":"Present Tense", "type":"All Types"}
-            ]
+        it("Should set state to 'verbQuizzer' if state is 'verbSettings'", function() {
+            // Initialize settings
+            app.state = "verbSettings";
 
-            // Get filters
-            let filters = app.getTenseTypes(0);
+            // Call StartSession
+            app.StartSession([1, 2, 3], 4, "a", "b", "c", "d");
 
-            // Assert filters are correct
-            expect(filters["All Types"]).to.equal(true);
-            expect(filters["Reflexive"]).to.equal(true);
-            expect(filters["Regular"]).to.equal(true);
-            expect(filters["Nonregular"]).to.equal(true);
-            expect(filters["Stem Changing"]).to.equal(true);
-            expect(filters["Orthographic"]).to.equal(false);
-            expect(filters["Irregular"]).to.equal(true);
+            // Assert parameters imported
+            expect(app.state).to.equal("verbQuizzer");
         });
 
-        it("Should change selection if not available", function() {
-            // Initialize filters
-            app.verbFilters = [
-                {"tense":"Present Tense", "type":"Orthographic"}
-            ]
+        it("Should set state to 'vocabQuizzer' if state is 'vocabSettings'", function() {
+            // Initialize settings
+            app.state = "vocabSettings";
 
-            // Get filters
-            let filters = app.getTenseTypes(0);
+            // Call StartSession
+            app.StartSession([1, 2, 3], 4, "a", "b", "c", "d");
 
-            // Assert filters are correct
-            expect(filters["All Types"]).to.equal(true);
-            expect(filters["Reflexive"]).to.equal(true);
-            expect(filters["Regular"]).to.equal(true);
-            expect(filters["Nonregular"]).to.equal(true);
-            expect(filters["Stem Changing"]).to.equal(true);
-            expect(filters["Orthographic"]).to.equal(false);
-            expect(filters["Irregular"]).to.equal(true);
-
-            // Assert selection changed
-            expect(app.verbFilters[0]["type"]).to.equal("All Types");
-        });
-
-        it("Should not change selection if available", function() {
-            // Initialize filters
-            app.verbFilters = [
-                {"tense":"Preterite Tense", "type":"Orthographic"}
-            ]
-
-            // Get filters
-            let filters = app.getTenseTypes(0);
-
-            // Assert filters are correct
-            expect(filters["All Types"]).to.equal(true);
-            expect(filters["Reflexive"]).to.equal(true);
-            expect(filters["Regular"]).to.equal(true);
-            expect(filters["Nonregular"]).to.equal(true);
-            expect(filters["Stem Changing"]).to.equal(true);
-            expect(filters["Orthographic"]).to.equal(true);
-            expect(filters["Irregular"]).to.equal(true);
-
-            // Assert selection not changed
-            expect(app.verbFilters[0]["type"]).to.equal("Orthographic");
-        });
-    });
-
-    describe("GetTenseSubjects method", function() {
-        it("Should be correct for All Tenses", function() {
-            // Initialize filters
-            app.verbFilters = [
-                {"tense":"All Types", "type":"All Types"}
-            ]
-
-            // Get filters
-            let filters = app.getTenseSubjects(0);
-
-            // Assert filters are correct
-            expect(filters["All Subjects"]).to.equal(true);
-            expect(filters["Yo"]).to.equal(true);
-            expect(filters["Tú"]).to.equal(true);
-            expect(filters["Él"]).to.equal(true);
-            expect(filters["Nosotros"]).to.equal(true);
-            expect(filters["Ellos"]).to.equal(true);
-        });
-
-        it("Should be correct for Present Participles", function() {
-            // Initialize filters
-            app.verbFilters = [
-                {"tense":"Present Participles", "subject":"All Subjects", "type":"All Types"}
-            ]
-
-            // Get filters
-            let filters = app.getTenseSubjects(0);
-
-            // Assert filters are correct
-            expect(filters["All Subjects"]).to.equal(true);
-            expect(filters["Yo"]).to.equal(false);
-            expect(filters["Tú"]).to.equal(false);
-            expect(filters["Él"]).to.equal(false);
-            expect(filters["Nosotros"]).to.equal(false);
-            expect(filters["Ellos"]).to.equal(false);
-        });
-
-        it("Should change selection if not available", function() {
-            // Initialize filters
-            app.verbFilters = [
-                {"tense":"Present Participles", "subject":"Yo", "type":"All Types"}
-            ]
-
-            // Get filters
-            let filters = app.getTenseSubjects(0);
-
-            // Assert filters are correct
-            expect(filters["All Subjects"]).to.equal(true);
-            expect(filters["Yo"]).to.equal(false);
-            expect(filters["Tú"]).to.equal(false);
-            expect(filters["Él"]).to.equal(false);
-            expect(filters["Nosotros"]).to.equal(false);
-            expect(filters["Ellos"]).to.equal(false);
-
-            // Assert selection changed
-            expect(app.verbFilters[0]["subject"]).to.equal("All Subjects");
-        });
-
-        it("Should not change selection if available", function() {
-            // Initialize filters
-            app.verbFilters = [
-                {"tense":"Preterite Tense", "subject":"Yo", "type":"All Types"}
-            ]
-
-            // Get filters
-            let filters = app.getTenseSubjects(0);
-
-            // Assert filters are correct
-            expect(filters["All Subjects"]).to.equal(true);
-            expect(filters["Yo"]).to.equal(true);
-            expect(filters["Tú"]).to.equal(true);
-            expect(filters["Él"]).to.equal(true);
-            expect(filters["Nosotros"]).to.equal(true);
-            expect(filters["Ellos"]).to.equal(true);
-
-            // Assert selection not changed
-            expect(app.verbFilters[0]["subject"]).to.equal("Yo");
-        });
-    });
-
-    describe("GetSetFilters method", function() {
-        it("Should be correct for Verbs", function() {
-            // Initialize filters
-            app.vocabFilters = [
-                {"set":"Verbs", "type":"All Definitions"}
-            ]
-
-            // Get filters
-            let filters = app.getSetFilters(0);
-
-            // Assert filters are correct
-            expect(filters["All Types"]).to.equal(true);
-            expect(filters["Adjectives"]).to.equal(false);
-            expect(filters["Nouns"]).to.equal(false);
-            expect(filters["Verbs"]).to.equal(false);
-        });
-        
-        it("Should be correct for sets with 1 type", function() {
-            // Initialize filters
-            app.vocabFilters = [
-                {"set":"Colors", "type":"All Definitions"}
-            ]
-
-            // Get filters
-            let filters = app.getSetFilters(0);
-
-            // Assert filters are correct
-            expect(filters["All Types"]).to.equal(true);
-            expect(filters["Adjectives"]).to.equal(true);
-            expect(filters["Nouns"]).to.equal(false);
-            expect(filters["Verbs"]).to.equal(false);
-        });
-
-        it("Should change selection if not available", function() {
-            // Initialize filters
-            app.vocabFilters = [
-                {"set":"Colors", "type":"Verbs"}
-            ]
-
-            // Get filters
-            let filters = app.getSetFilters(0);
-
-            // Assert selection changed
-            expect(filters["All Types"]).to.equal(true);
-            expect(filters["Adjectives"]).to.equal(true);
-            expect(filters["Nouns"]).to.equal(false);
-            expect(filters["Verbs"]).to.equal(false);
-            expect(app.vocabFilters[0]["type"]).to.equal("All Types");
-        });
-
-        it("Should not change selection if available", function() {
-            // Initialize filters
-            app.vocabFilters = [
-                {"set":"Professions", "type":"Verbs"}
-            ]
-
-            // Get filters
-            let filters = app.getSetFilters(0);
-
-            // Assert selection not changed
-            expect(filters["All Types"]).to.equal(true);
-            expect(filters["Adjectives"]).to.equal(false);
-            expect(filters["Nouns"]).to.equal(true);
-            expect(filters["Verbs"]).to.equal(true);
-            expect(app.vocabFilters[0]["type"]).to.equal("Verbs");
-        });
-    });
-    
-    describe("PromptType watch", function() {
-        it("Should update setting in localStorage", async function() {
-            // Save original setting from localStorage
-            let originalValue = localStorage.getItem("promptType");
-
-            // Set promptType
-            app.promptType = "test";
-            await app.$nextTick();
-
-            // Assert localStorage setting updated
-            expect(localStorage.getItem("promptType")).to.equal("test");
-
-            // Restore original setting to localStorage
-            localStorage.setItem("promptType", originalValue);
-        });
-    });
-
-    describe("InputType watch", function() {
-        it("Should update setting in localStorage", async function() {
-            // Save original setting from localStorage
-            let originalValue = localStorage.getItem("inputType");
-
-            // Set inputType
-            app.inputType = "test";
-            await app.$nextTick();
-
-            // Assert localStorage setting updated
-            expect(localStorage.getItem("inputType")).to.equal("test");
-
-            // Restore original setting to localStorage
-            localStorage.setItem("inputType", originalValue);
-        });
-    });
-
-    describe("RepeatPrompts watch", function() {
-        it("Should update setting in localStorage", async function() {
-            // Save original setting from localStorage
-            let originalValue = localStorage.getItem("repeatPrompts");
-
-            // Set repeatPrompts
-            app.repeatPrompts = "test";
-            await app.$nextTick();
-
-            // Assert localStorage setting updated
-            expect(localStorage.getItem("repeatPrompts")).to.equal("test");
-
-            // Restore original setting to localStorage
-            localStorage.setItem("repeatPrompts", originalValue);
+            // Assert parameters imported
+            expect(app.state).to.equal("vocabQuizzer");
         });
     });
 });
