@@ -82,13 +82,6 @@
 
 
 
-/* Error Message */
-.settingsError {
-    margin: 0px 10px;
-}
-
-
-
 /* Conjugation settings on mobile devices */
 @media only screen and (max-width: 510px) {
     .verbSettings {
