@@ -11,7 +11,6 @@ let settings = Vue.component("settings", {
             darkTheme: document.body.classList.contains("dark"),
             verbFilters: [],
             vocabFilters: [],
-            errorMsg: "",
             promptType: localStorage.getItem("promptType") || "Text",
             inputType: localStorage.getItem("inputType") || "Text",
             onMissedPrompt: localStorage.getItem("onMissedPrompt") || "Correct me",
@@ -207,8 +206,7 @@ let settings = Vue.component("settings", {
 
             // Validate prompts
             if (prompts.length === 0) {
-                this.errorMsg = "Your custom vocabulary set must contain at least one term.";
-                document.getElementById("settingsError").scrollIntoView(false);
+                alert("Your custom vocabulary set must contain at least one term.");
                 return;
             }
             
@@ -235,18 +233,15 @@ let settings = Vue.component("settings", {
 
             // Validate prompts and promptIndex
             if (!prompts) {
-                this.errorMsg = "An error occured while resuming the previous session.";
-                document.getElementById("settingsError").scrollIntoView(false);
+                alert("An error occured while resuming the previous session.");
                 return;
             }
             else if (prompts.length === 0) {
-                this.errorMsg = "Your custom vocabulary set must contain at least one term.";
-                document.getElementById("settingsError").scrollIntoView(false);
+                alert("Your custom vocabulary set must contain at least one term.");
                 return;
             }
             else if (isNaN(promptIndex) || promptIndex < 0 || promptIndex >= prompts.length) {
-                this.errorMsg = "An error occured while resuming the previous session.";
-                document.getElementById("settingsError").scrollIntoView(false);
+                alert("An error occured while resuming the previous session.");
                 return;
             }
 
@@ -425,8 +420,6 @@ let settings = Vue.component("settings", {
                 <button class="settingsStart" @click="CreateSession();">Start</button>
                 <button class="settingsResume" @click="ResumeSession();">Resume</button>
             </div>
-            
-            <div class="settingsError" v-show="errorMsg" class="centered bad">{{ errorMsg }}</div>
         </div>
     `,
 });

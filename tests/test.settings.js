@@ -17,10 +17,6 @@ describe("Settings", function() {
         it("VocabFilters should be empty", function() {
             expect(Settings.vocabFilters.length).to.equal(0);
         });
-
-        it("ErrorMsg should be empty", function() {
-            expect(Settings.errorMsg).to.equal("");
-        });
     });
 
     describe("AddFilter method", function() {

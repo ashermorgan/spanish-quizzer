@@ -46,7 +46,7 @@
                 </div>
         
         
-                <settings id="settings" v-if="state === 'verbSettings' || state === 'vocabSettings'" hidden
+                <settings id="settings" v-show="state === 'verbSettings' || state === 'vocabSettings'" hidden
                     :category="state === 'verbSettings' ? 'verbs' : 'vocab'" @start-session="StartSession">
                 </settings>
         
