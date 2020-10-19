@@ -150,18 +150,20 @@ describe("Quizzer", function() {
             expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
         });
     
-        it("Should call Reset if onMissedPrompt is set to 'Ignore it'", function() {
+        it("Should call Continue if onMissedPrompt is set to 'Ignore it'", function() {
             // Initialize variables
             Quizzer.active = true;
+            Quizzer.repeatPrompts = "At the end";
             Quizzer.onMissedPrompt = "Ignore it";
-            Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
+            Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]]
             Quizzer.responce = "A5";
 
             // Call Submit
             Quizzer.Submit();
 
-            // Assert Reset called
-            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+            // Assert Continue called
+            console.log(Quizzer.prompts);
+            expect(Quizzer.prompts).to.have.deep.members([["B1", "B2", "B3", "B4"], ["A1", "A2", "A3", "A4"]]);  // Continue will modify prompts
         });
     
         it("Should not call Reset if onMissedPrompt is set to 'Tell me'", function() {

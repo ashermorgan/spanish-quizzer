@@ -177,6 +177,9 @@ let quizzer = Vue.component("quizzer", {
                 }
                 catch { }
             }
+            else if (!correct && this.onMissedPrompt === "Ignore it") {
+                this.Continue();
+            }
             else {
                 // Responce was correct
                 this.Reset();
