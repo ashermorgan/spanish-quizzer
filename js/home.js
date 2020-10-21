@@ -13,12 +13,14 @@ function loadVue() {
 
         data: {
             state: "home",      // Can be either "home", "settings", or "quizzer"
-            category: "home",   // Can be either "verbs" or "vocab"
+            category: "verbs",  // Can be either "verbs" or "vocab"
             
-            promptType: "Text",
-            inputType: "Text",
-            onMissedPrompt: "Correct me",
-            repeatPrompts: "Never",
+            settings: {
+                promptType: "Text",
+                inputType: "Text",
+                onMissedPrompt: "Correct me",
+                repeatPrompts: "Never",
+            },
 
             prompts: [],
             promptIndex: 0,
@@ -59,14 +61,11 @@ function loadVue() {
              * Perform validation checks and then start the quizzer.
              * @param {Array} prompts - The list of prompts.
              * @param {Number} promptIndex - The index of the current prompt.
-             * @param {String} promptType - The prompt type.
-             * @param {String} inputType - The input type.
-             * @param {String} onMissedPrompt - The onMissedPrompt setting value.
-             * @param {String} repeatPrompts - The repeat prompts setting value.
+             * @param {Object} settings - The user's settings.
              */
-            StartSession: function(prompts, promptIndex, promptType, inputType, onMissedPrompt, repeatPrompts) {
+            StartSession: function(prompts, promptIndex, settings) {
                 // Validate browser for voice input
-                if (this.inputType !== "Text") {
+                if (this.settings.inputType !== "Text") {
                     if (typeof InstallTrigger !== "undefined") {
                         // Browser is Firefox
                         alert("You must enable speech recognition in about:config.");
@@ -79,21 +78,16 @@ function loadVue() {
                 }
 
                 // Give iOS devices ringer warning for prompt audio
-                if (this.promptType !== "Text") {
+                if (this.settings.promptType !== "Text") {
                     if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
                         alert("Please make sure your ringer is on in order to hear audio prompts.");
                     }
                 }
 
-                // Copy over prompts and promptIndex
+                // Copy over parameters
                 this.prompts = prompts;
                 this.promptIndex = promptIndex;
-
-                // Copy over settings
-                this.promptType = promptType
-                this.inputType = inputType
-                this.onMissedPrompt = onMissedPrompt
-                this.repeatPrompts = repeatPrompts
+                this.settings = settings;
 
                 // Show and hide elements (also enables the quizzer)
                 this.state = "quizzer";

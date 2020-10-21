@@ -17,6 +17,66 @@ describe("Settings", function() {
         it("VocabFilters should be empty", function() {
             expect(Settings.vocabFilters.length).to.equal(0);
         });
+    
+        it("Settings should be loaded", function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("settings");
+
+            // Set localStorage settings
+            localStorage.setItem("settings", "{\"promptType\":\"Audio\",\"inputType\":\"Voice\",\"onMissedPrompt\":\"Tell me\",\"repeatPrompts\":\"5 prompts later\"}")
+            
+            // (re)Create settings component
+            Settings = new settings();
+
+            // Assert settings loaded
+            expect(Settings.settings.promptType).to.equal("Audio");
+            expect(Settings.settings.inputType).to.equal("Voice");
+            expect(Settings.settings.onMissedPrompt).to.equal("Tell me");
+            expect(Settings.settings.repeatPrompts).to.equal("5 prompts later");
+
+            // Restore original setting to localStorage
+            localStorage.setItem("settings", originalValue);
+        });
+
+        it("Invalid individual settings should not be loaded", function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("settings");
+
+            // Set localStorage settings
+            localStorage.setItem("settings", "{\"promptType\":\"Audio\",\"inputType\":\"test\",\"onMissedPrompt\":null}")
+            
+            // (re)Create settings component
+            Settings = new settings();
+
+            // Assert default settings loaded
+            expect(Settings.settings.promptType).to.equal("Audio"); // promptType wasn't invalid, so it should still be loaded
+            expect(Settings.settings.inputType).to.equal("Text");
+            expect(Settings.settings.onMissedPrompt).to.equal("Correct me");
+            expect(Settings.settings.repeatPrompts).to.equal("Never");
+
+            // Restore original setting to localStorage
+            localStorage.setItem("settings", originalValue);
+        });
+
+        it("Invalid JSON settings should not be loaded", function() {
+            // Save original setting from localStorage
+            let originalValue = localStorage.getItem("settings");
+    
+            // Set localStorage settings
+            localStorage.setItem("settings", "asdf")
+            
+            // (re)Create settings component
+            Settings = new settings();
+    
+            // Assert default settings loaded
+            expect(Settings.settings.promptType).to.equal("Text");
+            expect(Settings.settings.inputType).to.equal("Text");
+            expect(Settings.settings.onMissedPrompt).to.equal("Correct me");
+            expect(Settings.settings.repeatPrompts).to.equal("Never");
+    
+            // Restore original setting to localStorage
+            localStorage.setItem("settings", originalValue);
+        });
     });
 
     describe("AddFilter method", function() {
@@ -338,54 +398,23 @@ describe("Settings", function() {
         });
     });
 
-    describe("PromptType watch", function() {
+    describe("Settings watch", function() {
         it("Should update setting in localStorage", async function() {
             // Save original setting from localStorage
-            let originalValue = localStorage.getItem("promptType");
+            let originalValue = localStorage.getItem("settings");
 
-            // Set promptType
-            Settings.promptType = "test";
+            // Set settings
+            Settings.settings.promptType = "A";
+            Settings.settings.inputType = "B";
+            Settings.settings.onMissedPrompt = "C";
+            Settings.settings.repeatPrompts = "D";
             await Settings.$nextTick();
 
             // Assert localStorage setting updated
-            expect(localStorage.getItem("promptType")).to.equal("test");
+            expect(localStorage.getItem("settings")).to.equal("{\"promptType\":\"A\",\"inputType\":\"B\",\"onMissedPrompt\":\"C\",\"repeatPrompts\":\"D\"}");
 
             // Restore original setting to localStorage
-            localStorage.setItem("promptType", originalValue);
-        });
-    });
-
-    describe("InputType watch", function() {
-        it("Should update setting in localStorage", async function() {
-            // Save original setting from localStorage
-            let originalValue = localStorage.getItem("inputType");
-
-            // Set inputType
-            Settings.inputType = "test";
-            await Settings.$nextTick();
-
-            // Assert localStorage setting updated
-            expect(localStorage.getItem("inputType")).to.equal("test");
-
-            // Restore original setting to localStorage
-            localStorage.setItem("inputType", originalValue);
-        });
-    });
-
-    describe("RepeatPrompts watch", function() {
-        it("Should update setting in localStorage", async function() {
-            // Save original setting from localStorage
-            let originalValue = localStorage.getItem("repeatPrompts");
-
-            // Set repeatPrompts
-            Settings.repeatPrompts = "test";
-            await Settings.$nextTick();
-
-            // Assert localStorage setting updated
-            expect(localStorage.getItem("repeatPrompts")).to.equal("test");
-
-            // Restore original setting to localStorage
-            localStorage.setItem("repeatPrompts", originalValue);
+            localStorage.setItem("settings", originalValue);
         });
     });
 

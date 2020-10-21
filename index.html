@@ -51,8 +51,7 @@
                 </settings>
         
                 <quizzer id="quizzer" v-show="state === 'quizzer'" :active="state === 'quizzer'" hidden
-                    :starting-index="promptIndex" :starting-prompts="prompts" @new-prompt="updateProgress"
-                    :prompt-type="promptType" :input-type="inputType" :on-missed-prompt="onMissedPrompt" :repeat-prompts="repeatPrompts">
+                    :starting-index="promptIndex" :starting-prompts="prompts" :settings="settings" @new-prompt="updateProgress">
                 </quizzer>
             </main>
     

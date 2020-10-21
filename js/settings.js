@@ -1,7 +1,7 @@
 let settings = Vue.component("settings", {
     props: {
         category: {
-            type: Boolean,
+            type: String,
             default: "verbs",
         },
     },
@@ -11,10 +11,12 @@ let settings = Vue.component("settings", {
             darkTheme: document.body.classList.contains("dark"),
             verbFilters: [],
             vocabFilters: [],
-            promptType: localStorage.getItem("promptType") || "Text",
-            inputType: localStorage.getItem("inputType") || "Text",
-            onMissedPrompt: localStorage.getItem("onMissedPrompt") || "Correct me",
-            repeatPrompts: localStorage.getItem("repeatPrompts") || "Never",
+            settings: {
+                promptType: "Text",
+                inputType: "Text",
+                onMissedPrompt: "Correct me",
+                repeatPrompts: "Never",
+            },
         };
     },
 
@@ -211,7 +213,7 @@ let settings = Vue.component("settings", {
             }
             
             // Start quizzer
-            this.$emit("start-session", prompts, promptIndex, this.promptType, this.inputType, this.onMissedPrompt, this.repeatPrompts);
+            this.$emit("start-session", prompts, promptIndex, this.settings);
         },
 
         /**
@@ -246,7 +248,7 @@ let settings = Vue.component("settings", {
             }
 
             // Start quizzer
-            this.$emit("start-session", prompts, promptIndex, this.promptType, this.inputType, this.onMissedPrompt, this.repeatPrompts);
+            this.$emit("start-session", prompts, promptIndex, this.settings);
         },
 
         /**
@@ -281,41 +283,42 @@ let settings = Vue.component("settings", {
         },
 
         /**
-         * Update the promptType setting in localStorage.
-         * @param {String} value - The prompt type.
+         * Update setting in localStorage.
+         * @param {String} value - The settings object.
          */
-        promptType: function(value) {
-            localStorage.setItem("promptType", value);
-        },
-
-        /**
-         * Update the inputType setting in localStorage.
-         * @param {String} value - The input type.
-         */
-        inputType: function(value) {
-            localStorage.setItem("inputType", value);
-        },
-
-        /**
-         * Update the onMissedPrompt setting in localStorage.
-         * @param {String} value - The onMissedPrompt setting value.
-         */
-        onMissedPrompt: function(value) {
-            localStorage.setItem("onMissedPrompt", value);
-        },
-
-        /**
-         * Update the repeatPrompts setting in localStorage.
-         * @param {String} value - The repeat prompts setting value.
-         */
-        repeatPrompts: function(value) {
-            localStorage.setItem("repeatPrompts", value);
+        settings: {
+            handler: function(value) {
+                localStorage.setItem("settings", JSON.stringify(value));
+            },
+            deep: true,
         },
     },
 
     created: function() {
         // Add keyup handler
         window.addEventListener("keyup", this.keyup);
+
+        // Parse settings
+        let parsedSettings
+        try {
+            parsedSettings = JSON.parse(localStorage.getItem("settings"));
+        }
+        catch { return; }
+        if (!parsedSettings) { return; }
+        
+        // Load settings
+        if (parsedSettings.promptType && ["Text", "Audio", "Both"].includes(parsedSettings.promptType)) {
+            this.settings.promptType = parsedSettings.promptType;
+        }
+        if (parsedSettings.inputType && ["Text", "Voice", "Either"].includes(parsedSettings.inputType)) {
+            this.settings.inputType = parsedSettings.inputType;
+        }
+        if (parsedSettings.onMissedPrompt && ["Correct me", "Tell me", "Ignore it"].includes(parsedSettings.onMissedPrompt)) {
+            this.settings.onMissedPrompt = parsedSettings.onMissedPrompt;
+        }
+        if (parsedSettings.repeatPrompts && ["Never", "Immediately", "5 prompts later", "At the end"].includes(parsedSettings.repeatPrompts)) {
+            this.settings.repeatPrompts = parsedSettings.repeatPrompts;
+        }
     },
 
     destroyed: function() {
@@ -415,7 +418,7 @@ let settings = Vue.component("settings", {
                 </div>
                 <div>
                     <label for="settingsPromptType">Prompt type</label>
-                    <select id="settingsPromptType" v-model="promptType">
+                    <select id="settingsPromptType" v-model="settings.promptType">
                         <option>Text</option>
                         <option>Audio</option>
                         <option>Both</option>
@@ -423,7 +426,7 @@ let settings = Vue.component("settings", {
                 </div>
                 <div>
                     <label for="settingsInputType">Input type</label>
-                    <select id="settingsInputType" v-model="inputType">
+                    <select id="settingsInputType" v-model="settings.inputType">
                         <option>Text</option>
                         <option>Voice</option>
                         <option>Either</option>
@@ -431,7 +434,7 @@ let settings = Vue.component("settings", {
                 </div>
                 <div>
                     <label for="settingsRepeatPrompts">When I miss a prompt</label>
-                    <select id="settingsRepeatPrompts" v-model="onMissedPrompt">
+                    <select id="settingsRepeatPrompts" v-model="settings.onMissedPrompt">
                         <option>Correct me</option>
                         <option>Tell me</option>
                         <option>Ignore it</option>
@@ -439,7 +442,7 @@ let settings = Vue.component("settings", {
                 </div>
                 <div>
                     <label for="settingsRepeatPrompts">Repeat missed prompts</label>
-                    <select id="settingsRepeatPrompts" v-model="repeatPrompts">
+                    <select id="settingsRepeatPrompts" v-model="settings.repeatPrompts">
                         <option>Never</option>
                         <option>Immediately</option>
                         <option>5 prompts later</option>

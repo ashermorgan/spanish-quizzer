@@ -9,20 +9,15 @@ describe("App", function() {
             expect(app.state).to.equal("home");
         });
         
-        it("PromptType should be 'Text'", function() {
-            expect(app.promptType).to.equal("Text");
+        it("Category should be 'verbs'", function() {
+            expect(app.category).to.equal("verbs");
         });
-
-        it("InputType should be 'Text'", function() {
-            expect(app.inputType).to.equal("Text");
-        });
-
-        it("OnMissedPrompt should be 'Correct me'", function() {
-            expect(app.onMissedPrompt).to.equal("Correct me");
-        });
-
-        it("RepeatPrompts should be 'Never'", function() {
-            expect(app.repeatPrompts).to.equal("Never");
+        
+        it("Settings should be correct", function() {
+            expect(app.settings.promptType).to.equal("Text");
+            expect(app.settings.inputType).to.equal("Text");
+            expect(app.settings.onMissedPrompt).to.equal("Correct me");
+            expect(app.settings.repeatPrompts).to.equal("Never");
         });
 
         it("Prompts should be empty", function() {
@@ -70,15 +65,12 @@ describe("App", function() {
     describe("StartSession method", function() {
         it("Should import parameter values", function() {
             // Call StartSession
-            app.StartSession([1, 2, 3], 4, "a", "b", "c", "d");
+            app.StartSession([1, 2, 3], 4, "test settings");
 
             // Assert parameters imported
             expect(app.prompts).to.have.members([1, 2, 3]);
             expect(app.promptIndex).to.equal(4);
-            expect(app.promptType).to.equal("a");
-            expect(app.inputType).to.equal("b");
-            expect(app.onMissedPrompt).to.equal("c");
-            expect(app.repeatPrompts).to.equal("d");
+            expect(app.settings).to.equal("test settings");
         });
 
         it("Should set state to 'quizzer'", function() {

@@ -15,22 +15,16 @@ let quizzer = Vue.component("quizzer", {
             type: Number,
             default: 0,
         },
-
-        promptType: {
-            type: String,
-            default: "Text",
-        },
-        inputType: {
-            type: String,
-            default: "Text",
-        },
-        onMissedPrompt: {
-            type: String,
-            default: "Correct me",
-        },
-        repeatPrompts: {
-            type: String,
-            default: "Never",
+        settings: {
+            type: Object,
+            default: function() {
+                return {
+                    promptType: "Text",
+                    inputType: "Text",
+                    onMissedPrompt: "Correct me",
+                    repeatPrompts: "Never",
+                }
+            },
         },
     },
 
@@ -91,12 +85,12 @@ let quizzer = Vue.component("quizzer", {
             this.responce = "";
 
             // Read prompt
-            if (this.promptType !== "Text") {
+            if (this.settings.promptType !== "Text") {
                 Read(this.prompt[1], this.prompt[0]);
             }
 
             // Get voice input
-            if (this.inputType !== "Text") {
+            if (this.settings.inputType !== "Text") {
                 // Create recognition object
                 var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
                 
@@ -166,7 +160,7 @@ let quizzer = Vue.component("quizzer", {
             }
 
             // Give user feedback
-            if (!correct && (this.onMissedPrompt === "Correct me" || this.onMissedPrompt === "Tell me")) {
+            if (!correct && (this.settings.onMissedPrompt === "Correct me" || this.settings.onMissedPrompt === "Tell me")) {
                 // Show and hide elements
                 this.congratsActive = false;
                 this.responceActive = false;
@@ -177,7 +171,7 @@ let quizzer = Vue.component("quizzer", {
                 }
                 catch { }
             }
-            else if (!correct && this.onMissedPrompt === "Ignore it") {
+            else if (!correct && this.settings.onMissedPrompt === "Ignore it") {
                 this.Continue();
             }
             else {
@@ -196,7 +190,7 @@ let quizzer = Vue.component("quizzer", {
             }
             
             // Repeat prompt
-            switch (this.repeatPrompts)
+            switch (this.settings.repeatPrompts)
             {
                 case "Never":
                     // Don't repeat
@@ -264,28 +258,28 @@ let quizzer = Vue.component("quizzer", {
         
         <section>
             <label id="quizzerPromptType" for="quizzerPrompt">{{ prompt[0] }}</label>
-            <span id="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">{{ promptType === "Audio" ? "Click to hear again" : prompt[1] }}</span>
+            <span id="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">{{ settings.promptType === "Audio" ? "Click to hear again" : prompt[1] }}</span>
         </section>
         
         <section>
             <label id="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
-            <input id="quizzerInput" ref="input" type="text" v-model="responce" :readonly="!responceActive || inputType === 'Voice'"
+            <input id="quizzerInput" ref="input" type="text" v-model="responce" :readonly="!responceActive || settings.inputType === 'Voice'"
                 @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();" :lang="getLang(prompt[2])"
                 autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
         </section>
         
         <div id="quizzerButtons">
-            <button v-if="responceActive" :disabled="inputType === 'Voice'" @click="Submit();">Submit</button>
+            <button v-if="responceActive" :disabled="settings.inputType === 'Voice'" @click="Submit();">Submit</button>
             <button v-else @click="Continue();">Continue</button>
             <button @click="Reset();">Skip</button>
         </div>
         
         <div id="quizzerFeedback" ref="feedback" v-show="!responceActive" class="bad">
-            <span v-if="onMissedPrompt === 'Correct me'">
+            <span v-if="settings.onMissedPrompt === 'Correct me'">
                 The correct answer is 
                 <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
             </span>
-            <span v-if="onMissedPrompt === 'Tell me'">
+            <span v-if="settings.onMissedPrompt === 'Tell me'">
                 Incorrect.
             </span>
         </div>

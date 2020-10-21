@@ -18,20 +18,11 @@ describe("Quizzer", function() {
             expect(Quizzer.startingIndex).to.equal(0);
         });
 
-        it("PromptType should be 'Text'", function() {
-            expect(Quizzer.promptType).to.equal("Text");
-        });
-
-        it("InputType should be 'Text'", function() {
-            expect(Quizzer.inputType).to.equal("Text");
-        });
-
-        it("OnMissedPrompt should be 'Correct me'", function() {
-            expect(Quizzer.onMissedPrompt).to.equal("Correct me");
-        });
-
-        it("RepeatPrompts should be 'Never'", function() {
-            expect(Quizzer.repeatPrompts).to.equal("Never");
+        it("Settings should be correct", function() {
+            expect(Quizzer.settings.promptType).to.equal("Text");
+            expect(Quizzer.settings.inputType).to.equal("Text");
+            expect(Quizzer.settings.onMissedPrompt).to.equal("Correct me");
+            expect(Quizzer.settings.repeatPrompts).to.equal("Never");
         });
 
         it("Prompts should be empty", function() {
@@ -153,7 +144,7 @@ describe("Quizzer", function() {
         it("Should call Continue if onMissedPrompt is set to 'Ignore it'", function() {
             // Initialize variables
             Quizzer.active = true;
-            Quizzer.repeatPrompts = "At the end";
+            Quizzer.settings.repeatPrompts = "At the end";
             Quizzer.onMissedPrompt = "Ignore it";
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]]
             Quizzer.responce = "A5";
@@ -277,7 +268,7 @@ describe("Quizzer", function() {
             // Initialize variables
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
             Quizzer.index = 0;
-            Quizzer.repeatPrompts = "At the end";
+            Quizzer.settings.repeatPrompts = "At the end";
             Quizzer.responceActive = false;  // Will be changed if Reset is called
             
             // Run Continue
@@ -295,7 +286,7 @@ describe("Quizzer", function() {
             Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
             Quizzer.index = 0;
-            Quizzer.repeatPrompts = "Never";
+            Quizzer.settings.repeatPrompts = "Never";
 
             // Run Continue
             Quizzer.Continue();
@@ -311,7 +302,7 @@ describe("Quizzer", function() {
             Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
             Quizzer.index = 0;
-            Quizzer.repeatPrompts = "test";
+            Quizzer.settings.repeatPrompts = "test";
 
             // Run Continue
             Quizzer.Continue();
@@ -327,7 +318,7 @@ describe("Quizzer", function() {
             Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
             Quizzer.index = 0;
-            Quizzer.repeatPrompts = "Immediately";
+            Quizzer.settings.repeatPrompts = "Immediately";
 
             // Run Continue
             Quizzer.Continue();
@@ -351,7 +342,7 @@ describe("Quizzer", function() {
                 ["G1", "G2", "G3", "G4"],
             ];
             Quizzer.index = 0;
-            Quizzer.repeatPrompts = "5 prompts later";
+            Quizzer.settings.repeatPrompts = "5 prompts later";
 
             // Run Continue
             Quizzer.Continue();
@@ -380,7 +371,7 @@ describe("Quizzer", function() {
                 ["G1", "G2", "G3", "G4"],
             ];
             Quizzer.index = 0;
-            Quizzer.repeatPrompts = "At the end";
+            Quizzer.settings.repeatPrompts = "At the end";
 
             // Run Continue
             Quizzer.Continue();
@@ -402,7 +393,7 @@ describe("Quizzer", function() {
             // Initialize variables
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];  // Will change if Continue is called
             Quizzer.index = 0;  // Will be changed if Reset is called
-            Quizzer.repeatPrompts = "At the end";
+            Quizzer.settings.repeatPrompts = "At the end";
             
             // Run Enter
             Quizzer.Enter();
@@ -419,7 +410,7 @@ describe("Quizzer", function() {
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];  // Will change if Continue is called
             Quizzer.index = 0;  // Will be changed if Reset is called
             Quizzer.responce = "A4";
-            Quizzer.repeatPrompts = "At the end";
+            Quizzer.settings.repeatPrompts = "At the end";
             Quizzer.responceActive = true;
 
             // Run Enter
@@ -436,7 +427,7 @@ describe("Quizzer", function() {
             Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];  // Will change if Continue is called
             Quizzer.index = 0;  // Will be changed if Reset is called
-            Quizzer.repeatPrompts = "At the end";
+            Quizzer.settings.repeatPrompts = "At the end";
             Quizzer.responceActive = false;
 
             // Run Enter
