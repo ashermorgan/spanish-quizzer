@@ -179,14 +179,4 @@ function KeyDown(e) {
             window.location = "reference.html";
         }
     }
-
-    // Settings shortcuts
-    if (app.state === "verbSettings" || app.state === "vocabSettings") {
-        if (e.key === "s") {
-            CreateSession();
-        }
-        if (e.key === "r") {
-            ResumeSession();
-        }
-    }
 }

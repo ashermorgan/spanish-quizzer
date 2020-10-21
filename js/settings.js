@@ -248,6 +248,28 @@ let settings = Vue.component("settings", {
             // Start quizzer
             this.$emit("start-session", prompts, promptIndex, this.promptType, this.inputType, this.onMissedPrompt, this.repeatPrompts);
         },
+
+        /**
+         * Implements keyboard shortcuts.
+         */
+        keyup: function(e) {
+            try {
+                if (window.getComputedStyle(this.$refs.container).display === "none") {
+                    return;
+                }
+            }
+            catch {
+                // Will fail if not mounted
+                return;
+            }
+
+            if (e.key === "s") {
+                this.CreateSession();
+            }
+            if (e.key === "r") {
+                this.ResumeSession();
+            }
+        }
     },
 
     watch: {
@@ -290,9 +312,19 @@ let settings = Vue.component("settings", {
             localStorage.setItem("repeatPrompts", value);
         },
     },
+
+    created: function() {
+        // Add keyup handler
+        window.addEventListener("keyup", this.keyup);
+    },
+
+    destroyed: function() {
+        // Remove keyup handler
+        window.removeEventListener("keydown", this.keyup);
+    },
     
     template: `
-        <div class="settings">
+        <div class="settings" ref="container">
             <div class="verbSettings" v-show="category === 'verbs'">
                 <h1>Choose your settings and then click start.</h1>
 
