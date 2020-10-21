@@ -264,7 +264,7 @@ let quizzer = Vue.component("quizzer", {
         
         <section>
             <label id="quizzerPromptType" for="quizzerPrompt">{{ prompt[0] }}</label>
-            <span id="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">{{ prompt[1] }}</span>
+            <span id="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">{{ promptType === "Audio" ? "Click to hear again" : prompt[1] }}</span>
         </section>
         
         <section>
