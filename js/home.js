@@ -12,7 +12,9 @@ function loadVue() {
         el: "#app", // Mount to app div
 
         data: {
-            state: "home",
+            state: "home",      // Can be either "home", "settings", or "quizzer"
+            category: "home",   // Can be either "verbs" or "vocab"
+            
             promptType: "Text",
             inputType: "Text",
             onMissedPrompt: "Correct me",
@@ -28,14 +30,10 @@ function loadVue() {
              */
             Back: function() {
                 switch (app.state) {
-                    case "verbQuizzer":
-                        app.state = "verbSettings";
+                    case "quizzer":
+                        app.state = "settings";
                         break;
-                    case "vocabQuizzer":
-                        app.state = "vocabSettings";
-                        break;
-                    case "verbSettings":
-                    case "vocabSettings":
+                    case "settings":
                     case "home":
                     default:
                         app.state = "home";
@@ -50,16 +48,7 @@ function loadVue() {
              */
             updateProgress: function(prompts, index) {
                 // Get localStorage prefix
-                let prefix;
-                if (app.state === "vocabSettings" || app.state === "vocabQuizzer") {
-                    prefix = "vocab-"
-                }
-                else if (app.state === "verbSettings" || app.state === "verbQuizzer") {
-                    prefix = "verb-"
-                }
-                else {
-                    return;
-                }
+                let prefix = app.category === "verbs" ? "verb-" : "vocab-";
 
                 // Save progress to local storage
                 localStorage.setItem(prefix + "prompts", JSON.stringify(prompts));
@@ -107,12 +96,7 @@ function loadVue() {
                 this.repeatPrompts = repeatPrompts
 
                 // Show and hide elements (also enables the quizzer)
-                if (this.state === "verbSettings") {
-                    this.state = "verbQuizzer";
-                }
-                else if (this.state === "vocabSettings") {
-                    this.state = "vocabQuizzer";
-                }
+                this.state = "quizzer";
             }
         },
     });
@@ -170,10 +154,12 @@ function KeyDown(e) {
     // Home shortcuts
     if (app.state === "home") {
         if (e.key === "c") {
-            app.state = "verbSettings";
+            category = "verbs";
+            state = "settings";
         }
         if (e.key === "v") {
-            app.state = "vocabSettings";
+            category = "vocab";
+            state = "settings";
         }
         if (e.key === "r") {
             window.location = "reference.html";

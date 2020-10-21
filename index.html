@@ -36,8 +36,8 @@
                     <h1>What do you want to study?</h1>
         
                     <div>
-                        <button @click="state = 'verbSettings';">Conjugations</button>
-                        <button @click="state = 'vocabSettings';">Vocab</button>
+                        <button @click="category = 'verbs'; state = 'settings';">Conjugations</button>
+                        <button @click="category = 'vocab'; state = 'settings';">Vocab</button>
                     </div>
             
                     <div>
@@ -46,11 +46,11 @@
                 </div>
         
         
-                <settings id="settings" v-show="state === 'verbSettings' || state === 'vocabSettings'" hidden
-                    :category="state === 'verbSettings' ? 'verbs' : 'vocab'" @start-session="StartSession">
+                <settings id="settings" v-show="state === 'settings'" hidden
+                    :category="category" @start-session="StartSession">
                 </settings>
         
-                <quizzer id="quizzer" v-show="state === 'verbQuizzer' || state === 'vocabQuizzer'" :active="state === 'verbQuizzer' || state === 'vocabQuizzer'" hidden
+                <quizzer id="quizzer" v-show="state === 'quizzer'" :active="state === 'quizzer'" hidden
                     :starting-index="promptIndex" :starting-prompts="prompts" @new-prompt="updateProgress"
                     :prompt-type="promptType" :input-type="inputType" :on-missed-prompt="onMissedPrompt" :repeat-prompts="repeatPrompts">
                 </quizzer>

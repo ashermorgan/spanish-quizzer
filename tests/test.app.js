@@ -54,28 +54,16 @@ describe("App", function() {
 
         it("Should go to home when on settings", function() {
             // Set state and test Back method
-            app.state = "verbSettings";
-            app.Back();
-            expect(app.state).to.equal("home");
-            
-            // Set state and test Back method again
-            app.state = "vocabSettings";
+            app.state = "settings";
             app.Back();
             expect(app.state).to.equal("home");
         });
         
-        it("Should go to verb settings when on verb quizzer", function() {
+        it("Should go to settings when on quizzer", function() {
             // Set state and test Back method
-            app.state = "verbQuizzer";
+            app.state = "quizzer";
             app.Back();
-            expect(app.state).to.equal("verbSettings");
-        });
-        
-        it("Should go to vocab settings when on vocab quizzer", function() {
-            // Set state and test Back method
-            app.state = "vocabQuizzer";
-            app.Back();
-            expect(app.state).to.equal("vocabSettings");
+            expect(app.state).to.equal("settings");
         });
     });
 
@@ -93,26 +81,15 @@ describe("App", function() {
             expect(app.repeatPrompts).to.equal("d");
         });
 
-        it("Should set state to 'verbQuizzer' if state is 'verbSettings'", function() {
+        it("Should set state to 'quizzer'", function() {
             // Initialize settings
-            app.state = "verbSettings";
+            app.state = "settings";
 
             // Call StartSession
             app.StartSession([1, 2, 3], 4, "a", "b", "c", "d");
 
             // Assert parameters imported
-            expect(app.state).to.equal("verbQuizzer");
-        });
-
-        it("Should set state to 'vocabQuizzer' if state is 'vocabSettings'", function() {
-            // Initialize settings
-            app.state = "vocabSettings";
-
-            // Call StartSession
-            app.StartSession([1, 2, 3], 4, "a", "b", "c", "d");
-
-            // Assert parameters imported
-            expect(app.state).to.equal("vocabQuizzer");
+            expect(app.state).to.equal("quizzer");
         });
     });
 });
