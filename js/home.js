@@ -33,6 +33,7 @@ function loadVue() {
             Back: function() {
                 switch (app.state) {
                     case "quizzer":
+                    case "congrats":
                         app.state = "settings";
                         break;
                     case "settings":
@@ -113,6 +114,7 @@ function Load() {
     document.getElementById("home").hidden = false;
     document.getElementById("settings").hidden = false;
     document.getElementById("quizzer").hidden = false;
+    document.getElementById("congrats").hidden = false;
     document.querySelector("footer").hidden = false;
 
     // Add event Listeners

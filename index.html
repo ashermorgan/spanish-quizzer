@@ -21,7 +21,7 @@
 
     <body onload="Load();">
         <div id="app">
-            <header @click="Back();">Spanish-Quizzer</header>
+            <header @click="Back">Spanish-Quizzer</header>
 
             <main>
                 <noscript>
@@ -31,31 +31,33 @@
                         <p>You can still view the <a href="vocab/">vocab sets</a>, but you can't use the Quizzer or the Reference Tables.</p>
                     </div>
                 </noscript>
-    
+
                 <div id="home" v-show="state === 'home'" hidden>
                     <h1>What do you want to study?</h1>
-        
                     <div>
                         <button @click="category = 'verbs'; state = 'settings';">Conjugations</button>
                         <button @click="category = 'vocab'; state = 'settings';">Vocab</button>
                     </div>
-            
                     <div>
                         <a href="reference.html">Or look something up in the Reference Tables</a>
                     </div>
                 </div>
-        
-        
+
                 <settings id="settings" v-show="state === 'settings'" hidden
                     :category="category" @start-session="StartSession">
                 </settings>
-        
+
                 <quizzer id="quizzer" v-show="state === 'quizzer'" :active="state === 'quizzer'" hidden
-                    :starting-index="promptIndex" :starting-prompts="prompts" :settings="settings" @new-prompt="updateProgress">
+                    :starting-index="promptIndex" :starting-prompts="prompts" :settings="settings"
+                    @new-prompt="updateProgress" @finished-prompts="state = 'congrats';">
                 </quizzer>
+
+                <div id="congrats" v-show="state === 'congrats'" hidden>
+                    <p>Congratulations, You finished all of the prompts!</p>
+                    <button @click="Back">Continue</button>
+                </div>
             </main>
-    
-    
+
             <footer hidden>
                 <div id="share" hidden>
                     <a href="mailto:?Subject=Spanish-Quizzer&amp;Body=https://ashermorgan.github.io/Spanish-Quizzer">Email</a>&nbsp;

@@ -34,7 +34,6 @@ let quizzer = Vue.component("quizzer", {
             index: this.startingIndex,
             responce: "",
             responceActive: true,
-            congratsActive: false,
         };
     },
 
@@ -67,15 +66,13 @@ let quizzer = Vue.component("quizzer", {
 
             // Show and hide elements
             this.responceActive = true;
-            this.congratsActive = false;
             
             // Get new prompt
             this.index++;
             if (this.index === this.prompts.length) {
                 // The user just finished
-                this.prompts = Shuffle(this.prompts);
-                this.index = 0;
-                this.congratsActive = true;
+                this.$emit("finished-prompts");
+                return;
             }
 
             // Emit new-prompt event
@@ -162,7 +159,6 @@ let quizzer = Vue.component("quizzer", {
             // Give user feedback
             if (!correct && (this.settings.onMissedPrompt === "Correct me" || this.settings.onMissedPrompt === "Tell me")) {
                 // Show and hide elements
-                this.congratsActive = false;
                 this.responceActive = false;
                 try {
                     // Will fail if not mounted
@@ -283,7 +279,6 @@ let quizzer = Vue.component("quizzer", {
                 Incorrect.
             </span>
         </div>
-        <div id="quizzerCongrats" class="good" v-show="congratsActive">Congratulations! You made it back to the beginning!</div>
     </div>
     `,
 });

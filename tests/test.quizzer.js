@@ -40,25 +40,37 @@ describe("Quizzer", function() {
         it("ResponceActive should be true", function() {
             expect(Quizzer.responceActive).to.equal(true);
         });
-        
-        it("CongratsActive should be true", function() {
-            expect(Quizzer.congratsActive).to.equal(false);
-        });
     });
     
     describe("Reset method", function() {
         it("Shouldn't do anything if active is false", function() {
+            // Initialize quizzer
+            Quizzer.prompts = [0, 1];
+            Quizzer.index = 0;
+            
             // Run Reset
             Quizzer.Reset();
 
             // Assert nothing changed
-            expect(Quizzer.prompts.length).to.equal(0);
+            expect(Quizzer.prompts).to.have.members([0, 1]);
             expect(Quizzer.index).to.equal(0);
             expect(Quizzer.responce).to.equal("");
             expect(Quizzer.responceActive).to.equal(true);
-            expect(Quizzer.congratsActive).to.equal(false);
         });
         
+        it("Should reset responce", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.responce = "test";
+            expect(Quizzer.responce).to.equal("test");
+
+            // Run reset
+            Quizzer.Reset();
+
+            // Assert reset called
+            expect(Quizzer.responce).to.equal("");
+        });
+    
         it("Should set responceActive to true", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -71,52 +83,46 @@ describe("Quizzer", function() {
             expect(Quizzer.responceActive).to.equal(true);
         });
         
-        it("Should set congratsActive to false", function() {
+        it("Should emit 'new-prompts' event", function() {
             // Initialize variables
             Quizzer.active = true;
-            Quizzer.congratsActive = true;
+            Quizzer.prompts = ["prompt 1", "prompt 2"];
+            Quizzer.index = 0;
+
+            // Override $emit method
+            let event = "";
+            Quizzer.$emit = function(name) {
+                event = name;
+            };
 
             // Run reset
             Quizzer.Reset();
 
-            // Assert congratsActive is true
-            expect(Quizzer.congratsActive).to.equal(false);
+            // Assert event emited
+            expect(event).to.equal("new-prompt");
         });
-        
-        it("Should set congratsActive to true if on last term", function() {
+
+        it("Should emit 'finished-prompts' event if on last term", function() {
             // Initialize variables
             Quizzer.active = true;
-            Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
+            Quizzer.prompts = ["prompt 1", "prompt 2"];
             Quizzer.index = 1;
 
-            // Run reset
-            Quizzer.Reset();
-
-            // Assert congratsActive is true
-            expect(Quizzer.congratsActive).to.equal(true);
-        });
-
-        it("Should reset responce", function() {
-            // Initialize variables
-            Quizzer.active = true;
-            Quizzer.responce = "test";  // Set to empty string when reset is called
-            expect(Quizzer.responce).to.equal("test");
+            // Override $emit method
+            let event = "";
+            Quizzer.$emit = function(name) {
+                event = name;
+            };
 
             // Run reset
             Quizzer.Reset();
 
-            // Assert reset called
-            expect(Quizzer.responce).to.equal("");
+            // Assert event emited
+            expect(event).to.equal("finished-prompts");
         });
     });
 
     describe("Submit method", function() {
-        beforeEach(function() {
-            // Initialize Vue to avoid document.getElementById errors
-            loadVue();
-            app.state = "verbQuizzer";
-        });
-
         it("Shouldn't do anything if active is false", function() {
             // Initialize variables
             Quizzer.responceActive = "test";  // Will be changed whether or not resopnce is correct
@@ -134,27 +140,37 @@ describe("Quizzer", function() {
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "A4";
 
+            // Override Reset method
+            let resetCalled = false;
+            Quizzer.Reset = function() {
+                resetCalled = true;
+            };
+
             // Call Submit
             Quizzer.Submit();
 
             // Assert Reset called
-            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+            expect(resetCalled).to.equal(true);
         });
     
         it("Should call Continue if onMissedPrompt is set to 'Ignore it'", function() {
             // Initialize variables
             Quizzer.active = true;
-            Quizzer.settings.repeatPrompts = "At the end";
-            Quizzer.onMissedPrompt = "Ignore it";
-            Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]]
+            Quizzer.settings.onMissedPrompt = "Ignore it";
+            Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
             Quizzer.responce = "A5";
+
+            // Override Continue method
+            let continueCalled = false;
+            Quizzer.Continue = function() {
+                continueCalled = true;
+            };
 
             // Call Submit
             Quizzer.Submit();
 
             // Assert Continue called
-            console.log(Quizzer.prompts);
-            expect(Quizzer.prompts).to.have.deep.members([["B1", "B2", "B3", "B4"], ["A1", "A2", "A3", "A4"]]);  // Continue will modify prompts
+            expect(continueCalled).to.equal(true);
         });
     
         it("Should not call Reset if onMissedPrompt is set to 'Tell me'", function() {
@@ -164,11 +180,17 @@ describe("Quizzer", function() {
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "A5";
 
+            // Override Reset method
+            let resetCalled = false;
+            Quizzer.Reset = function() {
+                resetCalled = true;
+            };
+
             // Call Submit
             Quizzer.Submit();
 
-            // Assert responceActive set to false
-            expect(Quizzer.responceActive).to.equal(false);
+            // Assert Reset not called
+            expect(resetCalled).to.equal(false);
         });
 
         it("Should set responceActive to false if responce is incorrect", function() {
@@ -190,11 +212,17 @@ describe("Quizzer", function() {
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "A1, A2, A3, A4";
 
+            // Override Reset method
+            let resetCalled = false;
+            Quizzer.Reset = function() {
+                resetCalled = true;
+            };
+
             // Call Submit
             Quizzer.Submit();
 
             // Assert responce accepted
-            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+            expect(resetCalled).to.equal(true);
         });
 
         it("Should accept multiple answers", function() {
@@ -203,11 +231,17 @@ describe("Quizzer", function() {
             Quizzer.prompts = [["A1", "A2", "A3", "A1, A2, A3, A4"]]
             Quizzer.responce = "A1, A2, A3, A4";
 
+            // Override Reset method
+            let resetCalled = false;
+            Quizzer.Reset = function() {
+                resetCalled = true;
+            };
+
             // Call Submit
             Quizzer.Submit();
 
-            // Assert answer accepted
-            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+            // Assert responce accepted
+            expect(resetCalled).to.equal(true);
         });
         
         it("Should require all answers", function() {
@@ -229,11 +263,17 @@ describe("Quizzer", function() {
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "a4";
 
+            // Override Reset method
+            let resetCalled = false;
+            Quizzer.Reset = function() {
+                resetCalled = true;
+            };
+
             // Call Submit
             Quizzer.Submit();
 
             // Assert responce accepted
-            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+            expect(resetCalled).to.equal(true);
         });
 
         it("Should accept responces with extra spaces", function() {
@@ -242,11 +282,17 @@ describe("Quizzer", function() {
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "  a4  ";
 
+            // Override Reset method
+            let resetCalled = false;
+            Quizzer.Reset = function() {
+                resetCalled = true;
+            };
+
             // Call Submit
             Quizzer.Submit();
 
             // Assert responce accepted
-            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+            expect(resetCalled).to.equal(true);
         });
     
         it("Should convert accented characters", function() {
@@ -255,11 +301,17 @@ describe("Quizzer", function() {
             Quizzer.prompts = [["A1", "A2", "A3", "Á4"]]
             Quizzer.responce = "a`4";
 
+            // Override Reset method
+            let resetCalled = false;
+            Quizzer.Reset = function() {
+                resetCalled = true;
+            };
+
             // Call Submit
             Quizzer.Submit();
 
             // Assert responce accepted
-            expect(Quizzer.congratsActive).to.equal(true);  // Reset will show congrats
+            expect(resetCalled).to.equal(true);
         });
     });
 
@@ -268,17 +320,23 @@ describe("Quizzer", function() {
             // Initialize variables
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
             Quizzer.index = 0;
-            Quizzer.settings.repeatPrompts = "At the end";
-            Quizzer.responceActive = false;  // Will be changed if Reset is called
+
+            // Override Reset method
+            let resetCalled = false;
+            Quizzer.Reset = function() {
+                resetCalled = true;
+            };
             
             // Run Continue
             Quizzer.Continue();
 
-            // Assert nothing changed
+            // Assert prompts not changed
             expect(Quizzer.prompts[0]).to.have.members(["A1", "A2", "A3", "A4"]);
             expect(Quizzer.prompts[1]).to.have.members(["B1", "B2", "B3", "B4"]);
             expect(Quizzer.index).to.equal(0);
-            expect(Quizzer.responceActive).to.equal(false);
+
+            // Assert Reset not called
+            expect(resetCalled).to.equal(false);
         });
 
         it("Shouldn't change prompts if repeatPrompts is Never", function() {
@@ -407,36 +465,47 @@ describe("Quizzer", function() {
         it("Should call Submit if responceActive is true", function() {
             // Initialize variables
             Quizzer.active = true;
-            Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];  // Will change if Continue is called
-            Quizzer.index = 0;  // Will be changed if Reset is called
-            Quizzer.responce = "A4";
-            Quizzer.settings.repeatPrompts = "At the end";
             Quizzer.responceActive = true;
+            
+            // Override Submit and Continue methods
+            let submitCalled = false;
+            Quizzer.Submit = function() {
+                submitCalled = true;
+            };
+            let continueCalled = false;
+            Quizzer.Continue = function() {
+                continueCalled = true;
+            };
 
             // Run Enter
             Quizzer.Enter();
 
             // Assert Submit called
-            expect(Quizzer.prompts[0]).to.have.members(["A1", "A2", "A3", "A4"]);
-            expect(Quizzer.prompts[1]).to.have.members(["B1", "B2", "B3", "B4"]);
-            expect(Quizzer.index).to.equal(1);
+            expect(submitCalled).to.equal(true);
+            expect(continueCalled).to.equal(false);
         });
 
         it("Should call Continue if responceActive is false", function() {
             // Initialize variables
             Quizzer.active = true;
-            Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];  // Will change if Continue is called
-            Quizzer.index = 0;  // Will be changed if Reset is called
-            Quizzer.settings.repeatPrompts = "At the end";
             Quizzer.responceActive = false;
+            
+            // Override Submit and Continue methods
+            let submitCalled = false;
+            Quizzer.Submit = function() {
+                submitCalled = true;
+            };
+            let continueCalled = false;
+            Quizzer.Continue = function() {
+                continueCalled = true;
+            };
 
             // Run Enter
             Quizzer.Enter();
 
-            // Assert Continue called
-            expect(Quizzer.prompts[0]).to.have.members(["B1", "B2", "B3", "B4"]);
-            expect(Quizzer.prompts[1]).to.have.members(["A1", "A2", "A3", "A4"]);
-            expect(Quizzer.index).to.equal(0);
+            // Assert Submit called
+            expect(submitCalled).to.equal(false);
+            expect(continueCalled).to.equal(true);
         });
     });
 
@@ -460,16 +529,18 @@ describe("Quizzer", function() {
         });
 
         it("Should call Reset when set to true", async function() {
-            // Initialize variables
-            Quizzer.responce = "test";  // Set to empty string when reset is called
-            expect(Quizzer.responce).to.equal("test");
+            // Override Reset method
+            let resetCalled = false;
+            Quizzer.Reset = function() {
+                resetCalled = true;
+            };
 
             // Set active to true
             Quizzer.active = true;
             await Quizzer.$nextTick();
 
             // Assert reset called
-            expect(Quizzer.responce).to.equal("");
+            expect(resetCalled).to.equal(true);
         });
     });
 
