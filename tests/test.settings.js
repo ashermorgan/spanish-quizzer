@@ -18,7 +18,7 @@ describe("Settings", function() {
             expect(Settings.vocabFilters.length).to.equal(0);
         });
     
-        it("Settings should be loaded", function() {
+        it("Settings should be loaded", async function() {
             // Save original setting from localStorage
             let originalValue = localStorage.getItem("settings");
 
@@ -27,6 +27,7 @@ describe("Settings", function() {
             
             // (re)Create settings component
             Settings = new settings();
+            await Settings.$nextTick(); // Allow Settings to update localStorage (so we can override it later)
 
             // Assert settings loaded
             expect(Settings.settings.promptType).to.equal("Audio");
@@ -38,7 +39,7 @@ describe("Settings", function() {
             localStorage.setItem("settings", originalValue);
         });
 
-        it("Invalid individual settings should not be loaded", function() {
+        it("Invalid individual settings should not be loaded", async function() {
             // Save original setting from localStorage
             let originalValue = localStorage.getItem("settings");
 
@@ -47,6 +48,7 @@ describe("Settings", function() {
             
             // (re)Create settings component
             Settings = new settings();
+            await Settings.$nextTick(); // Allow Settings to update localStorage (so we can override it later)
 
             // Assert default settings loaded
             expect(Settings.settings.promptType).to.equal("Audio"); // promptType wasn't invalid, so it should still be loaded
@@ -58,7 +60,7 @@ describe("Settings", function() {
             localStorage.setItem("settings", originalValue);
         });
 
-        it("Invalid JSON settings should not be loaded", function() {
+        it("Invalid JSON settings should not be loaded", async function() {
             // Save original setting from localStorage
             let originalValue = localStorage.getItem("settings");
     
@@ -67,6 +69,7 @@ describe("Settings", function() {
             
             // (re)Create settings component
             Settings = new settings();
+            await Settings.$nextTick(); // Allow Settings to update localStorage (so we can override it later)
     
             // Assert default settings loaded
             expect(Settings.settings.promptType).to.equal("Text");
