@@ -32,7 +32,9 @@ def getConjugations(verb):
         None, presentParticiple, # Present participle
         None, conjugations[1][1], conjugations[2][1], conjugations[3][1], conjugations[4][1], conjugations[6][1], # Present conjugations
         None, conjugations[1][2], conjugations[2][2], conjugations[3][2], conjugations[4][2], conjugations[6][2], # Preterite conjugations
-        None, conjugations[1][3], conjugations[2][3], conjugations[3][3], conjugations[4][3], conjugations[6][3]] # Imperfect conjugations
+        None, conjugations[1][3], conjugations[2][3], conjugations[3][3], conjugations[4][3], conjugations[6][3], # Imperfect conjugations
+        None, conjugations[1][5], conjugations[2][5], conjugations[3][5], conjugations[4][5], conjugations[6][5], # Future conjugations
+    ]
     return result
 
 
@@ -48,7 +50,7 @@ def correctConjugations(filepath):
             rows.append(row)
     
     # Iterate over rows
-    for row in rows[1:]:
+    for row in rows:
         try:
             # Get correct conjugations
             temp = getConjugations(row[1])

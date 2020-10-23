@@ -538,8 +538,22 @@ describe("Settings", function() {
         // Initialize verbs
         // Headers are capitalized to tell them apart from the other rows
         let verbs = [
-            ["KEY", "SPANISH INF", "TYPE",      "1A", "TYPE",       "2A", "2B", "2C", "2D", "2E", "TYPE",           "3A", "3B", "3C", "3D", "3E", "TYPE",           "4A", "4B", "4C", "4D", "4E"],
-            ["key", "spanish inf", "Regular",   "1a", "Irregular",  "2a", "2b", "2c", "2d", "2e", "Orthographic",   "3a", "3b", "3c", "3d", "3e", "Reflexive,Stem Changing",  "4a", "4b", "4c", "4d", "4e"],
+            [
+                "KEY", "SPANISH INF",
+                "TYPE", "1A",
+                "TYPE", "2A", "2B", "2C", "2D", "2E",
+                "TYPE", "3A", "3B", "3C", "3D", "3E",
+                "TYPE", "4A", "4B", "4C", "4D", "4E",
+                "TYPE", "5A", "5B", "5C", "5D", "5E",
+            ],
+            [
+                "key", "spanish inf",
+                "Regular", "1a",
+                "Irregular", "2a", "2b", "2c", "2d", "2e",
+                "Orthographic", "3a", "3b", "3c", "3d", "3e",
+                "Reflexive,Stem Changing", "4a", "4b", "4c", "4d", "4e",
+                "Regular", "5a", "5b", "5c", "5d", "5e",
+            ],
         ];
 
         it("Should correctly filter verbs for All Conjugatinos", function() {
@@ -561,6 +575,11 @@ describe("Settings", function() {
                 ["KEY", "key", "4C", "4c"],
                 ["KEY", "key", "4D", "4d"],
                 ["KEY", "key", "4E", "4e"],
+                ["KEY", "key", "5A", "5a"],
+                ["KEY", "key", "5B", "5b"],
+                ["KEY", "key", "5C", "5c"],
+                ["KEY", "key", "5D", "5d"],
+                ["KEY", "key", "5E", "5e"],
             ];
 
             // Filter verbs
@@ -673,6 +692,23 @@ describe("Settings", function() {
                 // Assert filtered verbs are correct
                 expect(actual).to.have.deep.members(expected);
             });
+   
+            it("Should correctly filter verbs for Simple Future Tense", function() {
+                // Initialize expected
+                let expected = [
+                    ["KEY", "key", "5A", "5a"],
+                    ["KEY", "key", "5B", "5b"],
+                    ["KEY", "key", "5C", "5c"],
+                    ["KEY", "key", "5D", "5d"],
+                    ["KEY", "key", "5E", "5e"],
+                ];
+
+                // Filter verbs
+                let actual = ApplyVerbFilter(verbs, [{tense:"Simple Future Tense", subject:"all subjects", type:"all types", direction:"Eng. => Conj."}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
         });
 
         describe("Regularity filters", function() {
@@ -680,6 +716,11 @@ describe("Settings", function() {
                 // Initialize expected
                 let expected = [
                     ["KEY", "key", "1A", "1a"],
+                    ["KEY", "key", "5A", "5a"],
+                    ["KEY", "key", "5B", "5b"],
+                    ["KEY", "key", "5C", "5c"],
+                    ["KEY", "key", "5D", "5d"],
+                    ["KEY", "key", "5E", "5e"],
                 ];
 
                 // Filter verbs
@@ -793,6 +834,7 @@ describe("Settings", function() {
                     ["KEY", "key", "2A", "2a"],
                     ["KEY", "key", "3A", "3a"],
                     ["KEY", "key", "4A", "4a"],
+                    ["KEY", "key", "5A", "5a"],
                 ];
 
                 // Filter verbs
@@ -809,6 +851,7 @@ describe("Settings", function() {
                     ["KEY", "key", "2B", "2b"],
                     ["KEY", "key", "3B", "3b"],
                     ["KEY", "key", "4B", "4b"],
+                    ["KEY", "key", "5B", "5b"],
                 ];
 
                 // Filter verbs
@@ -825,6 +868,7 @@ describe("Settings", function() {
                     ["KEY", "key", "2C", "2c"],
                     ["KEY", "key", "3C", "3c"],
                     ["KEY", "key", "4C", "4c"],
+                    ["KEY", "key", "5C", "5c"],
                 ];
 
                 // Filter verbs
@@ -841,6 +885,7 @@ describe("Settings", function() {
                     ["KEY", "key", "2D", "2d"],
                     ["KEY", "key", "3D", "3d"],
                     ["KEY", "key", "4D", "4d"],
+                    ["KEY", "key", "5D", "5d"],
                 ];
 
                 // Filter verbs
@@ -857,6 +902,7 @@ describe("Settings", function() {
                     ["KEY", "key", "2E", "2e"],
                     ["KEY", "key", "3E", "3e"],
                     ["KEY", "key", "4E", "4e"],
+                    ["KEY", "key", "5E", "5e"],
                 ];
 
                 // Filter verbs
