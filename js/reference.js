@@ -64,22 +64,3 @@ function setTableHeight() {
     var tableY = document.getElementById("referenceTable").offsetTop;
     document.getElementById("referenceTable").style.height = `${window.innerHeight - tableY - 50}px`;
 }
-
-
-
-/**
- * Read a term.
- * @param {Number} row - The row of the term.
- * @param {Number} column - The column of the term. 
- */
-function Read(row, column)
-{
-    var msg = new SpeechSynthesisUtterance(app.sets[app.set][row][column]);
-    if (app.sets[app.set][0][column].toLowerCase().includes("english")) {
-        msg.lang = 'en';
-    }
-    else if (app.sets[app.set][0][column].toLowerCase().includes("spanish")){
-        msg.lang = 'es';
-    }
-    window.speechSynthesis.speak(msg);
-}

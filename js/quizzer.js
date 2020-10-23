@@ -282,22 +282,3 @@ let quizzer = Vue.component("quizzer", {
     </div>
     `,
 });
-
-
-
-/**
- * Read a peice of text.
- * @param {String} text - The text to read.
- * @param {String} label - The language of the text.
- */
-function Read(text, label)
-{
-    var msg = new SpeechSynthesisUtterance(text);
-    if (label.toLowerCase().includes("english")) {
-        msg.lang = 'en';
-    }
-    else if (label.toLowerCase().includes("spanish")){
-        msg.lang = 'es';
-    }
-    window.speechSynthesis.speak(msg);
-}

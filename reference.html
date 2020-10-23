@@ -66,7 +66,7 @@
                     <table>
                         <tr v-for="(row, rowIndex) in sets[set]" v-show="rowIndex === 0 || row.join(',').toLowerCase().includes(query.toLowerCase())">
                             <th v-if="rowIndex === 0" v-for="column in row">{{ column }}</th>
-                            <td v-if="rowIndex !== 0" v-for="(column, columnIndex) in row" @click="Read(rowIndex, columnIndex)" :lang="getLang(sets[set][0][columnIndex])">{{ column }}</td>
+                            <td v-if="rowIndex !== 0" v-for="(column, columnIndex) in row" @click="Read(column, sets[set][0][columnIndex])" :lang="getLang(sets[set][0][columnIndex])">{{ column }}</td>
                         </tr>
                     </table>
                 </div>
