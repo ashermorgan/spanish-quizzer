@@ -66,6 +66,11 @@ let quizzer = Vue.component("quizzer", {
 
             // Show and hide elements
             this.responceActive = true;
+            try {
+                // Will fail if not mounted
+                this.$refs.input.focus();
+            }
+            catch { }
             
             // Get new prompt
             this.index++;

@@ -83,6 +83,27 @@ describe("Quizzer", function() {
             expect(Quizzer.responceActive).to.equal(true);
         });
         
+        it("Should focus input", function() {
+            // Initialize variables
+            Quizzer.active = true;
+
+            // Override focus method
+            let focusCalled = true;
+            Quizzer.$refs = {
+                input: {
+                    focus: function() {
+                        focusCalled = true;
+                    }        
+                }
+            };
+
+            // Run reset
+            Quizzer.Reset();
+
+            // Assert focus called
+            expect(focusCalled).to.equal(true);
+        });
+        
         it("Should emit 'new-prompts' event", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -206,6 +227,29 @@ describe("Quizzer", function() {
             expect(Quizzer.responceActive).to.equal(false);
         });
     
+        it("Should focus input if responce is incorrect", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
+            Quizzer.responce = "A5";
+
+            // Override focus method
+            let focusCalled = true;
+            Quizzer.$refs = {
+                input: {
+                    focus: function() {
+                        focusCalled = true;
+                    }        
+                }
+            };
+
+            // Call submit
+            Quizzer.Submit();
+
+            // Assert focus called
+            expect(focusCalled).to.equal(true);
+        });
+
         it("Should accept multiple responces", function() {
             // Initialize variables
             Quizzer.active = true;
