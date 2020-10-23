@@ -71,6 +71,10 @@ let settings = Vue.component("settings", {
                     filters["Stem Changing"] = false;   // Stem Changing
                     filters["Orthographic"] = false;    // Orthographic
                     break;
+                case "Simple Future Tense":
+                    filters["Stem Changing"] = false;   // Stem Changing
+                    filters["Orthographic"] = false;    // Orthographic
+                    break;
             }
 
             // Reset type if needed
@@ -343,6 +347,7 @@ let settings = Vue.component("settings", {
                         <option>Present Tense</option>
                         <option>Preterite Tense</option>
                         <option>Imperfect Tense</option>
+                        <option>Simple Future Tense</option>
                     </select>
                     <select v-model="filter.type">
                         <option v-for="(available, type) in getTenseTypes(index)" :disabled="!available">{{ type }}</option>
@@ -528,6 +533,7 @@ function ApplyVerbFilter(terms, filterInfo) {
             filters.push({ tense: "present tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "preterite tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "imperfect tense", type: filter.type, subject: filter.subject, direction: filter.direction });
+            filters.push({ tense: "simple future tense", type: filter.type, subject: filter.subject, direction: filter.direction });
         }
         else {
             filters.push({ tense: filter.tense.toLowerCase(), type: filter.type, subject: filter.subject, direction: filter.direction });
@@ -663,6 +669,29 @@ function ApplyVerbFilter(terms, filterInfo) {
                         throw `Unrecognized subject: ${filter.subject}.`;
                 }
                 break;
+            case "simple future tense":
+                filterIndex = 22;
+                switch (filter.subject) {
+                    case "yo":
+                        inputIndex = 23;
+                        break;
+                    case "tú":
+                        inputIndex = 24;
+                        break;
+                    case "él":
+                        inputIndex = 25;
+                        break;
+                    case "nosotros":
+                        inputIndex = 26;
+                        break;
+                    case "ellos":
+                        inputIndex = 27;
+                        break;
+                    default:
+                        throw `Unrecognized subject: ${filter.subject}.`;
+                }
+                break;
+                
             default:
                 throw `Unrecognized tense: ${filter.tense}.`;
         }
