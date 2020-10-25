@@ -16,6 +16,7 @@ let settings = Vue.component("settings", {
                 inputType: "Text",
                 onMissedPrompt: "Correct me",
                 repeatPrompts: "Never",
+                multiplePrompts: "Show together",
             },
         };
     },
@@ -323,6 +324,9 @@ let settings = Vue.component("settings", {
         if (parsedSettings.repeatPrompts && ["Never", "Immediately", "5 prompts later", "At the end"].includes(parsedSettings.repeatPrompts)) {
             this.settings.repeatPrompts = parsedSettings.repeatPrompts;
         }
+        if (parsedSettings.multiplePrompts && ["Show together", "Show separately", "Show one"].includes(parsedSettings.multiplePrompts)) {
+            this.settings.multiplePrompts = parsedSettings.multiplePrompts;
+        }
     },
 
     destroyed: function() {
@@ -438,8 +442,8 @@ let settings = Vue.component("settings", {
                     </select>
                 </div>
                 <div>
-                    <label for="settingsRepeatPrompts">When I miss a prompt</label>
-                    <select id="settingsRepeatPrompts" v-model="settings.onMissedPrompt">
+                    <label for="settingsOnMissedPrompt">When I miss a prompt</label>
+                    <select id="settingsOnMissedPrompt" v-model="settings.onMissedPrompt">
                         <option>Correct me</option>
                         <option>Tell me</option>
                         <option>Ignore it</option>
@@ -452,6 +456,14 @@ let settings = Vue.component("settings", {
                         <option>Immediately</option>
                         <option>5 prompts later</option>
                         <option>At the end</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="settingsMultiplePrompts">Multiple prompts</label>
+                    <select id="settingsMultiplePrompts" v-model="settings.multiplePrompts">
+                        <option>Show together</option>
+                        <option>Show separately</option>
+                        <option>Show one</option>
                     </select>
                 </div>
             </div>
