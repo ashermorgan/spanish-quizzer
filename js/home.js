@@ -145,12 +145,12 @@ function KeyDown(e) {
     // Home shortcuts
     if (app.state === "home") {
         if (e.key === "c") {
-            category = "verbs";
-            state = "settings";
+            app.category = "verbs";
+            app.state = "settings";
         }
         if (e.key === "v") {
-            category = "vocab";
-            state = "settings";
+            app.category = "vocab";
+            app.state = "settings";
         }
         if (e.key === "r") {
             window.location = "reference.html";
