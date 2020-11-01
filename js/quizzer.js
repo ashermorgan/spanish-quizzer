@@ -47,7 +47,7 @@ let quizzer = Vue.component("quizzer", {
                 // Update prompts
                 this.prompts = this.startingPrompts;
                 this.index = this.startingIndex - 1;
-                
+
                 // Reset quizzer
                 this.Reset();
             }
@@ -56,10 +56,27 @@ let quizzer = Vue.component("quizzer", {
 
     methods: {
         /**
+         * Handles keyup events and implements quizzer keyboard shortcuts.
+         */
+        keyup: function(e) {
+            // Check if Quizzer is active
+            if (!this.active) {
+                return;
+            }
+
+            if (e.keyCode === 13 && e.ctrlKey) {
+                this.Reset();
+            }
+            else if (e.keyCode === 13 && !e.ctrlKey) {
+                this.Enter();
+            }
+        },
+
+        /**
          * Give the user the next prompt and reset the quizzer.
          */
         Reset: function() {
-            // Check is Quizzer is active
+            // Check if Quizzer is active
             if (!this.active) {
                 return;
             }
@@ -71,7 +88,7 @@ let quizzer = Vue.component("quizzer", {
                 this.$refs.input.focus();
             }
             catch { }
-            
+
             // Get new prompt
             this.index++;
             if (this.index === this.prompts.length) {
@@ -95,7 +112,7 @@ let quizzer = Vue.component("quizzer", {
             if (this.settings.inputType !== "Text") {
                 // Create recognition object
                 var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-                
+
                 // Set language
                 if (this.prompt[2].toLowerCase().includes("english")) {
                     recognition.lang = 'en-US';
@@ -127,7 +144,7 @@ let quizzer = Vue.component("quizzer", {
          * Process the user's responce.
          */
         Submit: function() {
-            // Check is Quizzer is active
+            // Check if Quizzer is active
             if (!this.active) {
                 return;
             }
@@ -185,11 +202,11 @@ let quizzer = Vue.component("quizzer", {
          * Process an incorrect responce and then reset the quizzer.
          */
         Continue: function() {
-            // Check is Quizzer is active
+            // Check if Quizzer is active
             if (!this.active) {
                 return;
             }
-            
+
             // Repeat prompt
             switch (this.settings.repeatPrompts)
             {
@@ -219,16 +236,16 @@ let quizzer = Vue.component("quizzer", {
             // Reset quizzer
             this.Reset();
         },
-        
+
         /**
          * Calls Submit or Continue depending on the value of responceActive.
          */
         Enter: function() {
-            // Check is Quizzer is active
+            // Check if Quizzer is active
             if (!this.active) {
                 return;
             }
-            
+
             if (this.responceActive) {
                 this.Submit();
             }
@@ -252,32 +269,41 @@ let quizzer = Vue.component("quizzer", {
             }
         }
     },
-    
+
+    created: function() {
+        // Add keyup handler
+        window.addEventListener("keyup", this.keyup);
+    },
+
+    destroyed: function() {
+        // Remove keyup handler
+        window.removeEventListener("keyup", this.keyup);
+    },
+
     template: `
     <div>
         <p id="quizzerProgress">{{ index }} / {{ prompts.length }}</p>
-        
+
         <section>
             <label id="quizzerPromptType" for="quizzerPrompt">{{ prompt[0] }}</label>
             <span id="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">{{ settings.promptType === "Audio" ? "Click to hear again" : prompt[1] }}</span>
         </section>
-        
+
         <section>
             <label id="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
             <input id="quizzerInput" ref="input" type="text" v-model="responce" :readonly="!responceActive || settings.inputType === 'Voice'"
-                @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();" :lang="getLang(prompt[2])"
-                autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
+                :lang="getLang(prompt[2])" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
         </section>
-        
+
         <div id="quizzerButtons">
             <button v-if="responceActive" :disabled="settings.inputType === 'Voice'" @click="Submit();">Submit</button>
             <button v-else @click="Continue();">Continue</button>
             <button @click="Reset();">Skip</button>
         </div>
-        
+
         <div id="quizzerFeedback" ref="feedback" v-show="!responceActive" class="bad">
             <span v-if="settings.onMissedPrompt === 'Correct me'">
-                The correct answer is 
+                The correct answer is
                 <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
             </span>
             <span v-if="settings.onMissedPrompt === 'Tell me'">

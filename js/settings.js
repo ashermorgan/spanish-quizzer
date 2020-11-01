@@ -94,7 +94,7 @@ let settings = Vue.component("settings", {
         getTenseSubjects: function(index) {
             // Set default filters
             let filters = {"All Subjects":true, "Yo":true, "Tú":true, "Él":true, "Nosotros":true, "Ellos":true}
-            
+
             if (this.verbFilters[index].tense === "Present Participles") {
                 // Override filters
                 filters["Yo"] = false;
@@ -102,7 +102,7 @@ let settings = Vue.component("settings", {
                 filters["Él"] = false;
                 filters["Nosotros"] = false;
                 filters["Ellos"] = false;
-                
+
                 // Reset subject
                 this.verbFilters[index].subject = "All Subjects";
             }
@@ -126,7 +126,7 @@ let settings = Vue.component("settings", {
                     filters["Nouns"] = false;
                     filters["Verbs"] = false;
                     break;
-                
+
                 case "Adjectives":
                     filters["Nouns"] = false;
                     filters["Verbs"] = false;
@@ -145,18 +145,18 @@ let settings = Vue.component("settings", {
                     filters["Nouns"] = false;
                     filters["Verbs"] = false;
                     break;
-                
+
                 case "Colors":
                     filters["Nouns"] = false;
                     filters["Verbs"] = false;
                     break;
-                
+
                 case "Days":
                 case "Months":
                     filters["Adjectives"] = false;
                     filters["Verbs"] = false;
                     break;
-                
+
                 case "Weather":
                 case "Professions":
                     filters["Adjectives"] = false;
@@ -166,7 +166,7 @@ let settings = Vue.component("settings", {
                 case "Clothes":
                     filters["Verbs"] = false;
                     break;
-                
+
                 case "Nature":
                 case "House":
                 case "Vacation":
@@ -215,7 +215,7 @@ let settings = Vue.component("settings", {
                 alert("Your custom vocabulary set must contain at least one term.");
                 return;
             }
-            
+
             // Start quizzer
             this.$emit("start-session", prompts, promptIndex, this.settings);
         },
@@ -309,7 +309,7 @@ let settings = Vue.component("settings", {
         }
         catch { return; }
         if (!parsedSettings) { return; }
-        
+
         // Load settings
         if (parsedSettings.promptType && ["Text", "Audio", "Both"].includes(parsedSettings.promptType)) {
             this.settings.promptType = parsedSettings.promptType;
@@ -327,9 +327,9 @@ let settings = Vue.component("settings", {
 
     destroyed: function() {
         // Remove keyup handler
-        window.removeEventListener("keydown", this.keyup);
+        window.removeEventListener("keyup", this.keyup);
     },
-    
+
     template: `
         <div class="settings" ref="container">
             <div class="verbSettings" v-show="category === 'verbs'">
@@ -339,7 +339,7 @@ let settings = Vue.component("settings", {
                     Verb Filters
                     <button @click="AddFilter();">Add Filter</button>
                 </h2>
-                
+
                 <div v-for="(filter, index) in verbFilters" class="filter">
                     <select v-model="filter.tense">
                         <option>All Tenses</option>
@@ -539,7 +539,7 @@ function ApplyVerbFilter(terms, filterInfo) {
             filters.push({ tense: filter.tense.toLowerCase(), type: filter.type, subject: filter.subject, direction: filter.direction });
         }
     }
-    
+
     // Expand "All Subjects" filters
     for (let filter of filters) {
         if (filter.subject.toLowerCase() === "all subjects" && filter.tense !== "present participles") {
@@ -691,7 +691,7 @@ function ApplyVerbFilter(terms, filterInfo) {
                         throw `Unrecognized subject: ${filter.subject}.`;
                 }
                 break;
-                
+
             default:
                 throw `Unrecognized tense: ${filter.tense}.`;
         }
@@ -731,13 +731,13 @@ function Shuffle(items) {
     var currentIndex = items.length;
     var temp;
     var randomIndex;
-    
+
     // While there are more elements to shuffle
     while (0 !== currentIndex) {
         // Pick a remaining element
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
-        
+
         // Swap the two elements
         temp = items[currentIndex];
         items[currentIndex] = items[randomIndex];
