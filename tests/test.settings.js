@@ -1140,6 +1140,146 @@ describe("Settings", function() {
             // Assert filtered vocab is correct
             expect(actual).to.have.deep.members(expected);
         });
+
+        describe("multiplePrompts setting", function() {
+            // Initialize vocab2
+            let vocab2 = {
+                "set1": [
+                    ["Upper",       "Lower",    "Type1"],
+                    ["A1, A2 , A3", "a",        "Noun"],
+                    ["B1, B2",      "b",        "Adjective"],
+                    ["C",           "c",        "Verb"],
+                ],
+            };
+
+            it("Shouldn't effect single prompts", function() {
+                // Initialize expected
+                let expected = [
+                    ["Upper", "C",      "Lower", "c"],
+                ];
+
+                // Call ApplyFilters
+                let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Verb"}], "Show separately");
+
+                // Assert filtered vocab is correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should't effect prompts if equal to 'Show together'", function() {
+                // Initialize expected
+                let expected = [
+                    ["Upper", "A1, A2 , A3", "Lower", "a"],
+                    ["Upper", "B1, B2",     "Lower", "b"],
+                ];
+
+                // Call ApplyFilters
+                let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Noun|Adjective"}], "Show together");
+
+                // Assert filtered vocab is correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should split up prompts if equal to 'Show separately'", function() {
+                // Initialize expected
+                let expected = [
+                    ["Upper", "A1", "Lower", "a"],
+                    ["Upper", "A2", "Lower", "a"],
+                    ["Upper", "A3", "Lower", "a"],
+                    ["Upper", "B1", "Lower", "b"],
+                    ["Upper", "B2", "Lower", "b"],
+                ];
+
+                // Call ApplyFilters
+                let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Noun|Adjective"}], "Show separately");
+
+                // Assert filtered vocab is correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should correctly filter prompts if equal to 'Show one' (Math.random returns 0)", function() {
+                // Initialize expected
+                let expected = [
+                    ["Upper", "A1",      "Lower", "a"],
+                    ["Upper", "B1",      "Lower", "b"],
+                ];
+
+                // Copy original Math.random method
+                let random = Math.random;
+
+                try {
+                    // Override Math.random method
+                    Math.random = function() {
+                        return 0;
+                    }
+
+                    // Call ApplyFilters
+                    let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Noun|Adjective"}], "Show one");
+
+                    // Assert filtered vocab is correct
+                    expect(actual).to.have.deep.members(expected);
+                }
+                finally {
+                    // Restore Math.random method
+                    Math.random = random;
+                }
+            });
+
+            it("Should correctly filter prompts if equal to 'Show one' (Math.random returns 0.5)", function() {
+                // Initialize expected
+                let expected = [
+                    ["Upper", "A2",    "Lower", "a"],
+                    ["Upper", "B1",    "Lower", "b"],
+                ];
+
+                // Copy original Math.random method
+                let random = Math.random;
+
+                try {
+                    // Override Math.random method
+                    Math.random = function() {
+                        return 0.5;
+                    }
+
+                    // Call ApplyFilters
+                    let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Noun|Adjective"}], "Show one");
+
+                    // Assert filtered vocab is correct
+                    expect(actual).to.have.deep.members(expected);
+                }
+                finally {
+                    // Restore Math.random method
+                    Math.random = random;
+                }
+            });
+
+            it("Should correctly filter prompts if equal to 'Show one' (Math.random returns 1)", function() {
+                // Initialize expected
+                let expected = [
+                    ["Upper", "A3",    "Lower", "a"],
+                    ["Upper", "B2",    "Lower", "b"],
+                ];
+
+                // Copy original Math.random method
+                let random = Math.random;
+
+                try {
+                    // Override Math.random method
+                    Math.random = function() {
+                        return 1;
+                    }
+
+                    // Call ApplyFilters
+                    let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Noun|Adjective"}], "Show one");
+
+                    // Assert filtered vocab is correct
+                    expect(actual).to.have.deep.members(expected);
+                }
+                finally {
+                    // Restore Math.random method
+                    Math.random = random;
+                }
+            });
+        });
     });
 
     describe("Shuffle method", function() {

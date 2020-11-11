@@ -192,11 +192,11 @@ let settings = Vue.component("settings", {
             // Get prompts
             let prompts;
             if (this.category === "vocab") {
-                prompts = Shuffle(ApplyFilters(Sets, GetVocabFilters(this.vocabFilters)));
+                prompts = Shuffle(ApplyFilters(Sets, GetVocabFilters(this.vocabFilters), this.settings.multiplePrompts));
             }
             else if (this.category === "verbs") {
                 // Get prompts
-                prompts = Shuffle(ApplyFilters(Sets, GetVerbFilters(this.verbFilters)));
+                prompts = Shuffle(ApplyFilters(Sets, GetVerbFilters(this.verbFilters), this.settings.multiplePrompts));
             }
 
             // Set progress
@@ -724,7 +724,8 @@ function GetVerbFilters(rawFilters) {
  * @param {Array} filters The io-filters.
  * @returns {Array} The prompts.
  */
-function ApplyFilters(terms, filters) {
+function ApplyFilters(terms, filters, multiplePrompts="Show together") {
+    // Filter terms
     let results = [];   // Format: [[<output label>, <output>, <input label>, <input>]]
     for (let filter of filters) {
         // Iterate over terms (minus headers)
@@ -735,6 +736,37 @@ function ApplyFilters(terms, filters) {
             }
         }
     }
+
+    // Iterate over prompts to enforce multiplePrompts setting
+    for (let result of results) {
+        // Get array of prompt outputs
+        let prompts = result[1].split(/\s*,\s*/);
+
+        // Check if multiple outputs exist
+        if (prompts.length > 1) {
+            switch (multiplePrompts) {
+                case "Show one":
+                    // Set current prompt's output to a random prompt
+                    result[1] = prompts[Math.floor(Math.random() * (prompts.length - 1))]
+                    break;
+
+                case "Show separately":
+                    result[1] = prompts[0]; // Set current prompt's output to 1st prompt
+                    for (let prompt of prompts.splice(1)) {
+                        // Add seperate prompts for extra outputs
+                        results.push([result[0], prompt, result[2], result[3]])
+                    }
+                    break;
+
+                case "Show together":
+                default:
+                    // Do nothing
+                    break;
+            }
+        }
+    }
+
+    // Return prompts
     return results;
 }
 
