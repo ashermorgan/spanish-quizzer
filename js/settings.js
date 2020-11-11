@@ -17,6 +17,7 @@ let settings = Vue.component("settings", {
                 onMissedPrompt: "Correct me",
                 repeatPrompts: "Never",
                 multiplePrompts: "Show together",
+                multipleAnswers: "Require all",
             },
         };
     },
@@ -318,6 +319,9 @@ let settings = Vue.component("settings", {
         if (parsedSettings.multiplePrompts && ["Show together", "Show separately", "Show one"].includes(parsedSettings.multiplePrompts)) {
             this.settings.multiplePrompts = parsedSettings.multiplePrompts;
         }
+        if (parsedSettings.multipleAnswers && ["Require one", "Require any"].includes(parsedSettings.multipleAnswers)) {
+            this.settings.multipleAnswers = parsedSettings.multipleAnswers;
+        }
     },
 
     destroyed: function() {
@@ -455,6 +459,13 @@ let settings = Vue.component("settings", {
                         <option>Show together</option>
                         <option>Show separately</option>
                         <option>Show one</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="settingsMultipleAnswers">Multiple answers</label>
+                    <select id="settingsMultipleAnswers" v-model="settings.multipleAnswers">
+                        <option>Require all</option>
+                        <option>Require any</option>
                     </select>
                 </div>
             </div>

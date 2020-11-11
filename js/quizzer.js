@@ -23,6 +23,7 @@ let quizzer = Vue.component("quizzer", {
                     inputType: "Text",
                     onMissedPrompt: "Correct me",
                     repeatPrompts: "Never",
+                    multipleAnswers: "Require all",
                 }
             },
         },
@@ -47,7 +48,7 @@ let quizzer = Vue.component("quizzer", {
                 // Update prompts
                 this.prompts = this.startingPrompts;
                 this.index = this.startingIndex - 1;
-                
+
                 // Reset quizzer
                 this.Reset();
             }
@@ -71,7 +72,7 @@ let quizzer = Vue.component("quizzer", {
                 this.$refs.input.focus();
             }
             catch { }
-            
+
             // Get new prompt
             this.index++;
             if (this.index === this.prompts.length) {
@@ -95,7 +96,7 @@ let quizzer = Vue.component("quizzer", {
             if (this.settings.inputType !== "Text") {
                 // Create recognition object
                 var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-                
+
                 // Set language
                 if (this.prompt[2].toLowerCase().includes("english")) {
                     recognition.lang = 'en-US';
@@ -133,7 +134,7 @@ let quizzer = Vue.component("quizzer", {
             }
 
             // Parse responce
-            var responce = this.responce.toLowerCase(); // Make responce lowercase
+            let responce = this.responce.toLowerCase(); // Make responce lowercase
             responce = responce.replace(/a`/g, "á"); // Apply accented a shortcut
             responce = responce.replace(/e`/g, "é"); // Apply accented e shortcut
             responce = responce.replace(/i`/g, "í"); // Apply accented i shortcut
@@ -142,23 +143,32 @@ let quizzer = Vue.component("quizzer", {
             responce = responce.replace(/o`/g, "ó"); // Apply accented o shortcut
             responce = responce.replace(/u`/g, "ú"); // Apply accented u shortcut
             responce = responce.replace(/u~/g, "ü"); // Apply u with diaeresis shortcut
-            var responces = responce.split(",");    // Split string by commas
-            for (var i = 0; i < responces.length; i++) {
+            let responces = responce.split(",");    // Split string by commas
+            for (let i = 0; i < responces.length; i++) {
                 responces[i] = responces[i].split(" ").filter(function(x){return x !== "";}).join(" "); // Trim whitespace
             }
 
             // Parse answer
             let answers = this.prompt[3].toLowerCase().split(","); // Split string by commas
-            for (var i = 0; i < answers.length; i++) {
+            for (let i = 0; i < answers.length; i++) {
                 answers[i] = answers[i].trim(); // Trim whitespace
             }
 
-            // Check responce
-            var correct = true;
-            for (var answer of answers) {
-                if (!responces.includes(answer)) {
-                    correct = false;
+            // Count correct responces
+            let correctResponces = 0;
+            for (let answer of answers) {
+                if (responces.includes(answer)) {
+                    correctResponces++;
                 }
+            }
+
+            // Determine if responce is correct (and enforce multipleAnswers setting)
+            let correct;
+            if (this.settings.multipleAnswers === "Require all") {
+                correct = correctResponces === answers.length;
+            }
+            else {
+                correct = correctResponces > 0;
             }
 
             // Give user feedback
@@ -189,7 +199,7 @@ let quizzer = Vue.component("quizzer", {
             if (!this.active) {
                 return;
             }
-            
+
             // Repeat prompt
             switch (this.settings.repeatPrompts)
             {
@@ -219,7 +229,7 @@ let quizzer = Vue.component("quizzer", {
             // Reset quizzer
             this.Reset();
         },
-        
+
         /**
          * Calls Submit or Continue depending on the value of responceActive.
          */
@@ -228,7 +238,7 @@ let quizzer = Vue.component("quizzer", {
             if (!this.active) {
                 return;
             }
-            
+
             if (this.responceActive) {
                 this.Submit();
             }
@@ -252,32 +262,32 @@ let quizzer = Vue.component("quizzer", {
             }
         }
     },
-    
+
     template: `
     <div>
         <p id="quizzerProgress">{{ index }} / {{ prompts.length }}</p>
-        
+
         <section>
             <label id="quizzerPromptType" for="quizzerPrompt">{{ prompt[0] }}</label>
             <span id="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">{{ settings.promptType === "Audio" ? "Click to hear again" : prompt[1] }}</span>
         </section>
-        
+
         <section>
             <label id="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
             <input id="quizzerInput" ref="input" type="text" v-model="responce" :readonly="!responceActive || settings.inputType === 'Voice'"
                 @keyup.ctrl.enter.exact="Reset();" @keyup.enter.exact="Enter();" :lang="getLang(prompt[2])"
                 autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
         </section>
-        
+
         <div id="quizzerButtons">
             <button v-if="responceActive" :disabled="settings.inputType === 'Voice'" @click="Submit();">Submit</button>
             <button v-else @click="Continue();">Continue</button>
             <button @click="Reset();">Skip</button>
         </div>
-        
+
         <div id="quizzerFeedback" ref="feedback" v-show="!responceActive" class="bad">
             <span v-if="settings.onMissedPrompt === 'Correct me'">
-                The correct answer is 
+                The correct answer is
                 <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
             </span>
             <span v-if="settings.onMissedPrompt === 'Tell me'">

@@ -18,6 +18,8 @@ describe("App", function() {
             expect(app.settings.inputType).to.equal("Text");
             expect(app.settings.onMissedPrompt).to.equal("Correct me");
             expect(app.settings.repeatPrompts).to.equal("Never");
+            expect(app.settings.multiplePrompts).to.equal("Show together");
+            expect(app.settings.multipleAnswers).to.equal("Require all");
         });
 
         it("Prompts should be empty", function() {

@@ -35,6 +35,7 @@ describe("Settings", function() {
             expect(Settings.settings.onMissedPrompt).to.equal("Tell me");
             expect(Settings.settings.repeatPrompts).to.equal("5 prompts later");
             expect(Settings.settings.multiplePrompts).to.equal("Show together");
+            expect(Settings.settings.multipleAnswers).to.equal("Require all");
 
             // Restore original setting to localStorage
             localStorage.setItem("settings", originalValue);
@@ -413,10 +414,11 @@ describe("Settings", function() {
             Settings.settings.onMissedPrompt = "C";
             Settings.settings.repeatPrompts = "D";
             Settings.settings.multiplePrompts = "E";
+            Settings.settings.multipleAnswers = "F";
             await Settings.$nextTick();
 
             // Assert localStorage setting updated
-            expect(localStorage.getItem("settings")).to.equal(`{"promptType":"A","inputType":"B","onMissedPrompt":"C","repeatPrompts":"D","multiplePrompts":"E"}`);
+            expect(localStorage.getItem("settings")).to.equal(`{"promptType":"A","inputType":"B","onMissedPrompt":"C","repeatPrompts":"D","multiplePrompts":"E","multipleAnswers":"F"}`);
 
             // Restore original setting to localStorage
             localStorage.setItem("settings", originalValue);

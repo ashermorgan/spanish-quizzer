@@ -23,6 +23,7 @@ describe("Quizzer", function() {
             expect(Quizzer.settings.inputType).to.equal("Text");
             expect(Quizzer.settings.onMissedPrompt).to.equal("Correct me");
             expect(Quizzer.settings.repeatPrompts).to.equal("Never");
+            expect(Quizzer.settings.multipleAnswers).to.equal("Require all");
         });
 
         it("Prompts should be empty", function() {
@@ -32,22 +33,22 @@ describe("Quizzer", function() {
         it("Index should be 0", function() {
             expect(Quizzer.index).to.equal(0);
         });
-        
+
         it("Responce should be empty", function() {
             expect(Quizzer.responce).to.equal("");
         });
-        
+
         it("ResponceActive should be true", function() {
             expect(Quizzer.responceActive).to.equal(true);
         });
     });
-    
+
     describe("Reset method", function() {
         it("Shouldn't do anything if active is false", function() {
             // Initialize quizzer
             Quizzer.prompts = [0, 1];
             Quizzer.index = 0;
-            
+
             // Run Reset
             Quizzer.Reset();
 
@@ -57,7 +58,7 @@ describe("Quizzer", function() {
             expect(Quizzer.responce).to.equal("");
             expect(Quizzer.responceActive).to.equal(true);
         });
-        
+
         it("Should reset responce", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -70,7 +71,7 @@ describe("Quizzer", function() {
             // Assert reset called
             expect(Quizzer.responce).to.equal("");
         });
-    
+
         it("Should set responceActive to true", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -82,7 +83,7 @@ describe("Quizzer", function() {
             // Assert responceActive is true
             expect(Quizzer.responceActive).to.equal(true);
         });
-        
+
         it("Should focus input", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -93,7 +94,7 @@ describe("Quizzer", function() {
                 input: {
                     focus: function() {
                         focusCalled = true;
-                    }        
+                    }
                 }
             };
 
@@ -103,7 +104,7 @@ describe("Quizzer", function() {
             // Assert focus called
             expect(focusCalled).to.equal(true);
         });
-        
+
         it("Should emit 'new-prompts' event", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -147,14 +148,14 @@ describe("Quizzer", function() {
         it("Shouldn't do anything if active is false", function() {
             // Initialize variables
             Quizzer.responceActive = "test";  // Will be changed whether or not resopnce is correct
-            
+
             // Run Submit
             Quizzer.Submit();
 
             // Assert nothing changed
             expect(Quizzer.responceActive).to.equal("test");
         });
-        
+
         it("Should call Reset if responce is correct", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -173,7 +174,7 @@ describe("Quizzer", function() {
             // Assert Reset called
             expect(resetCalled).to.equal(true);
         });
-    
+
         it("Should call Continue if onMissedPrompt is set to 'Ignore it'", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -193,7 +194,7 @@ describe("Quizzer", function() {
             // Assert Continue called
             expect(continueCalled).to.equal(true);
         });
-    
+
         it("Should not call Reset if onMissedPrompt is set to 'Tell me'", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -226,7 +227,7 @@ describe("Quizzer", function() {
             // Assert responceActive set to false
             expect(Quizzer.responceActive).to.equal(false);
         });
-    
+
         it("Should focus input if responce is incorrect", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -239,7 +240,7 @@ describe("Quizzer", function() {
                 input: {
                     focus: function() {
                         focusCalled = true;
-                    }        
+                    }
                 }
             };
 
@@ -287,20 +288,35 @@ describe("Quizzer", function() {
             // Assert responce accepted
             expect(resetCalled).to.equal(true);
         });
-        
-        it("Should require all answers", function() {
+
+        it("Should require all answers if multipleAnswers is set to 'Require all'", function() {
             // Initialize variables
             Quizzer.active = true;
+            Quizzer.settings.multipleAnswers = "Require all";
             Quizzer.prompts = [["A1", "A2", "A3", "A1, A2, A3, A4"]]
             Quizzer.responce = "A1, A2, A3";
 
             // Call Submit
             Quizzer.Submit();
 
-            // Assert answer no accepted
+            // Assert answer not accepted
             expect(Quizzer.responceActive).to.equal(false);
         });
-        
+
+        it("Shouldn't require all answers if multipleAnswers is set to 'Require any'", function() {
+            // Initialize variables
+            Quizzer.active = true;
+            Quizzer.settings.multipleAnswers = "Require any";
+            Quizzer.prompts = [["A1", "A2", "A3", "A1, A2, A3, A4"]]
+            Quizzer.responce = "A1, A2, A3";
+
+            // Call Submit
+            Quizzer.Submit();
+
+            // Assert answer accepted
+            expect(Quizzer.responceActive).to.equal(true);
+        });
+
         it("Should accept mixed-case responces", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -338,7 +354,7 @@ describe("Quizzer", function() {
             // Assert responce accepted
             expect(resetCalled).to.equal(true);
         });
-    
+
         it("Should convert accented characters", function() {
             // Initialize variables
             Quizzer.active = true;
@@ -370,7 +386,7 @@ describe("Quizzer", function() {
             Quizzer.Reset = function() {
                 resetCalled = true;
             };
-            
+
             // Run Continue
             Quizzer.Continue();
 
@@ -392,7 +408,7 @@ describe("Quizzer", function() {
 
             // Run Continue
             Quizzer.Continue();
-            
+
             // Assert prompts not changed
             expect(Quizzer.prompts[0]).to.have.members(["A1", "A2", "A3", "A4"]);
             expect(Quizzer.prompts[1]).to.have.members(["B1", "B2", "B3", "B4"]);
@@ -408,7 +424,7 @@ describe("Quizzer", function() {
 
             // Run Continue
             Quizzer.Continue();
-            
+
             // Assert prompts not changed
             expect(Quizzer.prompts[0]).to.have.members(["A1", "A2", "A3", "A4"]);
             expect(Quizzer.prompts[1]).to.have.members(["B1", "B2", "B3", "B4"]);
@@ -424,7 +440,7 @@ describe("Quizzer", function() {
 
             // Run Continue
             Quizzer.Continue();
-            
+
             // Assert prompts not changed
             expect(Quizzer.prompts[0]).to.have.members(["A1", "A2", "A3", "A4"]);
             expect(Quizzer.prompts[1]).to.have.members(["B1", "B2", "B3", "B4"]);
@@ -448,7 +464,7 @@ describe("Quizzer", function() {
 
             // Run Continue
             Quizzer.Continue();
-            
+
             // Assert prompts not changed
             expect(Quizzer.prompts[0]).to.have.members(["B1", "B2", "B3", "B4"]);
             expect(Quizzer.prompts[1]).to.have.members(["C1", "C2", "C3", "C4"]);
@@ -477,7 +493,7 @@ describe("Quizzer", function() {
 
             // Run Continue
             Quizzer.Continue();
-            
+
             // Assert prompts not changed
             expect(Quizzer.prompts[0]).to.have.members(["B1", "B2", "B3", "B4"]);
             expect(Quizzer.prompts[1]).to.have.members(["C1", "C2", "C3", "C4"]);
@@ -496,7 +512,7 @@ describe("Quizzer", function() {
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];  // Will change if Continue is called
             Quizzer.index = 0;  // Will be changed if Reset is called
             Quizzer.settings.repeatPrompts = "At the end";
-            
+
             // Run Enter
             Quizzer.Enter();
 
@@ -510,7 +526,7 @@ describe("Quizzer", function() {
             // Initialize variables
             Quizzer.active = true;
             Quizzer.responceActive = true;
-            
+
             // Override Submit and Continue methods
             let submitCalled = false;
             Quizzer.Submit = function() {
@@ -533,7 +549,7 @@ describe("Quizzer", function() {
             // Initialize variables
             Quizzer.active = true;
             Quizzer.responceActive = false;
-            
+
             // Override Submit and Continue methods
             let submitCalled = false;
             Quizzer.Submit = function() {
@@ -593,7 +609,7 @@ describe("Quizzer", function() {
             // Assert prompts and index are correct
             expect(Quizzer.index).to.equal(0);
             expect(Quizzer.prompts.length).to.equal(0);
-            
+
             // Assert prompt is empty
             expect(Quizzer.prompt.length).to.equal(4);
             expect(Quizzer.prompt[0]).to.equal("");
@@ -601,14 +617,14 @@ describe("Quizzer", function() {
             expect(Quizzer.prompt[2]).to.equal("");
             expect(Quizzer.prompt[3]).to.equal("");
         });
-        
+
         it("Should be empty if index is invalid", function() {
             // Initialize index
             Quizzer.index = 2;
-            
+
             // Assert prompts is correct
             expect(Quizzer.prompts.length).to.equal(0);
-            
+
             // Assert prompt is empty
             expect(Quizzer.prompt.length).to.equal(4);
             expect(Quizzer.prompt[0]).to.equal("");
@@ -616,7 +632,7 @@ describe("Quizzer", function() {
             expect(Quizzer.prompt[2]).to.equal("");
             expect(Quizzer.prompt[3]).to.equal("");
         });
-        
+
         it("Should be the current prompt if index is valid", function() {
             // Initialize prompts and index
             Quizzer.index = 1;
@@ -625,7 +641,7 @@ describe("Quizzer", function() {
                 ["a2", "b2", "c2", "d2"],
                 ["a3", "b3", "c3", "d3"],
             ];
-            
+
             // Assert prompt is correct
             expect(Quizzer.prompt.length).to.equal(4);
             expect(Quizzer.prompt[0]).to.equal("a2");
