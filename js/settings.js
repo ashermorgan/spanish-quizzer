@@ -95,7 +95,7 @@ let settings = Vue.component("settings", {
         getTenseSubjects: function(index) {
             // Set default filters
             let filters = {"All Subjects":true, "Yo":true, "Tú":true, "Él":true, "Nosotros":true, "Ellos":true}
-            
+
             if (this.verbFilters[index].tense === "Present Participles") {
                 // Override filters
                 filters["Yo"] = false;
@@ -103,7 +103,7 @@ let settings = Vue.component("settings", {
                 filters["Él"] = false;
                 filters["Nosotros"] = false;
                 filters["Ellos"] = false;
-                
+
                 // Reset subject
                 this.verbFilters[index].subject = "All Subjects";
             }
@@ -127,7 +127,7 @@ let settings = Vue.component("settings", {
                     filters["Nouns"] = false;
                     filters["Verbs"] = false;
                     break;
-                
+
                 case "Adjectives":
                     filters["Nouns"] = false;
                     filters["Verbs"] = false;
@@ -146,18 +146,18 @@ let settings = Vue.component("settings", {
                     filters["Nouns"] = false;
                     filters["Verbs"] = false;
                     break;
-                
+
                 case "Colors":
                     filters["Nouns"] = false;
                     filters["Verbs"] = false;
                     break;
-                
+
                 case "Days":
                 case "Months":
                     filters["Adjectives"] = false;
                     filters["Verbs"] = false;
                     break;
-                
+
                 case "Weather":
                 case "Professions":
                     filters["Adjectives"] = false;
@@ -167,7 +167,7 @@ let settings = Vue.component("settings", {
                 case "Clothes":
                     filters["Verbs"] = false;
                     break;
-                
+
                 case "Nature":
                 case "House":
                 case "Vacation":
@@ -192,20 +192,11 @@ let settings = Vue.component("settings", {
             // Get prompts
             let prompts;
             if (this.category === "vocab") {
-                // Filter and load Sets into prompts
-                prompts = [];
-                for (let filter of this.vocabFilters)
-                {
-                    // Add filtered set
-                    prompts.push(...ApplyVocabFilter(Sets[filter.set], filter.type, filter.direction));
-                }
-
-                // Shuffle prompts
-                prompts = Shuffle(prompts);
+                prompts = Shuffle(ApplyFilters(Sets, GetVocabFilters(this.vocabFilters)));
             }
             else if (this.category === "verbs") {
                 // Get prompts
-                prompts = Shuffle(ApplyVerbFilter(Sets["Verbs"], this.verbFilters));
+                prompts = Shuffle(ApplyFilters(Sets, GetVerbFilters(this.verbFilters)));
             }
 
             // Set progress
@@ -216,7 +207,7 @@ let settings = Vue.component("settings", {
                 alert("Your custom vocabulary set must contain at least one term.");
                 return;
             }
-            
+
             // Start quizzer
             this.$emit("start-session", prompts, promptIndex, this.settings);
         },
@@ -310,7 +301,7 @@ let settings = Vue.component("settings", {
         }
         catch { return; }
         if (!parsedSettings) { return; }
-        
+
         // Load settings
         if (parsedSettings.promptType && ["Text", "Audio", "Both"].includes(parsedSettings.promptType)) {
             this.settings.promptType = parsedSettings.promptType;
@@ -333,7 +324,7 @@ let settings = Vue.component("settings", {
         // Remove keyup handler
         window.removeEventListener("keydown", this.keyup);
     },
-    
+
     template: `
         <div class="settings" ref="container">
             <div class="verbSettings" v-show="category === 'verbs'">
@@ -343,7 +334,7 @@ let settings = Vue.component("settings", {
                     Verb Filters
                     <button @click="AddFilter();">Add Filter</button>
                 </h2>
-                
+
                 <div v-for="(filter, index) in verbFilters" class="filter">
                     <select v-model="filter.tense">
                         <option>All Tenses</option>
@@ -479,67 +470,70 @@ let settings = Vue.component("settings", {
 
 
 /**
- * Filter a vocab set.
- * @param {Array} vocabSet - The vocab set to filter.
- * @param {String} type - The word type filter.
- * @param {String} direction - The direction filter.
- * @returns {Array} - A list of prompts.
+ * Create io-filters from an array of vocab filters.
+ * @param {Array} rawFilters The array of filters.
+ * @returns {Array} The io-filters.
  */
-function ApplyVocabFilter(terms, type, direction) {
-    // Get type regex filter
-    let regularity;
-    switch (type.toLowerCase()) {
-        case "adjectives":
-            regularity = "Adjective";
-            break;
-        case "nouns":
-            regularity = "Noun";
-            break;
-        case "verbs":
-            regularity = "Verb";
-            break;
-        case "all types":
-            regularity = ".*";
-            break;
-        default:
-            throw `Unrecognized filter: ${type}.`;
-    }
-
-    // Filter terms
-    let results = [];   // Format: [[<output label>, <output>, <input label>, <input>]]
-    for (let term of terms.slice(1)) {
-        // Check against filters
-        if (term[2].match(regularity)) {
-            if (direction === "Eng. ↔ Esp.") {
-                results.push([terms[0][0], term[0], terms[0][1], term[1]]);
-                results.push([terms[0][1], term[1], terms[0][0], term[0]]);
-            }
-            else if (direction === "Eng. → Esp.") {
-                results.push([terms[0][0], term[0], terms[0][1], term[1]]);
-            }
-            else if (direction === "Esp. → Eng.") {
-                results.push([terms[0][1], term[1], terms[0][0], term[0]]);
-            }
-            else {
-                throw `Unrecognized direction: ${direction}.`;
-            }
+function GetVocabFilters(rawFilters) {
+    // Expand "All directions" filters
+    let filters = [];   // Format: [{set:"vocab set name", tense:"specific tense", subject:"specific subject", type:"regex"}]
+    for (let filter of rawFilters) {
+        if (filter.direction === "Eng. ↔ Esp.") {
+            filters.push({set:filter.set, type: filter.type, direction:"Eng. → Esp."});
+            filters.push({set:filter.set, type: filter.type, direction:"Esp. → Eng."});
+        }
+        else {
+            filters.push({set:filter.set, type: filter.type, direction:filter.direction});
         }
     }
-    return results;
+
+    // Get type regex filter
+    for (let filter of filters) {
+        switch (filter.type.toLowerCase()) {
+            case "adjectives":
+                filter.type = "Adjective";
+                break;
+            case "nouns":
+                filter.type = "Noun";
+                break;
+            case "verbs":
+                filter.type = "Verb";
+                break;
+            case "all types":
+                filter.type = ".*";
+                break;
+            default:
+                throw `Unrecognized filter: ${type}.`;
+        }
+    }
+
+    // Create io-filters
+    let ioFilters = [];   // Format: [{set:"vocab set name", outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
+    for (let filter of filters) {
+        // Create filter
+        if (filter.direction.toLowerCase().startsWith("eng")) {
+            ioFilters.push({set:filter.set, outputIndex:0, inputIndex:1, filterIndex:2, filterValue:filter.type});
+        }
+        else {
+            ioFilters.push({set:filter.set, outputIndex:1, inputIndex:0, filterIndex:2, filterValue:filter.type});
+        }
+    }
+
+    // Return io-filters
+    return ioFilters;
 }
 
 
 
 /**
- * Filter verb conjugations.
- * @param {Array} terms - The list of verb conjugations to filter.
- * @param {Array} filterInfo - A list of filters.
- * @returns {Array} - A list of prompts.
+ * Create io-filters from an array of verb filters.
+ * @param {Array} rawFilters The array of filters.
+ * @returns {Array} The io-filters.
  */
-function ApplyVerbFilter(terms, filterInfo) {
+function GetVerbFilters(rawFilters) {
     // Expand "All Tenses" filters
-    let filters = [];   // Format: [{tense:"specific tense", subject:"specific subject", type:"regex"}]
-    for (let filter of filterInfo) {
+    let filters = [];   // Format: [{set:"Verbs", tense:"specific tense", subject:"specific subject", type:"regex"}]
+    for (let filter of rawFilters) {
         if (filter.tense.toLowerCase() === "all tenses") {
             filters.push({ tense: "present participles", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "present tense", type: filter.type, subject: filter.subject, direction: filter.direction });
@@ -551,7 +545,7 @@ function ApplyVerbFilter(terms, filterInfo) {
             filters.push({ tense: filter.tense.toLowerCase(), type: filter.type, subject: filter.subject, direction: filter.direction });
         }
     }
-    
+
     // Expand "All Subjects" filters
     for (let filter of filters) {
         if (filter.subject.toLowerCase() === "all subjects" && filter.tense !== "present participles") {
@@ -595,8 +589,8 @@ function ApplyVerbFilter(terms, filterInfo) {
         }
     }
 
-    // Create io filters
-    let ioFilters = [];   // Format: [{outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
+    // Create io-filters
+    let ioFilters = [];   // Format: [{set:"Verbs", outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
     for (let filter of filters) {
         // Get output index
         let outputIndex;
@@ -703,7 +697,7 @@ function ApplyVerbFilter(terms, filterInfo) {
                         throw `Unrecognized subject: ${filter.subject}.`;
                 }
                 break;
-                
+
             default:
                 throw `Unrecognized tense: ${filter.tense}.`;
         }
@@ -711,21 +705,33 @@ function ApplyVerbFilter(terms, filterInfo) {
         // Create filter
         if (filter.direction.toLowerCase().startsWith("conj")) {
             // Swap input and output
-            ioFilters.push({outputIndex:inputIndex, inputIndex:outputIndex, filterIndex:filterIndex, filterValue:filter.type})
+            ioFilters.push({set:"Verbs", outputIndex:inputIndex, inputIndex:outputIndex, filterIndex:filterIndex, filterValue:filter.type})
         }
         else {
-            ioFilters.push({outputIndex:outputIndex, inputIndex:inputIndex, filterIndex:filterIndex, filterValue:filter.type})
+            ioFilters.push({set:"Verbs", outputIndex:outputIndex, inputIndex:inputIndex, filterIndex:filterIndex, filterValue:filter.type})
         }
     }
 
-    // Filter terms
+    // Return io-filters
+    return ioFilters;
+}
+
+
+
+/**
+ * Creates an array of prompts from an array of io-filters.
+ * @param {Object} terms The terms to filter.
+ * @param {Array} filters The io-filters.
+ * @returns {Array} The prompts.
+ */
+function ApplyFilters(terms, filters) {
     let results = [];   // Format: [[<output label>, <output>, <input label>, <input>]]
-    for (let filter of ioFilters) {
+    for (let filter of filters) {
         // Iterate over terms (minus headers)
-        for (let term of terms.slice(1)) {
+        for (let term of terms[filter.set].slice(1)) {
             // Check against filters
             if (term[filter.filterIndex].match(filter.filterValue)) {
-                results.push([terms[0][filter.outputIndex], term[filter.outputIndex], terms[0][filter.inputIndex], term[filter.inputIndex]]);
+                results.push([terms[filter.set][0][filter.outputIndex], term[filter.outputIndex], terms[filter.set][0][filter.inputIndex], term[filter.inputIndex]]);
             }
         }
     }
@@ -743,13 +749,13 @@ function Shuffle(items) {
     var currentIndex = items.length;
     var temp;
     var randomIndex;
-    
+
     // While there are more elements to shuffle
     while (0 !== currentIndex) {
         // Pick a remaining element
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
-        
+
         // Swap the two elements
         temp = items[currentIndex];
         items[currentIndex] = items[randomIndex];
