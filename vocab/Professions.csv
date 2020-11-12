@@ -16,9 +16,7 @@ Executive,El ejecutivo,Noun
 Fireman,El bombero,Noun
 Full time,Todo tiempo,Noun
 Half time,Medio tiempo,Noun
-Job,El empleo,Noun
-Job,El trabajo,Noun
-Job,El oficio,Noun
+Job,"El empleo,El trabajo,El oficio",Noun
 Lawyer,El abogado,Noun
 Meeting,La reunión,Noun
 Nurse,El enfermero,Noun

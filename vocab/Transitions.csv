@@ -1,20 +1,17 @@
 English,Spanish,Type
 Additionally,Adicionalmente,Other
 Afterwards,Más tarde,Other
-Although,Aunque,Other
+"Although,Even if",Aunque,Other
 As long as,Siempre que,Other
 As soon as,Apenas,Other
-As,Como,Other
-As,Ya que,Other
+As,"Como,Ya que",Other
 At first,Al principio,Other
 At last,Al final,Other
 Because of,A causa de,Other
 But,Pero,Other
 Despite,A pesar de,Other
 During,Durante,Other
-Even if,Aunque,Other
-Finally,Finalmente,Other
-Finally,Por último,Other
+Finally,"Finalmente,Por último",Other
 First and foremost,Ante todo,Other
 First,Primero,Other
 For example,Por ejemplo,Other
@@ -31,14 +28,11 @@ Now that,Ahora que,Other
 Now,Ahora,Other
 On the other hand,Por otro lado,Other
 Second,Segundo,Other
-Since,Como,Other
-Since,Desde,Other
-Since,Ya que,Other
+Since,"Como,Desde,Ya que",Other
 So,Entonces,Other
 Thanks to,Gracias a,Other
 That's why,Por eso,Other
-Then,Entonces,Other
-Then,Luego,Other
+Then,"Entonces,Luego",Other
 Therefore,Por lo tanto,Other
 Thus,Así,Other
 To begin,Para empezar,Other
