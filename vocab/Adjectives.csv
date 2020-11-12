@@ -7,7 +7,7 @@ Blonde hair,Pelo rubio,Adjective
 Brown hair,Pelo castaño,Adjective
 Disorganized,Desorganizado,Adjective
 Fantastic,Fantástico,Adjective
-Friendly,Amable,Adjective
+"Friendly,Kind",Amable,Adjective
 Funny,Cómico,Adjective
 Good,Bueno,Adjective
 Good natured,Afable,Adjective
@@ -16,7 +16,6 @@ Happy,Alegre,Adjective
 Hard working,Trabajador,Adjective
 Intelligent,Inteligente,Adjective
 Interesting,Interesante,Adjective
-Kind,Amable,Adjective
 Lazy,Perezoso,Adjective
 Loving,Cariñoso,Adjective
 Nice,Simpático,Adjective

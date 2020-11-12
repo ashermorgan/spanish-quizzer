@@ -1,6 +1,6 @@
 English,Spanish,Type
 Bakery,La panadería,Noun
-Beautiful,Bello,Adjective
+"Beautiful,Nice",Bello,Adjective
 Bus stop,La parada de autobus,Noun
 Butcher,La carnicería,Noun
 Cafeteria,La cafetería,Noun
@@ -30,7 +30,6 @@ Jewelry,Las joyas,Noun
 Key,La llave,Noun
 Library,La librería,Noun
 Lodging,El alojamiento,Noun
-Nice,Bello,Adjective
 Open-air market,El mercado al aire libre,Noun
 Paper store,La papelería,Noun
 Pet store,La tienda de mascotas,Noun
@@ -54,8 +53,7 @@ To ride a horse,Montar a caballo,Verb
 To send postcards,Mandar tarjetas postales,Verb
 To take photos,Tomar fotos,Verb
 To visit a museum,Visitar un museo,Verb
-Too high,Demasiado,Adjective
-Too much,Demasiado,Adjective
+"Too high,Too much",Demasiado,Adjective
 Tourist office,La oficina de turismo,Noun
 Tourist,El turista,Noun
 Toy store,La juguetería,Noun

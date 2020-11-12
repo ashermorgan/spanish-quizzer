@@ -23,6 +23,7 @@ let quizzer = Vue.component("quizzer", {
                     inputType: "Text",
                     onMissedPrompt: "Correct me",
                     repeatPrompts: "Never",
+                    multipleAnswers: "Require all",
                 }
             },
         },
@@ -150,7 +151,7 @@ let quizzer = Vue.component("quizzer", {
             }
 
             // Parse responce
-            var responce = this.responce.toLowerCase(); // Make responce lowercase
+            let responce = this.responce.toLowerCase(); // Make responce lowercase
             responce = responce.replace(/a`/g, "á"); // Apply accented a shortcut
             responce = responce.replace(/e`/g, "é"); // Apply accented e shortcut
             responce = responce.replace(/i`/g, "í"); // Apply accented i shortcut
@@ -159,23 +160,32 @@ let quizzer = Vue.component("quizzer", {
             responce = responce.replace(/o`/g, "ó"); // Apply accented o shortcut
             responce = responce.replace(/u`/g, "ú"); // Apply accented u shortcut
             responce = responce.replace(/u~/g, "ü"); // Apply u with diaeresis shortcut
-            var responces = responce.split(",");    // Split string by commas
-            for (var i = 0; i < responces.length; i++) {
+            let responces = responce.split(",");    // Split string by commas
+            for (let i = 0; i < responces.length; i++) {
                 responces[i] = responces[i].split(" ").filter(function(x){return x !== "";}).join(" "); // Trim whitespace
             }
 
             // Parse answer
             let answers = this.prompt[3].toLowerCase().split(","); // Split string by commas
-            for (var i = 0; i < answers.length; i++) {
+            for (let i = 0; i < answers.length; i++) {
                 answers[i] = answers[i].trim(); // Trim whitespace
             }
 
-            // Check responce
-            var correct = true;
-            for (var answer of answers) {
-                if (!responces.includes(answer)) {
-                    correct = false;
+            // Count correct responces
+            let correctResponces = 0;
+            for (let answer of answers) {
+                if (responces.includes(answer)) {
+                    correctResponces++;
                 }
+            }
+
+            // Determine if responce is correct (and enforce multipleAnswers setting)
+            let correct;
+            if (this.settings.multipleAnswers === "Require all") {
+                correct = correctResponces === answers.length;
+            }
+            else {
+                correct = correctResponces > 0;
             }
 
             // Give user feedback

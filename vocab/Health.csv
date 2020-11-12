@@ -6,8 +6,7 @@ Apendicitis,El apendicitis,Noun
 Appointment,La consulta,Noun
 Blood,La sangre,Noun
 Cancer,El cáncer,Noun
-Cast,El yeso,Noun
-Plaster,El yeso,Noun
+"Cast,Plaster",El yeso,Noun
 Chicken pox,La varicela,Noun
 Clinic,La clínica,Noun
 Cold,El resfriado,Noun
@@ -16,14 +15,11 @@ Crutches,Las muletas,Noun
 Diarrhea,La diarrea,Noun
 Doctor,El médico,Noun
 Doctor's office,La oficina del médico,Noun
-Fever,La fiebre,Noun
 Flu,La gripe,Noun
 Gloves,Los guantes,Noun
 Headache,El dolor de cabeza,Noun
-Healthy,Sano,Adjective
-Healthy,Saludable,Adjective
-Heart Attack,El infarto,Noun
-Heart Attack,El ataque de corazón,Noun
+Healthy,"Sano,Saludable",Adjective
+Heart Attack,"El infarto,El ataque de corazón",Noun
 Heavy,Pesado,Adjective
 Hospital,El hospital,Noun
 Infection,La infección,Noun
@@ -42,13 +38,11 @@ Smallpox,La viruela,Noun
 Sore throat,El dolor de garganta,Noun
 Stomach ache,El dolor de estómago,Noun
 Surgery,La cirugía,Noun
-Temperature,La fiebre,Noun
-Temperature,La temperatura,Noun
+"Temperature,Fever","La fiebre,La temperatura",Noun
 To cough,Toser,Verb
 To cure,Curar,Verb
 To die,Morir,Verb
-To examine,Examinar,Verb
-To examine,Revisar,Verb
+To examine,"Examinar,Revisar",Verb
 To faint,Desmayarse,Verb
 To fall,Caerse,Verb
 To feel,Sentirse,Verb
@@ -67,5 +61,4 @@ To sweat,Sudar,Verb
 To swell,Hincharse,Verb
 To throw up,Vomitar,Verb
 Vaccine,La vacuna,Noun
-X-ray,Los rayos X,Noun
-X-ray,La radiografía,Noun
+X-ray,"Los rayos X,La radiografía",Noun

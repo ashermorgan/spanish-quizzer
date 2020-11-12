@@ -20,6 +20,8 @@ function loadVue() {
                 inputType: "Text",
                 onMissedPrompt: "Correct me",
                 repeatPrompts: "Never",
+                multiplePrompts: "Show together",
+                multipleAnswers: "Require all",
             },
 
             prompts: [],

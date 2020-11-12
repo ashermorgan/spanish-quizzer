@@ -12,7 +12,7 @@ Bedroom,La habitación,Noun
 Big,Grande,Adjective
 Bricks,Los ladrillos,Noun
 Calendar,El calendario,Noun
-Carpet,La alfombra,Noun
+"Carpet,Rug",La alfombra,Noun
 Ceiling,El techo,Noun
 Chair,La silla,Noun
 Chandelier,La araña de luces,Noun
@@ -28,8 +28,7 @@ Dining room,El comedor,Noun
 Dishes,Los platos,Noun
 Dishwasher,El lavaplatos,Noun
 Dresser,La cómoda,Noun
-Entry way,La entrada,Noun
-Entry way,El recibidor,Noun
+Entry way,"La entrada,El recibidor",Noun
 Floor,El piso,Noun
 Freezer,El congelador,Noun
 Furniture,Los muebles,Noun
@@ -62,7 +61,6 @@ Pillow,La almohada,Noun
 Pots,Las ollas,Noun
 Quiet,Tranquilo,Adjective
 Refrigerator,La refrigeradora,Noun
-Rug,La alfombra,Noun
 Sheets,Las sábanas,Noun
 Shelf,El estante,Noun
 Shower,La ducha,Noun
@@ -73,12 +71,10 @@ Sofa,El sofá,Noun
 Spacious,Espacioso,Adjective
 Stapler,La grapadora,Noun
 Stone,La losa,Noun
-Stove,La estufa,Noun
-Stove,La cocina,Noun
+Stove,"La estufa,La cocina",Noun
 Table,La mesa,Noun
 Tablecloth,El mantel,Noun
-Television,El televisor,Noun
-Television,La televisión,Noun
+Television,"El televisor,La televisión",Noun
 To iron,Planchar,Verb
 To make the bed,Hacer la cama,Verb
 To mow the lawn,Cortar el césped,Verb
