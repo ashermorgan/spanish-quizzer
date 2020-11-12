@@ -68,20 +68,15 @@ function loadVue() {
              */
             StartSession: function(prompts, promptIndex, settings) {
                 // Validate browser for voice input
-                if (this.settings.inputType !== "Text") {
-                    if (typeof InstallTrigger !== "undefined") {
-                        // Browser is Firefox
-                        alert("You must enable speech recognition in about:config.");
-                    }
-                    else if (!window.chrome || (!window.chrome.webstore && !window.chrome.runtime)) {
-                        // Browser is not Googole Chrome or Microsoft (Chromium) Edge
+                if (settings.inputType !== "Text") {
+                    if ((window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition) === undefined) {
                         alert("Your browser does not support voice input.");
                         return;
                     }
                 }
 
                 // Give iOS devices ringer warning for prompt audio
-                if (this.settings.promptType !== "Text") {
+                if (settings.promptType !== "Text") {
                     if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
                         alert("Please make sure your ringer is on in order to hear audio prompts.");
                     }
@@ -152,12 +147,12 @@ function KeyDown(e) {
     // Home shortcuts
     if (app.state === "home") {
         if (e.key === "c") {
-            category = "verbs";
-            state = "settings";
+            app.category = "verbs";
+            app.state = "settings";
         }
         if (e.key === "v") {
-            category = "vocab";
-            state = "settings";
+            app.category = "vocab";
+            app.state = "settings";
         }
         if (e.key === "r") {
             window.location = "reference.html";

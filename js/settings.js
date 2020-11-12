@@ -326,7 +326,7 @@ let settings = Vue.component("settings", {
 
     destroyed: function() {
         // Remove keyup handler
-        window.removeEventListener("keydown", this.keyup);
+        window.removeEventListener("keyup", this.keyup);
     },
 
     template: `
