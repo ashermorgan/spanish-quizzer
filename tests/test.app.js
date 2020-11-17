@@ -67,12 +67,16 @@ describe("App", function() {
     describe("StartSession method", function() {
         it("Should import parameter values", function() {
             // Call StartSession
-            app.StartSession([1, 2, 3], 4, "test settings");
+            app.StartSession([1, 2, 3], 4, {
+                promptType: "Text",     // Required to prevent browser validation alerts
+                inputType: "Text",      // Required to prevent browser validation alerts
+                testSetting: "testValue",
+            });
 
             // Assert parameters imported
             expect(app.prompts).to.have.members([1, 2, 3]);
             expect(app.promptIndex).to.equal(4);
-            expect(app.settings).to.equal("test settings");
+            expect(app.settings.testSetting).to.equal("testValue");
         });
 
         it("Should set state to 'quizzer'", function() {
@@ -80,7 +84,11 @@ describe("App", function() {
             app.state = "settings";
 
             // Call StartSession
-            app.StartSession([1, 2, 3], 4, "a", "b", "c", "d");
+            app.StartSession([1, 2, 3], 4, {
+                promptType: "Text",     // Required to prevent browser validation alerts
+                inputType: "Text",      // Required to prevent browser validation alerts
+                testSetting: "testValue",
+            });
 
             // Assert parameters imported
             expect(app.state).to.equal("quizzer");
