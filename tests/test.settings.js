@@ -316,22 +316,17 @@ describe("Settings", function() {
         it("Should not change selection if available", function() {
             // Initialize filters
             Settings.verbFilters = [
-                {"tense":"Preterite Tense", "subject":"Yo", "type":"All Types"}
+                {"tense":"Present Participles", "subject":"Type", "type":"All Types"},
+                {"tense":"Preterite Tense", "subject":"Yo", "type":"All Types"},
             ]
 
             // Get filters
-            let filters = Settings.getTenseSubjects(0);
-
-            // Assert filters are correct
-            expect(filters["All Subjects"]).to.equal(true);
-            expect(filters["Yo"]).to.equal(true);
-            expect(filters["Tú"]).to.equal(true);
-            expect(filters["Él"]).to.equal(true);
-            expect(filters["Nosotros"]).to.equal(true);
-            expect(filters["Ellos"]).to.equal(true);
+            Settings.getTenseSubjects(0);
+            Settings.getTenseSubjects(1);
 
             // Assert selection not changed
-            expect(Settings.verbFilters[0]["subject"]).to.equal("Yo");
+            expect(Settings.verbFilters[0].subject).to.equal("Type");
+            expect(Settings.verbFilters[1].subject).to.equal("Yo");
         });
     });
 
@@ -905,6 +900,23 @@ describe("Settings", function() {
         });
 
         describe("Subject filters", function() {
+            it("Should correctly filter type subjects", function() {
+                // Initialize expected
+                let expected = [
+                    {set:"Verbs", outputIndex:0, inputIndex:02, filterIndex:02, filterValue:".*"},
+                    {set:"Verbs", outputIndex:0, inputIndex:04, filterIndex:04, filterValue:".*"},
+                    {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:10, filterValue:".*"},
+                    {set:"Verbs", outputIndex:0, inputIndex:16, filterIndex:16, filterValue:".*"},
+                    {set:"Verbs", outputIndex:0, inputIndex:22, filterIndex:22, filterValue:".*"},
+                ];
+
+                // Filter verbs
+                let actual = GetVerbFilters([{tense:"all tenses", subject:"type", type:"all types", direction:"Eng. => Conj."}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
             it("Should correctly filter yo subjects", function() {
                 // Initialize expected
                 let expected = [

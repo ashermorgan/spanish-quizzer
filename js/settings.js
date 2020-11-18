@@ -95,7 +95,7 @@ let settings = Vue.component("settings", {
          */
         getTenseSubjects: function(index) {
             // Set default filters
-            let filters = {"All Subjects":true, "Yo":true, "Tú":true, "Él":true, "Nosotros":true, "Ellos":true}
+            let filters = {"All Subjects":true, "Type":true, "Yo":true, "Tú":true, "Él":true, "Nosotros":true, "Ellos":true}
 
             if (this.verbFilters[index].tense === "Present Participles") {
                 // Override filters
@@ -104,8 +104,10 @@ let settings = Vue.component("settings", {
                 filters["Él"] = false;
                 filters["Nosotros"] = false;
                 filters["Ellos"] = false;
+            }
 
-                // Reset subject
+            // Reset subject
+            if (this.verbFilters[index].tense === "Present Participles" && this.verbFilters[index].subject !== "Type") {
                 this.verbFilters[index].subject = "All Subjects";
             }
 
@@ -618,11 +620,21 @@ function GetVerbFilters(rawFilters) {
         switch (filter.tense) {
             case "present participles":
                 filterIndex = 2;
-                inputIndex = 3;
+                switch (filter.subject) {
+                    case "type":
+                        inputIndex = filterIndex;
+                        break;
+                    default:
+                        inputIndex = 3;
+                        break;
+                }
                 break;
             case "present tense":
                 filterIndex = 4;
                 switch (filter.subject) {
+                    case "type":
+                        inputIndex = filterIndex;
+                        break;
                     case "yo":
                         inputIndex = 5;
                         break;
@@ -645,6 +657,9 @@ function GetVerbFilters(rawFilters) {
             case "preterite tense":
                 filterIndex = 10;
                 switch (filter.subject) {
+                    case "type":
+                        inputIndex = filterIndex;
+                        break;
                     case "yo":
                         inputIndex = 11;
                         break;
@@ -667,6 +682,9 @@ function GetVerbFilters(rawFilters) {
             case "imperfect tense":
                 filterIndex = 16;
                 switch (filter.subject) {
+                    case "type":
+                        inputIndex = filterIndex;
+                        break;
                     case "yo":
                         inputIndex = 17;
                         break;
@@ -689,6 +707,9 @@ function GetVerbFilters(rawFilters) {
             case "simple future tense":
                 filterIndex = 22;
                 switch (filter.subject) {
+                    case "type":
+                        inputIndex = filterIndex;
+                        break;
                     case "yo":
                         inputIndex = 23;
                         break;
