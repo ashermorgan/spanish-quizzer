@@ -7,7 +7,7 @@ Bear,El oso,Noun
 Beautiful,Bello,Adjective
 Better,Mejor,Adjective
 Biodiversity,La biodiversidad,Noun
-Bird,"El ave,El pájaro",Noun
+Bird,"El ave, El pájaro",Noun
 Bonfire,La fogata,Noun
 Branch,La rama,Noun
 Calm,Tranquilo,Adjective
@@ -65,7 +65,7 @@ Shore,La orilla,Noun
 Skunk,La mofeta,Noun
 Sleeping bag,El saco de dormir,Noun
 Sloth,El perezoso,Noun
-Snake,"La serpiente,La culebra",Noun
+Snake,"La serpiente, La culebra",Noun
 Spider,La araña,Noun
 Squirrel,La ardilla,Noun
 Stars,Las estrellas,Noun
@@ -78,7 +78,7 @@ To bring,Traer,Verb
 To brush,Cepillar,Verb
 To camp,Acampar,Verb
 To change,Cambiar,Verb
-To climb,"Escalar,Trepar",Verb
+To climb,"Escalar, Trepar",Verb
 To close,Cerrar,Verb
 To count,Contar,Verb
 To fix,Arreglar,Verb
