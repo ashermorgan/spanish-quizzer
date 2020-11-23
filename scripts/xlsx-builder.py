@@ -16,9 +16,10 @@ def createXlsx(csvPath, xlsxPath):
     # Rearrange csv data
     data = [["English", "Infinitive", "Yo", "Tú", "Él", "Nosotros", "Ellos"]]
     for row in rows[1:]:
-        data += [["",     "",     row[5],  row[6],  row[7],  row[8],  row[9]]]
-        data += [[row[0], row[1], row[11], row[12], row[13], row[14], row[15]]]
-        data += [["",     "",     row[17], row[18], row[19], row[20], row[21]]]
+        data += [[row[0], row[0], row[5],  row[6],  row[7],  row[8],  row[9]]]      # Present
+        data += [["",     "",     row[11], row[12], row[13], row[14], row[15]]]     # Preterite
+        data += [["",     "",     row[17], row[18], row[19], row[20], row[21]]]     # Imperfect
+        data += [["",     "",     row[23], row[24], row[25], row[26], row[27]]]     # Simple Future
     
     # Create spreadsheet
     vk = openpyxl.Workbook()
@@ -51,7 +52,7 @@ def createXlsx(csvPath, xlsxPath):
                 # Conjugation columns only
                 border.top = thin
                 border.bottom = thin
-            if row % 3 == 1:
+            if row % 4 == 1:
                 # Present tense rows only
                 border.top = thick
             border.left = thin
