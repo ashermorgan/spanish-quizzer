@@ -379,28 +379,28 @@ let settings = Vue.component("settings", {
                     <select class="vocabSetName" v-model="filter.set">
                         <option>All Sets</option>
                         <optgroup label="Common Words">
-                            <option>Verbs</option>
                             <option>Adjectives</option>
                             <option>Adverbs</option>
                             <option>Prepositions</option>
                             <option>Transitions</option>
+                            <option>Verbs</option>
                         </optgroup>
-                        <optgroup label="Spanish 1">
+                        <optgroup label="Basic Words">
                             <option>Colors</option>
                             <option>Days</option>
                             <option>Months</option>
                             <option>Questions</option>
-                            <option>Weather</option>
-                            <option>Family</option>
-                            <option>Clothes</option>
                         </optgroup>
-                        <optgroup label="Spanish 2">
-                            <option>Nature</option>
-                            <option>House</option>
-                            <option>Vacation</option>
+                        <optgroup label="Advanced Words">
                             <option>Childhood</option>
-                            <option>Professions</option>
+                            <option>Clothes</option>
+                            <option>Family</option>
                             <option>Health</option>
+                            <option>House</option>
+                            <option>Nature</option>
+                            <option>Professions</option>
+                            <option>Vacation</option>
+                            <option>Weather</option>
                         </optgroup>
                     </select>
                     <select v-model="filter.type">
