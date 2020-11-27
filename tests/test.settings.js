@@ -95,12 +95,10 @@ describe("Settings", function() {
             Settings.AddFilter();
 
             // Assert filter added
-            expect(Settings.verbFilters.length).to.equal(1);
-            expect(Settings.verbFilters[0]["tense"]).to.equal("All Tenses");
-            expect(Settings.verbFilters[0]["type"]).to.equal("All Types");
-            expect(Settings.verbFilters[0]["subject"]).to.equal("All Subjects");
-            expect(Settings.verbFilters[0]["direction"]).to.equal("Eng. → Conj.");
-            expect(Settings.vocabFilters.length).to.equal(0);
+            expect(Settings.verbFilters).to.have.deep.members([
+                {tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."},
+            ]);
+            expect(Settings.vocabFilters).to.have.deep.members([]);
         });
 
         it("Should add a vocab filter if category is 'vocab'", function() {
@@ -113,11 +111,10 @@ describe("Settings", function() {
             Settings.AddFilter();
 
             // Assert filter added
-            expect(Settings.vocabFilters.length).to.equal(1);
-            expect(Settings.vocabFilters[0]["set"]).to.equal("Verbs");
-            expect(Settings.vocabFilters[0]["type"]).to.equal("All Types");
-            expect(Settings.vocabFilters[0]["direction"]).to.equal("Eng. ↔ Esp.");
-            expect(Settings.verbFilters.length).to.equal(0);
+            expect(Settings.vocabFilters).to.have.deep.members([
+                {set:"All Sets", type:"All Types", direction:"Eng. ↔ Esp."},
+            ]);
+            expect(Settings.verbFilters).to.have.deep.members([]);
         });
     });
 

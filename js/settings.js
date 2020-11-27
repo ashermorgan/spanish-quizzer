@@ -31,7 +31,7 @@ let settings = Vue.component("settings", {
                 this.verbFilters.push({tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."});
             }
             else if (this.category === "vocab") {
-                this.vocabFilters.push({set:"Verbs", type:"All Types", direction:"Eng. ↔ Esp."});
+                this.vocabFilters.push({set:"All Sets", type:"All Types", direction:"Eng. ↔ Esp."});
             }
         },
 
@@ -377,6 +377,7 @@ let settings = Vue.component("settings", {
 
                 <div v-for="(filter, index) in vocabFilters" class="filter">
                     <select class="vocabSetName" v-model="filter.set">
+                        <option>All Sets</option>
                         <optgroup label="Common Words">
                             <option>Verbs</option>
                             <option>Adjectives</option>
@@ -488,15 +489,39 @@ let settings = Vue.component("settings", {
  * @returns {Array} The io-filters.
  */
 function GetVocabFilters(rawFilters) {
-    // Expand "All directions" filters
+    // Expand "All Sets" filters
     let filters = [];   // Format: [{set:"vocab set name", tense:"specific tense", subject:"specific subject", type:"regex"}]
     for (let filter of rawFilters) {
-        if (filter.direction === "Eng. ↔ Esp.") {
-            filters.push({set:filter.set, type: filter.type, direction:"Eng. → Esp."});
-            filters.push({set:filter.set, type: filter.type, direction:"Esp. → Eng."});
+        if (filter.set === "All Sets") {
+            filters.push({set:"Verbs", type: filter.type, direction:filter.direction});
+            filters.push({set:"Adjectives", type: filter.type, direction:filter.direction});
+            filters.push({set:"Adverbs", type: filter.type, direction:filter.direction});
+            filters.push({set:"Prepositions", type: filter.type, direction:filter.direction});
+            filters.push({set:"Transitions", type: filter.type, direction:filter.direction});
+            filters.push({set:"Colors", type: filter.type, direction:filter.direction});
+            filters.push({set:"Days", type: filter.type, direction:filter.direction});
+            filters.push({set:"Months", type: filter.type, direction:filter.direction});
+            filters.push({set:"Questions", type: filter.type, direction:filter.direction});
+            filters.push({set:"Weather", type: filter.type, direction:filter.direction});
+            filters.push({set:"Family", type: filter.type, direction:filter.direction});
+            filters.push({set:"Clothes", type: filter.type, direction:filter.direction});
+            filters.push({set:"Nature", type: filter.type, direction:filter.direction});
+            filters.push({set:"House", type: filter.type, direction:filter.direction});
+            filters.push({set:"Vacation", type: filter.type, direction:filter.direction});
+            filters.push({set:"Childhood", type: filter.type, direction:filter.direction});
+            filters.push({set:"Professions", type: filter.type, direction:filter.direction});
+            filters.push({set:"Health", type: filter.type, direction:filter.direction});
         }
         else {
             filters.push({set:filter.set, type: filter.type, direction:filter.direction});
+        }
+    }
+
+    // Expand "All directions" filters
+    for (let filter of filters) {
+        if (filter.direction === "Eng. ↔ Esp.") {
+            filter.direction = "Eng. → Esp.";
+            filters.push({set:filter.set, type: filter.type, direction:"Esp. → Eng."});
         }
     }
 
