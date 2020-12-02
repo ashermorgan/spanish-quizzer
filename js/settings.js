@@ -8,10 +8,10 @@ let settings = Vue.component("settings", {
 
     data: function() {
         return {
-            darkTheme: document.body.classList.contains("dark"),
             verbFilters: [],
             vocabFilters: [],
             settings: {
+                darkTheme: document.body.classList.contains("dark"),
                 promptType: "Text",
                 inputType: "Text",
                 onMissedPrompt: "Correct me",
@@ -274,20 +274,13 @@ let settings = Vue.component("settings", {
     },
 
     watch: {
-        /**
-         * Update the app theme.
-         */
-        darkTheme: function(value) {
-            SetTheme(value);
-        },
-
-        /**
-         * Update setting in localStorage.
-         * @param {String} value - The settings object.
-         */
         settings: {
             handler: function(value) {
+                // Update settings in localStorage
                 localStorage.setItem("settings", JSON.stringify(value));
+
+                // Apply theme
+                SetTheme(value.darkTheme);
             },
             deep: true,
         },
@@ -420,7 +413,7 @@ let settings = Vue.component("settings", {
                 <h2>Quizzer Settings</h2>
 
                 <div>
-                    <input type="checkbox" id="settingsDarkTheme" v-model="darkTheme">
+                    <input type="checkbox" id="settingsDarkTheme" v-model="settings.darkTheme">
                     <label for="settingsDarkTheme">Dark Mode</label>
                 </div>
                 <div>

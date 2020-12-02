@@ -6,7 +6,7 @@ function SetTheme(darkTheme = null) {
     // Get theme from localStorage if null
     if (darkTheme === null) {
         try {
-            darkTheme = JSON.parse(localStorage.getItem("darkTheme"));
+            darkTheme = JSON.parse(localStorage.getItem("settings")).darkTheme;
         }
         catch { }
     }

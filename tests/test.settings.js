@@ -401,16 +401,17 @@ describe("Settings", function() {
             let originalValue = localStorage.getItem("settings");
 
             // Set settings
-            Settings.settings.promptType = "A";
-            Settings.settings.inputType = "B";
-            Settings.settings.onMissedPrompt = "C";
-            Settings.settings.repeatPrompts = "D";
-            Settings.settings.multiplePrompts = "E";
-            Settings.settings.multipleAnswers = "F";
+            Settings.settings.darkTheme = "A";
+            Settings.settings.promptType = "B";
+            Settings.settings.inputType = "C";
+            Settings.settings.onMissedPrompt = "D";
+            Settings.settings.repeatPrompts = "E";
+            Settings.settings.multiplePrompts = "F";
+            Settings.settings.multipleAnswers = "G";
             await Settings.$nextTick();
 
             // Assert localStorage setting updated
-            expect(localStorage.getItem("settings")).to.equal(`{"promptType":"A","inputType":"B","onMissedPrompt":"C","repeatPrompts":"D","multiplePrompts":"E","multipleAnswers":"F"}`);
+            expect(localStorage.getItem("settings")).to.equal(`{"darkTheme":"A","promptType":"B","inputType":"C","onMissedPrompt":"D","repeatPrompts":"E","multiplePrompts":"F","multipleAnswers":"G"}`);
 
             // Restore original setting to localStorage
             localStorage.setItem("settings", originalValue);
