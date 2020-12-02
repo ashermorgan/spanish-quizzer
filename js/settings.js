@@ -10,15 +10,7 @@ let settings = Vue.component("settings", {
         return {
             verbFilters: [],
             vocabFilters: [],
-            settings: {
-                darkTheme: document.body.classList.contains("dark"),
-                promptType: "Text",
-                inputType: "Text",
-                onMissedPrompt: "Correct me",
-                repeatPrompts: "Never",
-                multiplePrompts: "Show together",
-                multipleAnswers: "Require all",
-            },
+            settings: getSettings(),
         };
     },
 
@@ -276,11 +268,7 @@ let settings = Vue.component("settings", {
     watch: {
         settings: {
             handler: function(value) {
-                // Update settings in localStorage
-                localStorage.setItem("settings", JSON.stringify(value));
-
-                // Apply theme
-                SetTheme(value.darkTheme);
+                setSettings(value);
             },
             deep: true,
         },
@@ -289,34 +277,6 @@ let settings = Vue.component("settings", {
     created: function() {
         // Add keyup handler
         window.addEventListener("keyup", this.keyup);
-
-        // Parse settings
-        let parsedSettings
-        try {
-            parsedSettings = JSON.parse(localStorage.getItem("settings"));
-        }
-        catch { return; }
-        if (!parsedSettings) { return; }
-
-        // Load settings
-        if (parsedSettings.promptType && ["Text", "Audio", "Both"].includes(parsedSettings.promptType)) {
-            this.settings.promptType = parsedSettings.promptType;
-        }
-        if (parsedSettings.inputType && ["Text", "Voice", "Either"].includes(parsedSettings.inputType)) {
-            this.settings.inputType = parsedSettings.inputType;
-        }
-        if (parsedSettings.onMissedPrompt && ["Correct me", "Tell me", "Ignore it"].includes(parsedSettings.onMissedPrompt)) {
-            this.settings.onMissedPrompt = parsedSettings.onMissedPrompt;
-        }
-        if (parsedSettings.repeatPrompts && ["Never", "Immediately", "5 prompts later", "At the end"].includes(parsedSettings.repeatPrompts)) {
-            this.settings.repeatPrompts = parsedSettings.repeatPrompts;
-        }
-        if (parsedSettings.multiplePrompts && ["Show together", "Show separately", "Show one"].includes(parsedSettings.multiplePrompts)) {
-            this.settings.multiplePrompts = parsedSettings.multiplePrompts;
-        }
-        if (parsedSettings.multipleAnswers && ["Require one", "Require any"].includes(parsedSettings.multipleAnswers)) {
-            this.settings.multipleAnswers = parsedSettings.multipleAnswers;
-        }
     },
 
     destroyed: function() {
