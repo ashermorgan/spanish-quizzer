@@ -14,16 +14,8 @@ function loadVue() {
         data: {
             state: "home",      // Can be either "home", "settings", or "quizzer"
             category: "verbs",  // Can be either "verbs" or "vocab"
-            
-            settings: {
-                promptType: "Text",
-                inputType: "Text",
-                onMissedPrompt: "Correct me",
-                repeatPrompts: "Never",
-                multiplePrompts: "Show together",
-                multipleAnswers: "Require all",
-            },
-
+            filters: [],
+            settings: getSettings(),
             prompts: [],
             promptIndex: 0,
         },
@@ -61,14 +53,66 @@ function loadVue() {
             },
 
             /**
-             * Perform validation checks and then start the quizzer.
-             * @param {Array} prompts - The list of prompts.
-             * @param {Number} promptIndex - The index of the current prompt.
-             * @param {Object} settings - The user's settings.
+             * Start a new quizzer session
              */
-            StartSession: function(prompts, promptIndex, settings) {
+            CreateSession: function() {
+                // Get prompts
+                if (this.category === "vocab") {
+                    this.prompts = Shuffle(ApplyFilters(Sets, GetVocabFilters(this.filters), this.settings.multiplePrompts));
+                }
+                else if (this.category === "verbs") {
+                    // Get prompts
+                    this.prompts = Shuffle(ApplyFilters(Sets, GetVerbFilters(this.filters), this.settings.multiplePrompts));
+                }
+
+                // Set progress
+                this.promptIndex = 0;
+
+                // Start quizzer
+                this.StartSession();
+            },
+
+            /**
+             * Resume the previous quizzer session.
+             */
+            ResumeSession: function() {
+                // Get localStorage prefix
+                let prefix;
+                if (this.category === "vocab") {
+                    prefix = "vocab-"
+                }
+                else if (this.category === "verbs") {
+                    prefix = "verb-"
+                }
+
+                // Load prompts and progress
+                this.prompts = JSON.parse(localStorage.getItem(prefix + "prompts"));
+                this.promptIndex = parseInt(localStorage.getItem(prefix + "prompt"));
+
+                // Start quizzer
+                this.StartSession();
+            },
+
+            /**
+             * Perform validation checks and then start the quizzer.
+             */
+            StartSession: function() {
+                // Validate prompts and promptIndex
+                if (!this.prompts) {
+                    alert("An error occured while resuming the previous session.");
+                    return;
+                }
+                else if (this.prompts.length === 0) {
+                    alert("Your custom vocabulary set must contain at least one term.");
+                    return;
+                }
+                else if (isNaN(this.promptIndex) || this.promptIndex < 0 || this.promptIndex >= this.prompts.length) {
+                    alert("An error occured while resuming the previous session.");
+                    return;
+                }
+
                 // Validate browser for voice input
-                if (settings.inputType !== "Text") {
+                if (this.settings.inputType !== "Text") {
                     if ((window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition) === undefined) {
                         alert("Your browser does not support voice input.");
                         return;
@@ -76,20 +120,15 @@ function loadVue() {
                 }
 
                 // Give iOS devices ringer warning for prompt audio
-                if (settings.promptType !== "Text") {
+                if (this.settings.promptType !== "Text") {
                     if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
                         alert("Please make sure your ringer is on in order to hear audio prompts.");
                     }
                 }
 
-                // Copy over parameters
-                this.prompts = prompts;
-                this.promptIndex = promptIndex;
-                this.settings = settings;
-
                 // Show and hide elements (also enables the quizzer)
                 this.state = "quizzer";
-            }
+            },
         },
     });
 }
@@ -110,7 +149,6 @@ function Load() {
     // Divs were hidden to improve interface for users with JS blocked
     document.getElementById("home").hidden = false;
     document.getElementById("settings").hidden = false;
-    document.getElementById("quizzer").hidden = false;
     document.getElementById("congrats").hidden = false;
     document.querySelector("footer").hidden = false;
 
@@ -156,6 +194,16 @@ function KeyDown(e) {
         }
         if (e.key === "r") {
             window.location = "reference.html";
+        }
+    }
+
+    // Settings shortcuts
+    if (app.state === "settings") {
+        if (e.key === "s") {
+            app.CreateSession();
+        }
+        if (e.key === "r") {
+            app.ResumeSession();
         }
     }
 }

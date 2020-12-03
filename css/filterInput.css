@@ -1,40 +1,30 @@
-/* Settings */
-.settings {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.settings[hidden] {
-    display: none;
-}
-.settings h1 {
+/* FilterInput */
+.filtersInput h1 {
     font-size: 16px;
     font-weight: normal;
     margin-bottom: 10px;
 }
-.settings h2 {
+.filtersInput h2 {
     font-size: 20px;
     margin-bottom: 5px;
 }
-.vocabSettings, .verbSettings, .quizzerSettings {
+.filtersInput {
     margin-left: 5px;
     margin-right: 5px;
     margin-top: 10px;
 }
-
-
-
-/* Filters */
-.vocabSettings h2 button, .verbSettings h2 button {
+.filtersInput div h2 button {
     padding: 3px;
 }
+
+/* Filter */
 .filter {
     width: max-content;
 
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     box-shadow: 0 0 15px var(--border-color);
-    
+
     margin: 5px auto;
     padding: 5px;
     border-radius: 5px;
@@ -45,42 +35,6 @@
     color: var(--foreground-color);
     cursor: pointer;
 }
-
-
-
-/* Quizzer Settings div */
-.quizzerSettings div {
-    text-align: left;
-}
-.quizzerSettings input[type=number] {
-    width: 50px;
-}
-
-
-
-/* Start/Resume Buttons */
-.settingButtons {
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-.settingButtons button {
-    width: 100px;
-    height: 40px;
-    font-size: 18px;
-    margin: 0px 5px;
-}
-@media only screen and (max-width: 510px) {
-    /* Expand Start/Resume buttons */
-    .settingButtons {
-        width: calc(100% - 10px);
-    }
-    .settingButtons button {
-        width: calc(50% - 15px);
-        height: 50px;
-    }
-}
-
-
 
 /* Conjugation settings on mobile devices */
 @media only screen and (max-width: 510px) {
@@ -98,8 +52,6 @@
     }
 }
 
-
-
 /* Vocab settings on mobile devices */
 @media only screen and (max-width: 350px) {
     .vocabSettings {
@@ -109,7 +61,7 @@
         width: 100%;
         margin: 10px auto;
     }
-    .vocabSettings .filter select, .vocabSettings s.filter button {
+    .vocabSettings .filter select, .vocabSettings .filter button {
         width: 100%;
         height: 30px;
         margin: 3px 0px;
