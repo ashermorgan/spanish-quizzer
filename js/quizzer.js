@@ -1,10 +1,5 @@
 let quizzer = Vue.component("quizzer", {
     props: {
-        active: {
-            type: Boolean,
-            default: false,
-        },
-
         startingPrompts: {
             type: Array,
             default: function() {
@@ -24,7 +19,7 @@ let quizzer = Vue.component("quizzer", {
                     onMissedPrompt: "Correct me",
                     repeatPrompts: "Never",
                     multipleAnswers: "Require all",
-                }
+                };
             },
         },
     },
@@ -38,33 +33,11 @@ let quizzer = Vue.component("quizzer", {
         };
     },
 
-    watch: {
-        /**
-         * Activates/deactivates the quizzer.
-         * @param {Boolean} value - The boolean value.
-         */
-        active: function(value) {
-            if (value) {
-                // Update prompts
-                this.prompts = this.startingPrompts;
-                this.index = this.startingIndex - 1;
-
-                // Reset quizzer
-                this.Reset();
-            }
-        },
-    },
-
     methods: {
         /**
          * Handles keyup events and implements quizzer keyboard shortcuts.
          */
         keyup: function(e) {
-            // Check if Quizzer is active
-            if (!this.active) {
-                return;
-            }
-
             if (e.keyCode === 13 && e.ctrlKey) {
                 this.Reset();
             }
@@ -77,11 +50,6 @@ let quizzer = Vue.component("quizzer", {
          * Give the user the next prompt and reset the quizzer.
          */
         Reset: function() {
-            // Check if Quizzer is active
-            if (!this.active) {
-                return;
-            }
-
             // Show and hide elements
             this.responceActive = true;
             try {
@@ -145,11 +113,6 @@ let quizzer = Vue.component("quizzer", {
          * Process the user's responce.
          */
         Submit: function() {
-            // Check if Quizzer is active
-            if (!this.active) {
-                return;
-            }
-
             // Parse responce
             let responce = this.responce.toLowerCase(); // Make responce lowercase
             responce = responce.replace(/a`/g, "á"); // Apply accented a shortcut
@@ -212,11 +175,6 @@ let quizzer = Vue.component("quizzer", {
          * Process an incorrect responce and then reset the quizzer.
          */
         Continue: function() {
-            // Check if Quizzer is active
-            if (!this.active) {
-                return;
-            }
-
             // Repeat prompt
             switch (this.settings.repeatPrompts)
             {
@@ -251,11 +209,6 @@ let quizzer = Vue.component("quizzer", {
          * Calls Submit or Continue depending on the value of responceActive.
          */
         Enter: function() {
-            // Check if Quizzer is active
-            if (!this.active) {
-                return;
-            }
-
             if (this.responceActive) {
                 this.Submit();
             }
@@ -283,6 +236,13 @@ let quizzer = Vue.component("quizzer", {
     created: function() {
         // Add keyup handler
         window.addEventListener("keyup", this.keyup);
+        
+        // Update prompts
+        this.prompts = this.startingPrompts;
+        this.index = this.startingIndex - 1;
+
+        // Reset quizzer
+        this.Reset();
     },
 
     destroyed: function() {

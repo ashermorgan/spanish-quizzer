@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                <quizzer id="quizzer" v-show="state === 'quizzer'" :active="state === 'quizzer'" hidden
+                <quizzer id="quizzer" v-if="state === 'quizzer'"
                     :starting-index="promptIndex" :starting-prompts="prompts" :settings="settings"
                     @new-prompt="updateProgress" @finished-prompts="state = 'congrats';">
                 </quizzer>

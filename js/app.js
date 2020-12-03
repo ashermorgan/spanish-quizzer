@@ -149,7 +149,6 @@ function Load() {
     // Divs were hidden to improve interface for users with JS blocked
     document.getElementById("home").hidden = false;
     document.getElementById("settings").hidden = false;
-    document.getElementById("quizzer").hidden = false;
     document.getElementById("congrats").hidden = false;
     document.querySelector("footer").hidden = false;
 

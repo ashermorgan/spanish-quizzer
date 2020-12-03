@@ -6,10 +6,6 @@ describe("Quizzer", function() {
     });
 
     describe("Initial state", function() {
-        it("Active should be false", function() {
-            expect(Quizzer.active).to.equal(false);
-        });
-
         it("StartingPrompts should be empty", function() {
             expect(Quizzer.startingPrompts.length).to.equal(0);
         });
@@ -44,24 +40,8 @@ describe("Quizzer", function() {
     });
 
     describe("Reset method", function() {
-        it("Shouldn't do anything if active is false", function() {
-            // Initialize quizzer
-            Quizzer.prompts = [0, 1];
-            Quizzer.index = 0;
-
-            // Run Reset
-            Quizzer.Reset();
-
-            // Assert nothing changed
-            expect(Quizzer.prompts).to.have.members([0, 1]);
-            expect(Quizzer.index).to.equal(0);
-            expect(Quizzer.responce).to.equal("");
-            expect(Quizzer.responceActive).to.equal(true);
-        });
-
         it("Should reset responce", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.responce = "test";
             expect(Quizzer.responce).to.equal("test");
 
@@ -74,7 +54,6 @@ describe("Quizzer", function() {
 
         it("Should set responceActive to true", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.responceActive = false;
 
             // Run reset
@@ -85,9 +64,6 @@ describe("Quizzer", function() {
         });
 
         it("Should focus input", function() {
-            // Initialize variables
-            Quizzer.active = true;
-
             // Override focus method
             let focusCalled = true;
             Quizzer.$refs = {
@@ -107,7 +83,6 @@ describe("Quizzer", function() {
 
         it("Should emit 'new-prompts' event", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = ["prompt 1", "prompt 2"];
             Quizzer.index = 0;
 
@@ -126,7 +101,6 @@ describe("Quizzer", function() {
 
         it("Should emit 'finished-prompts' event if on last term", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = ["prompt 1", "prompt 2"];
             Quizzer.index = 1;
 
@@ -145,20 +119,8 @@ describe("Quizzer", function() {
     });
 
     describe("Submit method", function() {
-        it("Shouldn't do anything if active is false", function() {
-            // Initialize variables
-            Quizzer.responceActive = "test";  // Will be changed whether or not resopnce is correct
-
-            // Run Submit
-            Quizzer.Submit();
-
-            // Assert nothing changed
-            expect(Quizzer.responceActive).to.equal("test");
-        });
-
         it("Should call Reset if responce is correct", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "A4";
 
@@ -177,7 +139,6 @@ describe("Quizzer", function() {
 
         it("Should call Continue if onMissedPrompt is set to 'Ignore it'", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.settings.onMissedPrompt = "Ignore it";
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
             Quizzer.responce = "A5";
@@ -197,8 +158,7 @@ describe("Quizzer", function() {
 
         it("Should not call Reset if onMissedPrompt is set to 'Tell me'", function() {
             // Initialize variables
-            Quizzer.active = true;
-            Quizzer.onMissedPrompt = "Tell me";
+            Quizzer.settings.onMissedPrompt = "Tell me";
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "A5";
 
@@ -217,7 +177,6 @@ describe("Quizzer", function() {
 
         it("Should set responceActive to false if responce is incorrect", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "A5";
 
@@ -230,7 +189,6 @@ describe("Quizzer", function() {
 
         it("Should focus input if responce is incorrect", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "A5";
 
@@ -253,7 +211,6 @@ describe("Quizzer", function() {
 
         it("Should accept multiple responces", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "A1, A2, A3, A4";
 
@@ -272,7 +229,6 @@ describe("Quizzer", function() {
 
         it("Should accept multiple answers", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A1, A2, A3, A4"]]
             Quizzer.responce = "A1, A2, A3, A4";
 
@@ -291,7 +247,6 @@ describe("Quizzer", function() {
 
         it("Should require all answers if multipleAnswers is set to 'Require all'", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.settings.multipleAnswers = "Require all";
             Quizzer.prompts = [["A1", "A2", "A3", "A1, A2, A3, A4"]]
             Quizzer.responce = "A1, A2, A3";
@@ -305,7 +260,6 @@ describe("Quizzer", function() {
 
         it("Shouldn't require all answers if multipleAnswers is set to 'Require any'", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.settings.multipleAnswers = "Require any";
             Quizzer.prompts = [["A1", "A2", "A3", "A1, A2, A3, A4"]]
             Quizzer.responce = "A1, A2, A3";
@@ -319,7 +273,6 @@ describe("Quizzer", function() {
 
         it("Should accept mixed-case responces", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "a4";
 
@@ -338,7 +291,6 @@ describe("Quizzer", function() {
 
         it("Should accept responces with extra spaces", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"]]
             Quizzer.responce = "  a4  ";
 
@@ -357,7 +309,6 @@ describe("Quizzer", function() {
 
         it("Should convert accented characters", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "Á4"]]
             Quizzer.responce = "a`4";
 
@@ -376,32 +327,8 @@ describe("Quizzer", function() {
     });
 
     describe("Continue method", function() {
-        it("Shouldn't do anything if active is false", function() {
-            // Initialize variables
-            Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
-            Quizzer.index = 0;
-
-            // Override Reset method
-            let resetCalled = false;
-            Quizzer.Reset = function() {
-                resetCalled = true;
-            };
-
-            // Run Continue
-            Quizzer.Continue();
-
-            // Assert prompts not changed
-            expect(Quizzer.prompts[0]).to.have.members(["A1", "A2", "A3", "A4"]);
-            expect(Quizzer.prompts[1]).to.have.members(["B1", "B2", "B3", "B4"]);
-            expect(Quizzer.index).to.equal(0);
-
-            // Assert Reset not called
-            expect(resetCalled).to.equal(false);
-        });
-
         it("Shouldn't change prompts if repeatPrompts is Never", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
             Quizzer.index = 0;
             Quizzer.settings.repeatPrompts = "Never";
@@ -417,7 +344,6 @@ describe("Quizzer", function() {
 
         it("Shouldn't change prompts if repeatPrompts isn't recognized", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
             Quizzer.index = 0;
             Quizzer.settings.repeatPrompts = "test";
@@ -433,7 +359,6 @@ describe("Quizzer", function() {
 
         it("Should only change index if repeatPrompts is Immediately", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
             Quizzer.index = 0;
             Quizzer.settings.repeatPrompts = "Immediately";
@@ -449,7 +374,6 @@ describe("Quizzer", function() {
 
         it("Should only update prompts if repeatPrompts is 5 prompts later", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [
                 ["A1", "A2", "A3", "A4"],
                 ["B1", "B2", "B3", "B4"],
@@ -478,7 +402,6 @@ describe("Quizzer", function() {
 
         it("Should only update prompts if repeatPrompts is At the end", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.prompts = [
                 ["A1", "A2", "A3", "A4"],
                 ["B1", "B2", "B3", "B4"],
@@ -507,24 +430,8 @@ describe("Quizzer", function() {
     });
 
     describe("Enter method", function() {
-        it("Shouldn't do anything if active is false", function() {
-            // Initialize variables
-            Quizzer.prompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];  // Will change if Continue is called
-            Quizzer.index = 0;  // Will be changed if Reset is called
-            Quizzer.settings.repeatPrompts = "At the end";
-
-            // Run Enter
-            Quizzer.Enter();
-
-            // Assert nothing changed
-            expect(Quizzer.prompts[0]).to.have.members(["A1", "A2", "A3", "A4"]);
-            expect(Quizzer.prompts[1]).to.have.members(["B1", "B2", "B3", "B4"]);
-            expect(Quizzer.index).to.equal(0);
-        });
-
         it("Should call Submit if responceActive is true", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.responceActive = true;
 
             // Override Submit and Continue methods
@@ -547,7 +454,6 @@ describe("Quizzer", function() {
 
         it("Should call Continue if responceActive is false", function() {
             // Initialize variables
-            Quizzer.active = true;
             Quizzer.responceActive = false;
 
             // Override Submit and Continue methods
@@ -566,41 +472,6 @@ describe("Quizzer", function() {
             // Assert Submit called
             expect(submitCalled).to.equal(false);
             expect(continueCalled).to.equal(true);
-        });
-    });
-
-    describe("Active watch", function() {
-        it("Should update prompts and index", async function() {
-            // Initialize variables
-            Quizzer.startingPrompts = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]];
-            Quizzer.startingIndex = 1;
-
-            // Assert prompts and index not updated yet
-            expect(Quizzer.prompts.length).to.equal(0);
-            expect(Quizzer.index).to.equal(0);
-
-            // Set active to true
-            Quizzer.active = true;
-            await Quizzer.$nextTick();
-
-            // Assert prompts and index updated
-            expect(Quizzer.prompts).to.have.deep.members([["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"]]);
-            expect(Quizzer.index).to.equal(1);
-        });
-
-        it("Should call Reset when set to true", async function() {
-            // Override Reset method
-            let resetCalled = false;
-            Quizzer.Reset = function() {
-                resetCalled = true;
-            };
-
-            // Set active to true
-            Quizzer.active = true;
-            await Quizzer.$nextTick();
-
-            // Assert reset called
-            expect(resetCalled).to.equal(true);
         });
     });
 
