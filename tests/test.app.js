@@ -8,18 +8,13 @@ describe("App", function() {
         it("State should be 'home'", function() {
             expect(app.state).to.equal("home");
         });
-        
+
         it("Category should be 'verbs'", function() {
             expect(app.category).to.equal("verbs");
         });
-        
-        it("Settings should be correct", function() {
-            expect(app.settings.promptType).to.equal("Text");
-            expect(app.settings.inputType).to.equal("Text");
-            expect(app.settings.onMissedPrompt).to.equal("Correct me");
-            expect(app.settings.repeatPrompts).to.equal("Never");
-            expect(app.settings.multiplePrompts).to.equal("Show together");
-            expect(app.settings.multipleAnswers).to.equal("Require all");
+
+        it("Settings should be correctly loaded", function() {
+            expect(app.settings).to.deep.equal(getSettings());
         });
 
         it("Prompts should be empty", function() {
@@ -37,12 +32,12 @@ describe("App", function() {
             app.state = "home";
             app.Back();
             expect(app.state).to.equal("home");
-            
+
             // Set state and test Back method again
             app.state = "";
             app.Back();
             expect(app.state).to.equal("home");
-            
+
             // Set state and test Back method again
             app.state = "test";
             app.Back();
@@ -55,7 +50,7 @@ describe("App", function() {
             app.Back();
             expect(app.state).to.equal("home");
         });
-        
+
         it("Should go to settings when on quizzer", function() {
             // Set state and test Back method
             app.state = "quizzer";
@@ -65,23 +60,12 @@ describe("App", function() {
     });
 
     describe("StartSession method", function() {
-        it("Should import parameter values", function() {
-            // Call StartSession
-            app.StartSession([1, 2, 3], 4, {
-                promptType: "Text",     // Required to prevent browser validation alerts
-                inputType: "Text",      // Required to prevent browser validation alerts
-                testSetting: "testValue",
-            });
-
-            // Assert parameters imported
-            expect(app.prompts).to.have.members([1, 2, 3]);
-            expect(app.promptIndex).to.equal(4);
-            expect(app.settings.testSetting).to.equal("testValue");
-        });
-
         it("Should set state to 'quizzer'", function() {
             // Initialize settings
             app.state = "settings";
+            app.settings.inputType = "Text";
+            app.settings.promptType = "Text";
+            app.prompts = ["prompt1", "prompt2", "prompt3"];
 
             // Call StartSession
             app.StartSession([1, 2, 3], 4, {

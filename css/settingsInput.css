@@ -1,0 +1,15 @@
+.settingsInput h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.settingsInput {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+.settingsInput div {
+    text-align: left;
+}
+.settingsInput input[type=number] {
+    width: 50px;
+}

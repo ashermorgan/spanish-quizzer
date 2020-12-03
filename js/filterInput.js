@@ -1,4 +1,4 @@
-let settings = Vue.component("settings", {
+let filterInput = Vue.component("filterInput", {
     props: {
         category: {
             type: String,
@@ -6,12 +6,31 @@ let settings = Vue.component("settings", {
         },
     },
 
+    computed: {
+        value: function() {
+            if (this.category === "verbs") {
+                return this.verbFilters;
+            }
+            else if (this.category === "vocab") {
+                return this.vocabFilters;
+            }
+        }
+    },
+
     data: function() {
         return {
             verbFilters: [],
             vocabFilters: [],
-            settings: getSettings(),
         };
+    },
+
+    watch: {
+        value: {
+            handler: function(value) {
+                this.$emit("input", value);
+            },
+            deep: true,
+        },
     },
 
     methods: {
@@ -178,114 +197,11 @@ let settings = Vue.component("settings", {
 
             // Return filters
             return filters;
-        },
-
-        /**
-         * Start a new quizzer session
-         */
-        CreateSession: function() {
-            // Get prompts
-            let prompts;
-            if (this.category === "vocab") {
-                prompts = Shuffle(ApplyFilters(Sets, GetVocabFilters(this.vocabFilters), this.settings.multiplePrompts));
-            }
-            else if (this.category === "verbs") {
-                // Get prompts
-                prompts = Shuffle(ApplyFilters(Sets, GetVerbFilters(this.verbFilters), this.settings.multiplePrompts));
-            }
-
-            // Set progress
-            let promptIndex = 0;
-
-            // Validate prompts
-            if (prompts.length === 0) {
-                alert("Your custom vocabulary set must contain at least one term.");
-                return;
-            }
-
-            // Start quizzer
-            this.$emit("start-session", prompts, promptIndex, this.settings);
-        },
-
-        /**
-         * Resume the previous quizzer session.
-         */
-        ResumeSession: function() {
-            // Get localStorage prefix
-            let prefix;
-            if (this.category === "vocab") {
-                prefix = "vocab-"
-            }
-            else if (this.category === "verbs") {
-                prefix = "verb-"
-            }
-
-            // Load prompts and progress
-            let prompts = JSON.parse(localStorage.getItem(prefix + "prompts"));
-            let promptIndex = parseInt(localStorage.getItem(prefix + "prompt"));
-
-            // Validate prompts and promptIndex
-            if (!prompts) {
-                alert("An error occured while resuming the previous session.");
-                return;
-            }
-            else if (prompts.length === 0) {
-                alert("Your custom vocabulary set must contain at least one term.");
-                return;
-            }
-            else if (isNaN(promptIndex) || promptIndex < 0 || promptIndex >= prompts.length) {
-                alert("An error occured while resuming the previous session.");
-                return;
-            }
-
-            // Start quizzer
-            this.$emit("start-session", prompts, promptIndex, this.settings);
-        },
-
-        /**
-         * Implements keyboard shortcuts.
-         */
-        keyup: function(e) {
-            try {
-                if (window.getComputedStyle(this.$refs.container).display === "none") {
-                    return;
-                }
-            }
-            catch {
-                // Will fail if not mounted
-                return;
-            }
-
-            if (e.key === "s") {
-                this.CreateSession();
-            }
-            if (e.key === "r") {
-                this.ResumeSession();
-            }
         }
     },
 
-    watch: {
-        settings: {
-            handler: function(value) {
-                setSettings(value);
-            },
-            deep: true,
-        },
-    },
-
-    created: function() {
-        // Add keyup handler
-        window.addEventListener("keyup", this.keyup);
-    },
-
-    destroyed: function() {
-        // Remove keyup handler
-        window.removeEventListener("keyup", this.keyup);
-    },
-
     template: `
-        <div class="settings" ref="container">
+        <div class="filtersInput" ref="container">
             <div class="verbSettings" v-show="category === 'verbs'">
                 <h1>Choose your settings and then click start.</h1>
 
@@ -366,69 +282,6 @@ let settings = Vue.component("settings", {
                     </select>
                     <button class="itemRemove" @click="RemoveFilter(index);">╳</button>
                 </div>
-            </div>
-
-
-            <div class="quizzerSettings">
-                <h2>Quizzer Settings</h2>
-
-                <div>
-                    <input type="checkbox" id="settingsDarkTheme" v-model="settings.darkTheme">
-                    <label for="settingsDarkTheme">Dark Mode</label>
-                </div>
-                <div>
-                    <label for="settingsPromptType">Prompt type</label>
-                    <select id="settingsPromptType" v-model="settings.promptType">
-                        <option>Text</option>
-                        <option>Audio</option>
-                        <option>Both</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="settingsInputType">Input type</label>
-                    <select id="settingsInputType" v-model="settings.inputType">
-                        <option>Text</option>
-                        <option>Voice</option>
-                        <option>Either</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="settingsOnMissedPrompt">When I miss a prompt</label>
-                    <select id="settingsOnMissedPrompt" v-model="settings.onMissedPrompt">
-                        <option>Correct me</option>
-                        <option>Tell me</option>
-                        <option>Ignore it</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="settingsRepeatPrompts">Repeat missed prompts</label>
-                    <select id="settingsRepeatPrompts" v-model="settings.repeatPrompts">
-                        <option>Never</option>
-                        <option>Immediately</option>
-                        <option>5 prompts later</option>
-                        <option>At the end</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="settingsMultiplePrompts">Multiple prompts</label>
-                    <select id="settingsMultiplePrompts" v-model="settings.multiplePrompts">
-                        <option>Show together</option>
-                        <option>Show separately</option>
-                        <option>Show one</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="settingsMultipleAnswers">Multiple answers</label>
-                    <select id="settingsMultipleAnswers" v-model="settings.multipleAnswers">
-                        <option>Require all</option>
-                        <option>Require any</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="settingButtons">
-                <button class="settingsStart" @click="CreateSession();">Start</button>
-                <button class="settingsResume" @click="ResumeSession();">Resume</button>
             </div>
         </div>
     `,
