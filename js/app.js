@@ -196,4 +196,14 @@ function KeyDown(e) {
             window.location = "reference.html";
         }
     }
+
+    // Settings shortcuts
+    if (app.state === "settings") {
+        if (e.key === "s") {
+            app.CreateSession();
+        }
+        if (e.key === "r") {
+            app.ResumeSession();
+        }
+    }
 }
