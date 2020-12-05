@@ -41,9 +41,9 @@ function Load() {
     setTableHeight();
 
     // Load CSVs
-    let setNames = ["Verbs", "Adjectives", "Adverbs", "Prepositions", "Transitions",
-                    "Colors", "Days", "Months", "Questions", "Weather", "Family", "Clothes",
-                    "Nature", "House", "Vacation", "Childhood", "Professions", "Health"];
+    let setNames = ["Adjectives", "Adverbs", "Prepositions", "Transitions", "Verbs",
+                    "Colors", "Days", "Months", "Questions",
+                    "Childhood", "Clothes", "Family", "Food", "Health", "House", "Nature", "Professions", "Vacation", "Weather"];
     for (let setName of setNames) {
         Papa.parse(`vocab/${setName}.csv`, {
             download: true,

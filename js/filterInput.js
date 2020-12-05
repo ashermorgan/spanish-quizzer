@@ -186,6 +186,7 @@ let filterInput = Vue.component("filterInput", {
                 case "House":
                 case "Vacation":
                 case "Childhood":
+                case "Food":
                 case "Health":
                     break;
             }
@@ -264,6 +265,7 @@ let filterInput = Vue.component("filterInput", {
                             <option>Childhood</option>
                             <option>Clothes</option>
                             <option>Family</option>
+                            <option>Food</option>
                             <option>Health</option>
                             <option>House</option>
                             <option>Nature</option>

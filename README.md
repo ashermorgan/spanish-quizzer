@@ -25,6 +25,7 @@ Spanish-Quizzer comes with many vocabulary sets that can be filtered by word typ
     - Childhood (La Niñez)
     - Clothes (La Ropa)
     - Family (La Familia)
+    - Food (La Comida)
     - Health (La Salud)
     - House (La Casa)
     - Nature (La Naturaleza)
