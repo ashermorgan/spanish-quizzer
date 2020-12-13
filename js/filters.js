@@ -89,6 +89,7 @@ function GetVerbFilters(rawFilters) {
     for (let filter of rawFilters) {
         if (filter.tense.toLowerCase() === "all tenses") {
             filters.push({ tense: "present participles", type: filter.type, subject: filter.subject, direction: filter.direction });
+            filters.push({ tense: "past participles", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "present tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "preterite tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "imperfect tense", type: filter.type, subject: filter.subject, direction: filter.direction });
@@ -101,7 +102,7 @@ function GetVerbFilters(rawFilters) {
 
     // Expand "All Subjects" filters
     for (let filter of filters) {
-        if (filter.subject.toLowerCase() === "all subjects" && filter.tense !== "present participles") {
+        if (filter.subject.toLowerCase() === "all subjects" && !["present participles", "past participles"].includes(filter.tense)) {
             filter.subject = "yo";
             filters.push({ tense: filter.tense, type: filter.type, subject: "tú", direction: filter.direction });
             filters.push({ tense: filter.tense, type: filter.type, subject: "él", direction: filter.direction });
@@ -169,101 +170,112 @@ function GetVerbFilters(rawFilters) {
                         break;
                 }
                 break;
-            case "present tense":
+            case "past participles":
                 filterIndex = 4;
                 switch (filter.subject) {
                     case "type":
                         inputIndex = filterIndex;
                         break;
-                    case "yo":
+                    default:
                         inputIndex = 5;
                         break;
-                    case "tú":
-                        inputIndex = 6;
+                }
+                break;
+            case "present tense":
+                filterIndex = 6;
+                switch (filter.subject) {
+                    case "type":
+                        inputIndex = filterIndex;
                         break;
-                    case "él":
+                    case "yo":
                         inputIndex = 7;
                         break;
-                    case "nosotros":
+                    case "tú":
                         inputIndex = 8;
                         break;
-                    case "ellos":
+                    case "él":
                         inputIndex = 9;
+                        break;
+                    case "nosotros":
+                        inputIndex = 10;
+                        break;
+                    case "ellos":
+                        inputIndex = 11;
                         break;
                     default:
                         throw `Unrecognized subject: ${filter.subject}.`;
                 }
                 break;
             case "preterite tense":
-                filterIndex = 10;
+                filterIndex = 12;
                 switch (filter.subject) {
                     case "type":
                         inputIndex = filterIndex;
                         break;
                     case "yo":
-                        inputIndex = 11;
-                        break;
-                    case "tú":
-                        inputIndex = 12;
-                        break;
-                    case "él":
                         inputIndex = 13;
                         break;
-                    case "nosotros":
+                    case "tú":
                         inputIndex = 14;
                         break;
-                    case "ellos":
+                    case "él":
                         inputIndex = 15;
+                        break;
+                    case "nosotros":
+                        inputIndex = 16;
+                        break;
+                    case "ellos":
+                        inputIndex = 17;
                         break;
                     default:
                         throw `Unrecognized subject: ${filter.subject}.`;
                 }
                 break;
             case "imperfect tense":
-                filterIndex = 16;
+                filterIndex = 18;
                 switch (filter.subject) {
                     case "type":
                         inputIndex = filterIndex;
                         break;
                     case "yo":
-                        inputIndex = 17;
-                        break;
-                    case "tú":
-                        inputIndex = 18;
-                        break;
-                    case "él":
                         inputIndex = 19;
                         break;
-                    case "nosotros":
+                    case "tú":
                         inputIndex = 20;
                         break;
-                    case "ellos":
+                    case "él":
                         inputIndex = 21;
+                        break;
+                    case "nosotros":
+                        inputIndex = 22;
+                        break;
+                    case "ellos":
+                        inputIndex = 23;
                         break;
                     default:
                         throw `Unrecognized subject: ${filter.subject}.`;
                 }
                 break;
             case "simple future tense":
-                filterIndex = 22;
+                filterIndex = 24;
                 switch (filter.subject) {
                     case "type":
                         inputIndex = filterIndex;
                         break;
                     case "yo":
-                        inputIndex = 23;
-                        break;
-                    case "tú":
-                        inputIndex = 24;
-                        break;
-                    case "él":
                         inputIndex = 25;
                         break;
-                    case "nosotros":
+                    case "tú":
                         inputIndex = 26;
                         break;
-                    case "ellos":
+                    case "él":
                         inputIndex = 27;
+                        break;
+                    case "nosotros":
+                        inputIndex = 28;
+                        break;
+                    case "ellos":
+                        inputIndex = 29;
                         break;
                     default:
                         throw `Unrecognized subject: ${filter.subject}.`;

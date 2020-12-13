@@ -72,21 +72,26 @@ let filterInput = Vue.component("filterInput", {
                 case "All Tenses":
                     break;
                 case "Present Participles":
-                    filters["Reflexive"] = false;       // Reflexive
-                    filters["Orthographic"] = false;    // Orthographic
+                    filters["Reflexive"] = false;
+                    filters["Orthographic"] = false;
+                    break;
+                case "Past Participles":
+                    filters["Reflexive"] = false;
+                    filters["Stem Changing"] = false;
+                    filters["Orthographic"] = false;
                     break;
                 case "Present Tense":
-                    filters["Orthographic"] = false;    // Orthographic
+                    filters["Orthographic"] = false;
                     break;
                 case "Preterite Tense":
                     break;
                 case "Imperfect Tense":
-                    filters["Stem Changing"] = false;   // Stem Changing
-                    filters["Orthographic"] = false;    // Orthographic
+                    filters["Stem Changing"] = false;
+                    filters["Orthographic"] = false;
                     break;
                 case "Simple Future Tense":
-                    filters["Stem Changing"] = false;   // Stem Changing
-                    filters["Orthographic"] = false;    // Orthographic
+                    filters["Stem Changing"] = false;
+                    filters["Orthographic"] = false;
                     break;
             }
 
@@ -108,7 +113,7 @@ let filterInput = Vue.component("filterInput", {
             // Set default filters
             let filters = {"All Subjects":true, "Type":true, "Yo":true, "Tú":true, "Él":true, "Nosotros":true, "Ellos":true}
 
-            if (this.verbFilters[index].tense === "Present Participles") {
+            if (["Present Participles", "Past Participles"].includes(this.verbFilters[index].tense)) {
                 // Override filters
                 filters["Yo"] = false;
                 filters["Tú"] = false;
@@ -118,7 +123,7 @@ let filterInput = Vue.component("filterInput", {
             }
 
             // Reset subject
-            if (this.verbFilters[index].tense === "Present Participles" && this.verbFilters[index].subject !== "Type") {
+            if (["Present Participles", "Past Participles"].includes(this.verbFilters[index].tense) && this.verbFilters[index].subject !== "Type") {
                 this.verbFilters[index].subject = "All Subjects";
             }
 
@@ -215,6 +220,7 @@ let filterInput = Vue.component("filterInput", {
                     <select v-model="filter.tense">
                         <option>All Tenses</option>
                         <option>Present Participles</option>
+                        <option>Past Participles</option>
                         <option>Present Tense</option>
                         <option>Preterite Tense</option>
                         <option>Imperfect Tense</option>

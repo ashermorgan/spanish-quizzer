@@ -49,6 +49,7 @@ The following filters can be used on verb conjugations:
 - Tense filters
   - All tenses
   - Present Participles
+  - Past Participles
   - Present Tense
   - Preterite Tense
   - Imperfect Tense
