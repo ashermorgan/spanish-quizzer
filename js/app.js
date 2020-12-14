@@ -138,7 +138,7 @@ function loadVue() {
 /**
  * Load the document.
  */
-function Load() {
+async function Load() {
     // Call LoadPage method from global.js
     LoadPage();
 
@@ -155,20 +155,8 @@ function Load() {
     // Add event Listeners
     document.addEventListener("keydown", KeyDown);
 
-    // Load CSVs
-    Sets = [];
-    let setNames = ["Adjectives", "Adverbs", "Prepositions", "Transitions", "Verbs",
-                    "Colors", "Days", "Months", "Questions",
-                    "Childhood", "Clothes", "Family", "Food", "Health", "House", "Nature", "Professions", "Vacation", "Weather"];
-    for (let setName of setNames) {
-        Papa.parse(`vocab/${setName}.csv`, {
-            download: true,
-            complete: function(results) {
-                // Set verbs
-                Sets[setName] = results.data;
-            }
-        });
-    }
+    // Load vocab
+    Sets = await loadVocab();
 }
 
 

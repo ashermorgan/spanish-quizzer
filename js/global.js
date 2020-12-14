@@ -137,3 +137,37 @@ function setSettings(value) {
     // Apply theme
     SetTheme(value.darkTheme);
 }
+
+
+
+/**
+ * Loads the vocab sets.
+ * @param {Function} callback A callback function with two parameters: name (String) and data (Array).
+ */
+function loadVocab() {
+    return new Promise(function(resolve, reject) {
+        // Initialize variables
+        let setNames = [
+                            "Adjectives", "Adverbs", "Prepositions", "Transitions", "Verbs",  // Common words
+                            "Colors", "Days", "Months", "Questions",  // Basic words
+                            "Childhood", "Clothes", "Family", "Food", "Health", "House", "Nature", "Professions", "Vacation", "Weather",  // Advanced words
+                        ];
+        let progress = 0;
+        let sets = {};
+    
+        // Load vocab
+        for (let setName of setNames) {
+            Papa.parse(`vocab/${setName}.csv`, {
+                download: true,
+                complete: function(results) {
+                    sets[setName] = results.data;
+                    progress++;
+    
+                    if (progress === setNames.length) {
+                        resolve(sets);
+                    }
+                }
+            });
+        }
+    });
+}
