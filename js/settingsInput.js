@@ -54,6 +54,7 @@ let settingsInput = Vue.component("settingsInput", {
                     <option>Never</option>
                     <option>Immediately</option>
                     <option>5 prompts later</option>
+                    <option>5 & 10 prompts later</option>
                     <option>At the end</option>
                 </select>
             </div>

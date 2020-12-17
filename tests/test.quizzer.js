@@ -339,6 +339,7 @@ describe("Quizzer", function() {
             // Assert prompts not changed
             expect(Quizzer.prompts[0]).to.have.members(["A1", "A2", "A3", "A4"]);
             expect(Quizzer.prompts[1]).to.have.members(["B1", "B2", "B3", "B4"]);
+            expect(Quizzer.prompts.length).to.equal(2);
             expect(Quizzer.index).to.equal(1);
         });
 
@@ -354,6 +355,7 @@ describe("Quizzer", function() {
             // Assert prompts not changed
             expect(Quizzer.prompts[0]).to.have.members(["A1", "A2", "A3", "A4"]);
             expect(Quizzer.prompts[1]).to.have.members(["B1", "B2", "B3", "B4"]);
+            expect(Quizzer.prompts.length).to.equal(2);
             expect(Quizzer.index).to.equal(1);
         });
 
@@ -369,6 +371,7 @@ describe("Quizzer", function() {
             // Assert prompts not changed
             expect(Quizzer.prompts[0]).to.have.members(["A1", "A2", "A3", "A4"]);
             expect(Quizzer.prompts[1]).to.have.members(["B1", "B2", "B3", "B4"]);
+            expect(Quizzer.prompts.length).to.equal(2);
             expect(Quizzer.index).to.equal(0);
         });
 
@@ -397,6 +400,48 @@ describe("Quizzer", function() {
             expect(Quizzer.prompts[4]).to.have.members(["F1", "F2", "F3", "F4"]);
             expect(Quizzer.prompts[5]).to.have.members(["A1", "A2", "A3", "A4"]);
             expect(Quizzer.prompts[6]).to.have.members(["G1", "G2", "G3", "G4"]);
+            expect(Quizzer.prompts.length).to.equal(7);
+            expect(Quizzer.index).to.equal(0);
+        });
+
+        it("Should only update prompts if repeatPrompts is 5 & 10 prompts later", function() {
+            // Initialize variables
+            Quizzer.prompts = [
+                ["A1", "A2", "A3", "A4"],
+                ["B1", "B2", "B3", "B4"],
+                ["C1", "C2", "C3", "C4"],
+                ["D1", "D2", "D3", "D4"],
+                ["E1", "E2", "E3", "E4"],
+                ["F1", "F2", "F3", "F4"],
+                ["G1", "G2", "G3", "G4"],
+                ["H1", "H2", "H3", "H4"],
+                ["I1", "I2", "I3", "I4"],
+                ["J1", "J2", "J3", "J4"],
+                ["K1", "K2", "K3", "K4"],
+                ["L1", "L2", "L3", "L4"],
+            ];
+            Quizzer.index = 0;
+            Quizzer.settings.repeatPrompts = "5 & 10 prompts later";
+
+            // Run Continue
+            Quizzer.Continue();
+
+            // Assert prompts not changed
+            console.info(Quizzer.prompts);
+            expect(Quizzer.prompts[00]).to.have.members(["B1", "B2", "B3", "B4"]);
+            expect(Quizzer.prompts[01]).to.have.members(["C1", "C2", "C3", "C4"]);
+            expect(Quizzer.prompts[02]).to.have.members(["D1", "D2", "D3", "D4"]);
+            expect(Quizzer.prompts[03]).to.have.members(["E1", "E2", "E3", "E4"]);
+            expect(Quizzer.prompts[04]).to.have.members(["F1", "F2", "F3", "F4"]);
+            expect(Quizzer.prompts[05]).to.have.members(["A1", "A2", "A3", "A4"]);
+            expect(Quizzer.prompts[06]).to.have.members(["G1", "G2", "G3", "G4"]);
+            expect(Quizzer.prompts[07]).to.have.members(["H1", "H2", "H3", "H4"]);
+            expect(Quizzer.prompts[08]).to.have.members(["I1", "I2", "I3", "I4"]);
+            expect(Quizzer.prompts[09]).to.have.members(["J1", "J2", "J3", "J4"]);
+            expect(Quizzer.prompts[10]).to.have.members(["K1", "K2", "K3", "K4"]);
+            expect(Quizzer.prompts[11]).to.have.members(["A1", "A2", "A3", "A4"]);
+            expect(Quizzer.prompts[12]).to.have.members(["L1", "L2", "L3", "L4"]);
+            expect(Quizzer.prompts.length).to.equal(13);
             expect(Quizzer.index).to.equal(0);
         });
 
@@ -425,6 +470,7 @@ describe("Quizzer", function() {
             expect(Quizzer.prompts[4]).to.have.members(["F1", "F2", "F3", "F4"]);
             expect(Quizzer.prompts[5]).to.have.members(["G1", "G2", "G3", "G4"]);
             expect(Quizzer.prompts[6]).to.have.members(["A1", "A2", "A3", "A4"]);
+            expect(Quizzer.prompts.length).to.equal(7);
             expect(Quizzer.index).to.equal(0);
         });
     });

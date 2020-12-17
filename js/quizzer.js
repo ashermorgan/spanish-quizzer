@@ -184,21 +184,24 @@ let quizzer = Vue.component("quizzer", {
             switch (this.settings.repeatPrompts)
             {
                 case "Never":
-                    // Don't repeat
                     break;
                 case "Immediately":
-                    // Repeat imitiately
                     this.index--;
                     break;
                 case "5 prompts later":
-                    // Repeat 5 prompts later
                     var temp = this.prompt;
                     this.prompts.splice(this.index, 1);
                     this.prompts.splice(this.index + 5, 0, temp);
                     this.index--;
                     break;
+                case "5 & 10 prompts later":
+                    var temp = this.prompt;
+                    this.prompts.splice(this.index, 1);
+                    this.prompts.splice(this.index + 10, 0, temp);
+                    this.prompts.splice(this.index + 5, 0, temp);
+                    this.index--;
+                    break;
                 case "At the end":
-                    // Repeat at end of Terms
                     var temp = this.prompt;
                     this.prompts.splice(this.index, 1);
                     this.prompts.push(temp);

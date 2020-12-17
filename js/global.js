@@ -110,7 +110,7 @@ function getSettings() {
     if (["Correct me", "Tell me", "Ignore it"].includes(parsedSettings.onMissedPrompt)) {
         settings.onMissedPrompt = parsedSettings.onMissedPrompt;
     }
-    if (["Never", "Immediately", "5 prompts later", "At the end"].includes(parsedSettings.repeatPrompts)) {
+    if (["Never", "Immediately", "5 prompts later", "5 & 10 prompts later", "At the end"].includes(parsedSettings.repeatPrompts)) {
         settings.repeatPrompts = parsedSettings.repeatPrompts;
     }
     if (["Show together", "Show separately", "Show one"].includes(parsedSettings.multiplePrompts)) {
