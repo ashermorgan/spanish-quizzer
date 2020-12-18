@@ -10,23 +10,23 @@ def createXlsx(csvPath, xlsxPath):
     # Load csv
     rows = []
     with open(csvPath, encoding="utf-8") as f:
-        for row in csv.reader(f): 
+        for row in csv.reader(f):
             rows.append(row)
 
     # Rearrange csv data
     data = [["English", "Infinitive", "Yo", "Tú", "Él", "Nosotros", "Ellos"]]
     for row in rows[1:]:
-        data += [[row[0], row[0], row[5],  row[6],  row[7],  row[8],  row[9]]]      # Present
-        data += [["",     "",     row[11], row[12], row[13], row[14], row[15]]]     # Preterite
-        data += [["",     "",     row[17], row[18], row[19], row[20], row[21]]]     # Imperfect
-        data += [["",     "",     row[23], row[24], row[25], row[26], row[27]]]     # Simple Future
-    
+        data += [[row[0], row[1], row[7],  row[8],  row[9],  row[10], row[11]]]     # Present
+        data += [["",     "",     row[13], row[14], row[15], row[16], row[17]]]     # Preterite
+        data += [["",     "",     row[19], row[20], row[21], row[22], row[23]]]     # Imperfect
+        data += [["",     "",     row[25], row[26], row[27], row[28], row[29]]]     # Simple Future
+
     # Create spreadsheet
     vk = openpyxl.Workbook()
 
     # Get border styles
-    thick = Side(border_style='thick', color="FF000000")
-    thin = Side(border_style='thin', color="FF000000")
+    thick = Side(border_style="thick", color="FF000000")
+    thin = Side(border_style="thin", color="FF000000")
 
     # Set data
     sh = vk.active
@@ -35,7 +35,7 @@ def createXlsx(csvPath, xlsxPath):
         for column in range(len(data[row])):
             # Get cell
             cell = sh.cell(row=row + 1, column=column + 1)
-            
+
             # Set cell value
             cell.value = data[row][column]
 
@@ -55,6 +55,9 @@ def createXlsx(csvPath, xlsxPath):
             if row % 4 == 1:
                 # Present tense rows only
                 border.top = thick
+            if row % 4 == 0:
+                # Simple Future tense rows only
+                border.bottom = thick
             border.left = thin
             border.right = thin
 
@@ -70,7 +73,7 @@ def createXlsx(csvPath, xlsxPath):
 
             # Update cell borders
             cell.border = border
-    
+
     # Set page margins
     sh.page_margins.left = 0.25
     sh.page_margins.right = 0.25
@@ -78,6 +81,9 @@ def createXlsx(csvPath, xlsxPath):
     sh.page_margins.bottom = 0.25
     sh.page_margins.header = 0.3
     sh.page_margins.footer = 0
+
+    # Set orientation to landscape
+    openpyxl.worksheet.worksheet.Worksheet.set_printer_settings(sh, paper_size=1, orientation="landscape")
 
     # Save spreadsheet
     vk.save(xlsxPath)
