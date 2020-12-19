@@ -11,27 +11,28 @@ Try it out [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 ## Vocabulary Sets
 Spanish-Quizzer comes with many vocabulary sets that can be filtered by word type, tense, direction, and more. Those vocabulary sets are:
 - Common Words:
-    - Common Adjectives
-    - Common Adverbs
-    - Common Prepositions
-    - Common Transitions
-    - Common Verbs
+  - Common Adjectives
+  - Common Adverbs
+  - Common Prepositions
+  - Common Transitions
+  - Common Verbs
 - Basic Words:
-    - Colors (Los Colores)
-    - Days (Los Días)
-    - Months (Los Meses)
-    - Questions (Las Preguntas)
+  - Colors (Los Colores)
+  - Days (Los Días)
+  - Months (Los Meses)
+  - Numbers (Los Números)
+  - Questions (Las Preguntas)
 - Advanced Words:
-    - Childhood (La Niñez)
-    - Clothes (La Ropa)
-    - Family (La Familia)
-    - Food (La Comida)
-    - Health (La Salud)
-    - House (La Casa)
-    - Nature (La Naturaleza)
-    - Professions (Las Profesiones)
-    - Vacations (Las Vacaciones)
-    - Weather (La Clima)
+  - Childhood (La Niñez)
+  - Clothes (La Ropa)
+  - Family (La Familia)
+  - Food (La Comida)
+  - Health (La Salud)
+  - House (La Casa)
+  - Nature (La Naturaleza)
+  - Professions (Las Profesiones)
+  - Vacations (Las Vacaciones)
+  - Weather (La Clima)
 
 ## Vocabulary Filters
 The following filters can be used on vocabulary sets:

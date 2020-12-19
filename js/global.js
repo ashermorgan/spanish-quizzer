@@ -149,7 +149,7 @@ function loadVocab() {
         // Initialize variables
         let setNames = [
                             "Adjectives", "Adverbs", "Prepositions", "Transitions", "Verbs",  // Common words
-                            "Colors", "Days", "Months", "Questions",  // Basic words
+                            "Colors", "Days", "Months", "Numbers", "Questions",  // Basic words
                             "Childhood", "Clothes", "Family", "Food", "Health", "House", "Nature", "Professions", "Vacation", "Weather",  // Advanced words
                         ];
         let progress = 0;

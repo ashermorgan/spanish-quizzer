@@ -173,6 +173,7 @@ let filterInput = Vue.component("filterInput", {
 
                 case "Days":
                 case "Months":
+                case "Numbers":
                     filters["Adjectives"] = false;
                     filters["Verbs"] = false;
                     break;
@@ -265,6 +266,7 @@ let filterInput = Vue.component("filterInput", {
                             <option>Colors</option>
                             <option>Days</option>
                             <option>Months</option>
+                            <option>Numbers</option>
                             <option>Questions</option>
                         </optgroup>
                         <optgroup label="Advanced Words">
