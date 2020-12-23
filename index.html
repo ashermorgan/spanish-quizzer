@@ -24,7 +24,10 @@
 
     <body onload="Load();">
         <div id="app">
-            <header @click="Back">Spanish-Quizzer</header>
+            <header @click="Back">
+                <img id="backArrow" v-show="state != 'home'" src="images/arrow-left.svg"/>
+                Spanish-Quizzer
+            </header>
 
             <main>
                 <noscript>

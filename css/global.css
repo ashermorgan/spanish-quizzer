@@ -93,6 +93,13 @@ header {
     padding-bottom: 15px;
 }
 
+#backArrow {
+    position: fixed;
+    left: 10px;
+    height: 30px;
+    background-color: var(--theme-color);
+}
+
 main {
     grid-row: 2;
     grid-column: 2;
