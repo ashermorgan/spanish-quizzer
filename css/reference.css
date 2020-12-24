@@ -51,7 +51,7 @@ main > h1 {
         --hover-color: #FFFFFF;
     }
 
-    header, h1, #controls, footer, label, br {
+    header, h1, #controls, label, br {
         display: none;
     }
     

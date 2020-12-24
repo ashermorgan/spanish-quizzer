@@ -24,9 +24,9 @@ function loadVue() {
  * Load the document
  */
 async function Load() {
-    // Call LoadPage method from global.js
-    LoadPage();
-    
+    // Update theme
+    SetTheme(null);
+
     // Initialize the Vue
     loadVue();
 
@@ -35,7 +35,6 @@ async function Load() {
     document.querySelector("h1").hidden = false;
     document.getElementById("controls").hidden = false;
     document.getElementById("referenceTable").hidden = false;
-    document.querySelector("footer").hidden = false;
 
     // Set table height
     setTableHeight();
@@ -70,5 +69,5 @@ async function Load() {
  */
 function setTableHeight() {
     var tableY = document.getElementById("referenceTable").offsetTop;
-    document.getElementById("referenceTable").style.height = `${window.innerHeight - tableY - 50}px`;
+    document.getElementById("referenceTable").style.height = `${window.innerHeight - tableY - 10}px`;
 }

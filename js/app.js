@@ -139,8 +139,8 @@ function loadVue() {
  * Load the document.
  */
 async function Load() {
-    // Call LoadPage method from global.js
-    LoadPage();
+    // Set theme
+    SetTheme(null);
 
     // Initialize the Vue app
     loadVue();
@@ -150,7 +150,6 @@ async function Load() {
     document.getElementById("home").hidden = false;
     document.getElementById("settings").hidden = false;
     document.getElementById("congrats").hidden = false;
-    document.querySelector("footer").hidden = false;
 
     // Add event Listeners
     document.addEventListener("keydown", KeyDown);

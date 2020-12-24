@@ -23,21 +23,6 @@ function SetTheme(darkTheme = null) {
 
 
 /**
- * Loads the page.
- */
-function LoadPage() {
-    // Add event Listeners
-    document.addEventListener("click", function (e) {
-        document.getElementById('share').hidden = true;
-    });
-
-    // Update theme
-    SetTheme(null);
-}
-
-
-
-/**
  * Get the language code that matches a label.
  * @param {String} label - The label.
  * @returns {String} - The language code ("en", "es", etc.)
@@ -154,7 +139,7 @@ function loadVocab() {
                         ];
         let progress = 0;
         let sets = {};
-    
+
         // Load vocab
         for (let setName of setNames) {
             Papa.parse(`vocab/${setName}.csv`, {
@@ -162,7 +147,7 @@ function loadVocab() {
                 complete: function(results) {
                     sets[setName] = results.data;
                     progress++;
-    
+
                     if (progress === setNames.length) {
                         resolve(sets);
                     }
