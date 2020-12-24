@@ -94,7 +94,7 @@ header {
 }
 
 #backArrow {
-    position: fixed;
+    position: absolute;
     left: 10px;
     height: 30px;
     background-color: var(--theme-color);
