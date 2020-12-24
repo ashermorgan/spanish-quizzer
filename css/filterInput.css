@@ -8,9 +8,9 @@
     font-size: 20px;
     margin-bottom: 5px;
 }
-.filtersInput {
-    margin-left: 5px;
-    margin-right: 5px;
+.filtersInput div {
+    margin-left: 10px;
+    margin-right: 10px;
     margin-top: 10px;
 }
 .filtersInput div h2 button {
