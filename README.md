@@ -4,38 +4,36 @@ Try it out [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 
 ## Features
 - Supports practice for all four language skills: reading, listening, writing, and speaking.
-- Lots of vocab sets and filters.
+- Lots of filters for both vocabulary and verb conjugations.
 - Easily type special characters (``` a` ``` → `á`, `n~` → `ñ`, `u~` → `ü`)
-- Spanish vocabulary reference tables (available [here](https://ashermorgan.github.io/Spanish-Quizzer/reference.html))
-
-## Vocabulary Sets
-Spanish-Quizzer comes with many vocabulary sets that can be filtered by word type, tense, direction, and more. Those vocabulary sets are:
-- Common Words:
-  - Common Adjectives
-  - Common Adverbs
-  - Common Prepositions
-  - Common Transitions
-  - Common Verbs
-- Basic Words:
-  - Colors (Los Colores)
-  - Days (Los Días)
-  - Months (Los Meses)
-  - Numbers (Los Números)
-  - Questions (Las Preguntas)
-- Advanced Words:
-  - Childhood (La Niñez)
-  - Clothes (La Ropa)
-  - Family (La Familia)
-  - Food (La Comida)
-  - Health (La Salud)
-  - House (La Casa)
-  - Nature (La Naturaleza)
-  - Professions (Las Profesiones)
-  - Vacations (Las Vacaciones)
-  - Weather (La Clima)
+- Spanish reference tables (available [here](https://ashermorgan.github.io/Spanish-Quizzer/reference.html))
 
 ## Vocabulary Filters
-The following filters can be used on vocabulary sets:
+The following filters can be used on vocabulary:
+- Category filters
+  - Common Words
+    - Common Adjectives
+    - Common Adverbs
+    - Common Prepositions
+    - Common Transitions
+    - Common Verbs
+  - Basic Words
+    - Colors (Los Colores)
+    - Days (Los Días)
+    - Months (Los Meses)
+    - Numbers (Los Números)
+    - Questions (Las Preguntas)
+  - Advanced Words
+    - Childhood (La Niñez)
+    - Clothes (La Ropa)
+    - Family (La Familia)
+    - Food (La Comida)
+    - Health (La Salud)
+    - House (La Casa)
+    - Nature (La Naturaleza)
+    - Professions (Las Profesiones)
+    - Vacations (Las Vacaciones)
+    - Weather (La Clima)
 - Language filters
   - Enlish to and from Spanish
   - English to Spanish

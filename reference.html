@@ -27,42 +27,17 @@
                     <div id="jsError">
                         <h1>You must have JavaScript enabled to run Spanish-Quizzer.</h1>
                         <p>Spanish-Quizzer uses JavaScript to load vocab, apply filters, and check your answers.</p>
-                        <p>You can still view the <a href="vocab/">vocab sets</a>, but you can't use the Quizzer or the Reference Tables.</p>
+                        <p>You can still view the <a href="data/">data sets</a>, but you can't use the Quizzer or the Reference Tables.</p>
                     </div>
                 </noscript>
     
                 <h1 hidden>Reference Tables</h1>
     
                 <div id="controls" hidden>
-                    <select aria-label="Vocab Set" v-model="set">
-                        <option>Choose a vocab set</option>
-                        <option>All Sets</option>
-                        <optgroup label="Common Words">
-                            <option>Adjectives</option>
-                            <option>Adverbs</option>
-                            <option>Prepositions</option>
-                            <option>Transitions</option>
-                            <option>Verbs</option>
-                        </optgroup>
-                        <optgroup label="Basic Words">
-                            <option>Colors</option>
-                            <option>Days</option>
-                            <option>Months</option>
-                            <option>Numbers</option>
-                            <option>Questions</option>
-                        </optgroup>
-                        <optgroup label="Advanced Words">
-                            <option>Childhood</option>
-                            <option>Clothes</option>
-                            <option>Family</option>
-                            <option>Food</option>
-                            <option>Health</option>
-                            <option>House</option>
-                            <option>Nature</option>
-                            <option>Professions</option>
-                            <option>Vacation</option>
-                            <option>Weather</option>
-                        </optgroup>
+                    <select aria-label="Vocab Set" v-model="category">
+                        <option>Choose a category</option>
+                        <option value="verbs">Conjugations</option>
+                        <option value="vocab">Vocab</option>
                     </select>
                     <input type="text" aria-label="Search" v-model="query" placeholder="Search"
                         autocomplete="off" autocorrect="off">
@@ -70,9 +45,9 @@
                 
                 <div id="referenceTable" hidden>
                     <table>
-                        <tr v-for="(row, rowIndex) in sets[set]" v-show="rowIndex === 0 || row.join(',').toLowerCase().includes(query.toLowerCase())">
+                        <tr v-for="(row, rowIndex) in data[category]" v-show="rowIndex === 0 || row.join(',').toLowerCase().includes(query.toLowerCase())">
                             <th v-if="rowIndex === 0" v-for="column in row">{{ column }}</th>
-                            <td v-if="rowIndex !== 0" v-for="(column, columnIndex) in row" @click="Read(column, sets[set][0][columnIndex])" :lang="getLang(sets[set][0][columnIndex])">{{ column }}</td>
+                            <td v-if="rowIndex !== 0" v-for="(column, columnIndex) in row" @click="Read(column, data[category][0][columnIndex])" :lang="getLang(data[category][0][columnIndex])">{{ column }}</td>
                         </tr>
                     </table>
                 </div>

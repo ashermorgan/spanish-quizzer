@@ -427,7 +427,6 @@ describe("Quizzer", function() {
             Quizzer.Continue();
 
             // Assert prompts not changed
-            console.info(Quizzer.prompts);
             expect(Quizzer.prompts[00]).to.have.members(["B1", "B2", "B3", "B4"]);
             expect(Quizzer.prompts[01]).to.have.members(["C1", "C2", "C3", "C4"]);
             expect(Quizzer.prompts[02]).to.have.members(["D1", "D2", "D3", "D4"]);

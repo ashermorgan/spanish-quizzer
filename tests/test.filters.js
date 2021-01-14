@@ -3,12 +3,12 @@ describe("Filters", function() {
         it("Should correctly filter vocab for All Definitions", function() {
             // Initialize expected
             let expected = [
-                {set:"Colors", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:".*"},
-                {set:"Colors", outputIndex:1, inputIndex:0, filterIndex:2, filterValue:".*"},
+                {outputIndex:0, inputIndex:1, filters:[{index:2, value:".*"}, {index:3, value:"Colors"}]},
+                {outputIndex:1, inputIndex:0, filters:[{index:2, value:".*"}, {index:3, value:"Colors"}]},
             ];
 
             // Filter vocab
-            let actual = GetVocabFilters([{set:"Colors", type:"All Types", direction:"Eng. ↔ Esp."}]);
+            let actual = GetVocabFilters([{category:"Colors", type:"All Types", direction:"Eng. ↔ Esp."}]);
 
             // Assert filtered vocab is correct
             expect(actual).to.have.deep.members(expected);
@@ -17,15 +17,15 @@ describe("Filters", function() {
         it("Should correctly filter vocab for multiple filters", function() {
             // Initialize expected
             let expected = [
-                {set:"Colors", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:".*"},
-                {set:"Colors", outputIndex:1, inputIndex:0, filterIndex:2, filterValue:".*"},
-                {set:"Months", outputIndex:1, inputIndex:0, filterIndex:2, filterValue:"Verb"},
+                {outputIndex:0, inputIndex:1, filters:[{index:2, value:".*"}, {index:3, value:"Colors"}]},
+                {outputIndex:1, inputIndex:0, filters:[{index:2, value:".*"}, {index:3, value:"Colors"}]},
+                {outputIndex:1, inputIndex:0, filters:[{index:2, value:"Verb"}, {index:3, value:"Months"}]},
             ];
 
             // Filter vocab
             let actual = GetVocabFilters([
-                {set:"Colors", type:"All Types", direction:"Eng. ↔ Esp."},
-                {set:"Months", type:"Verbs", direction:"Esp. → Eng."},
+                {category:"Colors", type:"All Types", direction:"Eng. ↔ Esp."},
+                {category:"Months", type:"Verbs", direction:"Esp. → Eng."},
             ]);
 
             // Assert filtered vocab is correct
@@ -36,11 +36,11 @@ describe("Filters", function() {
             it("Should correctly filter vocab for English to Spanish", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Colors", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:".*"},
+                    {outputIndex:0, inputIndex:1, filters:[{index:2, value:".*"}, {index:3, value:"Colors"}]},
                 ];
 
                 // Filter vocab
-                let actual = GetVocabFilters([{set:"Colors", type:"All Types", direction:"Eng. → Esp."}]);
+                let actual = GetVocabFilters([{category:"Colors", type:"All Types", direction:"Eng. → Esp."}]);
 
                 // Assert filtered vocab is correct
                 expect(actual).to.have.deep.members(expected);
@@ -49,11 +49,11 @@ describe("Filters", function() {
             it("Should correctly filter vocab for Spanish to English", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Colors", outputIndex:1, inputIndex:0, filterIndex:2, filterValue:".*"},
+                    {outputIndex:1, inputIndex:0, filters:[{index:2, value:".*"}, {index:3, value:"Colors"}]},
                 ];
 
                 // Filter vocab
-                let actual = GetVocabFilters([{set:"Colors", type:"All Types", direction:"Esp. → Eng."}]);
+                let actual = GetVocabFilters([{category:"Colors", type:"All Types", direction:"Esp. → Eng."}]);
 
                 // Assert filtered vocab is correct
                 expect(actual).to.have.deep.members(expected);
@@ -64,12 +64,12 @@ describe("Filters", function() {
             it("Should correctly filter vocab for Nouns", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Colors", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Noun"},
-                    {set:"Colors", outputIndex:1, inputIndex:0, filterIndex:2, filterValue:"Noun"},
+                    {outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun"}, {index:3, value:"Colors"}]},
+                    {outputIndex:1, inputIndex:0, filters:[{index:2, value:"Noun"}, {index:3, value:"Colors"}]},
                 ];
 
                 // Filter vocab
-                let actual = GetVocabFilters([{set:"Colors", type:"Nouns", direction:"Eng. ↔ Esp."}]);
+                let actual = GetVocabFilters([{category:"Colors", type:"Nouns", direction:"Eng. ↔ Esp."}]);
 
                 // Assert filtered vocab is correct
                 expect(actual).to.have.deep.members(expected);
@@ -78,12 +78,12 @@ describe("Filters", function() {
             it("Should correctly filter vocab for Adjectives", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Colors", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Adjective"},
-                    {set:"Colors", outputIndex:1, inputIndex:0, filterIndex:2, filterValue:"Adjective"},
+                    {outputIndex:0, inputIndex:1, filters:[{index:2, value:"Adjective"}, {index:3, value:"Colors"}]},
+                    {outputIndex:1, inputIndex:0, filters:[{index:2, value:"Adjective"}, {index:3, value:"Colors"}]},
                 ];
 
                 // Filter vocab
-                let actual = GetVocabFilters([{set:"Colors", type:"Adjectives", direction:"Eng. ↔ Esp."}]);
+                let actual = GetVocabFilters([{category:"Colors", type:"Adjectives", direction:"Eng. ↔ Esp."}]);
 
                 // Assert filtered vocab is correct
                 expect(actual).to.have.deep.members(expected);
@@ -92,22 +92,22 @@ describe("Filters", function() {
             it("Should correctly filter vocab for Verbs", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Colors", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Verb"},
-                    {set:"Colors", outputIndex:1, inputIndex:0, filterIndex:2, filterValue:"Verb"},
+                    {outputIndex:0, inputIndex:1, filters:[{index:2, value:"Verb"}, {index:3, value:"Colors"}]},
+                    {outputIndex:1, inputIndex:0, filters:[{index:2, value:"Verb"}, {index:3, value:"Colors"}]},
                 ];
 
                 // Filter vocab
-                let actual = GetVocabFilters([{set:"Colors", type:"Verbs", direction:"Eng. ↔ Esp."}]);
+                let actual = GetVocabFilters([{category:"Colors", type:"Verbs", direction:"Eng. ↔ Esp."}]);
 
                 // Assert filtered vocab is correct
                 expect(actual).to.have.deep.members(expected);
             });
 
             it("Should throw error for unknown word type", function() {
-                expect(() => GetVocabFilters([{set:"Colors", type:"test",   direction:"Eng. ↔ Esp."}])).to.throw()
-                expect(() => GetVocabFilters([{set:"Colors", type:"",       direction:"Eng. ↔ Esp."}])).to.throw()
-                expect(() => GetVocabFilters([{set:"Colors", type:1,        direction:"Eng. ↔ Esp."}])).to.throw()
-                expect(() => GetVocabFilters([{set:"Colors", type:null,     direction:"Eng. ↔ Esp."}])).to.throw()
+                expect(() => GetVocabFilters([{category:"Colors", type:"test",   direction:"Eng. ↔ Esp."}])).to.throw()
+                expect(() => GetVocabFilters([{category:"Colors", type:"",       direction:"Eng. ↔ Esp."}])).to.throw()
+                expect(() => GetVocabFilters([{category:"Colors", type:1,        direction:"Eng. ↔ Esp."}])).to.throw()
+                expect(() => GetVocabFilters([{category:"Colors", type:null,     direction:"Eng. ↔ Esp."}])).to.throw()
             });
         });
     });
@@ -116,28 +116,28 @@ describe("Filters", function() {
         it("Should correctly filter verbs for All Conjugations", function() {
             // Initialize expected
             let expected = [
-                {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:07, filterIndex:06, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:08, filterIndex:06, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:09, filterIndex:06, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:06, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:11, filterIndex:06, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:13, filterIndex:12, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:14, filterIndex:12, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:15, filterIndex:12, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:16, filterIndex:12, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:17, filterIndex:12, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:19, filterIndex:18, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:20, filterIndex:18, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:21, filterIndex:18, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:22, filterIndex:18, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:23, filterIndex:18, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:25, filterIndex:24, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:26, filterIndex:24, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:27, filterIndex:24, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:28, filterIndex:24, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:29, filterIndex:24, filterValue:".*"},
+                {outputIndex:0, inputIndex:03, filters:[{index:02, value:".*"}]},
+                {outputIndex:0, inputIndex:05, filters:[{index:04, value:".*"}]},
+                {outputIndex:0, inputIndex:07, filters:[{index:06, value:".*"}]},
+                {outputIndex:0, inputIndex:08, filters:[{index:06, value:".*"}]},
+                {outputIndex:0, inputIndex:09, filters:[{index:06, value:".*"}]},
+                {outputIndex:0, inputIndex:10, filters:[{index:06, value:".*"}]},
+                {outputIndex:0, inputIndex:11, filters:[{index:06, value:".*"}]},
+                {outputIndex:0, inputIndex:13, filters:[{index:12, value:".*"}]},
+                {outputIndex:0, inputIndex:14, filters:[{index:12, value:".*"}]},
+                {outputIndex:0, inputIndex:15, filters:[{index:12, value:".*"}]},
+                {outputIndex:0, inputIndex:16, filters:[{index:12, value:".*"}]},
+                {outputIndex:0, inputIndex:17, filters:[{index:12, value:".*"}]},
+                {outputIndex:0, inputIndex:19, filters:[{index:18, value:".*"}]},
+                {outputIndex:0, inputIndex:20, filters:[{index:18, value:".*"}]},
+                {outputIndex:0, inputIndex:21, filters:[{index:18, value:".*"}]},
+                {outputIndex:0, inputIndex:22, filters:[{index:18, value:".*"}]},
+                {outputIndex:0, inputIndex:23, filters:[{index:18, value:".*"}]},
+                {outputIndex:0, inputIndex:25, filters:[{index:24, value:".*"}]},
+                {outputIndex:0, inputIndex:26, filters:[{index:24, value:".*"}]},
+                {outputIndex:0, inputIndex:27, filters:[{index:24, value:".*"}]},
+                {outputIndex:0, inputIndex:28, filters:[{index:24, value:".*"}]},
+                {outputIndex:0, inputIndex:29, filters:[{index:24, value:".*"}]},
             ];
 
             // Filter verbs
@@ -150,41 +150,41 @@ describe("Filters", function() {
         it("Should correctly filter verbs for multiple filters", function() {
             // Initialize expected
             let expected = [
-                {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:07, filterIndex:06, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:08, filterIndex:06, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:09, filterIndex:06, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:06, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:11, filterIndex:06, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:13, filterIndex:12, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:14, filterIndex:12, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:15, filterIndex:12, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:16, filterIndex:12, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:17, filterIndex:12, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:19, filterIndex:18, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:20, filterIndex:18, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:21, filterIndex:18, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:22, filterIndex:18, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:23, filterIndex:18, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:25, filterIndex:24, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:26, filterIndex:24, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:27, filterIndex:24, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:28, filterIndex:24, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                {set:"Verbs", outputIndex:0, inputIndex:29, filterIndex:24, filterValue:"Irregular|Stem.?Changing|Orthographic"},
+                {outputIndex:0, inputIndex:03, filters:[{index:02, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:05, filters:[{index:04, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:07, filters:[{index:06, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:08, filters:[{index:06, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:09, filters:[{index:06, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:10, filters:[{index:06, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:11, filters:[{index:06, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:13, filters:[{index:12, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:14, filters:[{index:12, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:15, filters:[{index:12, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:16, filters:[{index:12, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:17, filters:[{index:12, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:19, filters:[{index:18, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:20, filters:[{index:18, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:21, filters:[{index:18, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:22, filters:[{index:18, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:23, filters:[{index:18, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:25, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:26, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
 
-                {set:"Verbs", outputIndex:0, inputIndex:07, filterIndex:06, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:08, filterIndex:06, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:09, filterIndex:06, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:06, filterValue:".*"},
-                {set:"Verbs", outputIndex:0, inputIndex:11, filterIndex:06, filterValue:".*"},
+                {outputIndex:0, inputIndex:07, filters:[{index:06, value:".*"}]},
+                {outputIndex:0, inputIndex:08, filters:[{index:06, value:".*"}]},
+                {outputIndex:0, inputIndex:09, filters:[{index:06, value:".*"}]},
+                {outputIndex:0, inputIndex:10, filters:[{index:06, value:".*"}]},
+                {outputIndex:0, inputIndex:11, filters:[{index:06, value:".*"}]},
 
-                {set:"Verbs", outputIndex:03, inputIndex:1, filterIndex:02, filterValue:"Stem.?Changing"},
-                {set:"Verbs", outputIndex:05, inputIndex:1, filterIndex:04, filterValue:"Stem.?Changing"},
-                {set:"Verbs", outputIndex:10, inputIndex:1, filterIndex:06, filterValue:"Stem.?Changing"},
-                {set:"Verbs", outputIndex:16, inputIndex:1, filterIndex:12, filterValue:"Stem.?Changing"},
-                {set:"Verbs", outputIndex:22, inputIndex:1, filterIndex:18, filterValue:"Stem.?Changing"},
-                {set:"Verbs", outputIndex:28, inputIndex:1, filterIndex:24, filterValue:"Stem.?Changing"},
+                {outputIndex:03, inputIndex:1, filters:[{index:02, value:"Stem.?Changing"}]},
+                {outputIndex:05, inputIndex:1, filters:[{index:04, value:"Stem.?Changing"}]},
+                {outputIndex:10, inputIndex:1, filters:[{index:06, value:"Stem.?Changing"}]},
+                {outputIndex:16, inputIndex:1, filters:[{index:12, value:"Stem.?Changing"}]},
+                {outputIndex:22, inputIndex:1, filters:[{index:18, value:"Stem.?Changing"}]},
+                {outputIndex:28, inputIndex:1, filters:[{index:24, value:"Stem.?Changing"}]},
             ];
 
             // Filter verbs
@@ -202,7 +202,7 @@ describe("Filters", function() {
             it("Should correctly filter verbs for Present Participles", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:3, filterIndex:2, filterValue:".*"},
+                    {outputIndex:0, inputIndex:3, filters:[{index:2, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -215,7 +215,7 @@ describe("Filters", function() {
             it("Should correctly filter verbs for Past Participles", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:5, filterIndex:4, filterValue:".*"},
+                    {outputIndex:0, inputIndex:5, filters:[{index:4, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -228,11 +228,11 @@ describe("Filters", function() {
             it("Should correctly filter verbs for Present Tense", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:07, filterIndex:6, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:08, filterIndex:6, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:09, filterIndex:6, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:6, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:11, filterIndex:6, filterValue:".*"},
+                    {outputIndex:0, inputIndex:07, filters:[{index:6, value:".*"}]},
+                    {outputIndex:0, inputIndex:08, filters:[{index:6, value:".*"}]},
+                    {outputIndex:0, inputIndex:09, filters:[{index:6, value:".*"}]},
+                    {outputIndex:0, inputIndex:10, filters:[{index:6, value:".*"}]},
+                    {outputIndex:0, inputIndex:11, filters:[{index:6, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -245,11 +245,11 @@ describe("Filters", function() {
             it("Should correctly filter verbs for Preterite Tense", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:13, filterIndex:12, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:14, filterIndex:12, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:15, filterIndex:12, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:16, filterIndex:12, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:17, filterIndex:12, filterValue:".*"},
+                    {outputIndex:0, inputIndex:13, filters:[{index:12, value:".*"}]},
+                    {outputIndex:0, inputIndex:14, filters:[{index:12, value:".*"}]},
+                    {outputIndex:0, inputIndex:15, filters:[{index:12, value:".*"}]},
+                    {outputIndex:0, inputIndex:16, filters:[{index:12, value:".*"}]},
+                    {outputIndex:0, inputIndex:17, filters:[{index:12, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -262,11 +262,11 @@ describe("Filters", function() {
             it("Should correctly filter verbs for Imperfect Tense", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:19, filterIndex:18, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:20, filterIndex:18, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:21, filterIndex:18, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:22, filterIndex:18, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:23, filterIndex:18, filterValue:".*"},
+                    {outputIndex:0, inputIndex:19, filters:[{index:18, value:".*"}]},
+                    {outputIndex:0, inputIndex:20, filters:[{index:18, value:".*"}]},
+                    {outputIndex:0, inputIndex:21, filters:[{index:18, value:".*"}]},
+                    {outputIndex:0, inputIndex:22, filters:[{index:18, value:".*"}]},
+                    {outputIndex:0, inputIndex:23, filters:[{index:18, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -279,11 +279,11 @@ describe("Filters", function() {
             it("Should correctly filter verbs for Simple Future Tense", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:25, filterIndex:24, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:26, filterIndex:24, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:27, filterIndex:24, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:28, filterIndex:24, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:29, filterIndex:24, filterValue:".*"},
+                    {outputIndex:0, inputIndex:25, filters:[{index:24, value:".*"}]},
+                    {outputIndex:0, inputIndex:26, filters:[{index:24, value:".*"}]},
+                    {outputIndex:0, inputIndex:27, filters:[{index:24, value:".*"}]},
+                    {outputIndex:0, inputIndex:28, filters:[{index:24, value:".*"}]},
+                    {outputIndex:0, inputIndex:29, filters:[{index:24, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -298,28 +298,28 @@ describe("Filters", function() {
             it("Should correctly filter regular verbs", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:07, filterIndex:06, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:08, filterIndex:06, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:09, filterIndex:06, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:06, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:11, filterIndex:06, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:13, filterIndex:12, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:14, filterIndex:12, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:15, filterIndex:12, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:16, filterIndex:12, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:17, filterIndex:12, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:19, filterIndex:18, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:20, filterIndex:18, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:21, filterIndex:18, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:22, filterIndex:18, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:23, filterIndex:18, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:25, filterIndex:24, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:26, filterIndex:24, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:27, filterIndex:24, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:28, filterIndex:24, filterValue:"Regular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:29, filterIndex:24, filterValue:"Regular"},
+                    {outputIndex:0, inputIndex:03, filters:[{index:02, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:05, filters:[{index:04, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:07, filters:[{index:06, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:08, filters:[{index:06, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:09, filters:[{index:06, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:10, filters:[{index:06, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:11, filters:[{index:06, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:13, filters:[{index:12, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:14, filters:[{index:12, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:15, filters:[{index:12, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:16, filters:[{index:12, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:17, filters:[{index:12, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:19, filters:[{index:18, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:20, filters:[{index:18, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:21, filters:[{index:18, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:22, filters:[{index:18, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:23, filters:[{index:18, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:25, filters:[{index:24, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:26, filters:[{index:24, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Regular"}]},
                 ];
 
                 // Filter verbs
@@ -332,28 +332,28 @@ describe("Filters", function() {
             it("Should correctly filter reflexive verbs", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:07, filterIndex:06, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:08, filterIndex:06, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:09, filterIndex:06, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:06, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:11, filterIndex:06, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:13, filterIndex:12, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:14, filterIndex:12, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:15, filterIndex:12, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:16, filterIndex:12, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:17, filterIndex:12, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:19, filterIndex:18, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:20, filterIndex:18, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:21, filterIndex:18, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:22, filterIndex:18, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:23, filterIndex:18, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:25, filterIndex:24, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:26, filterIndex:24, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:27, filterIndex:24, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:28, filterIndex:24, filterValue:"Reflexive"},
-                    {set:"Verbs", outputIndex:0, inputIndex:29, filterIndex:24, filterValue:"Reflexive"},
+                    {outputIndex:0, inputIndex:03, filters:[{index:02, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:05, filters:[{index:04, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:07, filters:[{index:06, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:08, filters:[{index:06, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:09, filters:[{index:06, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:10, filters:[{index:06, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:11, filters:[{index:06, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:13, filters:[{index:12, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:14, filters:[{index:12, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:15, filters:[{index:12, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:16, filters:[{index:12, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:17, filters:[{index:12, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:19, filters:[{index:18, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:20, filters:[{index:18, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:21, filters:[{index:18, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:22, filters:[{index:18, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:23, filters:[{index:18, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:25, filters:[{index:24, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:26, filters:[{index:24, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Reflexive"}]},
                 ];
 
                 // Filter verbs
@@ -366,28 +366,28 @@ describe("Filters", function() {
             it("Should correctly filter stem changing verbs", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:07, filterIndex:06, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:08, filterIndex:06, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:09, filterIndex:06, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:06, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:11, filterIndex:06, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:13, filterIndex:12, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:14, filterIndex:12, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:15, filterIndex:12, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:16, filterIndex:12, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:17, filterIndex:12, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:19, filterIndex:18, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:20, filterIndex:18, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:21, filterIndex:18, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:22, filterIndex:18, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:23, filterIndex:18, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:25, filterIndex:24, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:26, filterIndex:24, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:27, filterIndex:24, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:28, filterIndex:24, filterValue:"Stem.?Changing"},
-                    {set:"Verbs", outputIndex:0, inputIndex:29, filterIndex:24, filterValue:"Stem.?Changing"},
+                    {outputIndex:0, inputIndex:03, filters:[{index:02, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:05, filters:[{index:04, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:07, filters:[{index:06, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:08, filters:[{index:06, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:09, filters:[{index:06, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:10, filters:[{index:06, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:11, filters:[{index:06, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:13, filters:[{index:12, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:14, filters:[{index:12, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:15, filters:[{index:12, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:16, filters:[{index:12, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:17, filters:[{index:12, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:19, filters:[{index:18, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:20, filters:[{index:18, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:21, filters:[{index:18, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:22, filters:[{index:18, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:23, filters:[{index:18, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:25, filters:[{index:24, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:26, filters:[{index:24, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Stem.?Changing"}]},
                 ];
 
                 // Filter verbs
@@ -400,28 +400,28 @@ describe("Filters", function() {
             it("Should correctly filter orthographic verbs", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:07, filterIndex:06, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:08, filterIndex:06, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:09, filterIndex:06, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:06, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:11, filterIndex:06, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:13, filterIndex:12, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:14, filterIndex:12, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:15, filterIndex:12, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:16, filterIndex:12, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:17, filterIndex:12, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:19, filterIndex:18, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:20, filterIndex:18, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:21, filterIndex:18, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:22, filterIndex:18, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:23, filterIndex:18, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:25, filterIndex:24, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:26, filterIndex:24, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:27, filterIndex:24, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:28, filterIndex:24, filterValue:"Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:29, filterIndex:24, filterValue:"Orthographic"},
+                    {outputIndex:0, inputIndex:03, filters:[{index:02, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:05, filters:[{index:04, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:07, filters:[{index:06, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:08, filters:[{index:06, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:09, filters:[{index:06, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:10, filters:[{index:06, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:11, filters:[{index:06, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:13, filters:[{index:12, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:14, filters:[{index:12, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:15, filters:[{index:12, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:16, filters:[{index:12, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:17, filters:[{index:12, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:19, filters:[{index:18, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:20, filters:[{index:18, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:21, filters:[{index:18, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:22, filters:[{index:18, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:23, filters:[{index:18, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:25, filters:[{index:24, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:26, filters:[{index:24, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Orthographic"}]},
                 ];
 
                 // Filter verbs
@@ -434,28 +434,28 @@ describe("Filters", function() {
             it("Should correctly filter irregular verbs", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:07, filterIndex:06, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:08, filterIndex:06, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:09, filterIndex:06, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:06, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:11, filterIndex:06, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:13, filterIndex:12, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:14, filterIndex:12, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:15, filterIndex:12, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:16, filterIndex:12, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:17, filterIndex:12, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:19, filterIndex:18, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:20, filterIndex:18, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:21, filterIndex:18, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:22, filterIndex:18, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:23, filterIndex:18, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:25, filterIndex:24, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:26, filterIndex:24, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:27, filterIndex:24, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:28, filterIndex:24, filterValue:"Irregular"},
-                    {set:"Verbs", outputIndex:0, inputIndex:29, filterIndex:24, filterValue:"Irregular"},
+                    {outputIndex:0, inputIndex:03, filters:[{index:02, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:05, filters:[{index:04, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:07, filters:[{index:06, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:08, filters:[{index:06, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:09, filters:[{index:06, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:10, filters:[{index:06, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:11, filters:[{index:06, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:13, filters:[{index:12, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:14, filters:[{index:12, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:15, filters:[{index:12, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:16, filters:[{index:12, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:17, filters:[{index:12, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:19, filters:[{index:18, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:20, filters:[{index:18, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:21, filters:[{index:18, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:22, filters:[{index:18, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:23, filters:[{index:18, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:25, filters:[{index:24, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:26, filters:[{index:24, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Irregular"}]},
                 ];
 
                 // Filter verbs
@@ -468,28 +468,28 @@ describe("Filters", function() {
             it("Should correctly filter nonregular verbs", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:07, filterIndex:06, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:08, filterIndex:06, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:09, filterIndex:06, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:06, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:11, filterIndex:06, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:13, filterIndex:12, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:14, filterIndex:12, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:15, filterIndex:12, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:16, filterIndex:12, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:17, filterIndex:12, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:19, filterIndex:18, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:20, filterIndex:18, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:21, filterIndex:18, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:22, filterIndex:18, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:23, filterIndex:18, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:25, filterIndex:24, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:26, filterIndex:24, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:27, filterIndex:24, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:28, filterIndex:24, filterValue:"Irregular|Stem.?Changing|Orthographic"},
-                    {set:"Verbs", outputIndex:0, inputIndex:29, filterIndex:24, filterValue:"Irregular|Stem.?Changing|Orthographic"},
+                    {outputIndex:0, inputIndex:03, filters:[{index:02, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:05, filters:[{index:04, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:07, filters:[{index:06, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:08, filters:[{index:06, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:09, filters:[{index:06, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:10, filters:[{index:06, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:11, filters:[{index:06, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:13, filters:[{index:12, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:14, filters:[{index:12, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:15, filters:[{index:12, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:16, filters:[{index:12, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:17, filters:[{index:12, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:19, filters:[{index:18, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:20, filters:[{index:18, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:21, filters:[{index:18, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:22, filters:[{index:18, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:23, filters:[{index:18, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:25, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:26, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
                 ];
 
                 // Filter verbs
@@ -504,12 +504,12 @@ describe("Filters", function() {
             it("Should correctly filter type subjects", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:02, filterIndex:02, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:04, filterIndex:04, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:06, filterIndex:06, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:12, filterIndex:12, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:18, filterIndex:18, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:24, filterIndex:24, filterValue:".*"},
+                    {outputIndex:0, inputIndex:02, filters:[{index:02, value:".*"}]},
+                    {outputIndex:0, inputIndex:04, filters:[{index:04, value:".*"}]},
+                    {outputIndex:0, inputIndex:06, filters:[{index:06, value:".*"}]},
+                    {outputIndex:0, inputIndex:12, filters:[{index:12, value:".*"}]},
+                    {outputIndex:0, inputIndex:18, filters:[{index:18, value:".*"}]},
+                    {outputIndex:0, inputIndex:24, filters:[{index:24, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -522,12 +522,12 @@ describe("Filters", function() {
             it("Should correctly filter yo subjects", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:07, filterIndex:06, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:13, filterIndex:12, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:19, filterIndex:18, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:25, filterIndex:24, filterValue:".*"},
+                    {outputIndex:0, inputIndex:03, filters:[{index:02, value:".*"}]},
+                    {outputIndex:0, inputIndex:05, filters:[{index:04, value:".*"}]},
+                    {outputIndex:0, inputIndex:07, filters:[{index:06, value:".*"}]},
+                    {outputIndex:0, inputIndex:13, filters:[{index:12, value:".*"}]},
+                    {outputIndex:0, inputIndex:19, filters:[{index:18, value:".*"}]},
+                    {outputIndex:0, inputIndex:25, filters:[{index:24, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -540,12 +540,12 @@ describe("Filters", function() {
             it("Should correctly filter tú subjects", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:08, filterIndex:06, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:14, filterIndex:12, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:20, filterIndex:18, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:26, filterIndex:24, filterValue:".*"},
+                    {outputIndex:0, inputIndex:03, filters:[{index:02, value:".*"}]},
+                    {outputIndex:0, inputIndex:05, filters:[{index:04, value:".*"}]},
+                    {outputIndex:0, inputIndex:08, filters:[{index:06, value:".*"}]},
+                    {outputIndex:0, inputIndex:14, filters:[{index:12, value:".*"}]},
+                    {outputIndex:0, inputIndex:20, filters:[{index:18, value:".*"}]},
+                    {outputIndex:0, inputIndex:26, filters:[{index:24, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -558,12 +558,12 @@ describe("Filters", function() {
             it("Should correctly filter él subjects", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:09, filterIndex:06, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:15, filterIndex:12, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:21, filterIndex:18, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:27, filterIndex:24, filterValue:".*"},
+                    {outputIndex:0, inputIndex:03, filters:[{index:02, value:".*"}]},
+                    {outputIndex:0, inputIndex:05, filters:[{index:04, value:".*"}]},
+                    {outputIndex:0, inputIndex:09, filters:[{index:06, value:".*"}]},
+                    {outputIndex:0, inputIndex:15, filters:[{index:12, value:".*"}]},
+                    {outputIndex:0, inputIndex:21, filters:[{index:18, value:".*"}]},
+                    {outputIndex:0, inputIndex:27, filters:[{index:24, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -576,12 +576,12 @@ describe("Filters", function() {
             it("Should correctly filter nosotros subjects", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:10, filterIndex:06, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:16, filterIndex:12, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:22, filterIndex:18, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:28, filterIndex:24, filterValue:".*"},
+                    {outputIndex:0, inputIndex:03, filters:[{index:02, value:".*"}]},
+                    {outputIndex:0, inputIndex:05, filters:[{index:04, value:".*"}]},
+                    {outputIndex:0, inputIndex:10, filters:[{index:06, value:".*"}]},
+                    {outputIndex:0, inputIndex:16, filters:[{index:12, value:".*"}]},
+                    {outputIndex:0, inputIndex:22, filters:[{index:18, value:".*"}]},
+                    {outputIndex:0, inputIndex:28, filters:[{index:24, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -594,12 +594,12 @@ describe("Filters", function() {
             it("Should correctly filter ellos subjects", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:03, filterIndex:02, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:05, filterIndex:04, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:11, filterIndex:06, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:17, filterIndex:12, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:23, filterIndex:18, filterValue:".*"},
-                    {set:"Verbs", outputIndex:0, inputIndex:29, filterIndex:24, filterValue:".*"},
+                    {outputIndex:0, inputIndex:03, filters:[{index:02, value:".*"}]},
+                    {outputIndex:0, inputIndex:05, filters:[{index:04, value:".*"}]},
+                    {outputIndex:0, inputIndex:11, filters:[{index:06, value:".*"}]},
+                    {outputIndex:0, inputIndex:17, filters:[{index:12, value:".*"}]},
+                    {outputIndex:0, inputIndex:23, filters:[{index:18, value:".*"}]},
+                    {outputIndex:0, inputIndex:29, filters:[{index:24, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -614,7 +614,7 @@ describe("Filters", function() {
             it("Should correctly filter English to Conjugations", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:0, inputIndex:3, filterIndex:2, filterValue:".*"},
+                    {outputIndex:0, inputIndex:3, filters:[{index:2, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -627,7 +627,7 @@ describe("Filters", function() {
             it("Should correctly filter Spanish to Conjugations", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:1, inputIndex:3, filterIndex:2, filterValue:".*"},
+                    {outputIndex:1, inputIndex:3, filters:[{index:2, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -640,7 +640,7 @@ describe("Filters", function() {
             it("Should correctly filter Conjugations to English", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:3, inputIndex:0, filterIndex:2, filterValue:".*"},
+                    {outputIndex:3, inputIndex:0, filters:[{index:2, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -653,7 +653,7 @@ describe("Filters", function() {
             it("Should correctly filter Conjugations to Spanish", function() {
                 // Initialize expected
                 let expected = [
-                    {set:"Verbs", outputIndex:3, inputIndex:1, filterIndex:2, filterValue:".*"},
+                    {outputIndex:3, inputIndex:1, filters:[{index:2, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -667,41 +667,12 @@ describe("Filters", function() {
 
     describe("ApplyFilters method", function() {
         // Initialize vocab
-        let vocab = {
-            "set1": [
-                ["Upper",   "Lower",    "Type1",        "Type2"],
-                ["A",       "a",        "Noun",         "Vowel"],
-                ["B",       "b",        "Adjective",    "Consonant"],
-                ["C",       "c",        "Verb",         "Consonant"],
-            ],
-            "set2": [
-                ["Upper",   "Lower",    "Type1",        "Type2"],
-                ["Z",       "z",        "Noun",         "Consonant"],
-                ["Y",       "y",        "Adjective",    "Vowel,Consonant"],
-                ["X",       "x",        "Verb",         "Consonant"],
-            ],
-        };
-
-        it("Should correctly filter different vocab sets", function() {
-            // Initialize expected
-            let expected = [
-                ["Upper", "A", "Lower", "a"],
-                ["Upper", "B", "Lower", "b"],
-                ["Upper", "C", "Lower", "c"],
-                ["Upper", "X", "Lower", "x"],
-                ["Upper", "Y", "Lower", "y"],
-                ["Upper", "Z", "Lower", "z"],
-            ];
-
-            // Call ApplyFilters
-            let actual = ApplyFilters(vocab, [
-                {set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:".*"},
-                {set:"set2", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:".*"},
-            ]);
-
-            // Assert filtered vocab is correct
-            expect(actual).to.have.deep.members(expected);
-        });
+        let vocab = [
+            ["Upper",   "Lower",    "Type1",        "Type2"],
+            ["A",       "a",        "Noun",         "Vowel"],
+            ["B",       "b",        "Adjective",    "Consonant"],
+            ["C",       "c",        "Verb",         "Consonant"],
+        ];
 
         it("Should correctly filter different outputIndexes", function() {
             // Initialize expected
@@ -716,8 +687,8 @@ describe("Filters", function() {
 
             // Call ApplyFilters
             let actual = ApplyFilters(vocab, [
-                {set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:".*"},
-                {set:"set1", outputIndex:3, inputIndex:1, filterIndex:2, filterValue:".*"},
+                {outputIndex:0, inputIndex:1, filters:[{index:2, value:".*"}]},
+                {outputIndex:3, inputIndex:1, filters:[{index:2, value:".*"}]},
             ]);
 
             // Assert filtered vocab is correct
@@ -737,8 +708,8 @@ describe("Filters", function() {
 
             // Call ApplyFilters
             let actual = ApplyFilters(vocab, [
-                {set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:".*"},
-                {set:"set1", outputIndex:0, inputIndex:3, filterIndex:2, filterValue:".*"},
+                {outputIndex:0, inputIndex:1, filters:[{index:2, value:".*"}]},
+                {outputIndex:0, inputIndex:3, filters:[{index:2, value:".*"}]},
             ]);
 
             // Assert filtered vocab is correct
@@ -754,8 +725,23 @@ describe("Filters", function() {
 
             // Call ApplyFilters
             let actual = ApplyFilters(vocab, [
-                {set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Verb"},
-                {set:"set1", outputIndex:0, inputIndex:1, filterIndex:3, filterValue:"Vowel"},
+                {outputIndex:0, inputIndex:1, filters:[{index:2, value:"Verb"}]},
+                {outputIndex:0, inputIndex:1, filters:[{index:3, value:"Vowel"}]},
+            ]);
+
+            // Assert filtered vocab is correct
+            expect(actual).to.have.deep.members(expected);
+        });
+
+        it("Should correctly filter multiple filters", function() {
+            // Initialize expected
+            let expected = [
+                ["Upper", "C", "Lower", "c"],
+            ];
+
+            // Call ApplyFilters
+            let actual = ApplyFilters(vocab, [
+                {outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Verb"}, {index:3, value:"Consonant"}]},
             ]);
 
             // Assert filtered vocab is correct
@@ -764,14 +750,12 @@ describe("Filters", function() {
 
         describe("multiplePrompts setting", function() {
             // Initialize vocab2
-            let vocab2 = {
-                "set1": [
-                    ["Upper",       "Lower",    "Type1"],
-                    ["A1, A2 , A3", "a",        "Noun"],
-                    ["B1, B2",      "b",        "Adjective"],
-                    ["C",           "c",        "Verb"],
-                ],
-            };
+            let vocab2 = [
+                ["Upper",       "Lower",    "Type1"],
+                ["A1, A2 , A3", "a",        "Noun"],
+                ["B1, B2",      "b",        "Adjective"],
+                ["C",           "c",        "Verb"],
+            ];
 
             it("Shouldn't effect single prompts", function() {
                 // Initialize expected
@@ -780,7 +764,7 @@ describe("Filters", function() {
                 ];
 
                 // Call ApplyFilters
-                let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Verb"}], "Show separately");
+                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Verb"}]}], "Show separately");
 
                 // Assert filtered vocab is correct
                 expect(actual).to.have.deep.members(expected);
@@ -794,7 +778,7 @@ describe("Filters", function() {
                 ];
 
                 // Call ApplyFilters
-                let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Noun|Adjective"}], "Show together");
+                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], "Show together");
 
                 // Assert filtered vocab is correct
                 expect(actual).to.have.deep.members(expected);
@@ -811,7 +795,7 @@ describe("Filters", function() {
                 ];
 
                 // Call ApplyFilters
-                let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Noun|Adjective"}], "Show separately");
+                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], "Show separately");
 
                 // Assert filtered vocab is correct
                 expect(actual).to.have.deep.members(expected);
@@ -834,7 +818,7 @@ describe("Filters", function() {
                     }
 
                     // Call ApplyFilters
-                    let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Noun|Adjective"}], "Show one");
+                    let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], "Show one");
 
                     // Assert filtered vocab is correct
                     expect(actual).to.have.deep.members(expected);
@@ -862,7 +846,7 @@ describe("Filters", function() {
                     }
 
                     // Call ApplyFilters
-                    let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Noun|Adjective"}], "Show one");
+                    let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], "Show one");
 
                     // Assert filtered vocab is correct
                     expect(actual).to.have.deep.members(expected);
@@ -890,7 +874,7 @@ describe("Filters", function() {
                     }
 
                     // Call ApplyFilters
-                    let actual = ApplyFilters(vocab2, [{set:"set1", outputIndex:0, inputIndex:1, filterIndex:2, filterValue:"Noun|Adjective"}], "Show one");
+                    let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], "Show one");
 
                     // Assert filtered vocab is correct
                     expect(actual).to.have.deep.members(expected);

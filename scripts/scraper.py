@@ -23,9 +23,9 @@ def getConjugations(verb):
 
     # Get Indicative conjugations
     conjugations = []
-    rows = soup.find("table", class_="_2qmJM3i9").find_all('tr')
+    rows = soup.find("table", class_="_2qmJM3i9").find_all("tr")
     for row in rows:
-        cols = row.find_all('td')
+        cols = row.find_all("td")
         conjugations += [[col.text for col in cols]]
 
     # Return verb info
@@ -74,4 +74,4 @@ def correctConjugations(filepath):
 
 # Correct conjugations in Verbs.csv
 if (__name__ == "__main__"):
-    correctConjugations("../vocab/Verbs.csv")
+    correctConjugations("../data/verbs.csv")

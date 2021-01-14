@@ -1,5 +1,5 @@
 // Declare global variables
-let Sets;               // List of parsed sets
+let Data;
 let app;
 
 
@@ -58,11 +58,11 @@ function loadVue() {
             CreateSession: function() {
                 // Get prompts
                 if (this.category === "vocab") {
-                    this.prompts = Shuffle(ApplyFilters(Sets, GetVocabFilters(this.filters), this.settings.multiplePrompts));
+                    this.prompts = Shuffle(ApplyFilters(Data.vocab, GetVocabFilters(this.filters), this.settings.multiplePrompts));
                 }
                 else if (this.category === "verbs") {
                     // Get prompts
-                    this.prompts = Shuffle(ApplyFilters(Sets, GetVerbFilters(this.filters), this.settings.multiplePrompts));
+                    this.prompts = Shuffle(ApplyFilters(Data.verbs, GetVerbFilters(this.filters), this.settings.multiplePrompts));
                 }
 
                 // Set progress
@@ -103,7 +103,7 @@ function loadVue() {
                     return;
                 }
                 else if (this.prompts.length === 0) {
-                    alert("Your custom vocabulary set must contain at least one term.");
+                    alert("You must have at least one filter.");
                     return;
                 }
                 else if (isNaN(this.promptIndex) || this.promptIndex < 0 || this.promptIndex >= this.prompts.length) {
@@ -154,8 +154,8 @@ async function Load() {
     // Add event Listeners
     document.addEventListener("keydown", KeyDown);
 
-    // Load vocab
-    Sets = await loadVocab();
+    // Load Spanish-Quizzer data
+    Data = await loadData();
 }
 
 

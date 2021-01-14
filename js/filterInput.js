@@ -42,7 +42,7 @@ let filterInput = Vue.component("filterInput", {
                 this.verbFilters.push({tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."});
             }
             else if (this.category === "vocab") {
-                this.vocabFilters.push({set:"All Sets", type:"All Types", direction:"Eng. ↔ Esp."});
+                this.vocabFilters.push({category:"All Categories", type:"All Types", direction:"Eng. ↔ Esp."});
             }
         },
 
@@ -132,14 +132,14 @@ let filterInput = Vue.component("filterInput", {
         },
 
         /**
-         * Get the filters available for a vocab Set.
+         * Get the filters available for a vocab category.
          * @param {Number} index - The index of the vocab filter.
          * @returns {Array} - An array containing available filters.
          */
-        getSetFilters: function(index) {
+        getCategoryFilters: function(index) {
             // Get filter options
             let filters = {"All Types":true, "Adjectives":true, "Nouns":true, "Verbs":true}
-            switch(this.vocabFilters[index].set)
+            switch(this.vocabFilters[index].category)
             {
                 case "Verbs":
                     filters["Adjectives"] = false;
@@ -248,13 +248,13 @@ let filterInput = Vue.component("filterInput", {
                 <h1>Choose your settings and then click start.</h1>
 
                 <h2>
-                    Vocabulary Sets
-                    <button @click="AddFilter();">Add set</button>
+                    Vocabulary Filters
+                    <button @click="AddFilter();">Add Filter</button>
                 </h2>
 
                 <div v-for="(filter, index) in vocabFilters" class="filter">
-                    <select class="vocabSetName" v-model="filter.set">
-                        <option>All Sets</option>
+                    <select class="vocabSetName" v-model="filter.category">
+                        <option>All Categories</option>
                         <optgroup label="Common Words">
                             <option>Adjectives</option>
                             <option>Adverbs</option>
@@ -283,7 +283,7 @@ let filterInput = Vue.component("filterInput", {
                         </optgroup>
                     </select>
                     <select v-model="filter.type">
-                        <option v-for="(available, type) in getSetFilters(index)" :disabled="!available">{{ type }}</option>
+                        <option v-for="(available, type) in getCategoryFilters(index)" :disabled="!available">{{ type }}</option>
                     </select>
                     <select v-model="filter.direction">
                         <option>Eng. ↔ Esp.</option>

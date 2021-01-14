@@ -93,7 +93,7 @@ describe("FilterInput", function() {
 
             // Assert filter added
             expect(FilterInput.vocabFilters).to.have.deep.members([
-                {set:"All Sets", type:"All Types", direction:"Eng. ↔ Esp."},
+                {category:"All Categories", type:"All Types", direction:"Eng. ↔ Esp."},
             ]);
             expect(FilterInput.verbFilters).to.have.deep.members([]);
         });
@@ -153,7 +153,7 @@ describe("FilterInput", function() {
         it("Should be correct for All Tenses", function() {
             // Initialize filters
             FilterInput.verbFilters = [
-                {"tense":"All Types", "type":"All Types"}
+                {tense:"All Types", type:"All Types"}
             ]
 
             // Get filters
@@ -172,7 +172,7 @@ describe("FilterInput", function() {
         it("Should be correct for Present Tense", function() {
             // Initialize filters
             FilterInput.verbFilters = [
-                {"tense":"Present Tense", "type":"All Types"}
+                {tense:"Present Tense", type:"All Types"}
             ]
 
             // Get filters
@@ -191,7 +191,7 @@ describe("FilterInput", function() {
         it("Should change selection if not available", function() {
             // Initialize filters
             FilterInput.verbFilters = [
-                {"tense":"Present Tense", "type":"Orthographic"}
+                {tense:"Present Tense", type:"Orthographic"}
             ]
 
             // Get filters
@@ -213,7 +213,7 @@ describe("FilterInput", function() {
         it("Should not change selection if available", function() {
             // Initialize filters
             FilterInput.verbFilters = [
-                {"tense":"Preterite Tense", "type":"Orthographic"}
+                {tense:"Preterite Tense", type:"Orthographic"}
             ]
 
             // Get filters
@@ -237,7 +237,7 @@ describe("FilterInput", function() {
         it("Should be correct for All Tenses", function() {
             // Initialize filters
             FilterInput.verbFilters = [
-                {"tense":"All Types", "type":"All Types"}
+                {tense:"All Types", type:"All Types"}
             ]
 
             // Get filters
@@ -255,7 +255,7 @@ describe("FilterInput", function() {
         it("Should be correct for Present Participles", function() {
             // Initialize filters
             FilterInput.verbFilters = [
-                {"tense":"Present Participles", "subject":"All Subjects", "type":"All Types"}
+                {tense:"Present Participles", subject:"All Subjects", type:"All Types"}
             ]
 
             // Get filters
@@ -273,7 +273,7 @@ describe("FilterInput", function() {
         it("Should change selection if not available", function() {
             // Initialize filters
             FilterInput.verbFilters = [
-                {"tense":"Present Participles", "subject":"Yo", "type":"All Types"}
+                {tense:"Present Participles", subject:"Yo", type:"All Types"}
             ]
 
             // Get filters
@@ -294,8 +294,8 @@ describe("FilterInput", function() {
         it("Should not change selection if available", function() {
             // Initialize filters
             FilterInput.verbFilters = [
-                {"tense":"Present Participles", "subject":"Type", "type":"All Types"},
-                {"tense":"Preterite Tense", "subject":"Yo", "type":"All Types"},
+                {tense:"Present Participles", subject:"Type", type:"All Types"},
+                {tense:"Preterite Tense", subject:"Yo", type:"All Types"},
             ]
 
             // Get filters
@@ -308,15 +308,15 @@ describe("FilterInput", function() {
         });
     });
 
-    describe("GetSetFilters method", function() {
+    describe("GetCategoryFilters method", function() {
         it("Should be correct for Verbs", function() {
             // Initialize filters
             FilterInput.vocabFilters = [
-                {"set":"Verbs", "type":"All Definitions"}
+                {category:"Verbs", type:"All Definitions"}
             ]
 
             // Get filters
-            let filters = FilterInput.getSetFilters(0);
+            let filters = FilterInput.getCategoryFilters(0);
 
             // Assert filters are correct
             expect(filters["All Types"]).to.equal(true);
@@ -328,11 +328,11 @@ describe("FilterInput", function() {
         it("Should be correct for sets with 1 type", function() {
             // Initialize filters
             FilterInput.vocabFilters = [
-                {"set":"Colors", "type":"All Definitions"}
+                {category:"Colors", type:"All Definitions"}
             ]
 
             // Get filters
-            let filters = FilterInput.getSetFilters(0);
+            let filters = FilterInput.getCategoryFilters(0);
 
             // Assert filters are correct
             expect(filters["All Types"]).to.equal(true);
@@ -344,11 +344,11 @@ describe("FilterInput", function() {
         it("Should change selection if not available", function() {
             // Initialize filters
             FilterInput.vocabFilters = [
-                {"set":"Colors", "type":"Verbs"}
+                {category:"Colors", type:"Verbs"}
             ]
 
             // Get filters
-            let filters = FilterInput.getSetFilters(0);
+            let filters = FilterInput.getCategoryFilters(0);
 
             // Assert selection changed
             expect(filters["All Types"]).to.equal(true);
@@ -361,11 +361,11 @@ describe("FilterInput", function() {
         it("Should not change selection if available", function() {
             // Initialize filters
             FilterInput.vocabFilters = [
-                {"set":"Professions", "type":"Verbs"}
+                {category:"Professions", type:"Verbs"}
             ]
 
             // Get filters
-            let filters = FilterInput.getSetFilters(0);
+            let filters = FilterInput.getCategoryFilters(0);
 
             // Assert selection not changed
             expect(filters["All Types"]).to.equal(true);

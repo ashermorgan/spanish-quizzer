@@ -126,23 +126,18 @@ function setSettings(value) {
 
 
 /**
- * Loads the vocab sets.
- * @param {Function} callback A callback function with two parameters: name (String) and data (Array).
+ * Loads Spanish-Quizzer data.
  */
-function loadVocab() {
+function loadData() {
     return new Promise(function(resolve, reject) {
         // Initialize variables
-        let setNames = [
-                            "Adjectives", "Adverbs", "Prepositions", "Transitions", "Verbs",  // Common words
-                            "Colors", "Days", "Months", "Numbers", "Questions",  // Basic words
-                            "Childhood", "Clothes", "Family", "Food", "Health", "House", "Nature", "Professions", "Vacation", "Weather",  // Advanced words
-                        ];
+        let setNames = ["verbs", "vocab"];
         let progress = 0;
         let sets = {};
 
-        // Load vocab
+        // Load data
         for (let setName of setNames) {
-            Papa.parse(`vocab/${setName}.csv`, {
+            Papa.parse(`data/${setName}.csv`, {
                 download: true,
                 complete: function(results) {
                     sets[setName] = results.data;

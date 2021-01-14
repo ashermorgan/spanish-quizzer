@@ -11,8 +11,8 @@ function loadVue() {
         el: "#app", // Mount to app div
 
         data: {
-            set: "Choose a vocab set",
-            sets: {"Choose a vocab set":[], "All Sets":[["English", "Spanish", "Type"]]},
+            category: "Choose a category",
+            data: {"Choose a category":[]},
             query: ""
         }
     });
@@ -39,27 +39,8 @@ async function Load() {
     // Set table height
     setTableHeight();
 
-    // Load vocab
-    app.sets = {...app.sets, ...await loadVocab()};
-
-    // Add data to "All Sets"
-    for (let set in app.sets) {
-        if (set === "Verbs") {
-            for (let row of app.sets[set].slice(1)) {
-                app.sets["All Sets"].push([row[0], row[1], "Verb"]);
-            }
-        }
-        else {
-            app.sets["All Sets"].push(...app.sets[set].slice(1));
-        }
-    }
-
-    // Sort "All Sets"
-    app.sets["All Sets"].sort(function(a, b) {
-        if (a[0] === "English") return false;       // Header row should be at the top
-        else if (b[0] === "English") return true;   // Header row should be at the top
-        else return a[0] > b[0];                    // Sort other rows by 1st item
-    })
+    // Load Spanish-Quizzer data
+    app.data = {...app.data, ...await loadData()};
 }
 
 

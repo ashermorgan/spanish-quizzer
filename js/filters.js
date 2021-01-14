@@ -4,39 +4,22 @@
  * @returns {Array} The io-filters.
  */
 function GetVocabFilters(rawFilters) {
-    // Expand "All Sets" filters
-    let filters = [];   // Format: [{set:"vocab set name", tense:"specific tense", subject:"specific subject", type:"regex"}]
+    // Expand "All directions" filters
+    let filters = [];
     for (let filter of rawFilters) {
-        if (filter.set === "All Sets") {
-            filters.push({set:"Verbs", type: filter.type, direction:filter.direction});
-            filters.push({set:"Adjectives", type: filter.type, direction:filter.direction});
-            filters.push({set:"Adverbs", type: filter.type, direction:filter.direction});
-            filters.push({set:"Prepositions", type: filter.type, direction:filter.direction});
-            filters.push({set:"Transitions", type: filter.type, direction:filter.direction});
-            filters.push({set:"Colors", type: filter.type, direction:filter.direction});
-            filters.push({set:"Days", type: filter.type, direction:filter.direction});
-            filters.push({set:"Months", type: filter.type, direction:filter.direction});
-            filters.push({set:"Questions", type: filter.type, direction:filter.direction});
-            filters.push({set:"Weather", type: filter.type, direction:filter.direction});
-            filters.push({set:"Family", type: filter.type, direction:filter.direction});
-            filters.push({set:"Clothes", type: filter.type, direction:filter.direction});
-            filters.push({set:"Nature", type: filter.type, direction:filter.direction});
-            filters.push({set:"House", type: filter.type, direction:filter.direction});
-            filters.push({set:"Vacation", type: filter.type, direction:filter.direction});
-            filters.push({set:"Childhood", type: filter.type, direction:filter.direction});
-            filters.push({set:"Professions", type: filter.type, direction:filter.direction});
-            filters.push({set:"Health", type: filter.type, direction:filter.direction});
+        if (filter.direction === "Eng. ↔ Esp.") {
+            filters.push({category:filter.category, type: filter.type, direction:"Eng. → Esp."});
+            filters.push({category:filter.category, type: filter.type, direction:"Esp. → Eng."});
         }
         else {
-            filters.push({set:filter.set, type: filter.type, direction:filter.direction});
+            filters.push({category:filter.category, type: filter.type, direction:filter.direction});
         }
     }
 
-    // Expand "All directions" filters
+    // Get category regex filter
     for (let filter of filters) {
-        if (filter.direction === "Eng. ↔ Esp.") {
-            filter.direction = "Eng. → Esp.";
-            filters.push({set:filter.set, type: filter.type, direction:"Esp. → Eng."});
+        if (filter.category === "All Categories") {
+            filter.category = ".*";
         }
     }
 
@@ -61,14 +44,14 @@ function GetVocabFilters(rawFilters) {
     }
 
     // Create io-filters
-    let ioFilters = [];   // Format: [{set:"vocab set name", outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
+    let ioFilters = [];   // Format: [{outputIndex:0, inputIndex:0, filters:[{index:0, value:"regex"}]}]
     for (let filter of filters) {
         // Create filter
         if (filter.direction.toLowerCase().startsWith("eng")) {
-            ioFilters.push({set:filter.set, outputIndex:0, inputIndex:1, filterIndex:2, filterValue:filter.type});
+            ioFilters.push({outputIndex:0, inputIndex:1, filters:[{index:2, value:filter.type}, {index:3, value:filter.category}]});
         }
         else {
-            ioFilters.push({set:filter.set, outputIndex:1, inputIndex:0, filterIndex:2, filterValue:filter.type});
+            ioFilters.push({outputIndex:1, inputIndex:0, filters:[{index:2, value:filter.type}, {index:3, value:filter.category}]});
         }
     }
 
@@ -85,7 +68,7 @@ function GetVocabFilters(rawFilters) {
  */
 function GetVerbFilters(rawFilters) {
     // Expand "All Tenses" filters
-    let filters = [];   // Format: [{set:"Verbs", tense:"specific tense", subject:"specific subject", type:"regex"}]
+    let filters = [];   // Format: [{tense:"specific tense", subject:"specific subject", type:"regex"}]
     for (let filter of rawFilters) {
         if (filter.tense.toLowerCase() === "all tenses") {
             filters.push({ tense: "present participles", type: filter.type, subject: filter.subject, direction: filter.direction });
@@ -144,7 +127,7 @@ function GetVerbFilters(rawFilters) {
     }
 
     // Create io-filters
-    let ioFilters = [];   // Format: [{set:"Verbs", outputIndex:0, inputIndex:0, filterIndex:0, filterValue:"regex"}]
+    let ioFilters = [];   // Format: [{outputIndex:0, inputIndex:0, filters:[{index:0, value:"regex"}]}]
     for (let filter of filters) {
         // Get output index
         let outputIndex;
@@ -289,10 +272,10 @@ function GetVerbFilters(rawFilters) {
         // Create filter
         if (filter.direction.toLowerCase().startsWith("conj")) {
             // Swap input and output
-            ioFilters.push({set:"Verbs", outputIndex:inputIndex, inputIndex:outputIndex, filterIndex:filterIndex, filterValue:filter.type})
+            ioFilters.push({outputIndex:inputIndex, inputIndex:outputIndex, filters:[{index:filterIndex, value:filter.type}]})
         }
         else {
-            ioFilters.push({set:"Verbs", outputIndex:outputIndex, inputIndex:inputIndex, filterIndex:filterIndex, filterValue:filter.type})
+            ioFilters.push({outputIndex:outputIndex, inputIndex:inputIndex, filters:[{index:filterIndex, value:filter.type}]})
         }
     }
 
@@ -313,10 +296,18 @@ function ApplyFilters(terms, filters, multiplePrompts="Show together") {
     let results = [];   // Format: [[<output label>, <output>, <input label>, <input>]]
     for (let filter of filters) {
         // Iterate over terms (minus headers)
-        for (let term of terms[filter.set].slice(1)) {
+        for (let term of terms.slice(1)) {
             // Check against filters
-            if (term[filter.filterIndex].match(filter.filterValue)) {
-                results.push([terms[filter.set][0][filter.outputIndex], term[filter.outputIndex], terms[filter.set][0][filter.inputIndex], term[filter.inputIndex]]);
+            let matchesFilter = true;
+            for (let filterFilter of filter.filters) {
+                if (!term[filterFilter.index].match(filterFilter.value)) {
+                    matchesFilter = false;
+                }
+            }
+
+            // Add prompt
+            if (matchesFilter) {
+                results.push([terms[0][filter.outputIndex], term[filter.outputIndex], terms[0][filter.inputIndex], term[filter.inputIndex]]);
             }
         }
     }

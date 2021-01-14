@@ -1,5 +1,5 @@
 main {
-    max-width: 500px;
+    max-width: max-content;
     margin: auto;
     padding: 10px;
     text-align: left;
@@ -11,4 +11,5 @@ h2 {
 
 li {
     margin-left: 30px;
+    margin-top: 5px;
 }
