@@ -1,6 +1,7 @@
 # Import dependencies
 from bs4 import BeautifulSoup
 import csv
+from os import path
 import requests
 
 
@@ -9,14 +10,14 @@ import requests
 def getConjugations(verb):
     # Convert to lowercase
     verb = verb.lower().replace(" ", "")
-    
+
     # Get page
     page = requests.get("https://www.spanishdict.com/conjugate/{0}".format(verb))
     soup = BeautifulSoup(page.text, "html.parser")
 
     # Get English infinative
     english = soup.find("div", class_="CMxOwuaP _1v-p9pvd").text
-    
+
     # Get participles
     presentParticiple = soup.find_all("div", class_="_2xfncFkp")[0].text
     pastParticiple = soup.find_all("div", class_="_2xfncFkp")[1].text
@@ -46,17 +47,17 @@ def correctConjugations(filepath):
     # Load csv
     rows = []
     with open(filepath, encoding="utf-8") as f:
-        csvreader = csv.reader(f) 
+        csvreader = csv.reader(f)
         fields = next(csvreader)
-        for row in csv.reader(f): 
+        for row in csv.reader(f):
             rows.append(row)
-    
+
     # Iterate over rows
     for row in rows:
         try:
             # Get correct conjugations
             temp = getConjugations(row[1])
-        
+
             # Compare and correct conjugations
             for i in range(len(row)):
                 if (temp[i] != None and temp[i].lower() != row[i].lower()):
@@ -72,6 +73,6 @@ def correctConjugations(filepath):
 
 
 
-# Correct conjugations in Verbs.csv
+# Correct conjugations in data/verbs.csv
 if (__name__ == "__main__"):
-    correctConjugations("../data/verbs.csv")
+    correctConjugations(path.join(path.dirname(__file__), "../data/verbs.csv"))
