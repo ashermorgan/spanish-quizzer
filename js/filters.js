@@ -291,7 +291,11 @@ function GetVerbFilters(rawFilters) {
  * @param {Array} filters The io-filters.
  * @returns {Array} The prompts.
  */
-function ApplyFilters(terms, filters, multiplePrompts="Show together") {
+function ApplyFilters(terms, filters, options={}) {
+    // Set options
+    if (!"multiplePrompts" in options) options.multiplePrompts = "Show together";
+    if (!"removeDuplicates" in options) options.removeDuplicates = false;
+
     // Filter terms
     let results = [];   // Format: [[<output label>, <output>, <input label>, <input>]]
     for (let filter of filters) {
@@ -319,7 +323,7 @@ function ApplyFilters(terms, filters, multiplePrompts="Show together") {
 
         // Check if multiple outputs exist
         if (prompts.length > 1) {
-            switch (multiplePrompts) {
+            switch (options.multiplePrompts) {
                 case "Show one":
                     // Set current prompt's output to a random prompt
                     result[1] = prompts[Math.floor(Math.random() * (prompts.length - 1))]
@@ -339,6 +343,20 @@ function ApplyFilters(terms, filters, multiplePrompts="Show together") {
                     break;
             }
         }
+    }
+
+    // Remove duplicate prompts
+    if (options.removeDuplicates) {
+        results = results.filter((result, index) => {
+            return index === results.findIndex(obj => {
+                try {
+                    return obj[0] === result[0] && obj[1] === result[1] && obj[2] === result[2] && obj[3] === result[3];
+                }
+                catch {
+                    return false;
+                }
+            });
+        });
     }
 
     // Return prompts

@@ -66,6 +66,7 @@ function getSettings() {
         repeatPrompts: "Never",
         multiplePrompts: "Show together",
         multipleAnswers: "Require all",
+        removeDuplicates: false,
     };
 
     // Parse settings
@@ -101,8 +102,11 @@ function getSettings() {
     if (["Show together", "Show separately", "Show one"].includes(parsedSettings.multiplePrompts)) {
         settings.multiplePrompts = parsedSettings.multiplePrompts;
     }
-    if (["Require one", "Require any"].includes(parsedSettings.multipleAnswers)) {
+    if (["Require all", "Require any"].includes(parsedSettings.multipleAnswers)) {
         settings.multipleAnswers = parsedSettings.multipleAnswers;
+    }
+    if ([true, false].includes(parsedSettings.removeDuplicates)) {
+        settings.removeDuplicates = parsedSettings.removeDuplicates;
     }
 
     // Return parsed settings

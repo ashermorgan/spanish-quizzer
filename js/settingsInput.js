@@ -73,6 +73,10 @@ let settingsInput = Vue.component("settingsInput", {
                     <option>Require any</option>
                 </select>
             </div>
+            <div>
+                <input type="checkbox" id="settingsRemoveDuplicates" v-model="value.removeDuplicates">
+                <label for="settingsRemoveDuplicates">Remove duplicate prompts</label>
+            </div>
         </div>
     `,
 });

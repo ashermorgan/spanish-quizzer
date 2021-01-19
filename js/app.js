@@ -58,11 +58,11 @@ function loadVue() {
             CreateSession: function() {
                 // Get prompts
                 if (this.category === "vocab") {
-                    this.prompts = Shuffle(ApplyFilters(Data.vocab, GetVocabFilters(this.filters), this.settings.multiplePrompts));
+                    this.prompts = Shuffle(ApplyFilters(Data.vocab, GetVocabFilters(this.filters), this.settings));
                 }
                 else if (this.category === "verbs") {
                     // Get prompts
-                    this.prompts = Shuffle(ApplyFilters(Data.verbs, GetVerbFilters(this.filters), this.settings.multiplePrompts));
+                    this.prompts = Shuffle(ApplyFilters(Data.verbs, GetVerbFilters(this.filters), this.settings));
                 }
 
                 // Set progress

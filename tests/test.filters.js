@@ -757,6 +757,20 @@ describe("Filters", function() {
                 ["C",           "c",        "Verb"],
             ];
 
+            it("Should't effect prompts by default", function() {
+                // Initialize expected
+                let expected = [
+                    ["Upper", "A1, A2 , A3", "Lower", "a"],
+                    ["Upper", "B1, B2",     "Lower", "b"],
+                ];
+
+                // Call ApplyFilters
+                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}]);
+
+                // Assert filtered vocab is correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
             it("Shouldn't effect single prompts", function() {
                 // Initialize expected
                 let expected = [
@@ -764,7 +778,7 @@ describe("Filters", function() {
                 ];
 
                 // Call ApplyFilters
-                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Verb"}]}], "Show separately");
+                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Verb"}]}], {multiplePrompts:"Show separately"});
 
                 // Assert filtered vocab is correct
                 expect(actual).to.have.deep.members(expected);
@@ -778,7 +792,7 @@ describe("Filters", function() {
                 ];
 
                 // Call ApplyFilters
-                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], "Show together");
+                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], {multiplePrompts:"Show together"});
 
                 // Assert filtered vocab is correct
                 expect(actual).to.have.deep.members(expected);
@@ -795,7 +809,7 @@ describe("Filters", function() {
                 ];
 
                 // Call ApplyFilters
-                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], "Show separately");
+                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], {multiplePrompts:"Show separately"});
 
                 // Assert filtered vocab is correct
                 expect(actual).to.have.deep.members(expected);
@@ -818,7 +832,7 @@ describe("Filters", function() {
                     }
 
                     // Call ApplyFilters
-                    let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], "Show one");
+                    let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], {multiplePrompts:"Show one"});
 
                     // Assert filtered vocab is correct
                     expect(actual).to.have.deep.members(expected);
@@ -846,7 +860,7 @@ describe("Filters", function() {
                     }
 
                     // Call ApplyFilters
-                    let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], "Show one");
+                    let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], {multiplePrompts:"Show one"});
 
                     // Assert filtered vocab is correct
                     expect(actual).to.have.deep.members(expected);
@@ -874,7 +888,7 @@ describe("Filters", function() {
                     }
 
                     // Call ApplyFilters
-                    let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], "Show one");
+                    let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], {multiplePrompts:"Show one"});
 
                     // Assert filtered vocab is correct
                     expect(actual).to.have.deep.members(expected);
@@ -883,6 +897,65 @@ describe("Filters", function() {
                     // Restore Math.random method
                     Math.random = random;
                 }
+            });
+        });
+
+        describe("removeDuplicates setting", function() {
+            // Initialize vocab2
+            let vocab2 = [
+                ["Upper", "Lower", "Type"],
+                ["A",     "a",     "Noun"],
+                ["B",     "b",     "Adjective"],
+                ["C",     "c",     "Verb"],
+            ];
+
+            it("Should't remove duplicate prompts by default", function() {
+                // Initialize expected
+                let expected = [
+                    ["Upper", "A", "Lower", "a"],
+                    ["Upper", "B", "Lower", "b"],
+                    ["Upper", "C", "Lower", "c"],
+                    ["Upper", "A", "Lower", "a"],
+                    ["Upper", "B", "Lower", "b"],
+                ];
+
+                // Call ApplyFilters
+                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[]}, {outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}]);
+
+                // Assert filtered vocab is correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should't remove duplicate prompts if equal to false", function() {
+                // Initialize expected
+                let expected = [
+                    ["Upper", "A", "Lower", "a"],
+                    ["Upper", "B", "Lower", "b"],
+                    ["Upper", "C", "Lower", "c"],
+                    ["Upper", "A", "Lower", "a"],
+                    ["Upper", "B", "Lower", "b"],
+                ];
+
+                // Call ApplyFilters
+                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[]}, {outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], {removeDuplicates:false});
+
+                // Assert filtered vocab is correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should remove duplicate prompts if equal to true", function() {
+                // Initialize expected
+                let expected = [
+                    ["Upper", "A", "Lower", "a"],
+                    ["Upper", "B", "Lower", "b"],
+                    ["Upper", "C", "Lower", "c"],
+                ];
+
+                // Call ApplyFilters
+                let actual = ApplyFilters(vocab2, [{outputIndex:0, inputIndex:1, filters:[]}, {outputIndex:0, inputIndex:1, filters:[{index:2, value:"Noun|Adjective"}]}], {removeDuplicates:true});
+
+                // Assert filtered vocab is correct
+                expect(actual).to.have.deep.members(expected);
             });
         });
     });
