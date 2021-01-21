@@ -2,6 +2,7 @@
 import csv
 import openpyxl
 from openpyxl.styles.borders import Border, Side
+from os import path
 
 
 
@@ -92,4 +93,4 @@ def createXlsx(csvPath, xlsxPath):
 
 # Create spreadsheet from Verbs.csv
 if (__name__ == "__main__"):
-    createXlsx("../vocab/Verbs.csv", "../vocab/Verbs.xlsx")
+    createXlsx(path.join(path.dirname(__file__), "../data/verbs.csv"), "verbs.xlsx")
