@@ -138,6 +138,11 @@ describe("Filters", function() {
                 {outputIndex:0, inputIndex:27, filters:[{index:24, value:".*"}]},
                 {outputIndex:0, inputIndex:28, filters:[{index:24, value:".*"}]},
                 {outputIndex:0, inputIndex:29, filters:[{index:24, value:".*"}]},
+                {outputIndex:0, inputIndex:31, filters:[{index:30, value:".*"}]},
+                {outputIndex:0, inputIndex:32, filters:[{index:30, value:".*"}]},
+                {outputIndex:0, inputIndex:33, filters:[{index:30, value:".*"}]},
+                {outputIndex:0, inputIndex:34, filters:[{index:30, value:".*"}]},
+                {outputIndex:0, inputIndex:35, filters:[{index:30, value:".*"}]},
             ];
 
             // Filter verbs
@@ -172,6 +177,11 @@ describe("Filters", function() {
                 {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
                 {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
                 {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:31, filters:[{index:30, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:32, filters:[{index:30, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:33, filters:[{index:30, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:34, filters:[{index:30, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:35, filters:[{index:30, value:"Irregular|Stem.?Changing|Orthographic"}]},
 
                 {outputIndex:0, inputIndex:07, filters:[{index:06, value:".*"}]},
                 {outputIndex:0, inputIndex:08, filters:[{index:06, value:".*"}]},
@@ -185,6 +195,7 @@ describe("Filters", function() {
                 {outputIndex:16, inputIndex:1, filters:[{index:12, value:"Stem.?Changing"}]},
                 {outputIndex:22, inputIndex:1, filters:[{index:18, value:"Stem.?Changing"}]},
                 {outputIndex:28, inputIndex:1, filters:[{index:24, value:"Stem.?Changing"}]},
+                {outputIndex:34, inputIndex:1, filters:[{index:30, value:"Stem.?Changing"}]},
             ];
 
             // Filter verbs
@@ -320,6 +331,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Regular"}]},
                     {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Regular"}]},
                     {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:31, filters:[{index:30, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:32, filters:[{index:30, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:33, filters:[{index:30, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:34, filters:[{index:30, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:35, filters:[{index:30, value:"Regular"}]},
                 ];
 
                 // Filter verbs
@@ -354,6 +370,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Reflexive"}]},
                     {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Reflexive"}]},
                     {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:31, filters:[{index:30, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:32, filters:[{index:30, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:33, filters:[{index:30, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:34, filters:[{index:30, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:35, filters:[{index:30, value:"Reflexive"}]},
                 ];
 
                 // Filter verbs
@@ -388,6 +409,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Stem.?Changing"}]},
                     {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Stem.?Changing"}]},
                     {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:31, filters:[{index:30, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:32, filters:[{index:30, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:33, filters:[{index:30, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:34, filters:[{index:30, value:"Stem.?Changing"}]},
+                    {outputIndex:0, inputIndex:35, filters:[{index:30, value:"Stem.?Changing"}]},
                 ];
 
                 // Filter verbs
@@ -422,6 +448,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Orthographic"}]},
                     {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Orthographic"}]},
                     {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:31, filters:[{index:30, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:32, filters:[{index:30, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:33, filters:[{index:30, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:34, filters:[{index:30, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:35, filters:[{index:30, value:"Orthographic"}]},
                 ];
 
                 // Filter verbs
@@ -456,6 +487,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Irregular"}]},
                     {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Irregular"}]},
                     {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:31, filters:[{index:30, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:32, filters:[{index:30, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:33, filters:[{index:30, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:34, filters:[{index:30, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:35, filters:[{index:30, value:"Irregular"}]},
                 ];
 
                 // Filter verbs
@@ -490,6 +526,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:27, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
                     {outputIndex:0, inputIndex:28, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
                     {outputIndex:0, inputIndex:29, filters:[{index:24, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:31, filters:[{index:30, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:32, filters:[{index:30, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:33, filters:[{index:30, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:34, filters:[{index:30, value:"Irregular|Stem.?Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:35, filters:[{index:30, value:"Irregular|Stem.?Changing|Orthographic"}]},
                 ];
 
                 // Filter verbs
@@ -510,6 +551,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:12, filters:[{index:12, value:".*"}]},
                     {outputIndex:0, inputIndex:18, filters:[{index:18, value:".*"}]},
                     {outputIndex:0, inputIndex:24, filters:[{index:24, value:".*"}]},
+                    {outputIndex:0, inputIndex:30, filters:[{index:30, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -528,6 +570,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:13, filters:[{index:12, value:".*"}]},
                     {outputIndex:0, inputIndex:19, filters:[{index:18, value:".*"}]},
                     {outputIndex:0, inputIndex:25, filters:[{index:24, value:".*"}]},
+                    {outputIndex:0, inputIndex:31, filters:[{index:30, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -546,6 +589,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:14, filters:[{index:12, value:".*"}]},
                     {outputIndex:0, inputIndex:20, filters:[{index:18, value:".*"}]},
                     {outputIndex:0, inputIndex:26, filters:[{index:24, value:".*"}]},
+                    {outputIndex:0, inputIndex:32, filters:[{index:30, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -564,6 +608,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:15, filters:[{index:12, value:".*"}]},
                     {outputIndex:0, inputIndex:21, filters:[{index:18, value:".*"}]},
                     {outputIndex:0, inputIndex:27, filters:[{index:24, value:".*"}]},
+                    {outputIndex:0, inputIndex:33, filters:[{index:30, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -582,6 +627,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:16, filters:[{index:12, value:".*"}]},
                     {outputIndex:0, inputIndex:22, filters:[{index:18, value:".*"}]},
                     {outputIndex:0, inputIndex:28, filters:[{index:24, value:".*"}]},
+                    {outputIndex:0, inputIndex:34, filters:[{index:30, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -600,6 +646,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:17, filters:[{index:12, value:".*"}]},
                     {outputIndex:0, inputIndex:23, filters:[{index:18, value:".*"}]},
                     {outputIndex:0, inputIndex:29, filters:[{index:24, value:".*"}]},
+                    {outputIndex:0, inputIndex:35, filters:[{index:30, value:".*"}]},
                 ];
 
                 // Filter verbs
