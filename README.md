@@ -53,6 +53,7 @@ The following filters can be used on verb conjugations:
   - Preterite Tense
   - Imperfect Tense
   - Simple Future Tense
+  - Present Subjunctive Tense
 - Conjugation type filters
   - All Conjugations
   - Conjugations of reflexive verbs

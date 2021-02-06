@@ -21,6 +21,7 @@ def createXlsx(csvPath, xlsxPath):
         data += [["",     "",     row[13], row[14], row[15], row[16], row[17]]]     # Preterite
         data += [["",     "",     row[19], row[20], row[21], row[22], row[23]]]     # Imperfect
         data += [["",     "",     row[25], row[26], row[27], row[28], row[29]]]     # Simple Future
+        data += [["",     "",     row[31], row[32], row[33], row[34], row[35]]]     # Present Subjunctive
 
     # Create spreadsheet
     vk = openpyxl.Workbook()
@@ -53,11 +54,11 @@ def createXlsx(csvPath, xlsxPath):
                 # Conjugation columns only
                 border.top = thin
                 border.bottom = thin
-            if row % 4 == 1:
+            if row % 5 == 1:
                 # Present tense rows only
                 border.top = thick
-            if row % 4 == 0:
-                # Simple Future tense rows only
+            if row % 5 == 0:
+                # Present Subjunctive tense rows only
                 border.bottom = thick
             border.left = thin
             border.right = thin

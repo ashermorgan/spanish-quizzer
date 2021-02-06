@@ -77,6 +77,7 @@ function GetVerbFilters(rawFilters) {
             filters.push({ tense: "preterite tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "imperfect tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "simple future tense", type: filter.type, subject: filter.subject, direction: filter.direction });
+            filters.push({ tense: "present subjunctive tense", type: filter.type, subject: filter.subject, direction: filter.direction });
         }
         else {
             filters.push({ tense: filter.tense.toLowerCase(), type: filter.type, subject: filter.subject, direction: filter.direction });
@@ -264,7 +265,31 @@ function GetVerbFilters(rawFilters) {
                         throw `Unrecognized subject: ${filter.subject}.`;
                 }
                 break;
-
+            case "present subjunctive tense":
+                filterIndex = 30;
+                switch (filter.subject) {
+                    case "type":
+                        inputIndex = filterIndex;
+                        break;
+                    case "yo":
+                        inputIndex = 31;
+                        break;
+                    case "tú":
+                        inputIndex = 32;
+                        break;
+                    case "él":
+                        inputIndex = 33;
+                        break;
+                    case "nosotros":
+                        inputIndex = 34;
+                        break;
+                    case "ellos":
+                        inputIndex = 35;
+                        break;
+                    default:
+                        throw `Unrecognized subject: ${filter.subject}.`;
+                }
+                break;    
             default:
                 throw `Unrecognized tense: ${filter.tense}.`;
         }

@@ -93,6 +93,8 @@ let filterInput = Vue.component("filterInput", {
                     filters["Stem Changing"] = false;
                     filters["Orthographic"] = false;
                     break;
+                case "Present Subjunctive Tense":
+                    break;
             }
 
             // Reset type if needed
@@ -226,6 +228,7 @@ let filterInput = Vue.component("filterInput", {
                         <option>Preterite Tense</option>
                         <option>Imperfect Tense</option>
                         <option>Simple Future Tense</option>
+                        <option>Present Subjunctive Tense</option>
                     </select>
                     <select v-model="filter.type">
                         <option v-for="(available, type) in getTenseTypes(index)" :disabled="!available">{{ type }}</option>

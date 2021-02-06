@@ -23,20 +23,28 @@ def getConjugations(verb):
     pastParticiple = soup.find_all("div", class_="_2xfncFkp")[1].text
 
     # Get Indicative conjugations
-    conjugations = []
-    rows = soup.find("table", class_="_2qmJM3i9").find_all("tr")
+    indicative = []
+    rows = soup.find_all("table", class_="_2qmJM3i9")[0].find_all("tr")
     for row in rows:
         cols = row.find_all("td")
-        conjugations += [[col.text for col in cols]]
+        indicative += [[col.text for col in cols]]
+
+    # Get Subjunctive conjugations
+    subjunctive = []
+    rows = soup.find_all("table", class_="_2qmJM3i9")[1].find_all("tr")
+    for row in rows:
+        cols = row.find_all("td")
+        subjunctive += [[col.text for col in cols]]
 
     # Return verb info
     result = [english,verb, # Infinatives
         None, presentParticiple, # Present participle
         None, pastParticiple, # Past participle
-        None, conjugations[1][1], conjugations[2][1], conjugations[3][1], conjugations[4][1], conjugations[6][1], # Present conjugations
-        None, conjugations[1][2], conjugations[2][2], conjugations[3][2], conjugations[4][2], conjugations[6][2], # Preterite conjugations
-        None, conjugations[1][3], conjugations[2][3], conjugations[3][3], conjugations[4][3], conjugations[6][3], # Imperfect conjugations
-        None, conjugations[1][5], conjugations[2][5], conjugations[3][5], conjugations[4][5], conjugations[6][5], # Future conjugations
+        None, indicative[1][1],  indicative[2][1], indicative[3][1], indicative[4][1], indicative[6][1], # Present conjugations
+        None, indicative[1][2],  indicative[2][2], indicative[3][2], indicative[4][2], indicative[6][2], # Preterite conjugations
+        None, indicative[1][3],  indicative[2][3], indicative[3][3], indicative[4][3], indicative[6][3], # Imperfect conjugations
+        None, indicative[1][5],  indicative[2][5], indicative[3][5], indicative[4][5], indicative[6][5], # Future conjugations
+        None, subjunctive[1][1], subjunctive[2][1], subjunctive[3][1], subjunctive[4][1], subjunctive[6][1], # Present Subjunctive conjugations
     ]
     return result
 
