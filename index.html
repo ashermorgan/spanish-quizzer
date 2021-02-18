@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="css/filterInput.css">
         <link rel="stylesheet" href="css/settingsInput.css">
         <link rel="stylesheet" href="css/quizzer.css">
+        <link rel="stylesheet" href="css/reference.css">
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
         <script src="https://unpkg.com/papaparse@5.1.1/papaparse.min.js"></script>
         <script src="js/global.js"></script>
@@ -20,6 +21,7 @@
         <script src="js/settingsInput.js"></script>
         <script src="js/filters.js"></script>
         <script src="js/quizzer.js"></script>
+        <script src="js/reference.js"></script>
     </head>
 
     <body onload="Load();">
@@ -41,11 +43,9 @@
                 <div id="home" v-show="state === 'home'" hidden>
                     <h1>What do you want to study?</h1>
                     <div>
-                        <button @click="category = 'verbs'; state = 'settings';">Conjugations</button>
-                        <button @click="category = 'vocab'; state = 'settings';">Vocab</button>
-                    </div>
-                    <div>
-                        <a href="reference.html">Or look something up in the Reference Tables</a>
+                        <button @click="category = 'verbs'; state = 'settings';">Study Conjugations</button>
+                        <button @click="category = 'vocab'; state = 'settings';">Study Vocab</button>
+                        <button @click="state = 'reference';">Reference Tables</button>
                     </div>
                 </div>
 
@@ -69,6 +69,8 @@
                     <p>Congratulations, You finished all of the prompts!</p>
                     <button @click="Back">Continue</button>
                 </div>
+
+                <reference-tables :data="data" v-if="state == 'reference'"></reference-tables>
             </main>
         </div>
     </body>

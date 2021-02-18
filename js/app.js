@@ -1,5 +1,4 @@
 // Declare global variables
-let Data;
 let app;
 
 
@@ -12,6 +11,7 @@ function loadVue() {
         el: "#app", // Mount to app div
 
         data: {
+            data: {},
             state: "home",      // Can be either "home", "settings", or "quizzer"
             category: "verbs",  // Can be either "verbs" or "vocab"
             filters: [],
@@ -30,6 +30,7 @@ function loadVue() {
                     case "congrats":
                         app.state = "settings";
                         break;
+                    case "reference":
                     case "settings":
                     case "home":
                     default:
@@ -58,11 +59,11 @@ function loadVue() {
             CreateSession: function() {
                 // Get prompts
                 if (this.category === "vocab") {
-                    this.prompts = Shuffle(ApplyFilters(Data.vocab, GetVocabFilters(this.filters), this.settings));
+                    this.prompts = Shuffle(ApplyFilters(this.data.vocab, GetVocabFilters(this.filters), this.settings));
                 }
                 else if (this.category === "verbs") {
                     // Get prompts
-                    this.prompts = Shuffle(ApplyFilters(Data.verbs, GetVerbFilters(this.filters), this.settings));
+                    this.prompts = Shuffle(ApplyFilters(this.data.verbs, GetVerbFilters(this.filters), this.settings));
                 }
 
                 // Set progress
@@ -155,7 +156,7 @@ async function Load() {
     document.addEventListener("keydown", KeyDown);
 
     // Load Spanish-Quizzer data
-    Data = await loadData();
+    app.data = await loadData();
 }
 
 
