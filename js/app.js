@@ -54,80 +54,12 @@ function loadVue() {
             },
 
             /**
-             * Start a new quizzer session
-             */
-            CreateSession: function() {
-                // Get prompts
-                if (this.category === "vocab") {
-                    this.prompts = Shuffle(ApplyFilters(this.data.vocab, GetVocabFilters(this.filters), this.settings));
-                }
-                else if (this.category === "verbs") {
-                    // Get prompts
-                    this.prompts = Shuffle(ApplyFilters(this.data.verbs, GetVerbFilters(this.filters), this.settings));
-                }
-
-                // Set progress
-                this.promptIndex = 0;
-
-                // Start quizzer
-                this.StartSession();
-            },
-
-            /**
-             * Resume the previous quizzer session.
-             */
-            ResumeSession: function() {
-                // Get localStorage prefix
-                let prefix;
-                if (this.category === "vocab") {
-                    prefix = "vocab-"
-                }
-                else if (this.category === "verbs") {
-                    prefix = "verb-"
-                }
-
-                // Load prompts and progress
-                this.prompts = JSON.parse(localStorage.getItem(prefix + "prompts"));
-                this.promptIndex = parseInt(localStorage.getItem(prefix + "prompt"));
-
-                // Start quizzer
-                this.StartSession();
-            },
-
-            /**
              * Perform validation checks and then start the quizzer.
              */
-            StartSession: function() {
-                // Validate prompts and promptIndex
-                if (!this.prompts) {
-                    alert("An error occured while resuming the previous session.");
-                    return;
-                }
-                else if (this.prompts.length === 0) {
-                    alert("You must have at least one filter.");
-                    return;
-                }
-                else if (isNaN(this.promptIndex) || this.promptIndex < 0 || this.promptIndex >= this.prompts.length) {
-                    alert("An error occured while resuming the previous session.");
-                    return;
-                }
-
-                // Validate browser for voice input
-                if (this.settings.inputType !== "Text") {
-                    if ((window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition) === undefined) {
-                        alert("Your browser does not support voice input.");
-                        return;
-                    }
-                }
-
-                // Give iOS devices ringer warning for prompt audio
-                if (this.settings.promptType !== "Text") {
-                    if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
-                        alert("Please make sure your ringer is on in order to hear audio prompts.");
-                    }
-                }
-
-                // Show and hide elements (also enables the quizzer)
+            startQuizzer: function(prompts, promptIndex, settings) {
+                this.settings = settings;
+                this.prompts = prompts;
+                this.promptIndex = promptIndex;
                 this.state = "quizzer";
             },
         },

@@ -58,24 +58,4 @@ describe("App", function() {
             expect(app.state).to.equal("settings");
         });
     });
-
-    describe("StartSession method", function() {
-        it("Should set state to 'quizzer'", function() {
-            // Initialize settings
-            app.state = "settings";
-            app.settings.inputType = "Text";
-            app.settings.promptType = "Text";
-            app.prompts = ["prompt1", "prompt2", "prompt3"];
-
-            // Call StartSession
-            app.StartSession([1, 2, 3], 4, {
-                promptType: "Text",     // Required to prevent browser validation alerts
-                inputType: "Text",      // Required to prevent browser validation alerts
-                testSetting: "testValue",
-            });
-
-            // Assert parameters imported
-            expect(app.state).to.equal("quizzer");
-        });
-    });
 });
