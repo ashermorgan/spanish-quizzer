@@ -82,7 +82,6 @@ async function Load() {
     // Divs were hidden to improve interface for users with JS blocked
     document.getElementById("home").hidden = false;
     document.getElementById("settings").hidden = false;
-    document.getElementById("congrats").hidden = false;
 
     // Add event Listeners
     document.addEventListener("keydown", KeyDown);

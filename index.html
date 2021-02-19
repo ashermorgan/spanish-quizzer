@@ -50,15 +50,10 @@
                 <filters-page id="settings" v-show="state === 'settings'"
                     :data="data" :category="category" @start="startQuizzer"></filters-page>
 
-                <quizzer id="quizzer" v-if="state === 'quizzer'"
+                <quizzer v-if="state === 'quizzer'"
                     :starting-index="promptIndex" :starting-prompts="prompts" :settings="settings"
-                    @new-prompt="updateProgress" @finished-prompts="state = 'congrats';">
+                    @new-prompt="updateProgress" @finished-prompts="Back">
                 </quizzer>
-
-                <div id="congrats" v-show="state === 'congrats'" hidden>
-                    <p>Congratulations, You finished all of the prompts!</p>
-                    <button @click="Back">Continue</button>
-                </div>
 
                 <reference-tables :data="data" v-if="state == 'reference'"></reference-tables>
             </main>

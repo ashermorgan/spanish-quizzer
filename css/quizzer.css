@@ -1,6 +1,6 @@
 /******** Quizzer styles ********/
 /* Container */
-#quizzer {
+.quizzer {
     margin: 10px;
     padding: 10px;
     width: fit-content;
@@ -11,7 +11,7 @@
 }
 
 /* Progress */
-#quizzerProgress {
+.quizzerProgress {
     font-size: 18px;
     font-weight: bold;
     margin: 0px;
@@ -19,20 +19,20 @@
 }
 
 /* Prompt */
-#quizzer section {
+.quizzer section {
     text-align: left;
     margin-bottom: 15px;
 }
-#quizzerPromptType, #quizzerInputType {
+.quizzerPromptType, .quizzerInputType {
     font-weight: bold;
 }
-#quizzerPrompt {
+.quizzerPrompt {
     cursor: pointer;
     font-size: 15px;
 }
 
 /* Responce*/
-#quizzerInput {
+.quizzerInput {
     margin-top: 5px;
     height: 30px;
     padding: 5px;
@@ -41,16 +41,25 @@
 }
 
 /* Buttons */
-#quizzerButtons button {
+.quizzerButtons button {
     width: 75px;
     height: 25px;
 }
 
 /* Feedback */
-#quizzerFeedback {
+.quizzerFeedback {
     margin-top: 15px;
 }
-#quizzerFeedbackTerm {
+.quizzerFeedbackTerm {
     text-decoration-line: underline;
     cursor: pointer;
+}
+
+/* Congrats message */
+.congrats p {
+    margin: 20px;
+}
+.congrats button {
+    width: 100px;
+    height: 35px;
 }

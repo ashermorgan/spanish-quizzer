@@ -26,6 +26,7 @@ let quizzer = Vue.component("quizzer", {
 
     data: function() {
         return {
+            state: "quizzer",
             prompts: this.startingPrompts,
             index: this.startingIndex,
             responce: "",
@@ -70,9 +71,7 @@ let quizzer = Vue.component("quizzer", {
 
             // Get new prompt
             this.index++;
-            if (this.index === this.prompts.length) {
-                // The user just finished
-                this.$emit("finished-prompts");
+            if (this.index >= this.prompts.length) {
                 return;
             }
 
@@ -260,33 +259,40 @@ let quizzer = Vue.component("quizzer", {
 
     template: `
     <div>
-        <p id="quizzerProgress">{{ index }} / {{ prompts.length }}</p>
+        <div class="quizzer" v-show="index < prompts.length">
+            <p class="quizzerProgress">{{ index }} / {{ prompts.length }}</p>
 
-        <section>
-            <label id="quizzerPromptType" for="quizzerPrompt">{{ prompt[0] }}</label>
-            <span id="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">{{ settings.promptType === "Audio" ? "Click to hear again" : prompt[1] }}</span>
-        </section>
+            <section>
+                <label class="quizzerPromptType" for="quizzerPrompt">{{ prompt[0] }}</label>
+                <span class="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">{{ settings.promptType === "Audio" ? "Click to hear again" : prompt[1] }}</span>
+            </section>
 
-        <section>
-            <label id="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
-            <input id="quizzerInput" ref="input" type="text" v-model="responce" :readonly="!responceActive || settings.inputType === 'Voice'"
-                :lang="getLang(prompt[2])" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
-        </section>
+            <section>
+                <label class="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
+                <input class="quizzerInput" ref="input" type="text" v-model="responce" :readonly="!responceActive || settings.inputType === 'Voice'"
+                    :lang="getLang(prompt[2])" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
+            </section>
 
-        <div id="quizzerButtons">
-            <button v-if="responceActive" :disabled="settings.inputType === 'Voice'" @click="Submit();">Submit</button>
-            <button v-else @click="Continue();">Continue</button>
-            <button @click="Reset();">Skip</button>
+            <div class="quizzerButtons">
+                <button v-if="responceActive" :disabled="settings.inputType === 'Voice'" @click="Submit();">Submit</button>
+                <button v-else @click="Continue();">Continue</button>
+                <button @click="Reset();">Skip</button>
+            </div>
+
+            <div class="quizzerFeedback" ref="feedback" v-show="!responceActive" class="bad">
+                <span v-if="settings.onMissedPrompt === 'Correct me'">
+                    The correct answer is
+                    <span class="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
+                </span>
+                <span v-if="settings.onMissedPrompt === 'Tell me'">
+                    Incorrect.
+                </span>
+            </div>
         </div>
 
-        <div id="quizzerFeedback" ref="feedback" v-show="!responceActive" class="bad">
-            <span v-if="settings.onMissedPrompt === 'Correct me'">
-                The correct answer is
-                <span id="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
-            </span>
-            <span v-if="settings.onMissedPrompt === 'Tell me'">
-                Incorrect.
-            </span>
+        <div class="congrats" v-show="index >= prompts.length">
+            <p>Congratulations, You finished all of the prompts!</p>
+            <button @click="$emit('finished-prompts')">Continue</button>
         </div>
     </div>
     `,

@@ -19,12 +19,3 @@
 #home a {
     margin-top: 10px;
 }
-
-/* Congrats message */
-#congrats p {
-    margin: 20px;
-}
-#congrats button {
-    width: 100px;
-    height: 35px;
-}
