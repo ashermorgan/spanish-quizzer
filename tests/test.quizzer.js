@@ -42,6 +42,8 @@ describe("Quizzer", function() {
     describe("Reset method", function() {
         it("Should reset responce", function() {
             // Initialize variables
+            Quizzer.prompts = ["prompt 1", "prompt 2"];
+            Quizzer.index = 0;
             Quizzer.responce = "test";
             expect(Quizzer.responce).to.equal("test");
 
@@ -54,6 +56,8 @@ describe("Quizzer", function() {
 
         it("Should set responceActive to true", function() {
             // Initialize variables
+            Quizzer.prompts = ["prompt 1", "prompt 2"];
+            Quizzer.index = 0;
             Quizzer.responceActive = false;
 
             // Run reset
@@ -97,24 +101,6 @@ describe("Quizzer", function() {
 
             // Assert event emited
             expect(event).to.equal("new-prompt");
-        });
-
-        it("Should emit 'finished-prompts' event if on last term", function() {
-            // Initialize variables
-            Quizzer.prompts = ["prompt 1", "prompt 2"];
-            Quizzer.index = 1;
-
-            // Override $emit method
-            let event = "";
-            Quizzer.$emit = function(name) {
-                event = name;
-            };
-
-            // Run reset
-            Quizzer.Reset();
-
-            // Assert event emited
-            expect(event).to.equal("finished-prompts");
         });
     });
 

@@ -434,21 +434,11 @@ let filtersPage = Vue.component("filtersPage", {
          * Resume the previous quizzer session.
          */
         ResumeSession: function() {
-            // Get localStorage prefix
-            let prefix;
-            if (this.category === "vocab") {
-                prefix = "vocab-"
-            }
-            else if (this.category === "verbs") {
-                prefix = "verb-"
-            }
-
             // Load prompts and progress
-            prompts = JSON.parse(localStorage.getItem(prefix + "prompts"));
-            promptIndex = parseInt(localStorage.getItem(prefix + "prompt"));
+            let { prompts, index } = JSON.parse(localStorage.getItem("last-session"));
 
             // Start quizzer
-            this.StartSession(prompts, promptIndex);
+            this.StartSession(prompts, index);
         },
 
         /**

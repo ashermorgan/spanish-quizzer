@@ -26,7 +26,6 @@ let quizzer = Vue.component("quizzer", {
 
     data: function() {
         return {
-            state: "quizzer",
             prompts: this.startingPrompts,
             index: this.startingIndex,
             responce: "",
@@ -61,6 +60,12 @@ let quizzer = Vue.component("quizzer", {
          * Give the user the next prompt and reset the quizzer.
          */
         Reset: function() {
+            // Get new prompt
+            this.index++;
+            if (this.index >= this.prompts.length) {
+                return;
+            }
+
             // Show and hide elements
             this.responceActive = true;
             try {
@@ -68,12 +73,6 @@ let quizzer = Vue.component("quizzer", {
                 this.$refs.input.focus();
             }
             catch { }
-
-            // Get new prompt
-            this.index++;
-            if (this.index >= this.prompts.length) {
-                return;
-            }
 
             // Emit new-prompt event
             this.$emit("new-prompt", this.prompts, this.index);

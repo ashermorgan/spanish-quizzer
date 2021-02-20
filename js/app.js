@@ -45,12 +45,8 @@ function loadVue() {
              * @param {Number} index - The index of the current prompt.
              */
             updateProgress: function(prompts, index) {
-                // Get localStorage prefix
-                let prefix = app.category === "verbs" ? "verb-" : "vocab-";
-
-                // Save progress to local storage
-                localStorage.setItem(prefix + "prompts", JSON.stringify(prompts));
-                localStorage.setItem(prefix + "prompt", JSON.stringify(index));
+                // Save progress
+                localStorage.setItem("last-session", JSON.stringify({ prompts: prompts, index: index }));
             },
 
             /**
