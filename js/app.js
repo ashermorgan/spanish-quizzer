@@ -3,6 +3,27 @@ let app;
 
 
 
+// page-header component
+let pageHeader = Vue.component("pageHeader", {
+    props: {
+        image: {
+            type: String
+        },
+        title: {
+            type: String,
+            default: "Spanish-Quizzer",
+        }
+    },
+    template: `
+        <header @click="$emit('back');">
+            <img v-if="image" :src="image"/>
+            {{ title }}
+        </header>
+    `
+});
+
+
+
 /**
  * Initialize the Vue app
  */

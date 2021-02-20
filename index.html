@@ -24,10 +24,7 @@
 
     <body onload="Load();">
         <div id="app">
-            <header @click="Back">
-                <img id="backArrow" v-show="state != 'home'" src="images/arrow-left.svg"/>
-                Spanish-Quizzer
-            </header>
+            <page-header @back="Back" :image="state === 'home' ? null : 'images/arrow-left.svg'"></page-header>
 
             <main>
                 <noscript>
