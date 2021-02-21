@@ -26,6 +26,26 @@ const pageHeader = Vue.component("pageHeader", {
 
 // App pages
 const homePage = Vue.component("homePage", {
+    methods: {
+        /**
+         * Handle a keyup event (implements keyboard shortcuts).
+         * @param {object} e - The event args.
+         */
+        keyup: function(e) {
+            if (this._inactive) return;
+            if (e.key === "c") this.$router.push("verbs");
+            if (e.key === "v") this.$router.push("vocab");
+            if (e.key === "r") this.$router.push("reference");
+        },
+    },
+    created: function() {
+        // Add keyup handler
+        window.addEventListener("keyup", this.keyup);
+    },
+    destroyed: function() {
+        // Remove keyup handler
+        window.removeEventListener("keyup", this.keyup);
+    },
     template: `
         <div class="home">
             <page-header></page-header>
@@ -72,6 +92,9 @@ function loadVue() {
         }),
 
         methods: {
+            /**
+             * Go back to the previous page.
+             */
             Back: function() {
                 switch (this.$route.name) {
                     case "home":
@@ -84,11 +107,29 @@ function loadVue() {
                     case "quizzer":
                         this.$router.push(this.$route.params.referer || "home");
                 }
-            }
+            },
+
+            /**
+             * Handle a keyup event (implements keyboard shortcuts).
+             * @param {object} e - The event args.
+             */
+            keyup: function(e) {
+                if (e.key === "Escape") this.Back();
+            },
         },
 
         data: {
             data: {}
+        },
+
+        created: function() {
+            // Add keyup handler
+            window.addEventListener("keyup", this.keyup);
+        },
+
+        destroyed: function() {
+            // Remove keyup handler
+            window.removeEventListener("keyup", this.keyup);
         },
     });
 }

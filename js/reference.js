@@ -33,6 +33,21 @@ let referenceTables = Vue.component("referenceTables", {
                 return "en";
             }
         },
+
+        /**
+         * Handle a keyup event (implements keyboard shortcuts).
+         * @param {object} e - The event args.
+         */
+        keyup: function(e) {
+            if (this._inactive) return;
+            if (e.key === "h" || e.key == "/") {
+                try {
+                    this.$refs.search.focus();
+                } catch {}
+            }
+            if (e.key === "c") this.category = "verbs"
+            if (e.key === "v") this.category = "vocab";
+        },
     },
     mounted: function() {
         // Set table height
@@ -40,10 +55,16 @@ let referenceTables = Vue.component("referenceTables", {
 
         // Add onresize handler
         window.addEventListener("resize", this.setTableHeight);
+
+        // Add keyup handler
+        window.addEventListener("keyup", this.keyup);
     },
     destroyed: function() {
         // Remove onresize handler
         window.removeEventListener("resize", this.setTableHeight);
+
+        // Remove keyup handler
+        window.removeEventListener("keyup", this.keyup);
     },
     template: `
     <div>
@@ -54,7 +75,7 @@ let referenceTables = Vue.component("referenceTables", {
                 <option value="vocab">Vocab</option>
             </select>
             <input type="text" aria-label="Search" v-model="query" placeholder="Search"
-                autocomplete="off" autocorrect="off">
+                autocomplete="off" autocorrect="off" ref="search">
         </div>
 
         <div class="referenceTable" ref="referenceTable">

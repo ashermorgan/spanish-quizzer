@@ -473,6 +473,26 @@ let filtersPage = Vue.component("filtersPage", {
             // Start quizzer
             this.$router.push({name:"quizzer", params:{startingPrompts:prompts, startingIndex:promptIndex, settings:this.settings, referer:this.category}});
         },
+
+        /**
+         * Handle a keyup event (implements some keyboard shortcuts).
+         * @param {object} e - The event args.
+         */
+        keyup: function(e) {
+            if (this._inactive) return;
+            if (e.key === "s") this.CreateSession();
+            if (e.key === "r") this.ResumeSession();
+        }
+    },
+
+    created: function() {
+        // Add keyup handler
+        window.addEventListener("keyup", this.keyup);
+    },
+
+    destroyed: function() {
+        // Remove keyup handler
+        window.removeEventListener("keyup", this.keyup);
     },
 
     template: `
