@@ -452,14 +452,12 @@ describe("FiltersPage", function() {
     });
 
     describe("StartSession method", function() {
-        it("Should emit start event", function() {
-            // Override $emit method
-            let event = "";
-            let event_args;
-            FiltersPage.$emit = function(name, a, b, c) {
-                event = name;
-                event_args = [a, b, c];
-            };
+        it("Should push quizzer page", function() {
+            // Override $router.push method
+            let push_args;
+            FiltersPage.$router = {push: function(args) {
+                push_args = args;
+            }};
 
             // Initialize variables
             FiltersPage.settings = {
@@ -472,12 +470,19 @@ describe("FiltersPage", function() {
             FiltersPage.StartSession([1, 2, 3], 0);
 
             // Assert event emited
-            expect(event).to.equal("start");
-            expect(event_args).to.have.deep.members([[1, 2, 3], 0, {
-                promptType: "Text",     // Required to prevent browser validation alerts
-                inputType: "Text",      // Required to prevent browser validation alerts
-                testSetting: "testValue",
-            }]);
+            expect(push_args).to.deep.equal({
+                name: "quizzer",
+                params: {
+                    startingPrompts: [1, 2, 3],
+                    startingIndex: 0,
+                    settings: {
+                        promptType: "Text",     // Required to prevent browser validation alerts
+                        inputType: "Text",      // Required to prevent browser validation alerts
+                        testSetting: "testValue",
+                    },
+                    referer: FiltersPage.category,
+                }
+            });
         });
     });
 });
