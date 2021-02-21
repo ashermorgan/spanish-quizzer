@@ -222,6 +222,20 @@ let quizzer = Vue.component("quizzer", {
                 this.Continue();
             }
         },
+
+        /**
+         * Get the language code that matches a label.
+         * @param {String} label - The label.
+         * @returns {String} - The language code ("en", "es", etc.)
+         */
+        getLang: function(label) {
+            if (label.toLowerCase().includes("spanish")) {
+                return "es";
+            }
+            else {
+                return "en";
+            }
+        },
     },
 
     computed: {
@@ -242,7 +256,7 @@ let quizzer = Vue.component("quizzer", {
     created: function() {
         // Add keyup handler
         window.addEventListener("keyup", this.keyup);
-        
+
         // Update prompts
         this.prompts = this.startingPrompts;
         this.index = this.startingIndex - 1;
@@ -278,7 +292,7 @@ let quizzer = Vue.component("quizzer", {
                 <button @click="Reset();">Skip</button>
             </div>
 
-            <div class="quizzerFeedback" ref="feedback" v-show="!responceActive" class="bad">
+            <div class="quizzerFeedback bad" ref="feedback" v-show="!responceActive">
                 <span v-if="settings.onMissedPrompt === 'Correct me'">
                     The correct answer is
                     <span class="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
@@ -294,5 +308,55 @@ let quizzer = Vue.component("quizzer", {
             <button @click="$emit('finished-prompts')">Continue</button>
         </div>
     </div>
+    `,
+});
+
+
+
+// quizzer-page component
+const quizzerPage = Vue.component("quizzerPage", {
+    props: {
+        "referer": {
+            type: String,
+            default: "home",
+        },
+        "startingPrompts": {
+            type: Array
+        },
+        "startingIndex": {
+            type: Number
+        },
+        "settings": {
+            type: Object
+        }
+    },
+
+    methods: {
+        /**
+         * Update the user's progress in localStorage.
+         * @param {Array} prompts - The list of prompts.
+         * @param {Number} index - The index of the current prompt.
+         */
+        updateProgress: function(prompts, index) {
+            // Save progress
+            localStorage.setItem("last-session", JSON.stringify({ prompts: prompts, index: index }));
+        }
+    },
+
+    mounted: function() {
+        if (this.startingPrompts == null || this.startingIndex == null || this.settings == null) {
+            this.$router.replace({name:this.referer});
+        }
+    },
+
+    template: `
+        <div class="quizzer-page">
+            <page-header @back="$emit('back', referer);" image="images/x.svg"></page-header>
+            <main>
+                <quizzer :starting-prompts="startingPrompts" :starting-index="startingIndex" :settings="settings"
+                    @new-prompt="updateProgress" @finished-prompts="$emit('back', referer);">
+                </quizzer>
+            </main>
+        </div>
     `,
 });

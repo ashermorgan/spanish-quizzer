@@ -18,7 +18,21 @@ let referenceTables = Vue.component("referenceTables", {
          */
         setTableHeight: function() {
             this.$refs.referenceTable.style.height = `${window.innerHeight - this.$refs.referenceTable.offsetTop - 10}px`;
-        }
+        },
+
+        /**
+         * Get the language code that matches a label.
+         * @param {String} label - The label.
+         * @returns {String} - The language code ("en", "es", etc.)
+         */
+        getLang: function(label) {
+            if (label.toLowerCase().includes("spanish")) {
+                return "es";
+            }
+            else {
+                return "en";
+            }
+        },
     },
     mounted: function() {
         // Set table height

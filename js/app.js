@@ -4,7 +4,7 @@ let app;
 
 
 // page-header component
-let pageHeader = Vue.component("pageHeader", {
+const pageHeader = Vue.component("pageHeader", {
     props: {
         image: {
             type: String
@@ -24,6 +24,35 @@ let pageHeader = Vue.component("pageHeader", {
 
 
 
+// App pages
+const homePage = Vue.component("homePage", {
+    template: `
+        <div class="home">
+            <page-header></page-header>
+            <main>
+                <h1>What do you want to study?</h1>
+                <div>
+                    <router-link tag="button" to="/verbs">Study Conjugations</router-link>
+                    <router-link tag="button" to="/vocab">Study Vocab</router-link>
+                    <router-link tag="button" to="/reference">Reference Tables</router-link>
+                </div>
+            </main>
+        </div>
+    `,
+});
+const referencePage = Vue.component("referencePage", {
+    template: `
+        <div>
+            <page-header @back="$emit('back');" image="images/arrow-left.svg"></page-header>
+            <main>
+                <reference-tables :data="this.$root.$data.data"></reference-tables>
+            </main>
+        </div>
+    `,
+});
+
+
+
 /**
  * Initialize the Vue app
  */
@@ -31,54 +60,35 @@ function loadVue() {
     app = new Vue({
         el: "#app", // Mount to app div
 
-        data: {
-            data: {},
-            state: "home",      // Can be either "home", "settings", or "quizzer"
-            category: "verbs",  // Can be either "verbs" or "vocab"
-            filters: [],
-            settings: getSettings(),
-            prompts: [],
-            promptIndex: 0,
-        },
+        router: new VueRouter({
+            routes: [
+                { path: "/", redirect: "/home" },
+                { path: "/home",      name: "home",      component: homePage },
+                { path: "/verbs",     name: "verbs",     component: filtersPage, props: {category: "verbs"}},
+                { path: "/vocab",     name: "vocab",     component: filtersPage, props: {category: "vocab"}},
+                { path: "/quizzer",   name: "quizzer",   component: quizzerPage,  props:true },
+                { path: "/reference", name: "reference", component: referencePage },
+            ],
+        }),
 
         methods: {
-            /**
-             * Return to the previous state.
-             */
             Back: function() {
-                switch (app.state) {
-                    case "quizzer":
-                    case "congrats":
-                        app.state = "settings";
-                        break;
-                    case "reference":
-                    case "settings":
+                switch (this.$route.name) {
                     case "home":
-                    default:
-                        app.state = "home";
                         break;
+                    case "verbs":
+                    case "vocab":
+                    case "reference":
+                        this.$router.push("home");
+                        break;
+                    case "quizzer":
+                        this.$router.push(this.$route.params.referer || "home");
                 }
-            },
+            }
+        },
 
-            /**
-             * Update the user's progress in localStorage.
-             * @param {Array} prompts - The list of prompts.
-             * @param {Number} index - The index of the current prompt.
-             */
-            updateProgress: function(prompts, index) {
-                // Save progress
-                localStorage.setItem("last-session", JSON.stringify({ prompts: prompts, index: index }));
-            },
-
-            /**
-             * Perform validation checks and then start the quizzer.
-             */
-            startQuizzer: function(prompts, promptIndex, settings) {
-                this.settings = settings;
-                this.prompts = prompts;
-                this.promptIndex = promptIndex;
-                this.state = "quizzer";
-            },
+        data: {
+            data: {}
         },
     });
 }
@@ -95,51 +105,6 @@ async function Load() {
     // Initialize the Vue app
     loadVue();
 
-    // Unhide hidden divs
-    // Divs were hidden to improve interface for users with JS blocked
-    document.getElementById("home").hidden = false;
-    document.getElementById("settings").hidden = false;
-
-    // Add event Listeners
-    document.addEventListener("keydown", KeyDown);
-
     // Load Spanish-Quizzer data
     app.data = await loadData();
-}
-
-
-
-/**
- * Handle a keyDown event (implements some keyboard shortcuts).
- * @param {object} e - The event args.
- */
-function KeyDown(e) {
-    if (e.key === "Escape") {
-        app.Back();
-    }
-
-    // Home shortcuts
-    if (app.state === "home") {
-        if (e.key === "c") {
-            app.category = "verbs";
-            app.state = "settings";
-        }
-        if (e.key === "v") {
-            app.category = "vocab";
-            app.state = "settings";
-        }
-        if (e.key === "r") {
-            window.location = "reference.html";
-        }
-    }
-
-    // Settings shortcuts
-    if (app.state === "settings") {
-        if (e.key === "s") {
-            app.CreateSession();
-        }
-        if (e.key === "r") {
-            app.ResumeSession();
-        }
-    }
 }

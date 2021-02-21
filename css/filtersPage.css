@@ -90,13 +90,10 @@
 
 
 /******** filters-page ********/
-.filtersPage {
+.filtersPage main {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-.filtersPage[hidden] {
-    display: none;
 }
 
 /* Start/Resume Buttons */

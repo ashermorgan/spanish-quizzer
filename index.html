@@ -13,47 +13,30 @@
         <link rel="stylesheet" href="css/quizzer.css">
         <link rel="stylesheet" href="css/reference.css">
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue-router@3.5.1"></script>
         <script src="https://unpkg.com/papaparse@5.1.1/papaparse.min.js"></script>
         <script src="js/global.js"></script>
-        <script src="js/app.js"></script>
         <script src="js/filters.js"></script>
         <script src="js/filtersPage.js"></script>
         <script src="js/quizzer.js"></script>
         <script src="js/reference.js"></script>
+        <script src="js/app.js"></script>
     </head>
 
     <body onload="Load();">
         <div id="app">
-            <page-header @back="Back" :image="state === 'home' ? null : 'images/arrow-left.svg'"></page-header>
-
-            <main>
-                <noscript>
-                    <div id="jsError">
-                        <h1>You must have JavaScript enabled to run Spanish-Quizzer.</h1>
-                        <p>Spanish-Quizzer uses JavaScript to load vocab, apply filters, and check your answers.</p>
-                        <p>You can still view the <a href="data/">data sets</a>, but you can't use the Quizzer or the Reference Tables.</p>
-                    </div>
-                </noscript>
-
-                <div id="home" v-show="state === 'home'" hidden>
-                    <h1>What do you want to study?</h1>
-                    <div>
-                        <button @click="category = 'verbs'; state = 'settings';">Study Conjugations</button>
-                        <button @click="category = 'vocab'; state = 'settings';">Study Vocab</button>
-                        <button @click="state = 'reference';">Reference Tables</button>
-                    </div>
+            <noscript>
+                <header>Spanish-Quizzer</header>
+                <div id="jsError">
+                    <h1>You must have JavaScript enabled to run Spanish-Quizzer.</h1>
+                    <p>Spanish-Quizzer uses JavaScript to load vocab, apply filters, and check your answers.</p>
+                    <p>You can still view the <a href="data/">data sets</a>, but you can't use the Quizzer or the Reference Tables.</p>
                 </div>
+            </noscript>
 
-                <filters-page id="settings" v-show="state === 'settings'"
-                    :data="data" :category="category" @start="startQuizzer"></filters-page>
-
-                <quizzer v-if="state === 'quizzer'"
-                    :starting-index="promptIndex" :starting-prompts="prompts" :settings="settings"
-                    @new-prompt="updateProgress" @finished-prompts="Back">
-                </quizzer>
-
-                <reference-tables :data="data" v-if="state == 'reference'"></reference-tables>
-            </main>
+            <keep-alive exclude="quizzerPage">
+                <router-view @back="Back"></router-view>
+            </keep-alive>
         </div>
     </body>
 </html>

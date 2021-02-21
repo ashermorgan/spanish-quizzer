@@ -30,7 +30,7 @@ body {
     touch-action: manipulation;
 }
 
-#app {
+#app>div {
     width: 100%;
     height: 100%;
 

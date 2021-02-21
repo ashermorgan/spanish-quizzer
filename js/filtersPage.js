@@ -395,10 +395,6 @@ let filtersPage = Vue.component("filtersPage", {
         category: {
             type: String,
             default: "verbs",
-        },
-        data: {
-            type: Object,
-            default: {},
         }
     },
 
@@ -416,11 +412,11 @@ let filtersPage = Vue.component("filtersPage", {
         CreateSession: function() {
             // Get prompts
             if (this.category === "vocab") {
-                prompts = Shuffle(ApplyFilters(this.data.vocab, GetVocabFilters(this.filters), this.settings));
+                prompts = Shuffle(ApplyFilters(this.$root.$data.data.vocab, GetVocabFilters(this.filters), this.settings));
             }
             else if (this.category === "verbs") {
                 // Get prompts
-                prompts = Shuffle(ApplyFilters(this.data.verbs, GetVerbFilters(this.filters), this.settings));
+                prompts = Shuffle(ApplyFilters(this.$root.$data.data.verbs, GetVerbFilters(this.filters), this.settings));
             }
 
             // Set progress
@@ -475,20 +471,21 @@ let filtersPage = Vue.component("filtersPage", {
             }
 
             // Start quizzer
-            this.$emit("start", prompts, promptIndex, this.settings);
+            this.$router.push({name:"quizzer", params:{startingPrompts:prompts, startingIndex:promptIndex, settings:this.settings, referer:this.category}});
         },
     },
 
     template: `
         <div class="filtersPage">
-            <filter-input :category="category" v-model="filters"></filter-input>
-
-            <settings-input v-model="settings"></settings-input>
-
-            <div class="settingButtons">
-                <button class="settingsStart" @click="CreateSession();">Start</button>
-                <button class="settingsResume" @click="ResumeSession();">Resume</button>
-            </div>
+            <page-header @back="$emit('back');" image="images/arrow-left.svg"></page-header>
+            <main>
+                <filter-input :category="category" v-model="filters"></filter-input>
+                <settings-input v-model="settings"></settings-input>
+                <div class="settingButtons">
+                    <button class="settingsStart" @click="CreateSession();">Start</button>
+                    <button class="settingsResume" @click="ResumeSession();">Resume</button>
+                </div>
+            </main>
         </div>
     `,
 });
