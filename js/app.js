@@ -88,6 +88,7 @@ function loadVue() {
                 { path: "/vocab",     name: "vocab",     component: filtersPage, props: {category: "vocab"}},
                 { path: "/quizzer",   name: "quizzer",   component: quizzerPage,  props:true },
                 { path: "/reference", name: "reference", component: referencePage },
+                { path: "*", redirect: "/home" },
             ],
         }),
 
