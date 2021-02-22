@@ -23,22 +23,6 @@ function SetTheme(darkTheme = null) {
 
 
 /**
- * Get the language code that matches a label.
- * @param {String} label - The label.
- * @returns {String} - The language code ("en", "es", etc.)
- */
-function getLang(label) {
-    if (label.toLowerCase().includes("spanish")) {
-        return "es";
-    }
-    else {
-        return "en";
-    }
-}
-
-
-
-/**
  * Read a peice of text.
  * @param {String} text - The text to read.
  * @param {String} label - The language of the text.

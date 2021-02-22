@@ -12,7 +12,7 @@ main > h1 {
 }
 
 /* Controls */
-#controls {
+.referenceTableControls {
     margin-top: 10px;
     margin-bottom: 15px;
 }
@@ -20,13 +20,13 @@ main > h1 {
 
 
 /******** Reference Table styles ********/
-#referenceTable {
+.referenceTable {
     text-align: left;
     overflow-x: auto;
 }
 
 /* Header cells */
-#referenceTable th {
+.referenceTable th {
     background-color: var(--hover-color);
     border: 1px solid var(--border-color);
     position: sticky;
@@ -35,7 +35,7 @@ main > h1 {
 }
 
 /* All cells */
-#referenceTable td {
+.referenceTable td {
     border: 1px solid var(--border-color);
     cursor: pointer;
 }
@@ -51,11 +51,11 @@ main > h1 {
         --hover-color: #FFFFFF;
     }
 
-    header, h1, #controls, label, br {
+    header, h1, .referenceTableControls, label, br {
         display: none;
     }
-    
-    #referenceTable {
+
+    .referenceTable {
         overflow: visible;
     }
 

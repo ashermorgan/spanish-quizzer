@@ -1,3 +1,4 @@
+// filter-input component
 let filterInput = Vue.component("filterInput", {
     props: {
         category: {
@@ -35,7 +36,7 @@ let filterInput = Vue.component("filterInput", {
 
     methods: {
         /**
-         * Add a filter to the settings page.
+         * Add a filter to the filters page.
          */
         AddFilter: function() {
             if (this.category === "verbs") {
@@ -47,7 +48,7 @@ let filterInput = Vue.component("filterInput", {
         },
 
         /**
-         * Remove a filter from the settings page.
+         * Remove a filter from the filters page.
          * @param {Number} index - The index of the verb filter.
          */
         RemoveFilter: function(index) {
@@ -296,6 +297,215 @@ let filterInput = Vue.component("filterInput", {
                     <button class="itemRemove" @click="RemoveFilter(index);">╳</button>
                 </div>
             </div>
+        </div>
+    `,
+});
+
+
+
+// settings-input component
+let settingsInput = Vue.component("settingsInput", {
+    props: {
+        value: {
+            type: Object,
+            default: getSettings(),
+        },
+    },
+
+    watch: {
+        value: {
+            handler: function(value) {
+                setSettings(value);
+
+                this.$emit("input", value);
+            },
+            deep: true,
+        },
+    },
+
+    template: `
+        <div class="settingsInput" ref="container">
+            <h2>Quizzer Settings</h2>
+            <div>
+                <input type="checkbox" id="settingsDarkTheme" v-model="value.darkTheme">
+                <label for="settingsDarkTheme">Dark Mode</label>
+            </div>
+            <div>
+                <label for="settingsPromptType">Prompt type</label>
+                <select id="settingsPromptType" v-model="value.promptType">
+                    <option>Text</option>
+                    <option>Audio</option>
+                    <option>Both</option>
+                </select>
+            </div>
+            <div>
+                <label for="settingsInputType">Input type</label>
+                <select id="settingsInputType" v-model="value.inputType">
+                    <option>Text</option>
+                    <option>Voice</option>
+                    <option>Either</option>
+                </select>
+            </div>
+            <div>
+                <label for="settingsOnMissedPrompt">When I miss a prompt</label>
+                <select id="settingsOnMissedPrompt" v-model="value.onMissedPrompt">
+                    <option>Correct me</option>
+                    <option>Tell me</option>
+                    <option>Ignore it</option>
+                </select>
+            </div>
+            <div>
+                <label for="settingsRepeatPrompts">Repeat missed prompts</label>
+                <select id="settingsRepeatPrompts" v-model="value.repeatPrompts">
+                    <option>Never</option>
+                    <option>Immediately</option>
+                    <option>5 prompts later</option>
+                    <option>5 & 10 prompts later</option>
+                    <option>At the end</option>
+                </select>
+            </div>
+            <div>
+                <label for="settingsMultiplePrompts">Multiple prompts</label>
+                <select id="settingsMultiplePrompts" v-model="value.multiplePrompts">
+                    <option>Show together</option>
+                    <option>Show separately</option>
+                    <option>Show one</option>
+                </select>
+            </div>
+            <div>
+                <label for="settingsMultipleAnswers">Multiple answers</label>
+                <select id="settingsMultipleAnswers" v-model="value.multipleAnswers">
+                    <option>Require all</option>
+                    <option>Require any</option>
+                </select>
+            </div>
+            <div>
+                <input type="checkbox" id="settingsRemoveDuplicates" v-model="value.removeDuplicates">
+                <label for="settingsRemoveDuplicates">Remove duplicate prompts</label>
+            </div>
+        </div>
+    `,
+});
+
+
+
+// filters-page component
+let filtersPage = Vue.component("filtersPage", {
+    props: {
+        category: {
+            type: String,
+            default: "verbs",
+        }
+    },
+
+    data: function() {
+        return {
+            filters: [],
+            settings: getSettings(),
+        };
+    },
+
+    methods: {
+        /**
+         * Start a new quizzer session
+         */
+        CreateSession: function() {
+            // Get prompts
+            if (this.category === "vocab") {
+                prompts = Shuffle(ApplyFilters(this.$root.$data.data.vocab, GetVocabFilters(this.filters), this.settings));
+            }
+            else if (this.category === "verbs") {
+                // Get prompts
+                prompts = Shuffle(ApplyFilters(this.$root.$data.data.verbs, GetVerbFilters(this.filters), this.settings));
+            }
+
+            // Set progress
+            promptIndex = 0;
+
+            // Start quizzer
+            this.StartSession(prompts, promptIndex);
+        },
+
+        /**
+         * Resume the previous quizzer session.
+         */
+        ResumeSession: function() {
+            // Load prompts and progress
+            let { prompts, index } = JSON.parse(localStorage.getItem("last-session"));
+
+            // Start quizzer
+            this.StartSession(prompts, index);
+        },
+
+        /**
+         * Perform validation checks and then start the quizzer.
+         */
+        StartSession: function(prompts, promptIndex) {
+            // Validate prompts and promptIndex
+            if (!prompts) {
+                alert("An error occured while resuming the previous session.");
+                return;
+            }
+            else if (prompts.length === 0) {
+                alert("You must have at least one filter.");
+                return;
+            }
+            else if (isNaN(promptIndex) || promptIndex < 0 || promptIndex >= prompts.length) {
+                alert("An error occured while resuming the previous session.");
+                return;
+            }
+
+            // Validate browser for voice input
+            if (this.settings.inputType !== "Text") {
+                if ((window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition) === undefined) {
+                    alert("Your browser does not support voice input.");
+                    return;
+                }
+            }
+
+            // Give iOS devices ringer warning for prompt audio
+            if (this.settings.promptType !== "Text") {
+                if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
+                    alert("Please make sure your ringer is on in order to hear audio prompts.");
+                }
+            }
+
+            // Start quizzer
+            this.$router.push({name:"quizzer", params:{startingPrompts:prompts, startingIndex:promptIndex, settings:this.settings, referer:this.category}});
+        },
+
+        /**
+         * Handle a keyup event (implements some keyboard shortcuts).
+         * @param {object} e - The event args.
+         */
+        keyup: function(e) {
+            if (this._inactive) return;
+            if (e.key === "s") this.CreateSession();
+            if (e.key === "r") this.ResumeSession();
+        }
+    },
+
+    created: function() {
+        // Add keyup handler
+        window.addEventListener("keyup", this.keyup);
+    },
+
+    destroyed: function() {
+        // Remove keyup handler
+        window.removeEventListener("keyup", this.keyup);
+    },
+
+    template: `
+        <div class="filtersPage">
+            <page-header @back="$emit('back');" image="images/arrow-left.svg"></page-header>
+            <main>
+                <filter-input :category="category" v-model="filters"></filter-input>
+                <settings-input v-model="settings"></settings-input>
+                <div class="settingButtons">
+                    <button class="settingsStart" @click="CreateSession();">Start</button>
+                    <button class="settingsResume" @click="ResumeSession();">Resume</button>
+                </div>
+            </main>
         </div>
     `,
 });

@@ -30,7 +30,7 @@ body {
     touch-action: manipulation;
 }
 
-#app {
+#app>div {
     width: 100%;
     height: 100%;
 
@@ -92,8 +92,7 @@ header {
     padding-top: 15px;
     padding-bottom: 15px;
 }
-
-#backArrow {
+header img {
     position: absolute;
     left: 10px;
     height: 30px;

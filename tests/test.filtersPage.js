@@ -1,3 +1,4 @@
+// filter-input component
 describe("FilterInput", function() {
     let FilterInput;
     beforeEach(function() {
@@ -373,6 +374,115 @@ describe("FilterInput", function() {
             expect(filters["Nouns"]).to.equal(true);
             expect(filters["Verbs"]).to.equal(true);
             expect(FilterInput.vocabFilters[0]["type"]).to.equal("Verbs");
+        });
+    });
+});
+
+
+
+// settings-input component
+describe("SettingsInput", function() {
+    let SettingsInput;
+    beforeEach(function() {
+        // Create settingsInput component
+        SettingsInput = new settingsInput();
+    });
+
+    describe("Value watch", function() {
+        it("Should emit input event", async function() {
+            // Override $emit method
+            let event = "";
+            let event_args;
+            SettingsInput.$emit = function(name, value) {
+                event = name;
+                event_args = value;
+            };
+
+            // Override setSettings method
+            let old_setSettings = setSettings;
+            setSettings = function() {};
+
+            // Edit setting
+            SettingsInput.value.promptType = "test-prompt-type";
+            await SettingsInput.$nextTick();
+
+            // Assert event emited
+            expect(event).to.equal("input");
+            expect(event_args.promptType).to.equal("test-prompt-type");
+
+            // Restore setSettings method
+            setSettings = old_setSettings;
+        });
+
+        it("Should call setSettings", async function() {
+            // Override $emit method
+            let event = "";
+            let event_args;
+            SettingsInput.$emit = function(name, value) {
+                event = name;
+                event_args = value;
+            };
+
+            // Override setSettings method
+            let old_setSettings = setSettings;
+            let args = null;
+            setSettings = function(value) {
+                args = value;
+            };
+
+            // Edit setting
+            SettingsInput.value.inputType = "test-input-type";
+            await SettingsInput.$nextTick();
+            // Assert setSettings called
+            expect(args.inputType).to.equal("test-input-type");
+
+            // Restore setSettings method
+            setSettings = old_setSettings;
+        });
+    });
+});
+
+
+// filters-page component
+describe("FiltersPage", function() {
+    let FiltersPage;
+    beforeEach(function() {
+        // Create filtersPage component
+        FiltersPage = new filtersPage();
+    });
+
+    describe("StartSession method", function() {
+        it("Should push quizzer page", function() {
+            // Override $router.push method
+            let push_args;
+            FiltersPage.$router = {push: function(args) {
+                push_args = args;
+            }};
+
+            // Initialize variables
+            FiltersPage.settings = {
+                promptType: "Text",     // Required to prevent browser validation alerts
+                inputType: "Text",      // Required to prevent browser validation alerts
+                testSetting: "testValue",
+            };
+
+            // Call StartSession
+            FiltersPage.StartSession([1, 2, 3], 0);
+
+            // Assert event emited
+            expect(push_args).to.deep.equal({
+                name: "quizzer",
+                params: {
+                    startingPrompts: [1, 2, 3],
+                    startingIndex: 0,
+                    settings: {
+                        promptType: "Text",     // Required to prevent browser validation alerts
+                        inputType: "Text",      // Required to prevent browser validation alerts
+                        testSetting: "testValue",
+                    },
+                    referer: FiltersPage.category,
+                }
+            });
         });
     });
 });

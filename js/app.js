@@ -1,6 +1,75 @@
 // Declare global variables
-let Data;
 let app;
+
+
+
+// page-header component
+const pageHeader = Vue.component("pageHeader", {
+    props: {
+        image: {
+            type: String
+        },
+        title: {
+            type: String,
+            default: "Spanish-Quizzer",
+        }
+    },
+    template: `
+        <header @click="$emit('back');">
+            <img v-if="image" :src="image"/>
+            {{ title }}
+        </header>
+    `
+});
+
+
+
+// App pages
+const homePage = Vue.component("homePage", {
+    methods: {
+        /**
+         * Handle a keyup event (implements keyboard shortcuts).
+         * @param {object} e - The event args.
+         */
+        keyup: function(e) {
+            if (this._inactive) return;
+            if (e.key === "c") this.$router.push("verbs");
+            if (e.key === "v") this.$router.push("vocab");
+            if (e.key === "r") this.$router.push("reference");
+        },
+    },
+    created: function() {
+        // Add keyup handler
+        window.addEventListener("keyup", this.keyup);
+    },
+    destroyed: function() {
+        // Remove keyup handler
+        window.removeEventListener("keyup", this.keyup);
+    },
+    template: `
+        <div class="home">
+            <page-header></page-header>
+            <main>
+                <h1>What do you want to study?</h1>
+                <div>
+                    <router-link tag="button" to="/verbs">Study Conjugations</router-link>
+                    <router-link tag="button" to="/vocab">Study Vocab</router-link>
+                    <router-link tag="button" to="/reference">Reference Tables</router-link>
+                </div>
+            </main>
+        </div>
+    `,
+});
+const referencePage = Vue.component("referencePage", {
+    template: `
+        <div>
+            <page-header @back="$emit('back');" image="images/arrow-left.svg"></page-header>
+            <main>
+                <reference-tables :data="this.$root.$data.data"></reference-tables>
+            </main>
+        </div>
+    `,
+});
 
 
 
@@ -11,124 +80,56 @@ function loadVue() {
     app = new Vue({
         el: "#app", // Mount to app div
 
-        data: {
-            state: "home",      // Can be either "home", "settings", or "quizzer"
-            category: "verbs",  // Can be either "verbs" or "vocab"
-            filters: [],
-            settings: getSettings(),
-            prompts: [],
-            promptIndex: 0,
-        },
+        router: new VueRouter({
+            routes: [
+                { path: "/", redirect: "/home" },
+                { path: "/home",      name: "home",      component: homePage },
+                { path: "/verbs",     name: "verbs",     component: filtersPage, props: {category: "verbs"}},
+                { path: "/vocab",     name: "vocab",     component: filtersPage, props: {category: "vocab"}},
+                { path: "/quizzer",   name: "quizzer",   component: quizzerPage,  props:true },
+                { path: "/reference", name: "reference", component: referencePage },
+            ],
+        }),
 
         methods: {
             /**
-             * Return to the previous state.
+             * Go back to the previous page.
              */
             Back: function() {
-                switch (app.state) {
-                    case "quizzer":
-                    case "congrats":
-                        app.state = "settings";
-                        break;
-                    case "settings":
+                switch (this.$route.name) {
                     case "home":
-                    default:
-                        app.state = "home";
                         break;
+                    case "verbs":
+                    case "vocab":
+                    case "reference":
+                        this.$router.push("home");
+                        break;
+                    case "quizzer":
+                        this.$router.push(this.$route.params.referer || "home");
                 }
             },
 
             /**
-             * Update the user's progress in localStorage.
-             * @param {Array} prompts - The list of prompts.
-             * @param {Number} index - The index of the current prompt.
+             * Handle a keyup event (implements keyboard shortcuts).
+             * @param {object} e - The event args.
              */
-            updateProgress: function(prompts, index) {
-                // Get localStorage prefix
-                let prefix = app.category === "verbs" ? "verb-" : "vocab-";
-
-                // Save progress to local storage
-                localStorage.setItem(prefix + "prompts", JSON.stringify(prompts));
-                localStorage.setItem(prefix + "prompt", JSON.stringify(index));
+            keyup: function(e) {
+                if (e.key === "Escape") this.Back();
             },
+        },
 
-            /**
-             * Start a new quizzer session
-             */
-            CreateSession: function() {
-                // Get prompts
-                if (this.category === "vocab") {
-                    this.prompts = Shuffle(ApplyFilters(Data.vocab, GetVocabFilters(this.filters), this.settings));
-                }
-                else if (this.category === "verbs") {
-                    // Get prompts
-                    this.prompts = Shuffle(ApplyFilters(Data.verbs, GetVerbFilters(this.filters), this.settings));
-                }
+        data: {
+            data: {}
+        },
 
-                // Set progress
-                this.promptIndex = 0;
+        created: function() {
+            // Add keyup handler
+            window.addEventListener("keyup", this.keyup);
+        },
 
-                // Start quizzer
-                this.StartSession();
-            },
-
-            /**
-             * Resume the previous quizzer session.
-             */
-            ResumeSession: function() {
-                // Get localStorage prefix
-                let prefix;
-                if (this.category === "vocab") {
-                    prefix = "vocab-"
-                }
-                else if (this.category === "verbs") {
-                    prefix = "verb-"
-                }
-
-                // Load prompts and progress
-                this.prompts = JSON.parse(localStorage.getItem(prefix + "prompts"));
-                this.promptIndex = parseInt(localStorage.getItem(prefix + "prompt"));
-
-                // Start quizzer
-                this.StartSession();
-            },
-
-            /**
-             * Perform validation checks and then start the quizzer.
-             */
-            StartSession: function() {
-                // Validate prompts and promptIndex
-                if (!this.prompts) {
-                    alert("An error occured while resuming the previous session.");
-                    return;
-                }
-                else if (this.prompts.length === 0) {
-                    alert("You must have at least one filter.");
-                    return;
-                }
-                else if (isNaN(this.promptIndex) || this.promptIndex < 0 || this.promptIndex >= this.prompts.length) {
-                    alert("An error occured while resuming the previous session.");
-                    return;
-                }
-
-                // Validate browser for voice input
-                if (this.settings.inputType !== "Text") {
-                    if ((window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition) === undefined) {
-                        alert("Your browser does not support voice input.");
-                        return;
-                    }
-                }
-
-                // Give iOS devices ringer warning for prompt audio
-                if (this.settings.promptType !== "Text") {
-                    if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
-                        alert("Please make sure your ringer is on in order to hear audio prompts.");
-                    }
-                }
-
-                // Show and hide elements (also enables the quizzer)
-                this.state = "quizzer";
-            },
+        destroyed: function() {
+            // Remove keyup handler
+            window.removeEventListener("keyup", this.keyup);
         },
     });
 }
@@ -145,52 +146,6 @@ async function Load() {
     // Initialize the Vue app
     loadVue();
 
-    // Unhide hidden divs
-    // Divs were hidden to improve interface for users with JS blocked
-    document.getElementById("home").hidden = false;
-    document.getElementById("settings").hidden = false;
-    document.getElementById("congrats").hidden = false;
-
-    // Add event Listeners
-    document.addEventListener("keydown", KeyDown);
-
     // Load Spanish-Quizzer data
-    Data = await loadData();
-}
-
-
-
-/**
- * Handle a keyDown event (implements some keyboard shortcuts).
- * @param {object} e - The event args.
- */
-function KeyDown(e) {
-    if (e.key === "Escape") {
-        app.Back();
-    }
-
-    // Home shortcuts
-    if (app.state === "home") {
-        if (e.key === "c") {
-            app.category = "verbs";
-            app.state = "settings";
-        }
-        if (e.key === "v") {
-            app.category = "vocab";
-            app.state = "settings";
-        }
-        if (e.key === "r") {
-            window.location = "reference.html";
-        }
-    }
-
-    // Settings shortcuts
-    if (app.state === "settings") {
-        if (e.key === "s") {
-            app.CreateSession();
-        }
-        if (e.key === "r") {
-            app.ResumeSession();
-        }
-    }
+    app.data = await loadData();
 }

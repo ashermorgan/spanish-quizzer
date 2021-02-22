@@ -6,7 +6,7 @@ Try it out [here](https://ashermorgan.github.io/Spanish-Quizzer/).
 - Supports practice for all four language skills: reading, listening, writing, and speaking.
 - Lots of filters for both vocabulary and verb conjugations.
 - Easily type special characters (``` a` ``` → `á`, `n~` → `ñ`, `u~` → `ü`)
-- Spanish reference tables (available [here](https://ashermorgan.github.io/Spanish-Quizzer/reference.html))
+- Spanish reference tables
 
 ## Vocabulary Filters
 The following filters can be used on vocabulary:
