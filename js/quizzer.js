@@ -292,7 +292,7 @@ let quizzer = Vue.component("quizzer", {
                 <button @click="Reset();">Skip</button>
             </div>
 
-            <div class="quizzerFeedback bad" ref="feedback" v-show="!responceActive">
+            <div class="quizzerFeedback" ref="feedback" v-show="!responceActive">
                 <span v-if="settings.onMissedPrompt === 'Correct me'">
                     The correct answer is
                     <span class="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.

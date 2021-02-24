@@ -1,4 +1,5 @@
-let referenceTables = Vue.component("referenceTables", {
+// reference-tables component
+const referenceTables = Vue.component("referenceTables", {
     props: {
         data: {
             type: Object,
@@ -88,4 +89,18 @@ let referenceTables = Vue.component("referenceTables", {
         </div>
     </div>
     `
+});
+
+
+
+// reference-page component
+const referencePage = Vue.component("referencePage", {
+    template: `
+        <div class="referencePage">
+            <page-header @back="$emit('back');" image="images/arrow-left.svg"></page-header>
+            <main>
+                <reference-tables :data="this.$root.$data.data"></reference-tables>
+            </main>
+        </div>
+    `,
 });

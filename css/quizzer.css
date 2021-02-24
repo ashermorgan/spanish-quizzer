@@ -1,5 +1,4 @@
-/******** Quizzer styles ********/
-/* Container */
+/******** quizzer component ********/
 .quizzer {
     margin: 10px;
     padding: 10px;
@@ -12,6 +11,7 @@
 
 /* Progress */
 .quizzerProgress {
+    text-align: center;
     font-size: 18px;
     font-weight: bold;
     margin: 0px;
@@ -41,6 +41,10 @@
 }
 
 /* Buttons */
+.quizzerButtons {
+    width: max-content;
+    margin: auto;
+}
 .quizzerButtons button {
     width: 75px;
     height: 25px;
@@ -49,6 +53,8 @@
 /* Feedback */
 .quizzerFeedback {
     margin-top: 15px;
+    color: red;
+    text-align: center;
 }
 .quizzerFeedbackTerm {
     text-decoration-line: underline;
@@ -56,10 +62,22 @@
 }
 
 /* Congrats message */
+.congrats {
+    text-align: center;
+}
 .congrats p {
     margin: 20px;
 }
 .congrats button {
     width: 100px;
     height: 35px;
+}
+
+
+
+/******** quizzer-page component ********/
+.quizzer-page main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

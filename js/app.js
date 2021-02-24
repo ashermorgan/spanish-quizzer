@@ -60,16 +60,6 @@ const homePage = Vue.component("homePage", {
         </div>
     `,
 });
-const referencePage = Vue.component("referencePage", {
-    template: `
-        <div>
-            <page-header @back="$emit('back');" image="images/arrow-left.svg"></page-header>
-            <main>
-                <reference-tables :data="this.$root.$data.data"></reference-tables>
-            </main>
-        </div>
-    `,
-});
 
 
 

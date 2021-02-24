@@ -1,21 +1,17 @@
-/* Header */
+/******** home-page component ********/
+.home main {
+    text-align: center;
+}
 .home main h1 {
     font-size: 20px;
     font-weight: bold;
     margin-top: 15px;
     margin-bottom: 5px;
 }
-
-/* Vocab & Conjugation buttons*/
 .home main button {
     width: 150px;
     height: 50px;
     line-height: 50px;
     margin: 10px;
     font-size: 15px;
-}
-
-/* Link to Reference Tables */
-.home main a {
-    margin-top: 10px;
 }
