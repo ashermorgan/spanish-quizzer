@@ -67,21 +67,30 @@ header img {
 
 
 /******** Other elements ********/
-button:not(.itemRemove), input, select {
+button:not(.icon), input, select {
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     color: var(--foreground-color);
     border-radius: 0px;
 }
-
-button:hover:enabled:not(.itemRemove) {
+button:hover:enabled:not(.icon) {
     cursor: pointer;
     background-color: var(--hover-color);
 }
-
 button:disabled {
     background-color:  var(--hover-color);
     color: var(--border-color);
+}
+button.icon {
+    border: none;
+    background-color: #00000000;
+    color: var(--foreground-color);
+    cursor: pointer;
+    vertical-align: middle;
+}
+button.icon img {
+    height: 24px;
+    width: 24px;
 }
 
 
@@ -94,8 +103,11 @@ body.dark {
     --hover-color: #323436;
     --border-color: #505050;
 }
-.dark button:not(.itemRemove), .dark input, .dark select {
+.dark button:not(.icon), .dark input, .dark select {
     --background-color: #222426;
+}
+.dark main button.icon img {
+    filter: invert(90%);
 }
 .dark a {
     color: #0080ff;

@@ -217,7 +217,7 @@ let filterInput = Vue.component("filterInput", {
 
                 <h2>
                     Verb Filters
-                    <button @click="AddFilter();">Add Filter</button>
+                    <button class="icon" @click="AddFilter();"><img src="./images/plus.svg"></button>
                 </h2>
 
                 <div v-for="(filter, index) in verbFilters" class="filter">
@@ -243,7 +243,7 @@ let filterInput = Vue.component("filterInput", {
                         <option>Conj. → Eng.</option>
                         <option>Conj. → Esp.</option>
                     </select>
-                    <button class="itemRemove" @click="RemoveFilter(index);">╳</button>
+                    <button class="icon" @click="RemoveFilter(index);"><img src="./images/trash.svg"></button>
                 </div>
             </div>
 
@@ -253,7 +253,7 @@ let filterInput = Vue.component("filterInput", {
 
                 <h2>
                     Vocabulary Filters
-                    <button @click="AddFilter();">Add Filter</button>
+                    <button class="icon" @click="AddFilter();"><img src="./images/plus.svg"></button>
                 </h2>
 
                 <div v-for="(filter, index) in vocabFilters" class="filter">
@@ -294,7 +294,7 @@ let filterInput = Vue.component("filterInput", {
                         <option>Eng. → Esp.</option>
                         <option>Esp. → Eng.</option>
                     </select>
-                    <button class="itemRemove" @click="RemoveFilter(index);">╳</button>
+                    <button class="icon" @click="RemoveFilter(index);"><img src="./images/trash.svg"></button>
                 </div>
             </div>
         </div>
