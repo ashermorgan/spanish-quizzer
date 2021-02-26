@@ -1,9 +1,27 @@
 /******** reference-tables component styles ********/
 /* Controls */
 .referenceTableControls {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 15px 10px;
+}
+.referenceTableControls input {
+    margin-left: 10px;
+    padding-left: 3px;
+}
+@media only screen and (max-width: 500px) {
+    .referenceTableControls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .referenceTableControls * {
+        height: 30px;
+    }
+    .referenceTableControls input {
+        margin-left: 0px;
+        margin-top: 10px;
+    }
 }
 
 /* Table */

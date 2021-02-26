@@ -1,6 +1,5 @@
 /******** quizzer component ********/
 .quizzer {
-    margin: 10px;
     padding: 10px;
     width: fit-content;
     width: -moz-fit-content;
@@ -28,7 +27,6 @@
 }
 .quizzerPrompt {
     cursor: pointer;
-    font-size: 15px;
 }
 
 /* Responce*/
@@ -42,12 +40,16 @@
 
 /* Buttons */
 .quizzerButtons {
-    width: max-content;
-    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 .quizzerButtons button {
     width: 75px;
     height: 25px;
+}
+.quizzerButtons button:first-child {
+    margin-right: 10px;
 }
 
 /* Feedback */
@@ -73,6 +75,24 @@
     height: 35px;
 }
 
+/* Mobile styles */
+@media only screen and (max-width: 500px) {
+    .quizzer {
+        border: none;
+        box-shadow: none;
+        width: 100%;
+        padding: 0px;
+    }
+    .quizzerInput {
+        height: 35px;
+    }
+    .quizzerButtons button {
+        height: 50px;
+        font-size: 18px;
+        width: 100%;
+    }
+}
+
 
 
 /******** quizzer-page component ********/
@@ -80,4 +100,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px;
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 500px) {
+    .quizzer-page main {
+        align-items: stretch;
+    }
 }
