@@ -11,12 +11,16 @@ describe("FilterInput", function() {
             expect(FilterInput.category).to.equal("verbs");
         });
 
-        it("VerbFilters should be empty", function() {
-            expect(FilterInput.verbFilters.length).to.equal(0);
+        it("VerbFilters should be correct", function() {
+            expect(FilterInput.verbFilters).to.deep.equal([
+                {tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."}
+            ]);
         });
 
-        it("VocabFilters should be empty", function() {
-            expect(FilterInput.vocabFilters.length).to.equal(0);
+        it("VocabFilters should be correct", function() {
+            expect(FilterInput.vocabFilters).to.deep.equal([
+                {category:"All Categories", type:"All Types", direction:"Eng. ↔ Esp."}
+            ]);
         });
     });
 
@@ -70,6 +74,8 @@ describe("FilterInput", function() {
         it("Should add a verb filter if category is 'verbs'", function() {
             // Initialize variables
             FilterInput.category = "verbs";
+            FilterInput.verbFilters = []
+            FilterInput.vocabFilters = []
             expect(FilterInput.verbFilters.length).to.equal(0);
             expect(FilterInput.vocabFilters.length).to.equal(0);
 
@@ -86,6 +92,8 @@ describe("FilterInput", function() {
         it("Should add a vocab filter if category is 'vocab'", function() {
             // Initialize variables
             FilterInput.category = "vocab";
+            FilterInput.verbFilters = []
+            FilterInput.vocabFilters = []
             expect(FilterInput.verbFilters.length).to.equal(0);
             expect(FilterInput.vocabFilters.length).to.equal(0);
 
@@ -441,6 +449,7 @@ describe("SettingsInput", function() {
         });
     });
 });
+
 
 
 // filters-page component

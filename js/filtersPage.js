@@ -20,8 +20,8 @@ let filterInput = Vue.component("filterInput", {
 
     data: function() {
         return {
-            verbFilters: [],
-            vocabFilters: [],
+            verbFilters: [{tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."}],
+            vocabFilters: [{category:"All Categories", type:"All Types", direction:"Eng. ↔ Esp."}],
         };
     },
 
