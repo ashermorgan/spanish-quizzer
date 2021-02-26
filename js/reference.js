@@ -39,7 +39,7 @@ let referenceTables = Vue.component("referenceTables", {
          * @param {object} e - The event args.
          */
         keyup: function(e) {
-            if (this._inactive) return;
+            if (this._inactive || this.$refs.search === document.activeElement) return;
             if (e.key === "h" || e.key == "/") {
                 try {
                     this.$refs.search.focus();
