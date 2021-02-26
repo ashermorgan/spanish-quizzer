@@ -459,12 +459,22 @@ describe("FiltersPage", function() {
                 push_args = args;
             }};
 
+            // Override $root.$data.data property
+            FiltersPage.$root = {$data: {data: {vocab: [
+                ["English","Spanish","Type","Category"],
+                ["Hello","Hola","Type","Category"],
+            ]}}};
+
             // Initialize variables
+            FiltersPage.category = "vocab";
             FiltersPage.settings = {
                 promptType: "Text",     // Required to prevent browser validation alerts
                 inputType: "Text",      // Required to prevent browser validation alerts
                 testSetting: "testValue",
             };
+            FiltersPage.filters = [
+                {category:"All Categories", type:"All Types", direction:"Eng. → Esp."}
+            ];
 
             // Call StartSession
             FiltersPage.StartSession([1, 2, 3], 0);
@@ -473,7 +483,7 @@ describe("FiltersPage", function() {
             expect(push_args).to.deep.equal({
                 name: "quizzer",
                 params: {
-                    startingPrompts: [1, 2, 3],
+                    startingPrompts: [["English", "Hello", "Spanish", "Hola"]],
                     startingIndex: 0,
                     settings: {
                         promptType: "Text",     // Required to prevent browser validation alerts
