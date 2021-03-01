@@ -554,19 +554,29 @@ describe("Quizzer", function() {
     });
 
     describe("GetLang method", function() {
-        it("Should return English by default", function() {
-            expect(Quizzer.getLang("")).to.equal("en");
-            expect(Quizzer.getLang("test")).to.equal("en");
+        it("Should return Spanish by default", function() {
+            expect(Quizzer.getLang("")).to.equal("es");
+            expect(Quizzer.getLang("test")).to.equal("es");
         });
 
-        it("Should return English for English labels", function() {
+        it("Should return English for labels containing 'english'", function() {
             expect(Quizzer.getLang("test english test")).to.equal("en");
             expect(Quizzer.getLang("ENGLISH")).to.equal("en");
-        })
+        });
 
-        it("Should return Spanish for Spanish labels", function() {
+        it("Should return English for labels containing 'type'", function() {
+            expect(Quizzer.getLang("test type test")).to.equal("en");
+            expect(Quizzer.getLang("ENGLISH")).to.equal("en");
+        });
+
+        it("Should return English for labels containing 'category'", function() {
+            expect(Quizzer.getLang("test category test")).to.equal("en");
+            expect(Quizzer.getLang("ENGLISH")).to.equal("en");
+        });
+
+        it("Should return Spanish for labels containing 'spanish'", function() {
             expect(Quizzer.getLang("test spanish test")).to.equal("es");
             expect(Quizzer.getLang("SPANISH")).to.equal("es");
-        })
+        });
     });
 });
