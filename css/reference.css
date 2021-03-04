@@ -1,31 +1,37 @@
-/******** Reference Table Page styles ********/
-main {
-    overflow-x: hidden;
-}
-
-/* Heading */
-main > h1 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 20px;
-    font-weight: normal;
-}
-
+/******** reference-tables component styles ********/
 /* Controls */
 .referenceTableControls {
-    margin-top: 10px;
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 15px 10px;
+}
+.referenceTableControls input {
+    margin-left: 10px;
+    padding-left: 3px;
+}
+@media only screen and (max-width: 500px) {
+    .referenceTableControls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .referenceTableControls * {
+        height: 30px;
+    }
+    .referenceTableControls input {
+        margin-left: 0px;
+        margin-top: 10px;
+    }
 }
 
-
-
-/******** Reference Table styles ********/
+/* Table */
 .referenceTable {
     text-align: left;
     overflow-x: auto;
 }
-
-/* Header cells */
+.referenceTable table {
+    margin: auto;
+}
 .referenceTable th {
     background-color: var(--hover-color);
     border: 1px solid var(--border-color);
@@ -33,16 +39,12 @@ main > h1 {
     position: -webkit-sticky;
     top: 0;
 }
-
-/* All cells */
 .referenceTable td {
     border: 1px solid var(--border-color);
     cursor: pointer;
 }
 
-
-
-/******** Print styles ********/
+/* Print styles */
 @media print {
     body, body.dark {
         --border-color: #000000;
@@ -50,15 +52,12 @@ main > h1 {
         --background-color: #FFFFFF;
         --hover-color: #FFFFFF;
     }
-
-    header, h1, .referenceTableControls, label, br {
+    header, .referenceTableControls {
         display: none;
     }
-
     .referenceTable {
         overflow: visible;
     }
-
     table {
         border-collapse: collapse;
     }

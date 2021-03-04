@@ -1,84 +1,56 @@
-/******** filter-input ********/
-.filtersInput h1 {
-    font-size: 16px;
-    font-weight: normal;
-    margin-bottom: 10px;
-}
-.filtersInput h2 {
-    font-size: 20px;
-    margin-bottom: 5px;
-}
-.filtersInput div {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
-}
-.filtersInput div h2 button {
-    padding: 3px;
+/******** filter-input component ********/
+.filtersInput>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Filter */
 .filter {
     width: max-content;
-
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     box-shadow: 0 0 15px var(--border-color);
-
     margin: 5px auto;
     padding: 5px;
     border-radius: 5px;
 }
-.filter button {
-    border: none;
-    background-color: var(--background-color);
-    color: var(--foreground-color);
-    cursor: pointer;
+.filter select {
+    vertical-align: middle;
 }
 
 /* Conjugation settings on mobile devices */
-@media only screen and (max-width: 510px) {
-    .verbSettings {
-        width: calc(100% - 20px);
-    }
+@media only screen and (max-width: 700px) {
     .verbSettings .filter {
         width: 100%;
         margin: 10px auto;
     }
     .verbSettings .filter select, .verbSettings .filter button {
         width: 100%;
-        height: 30px;
+        height: 35px;
         margin: 3px 0px;
     }
 }
 
 /* Vocab settings on mobile devices */
-@media only screen and (max-width: 350px) {
-    .vocabSettings {
-        width: calc(100% - 20px);
-    }
+@media only screen and (max-width: 450px) {
     .vocabSettings .filter {
         width: 100%;
         margin: 10px auto;
     }
     .vocabSettings .filter select, .vocabSettings .filter button {
         width: 100%;
-        height: 30px;
+        height: 35px;
         margin: 3px 0px;
     }
 }
 
 
 
-/******** settings-input ********/
+/******** settings-input component ********/
 .settingsInput h2 {
-    font-size: 20px;
+    text-align: center;
     margin-bottom: 5px;
-}
-.settingsInput {
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 10px;
 }
 .settingsInput div {
     text-align: left;
@@ -89,11 +61,15 @@
 
 
 
-/******** filters-page ********/
+/******** filters-page component ********/
 .filtersPage main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px;
+}
+.filtersPage main>div {
+    margin-bottom: 20px;
 }
 
 /* Start button */
@@ -102,12 +78,17 @@
     margin-bottom: 10px;
     width: 100px;
     height: 40px;
-    font-size: 18px;
 }
 @media only screen and (max-width: 510px) {
+    /* Expand settings component*/
+    .settingsInput {
+        width: 100%;
+    }
+
     /* Expand start button */
     .settingsStart {
-        width: calc(100% - 20px);
+        width: 100%;
+        font-size: 18px;
         height: 50px;
     }
 }
