@@ -72,18 +72,12 @@
     margin-bottom: 20px;
 }
 
-/* Start/Resume Buttons */
-.settingButtons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-.settingButtons button {
+/* Start button */
+.settingsStart {
+    margin-top: 20px;
+    margin-bottom: 10px;
     width: 100px;
     height: 40px;
-}
-.settingButtons button:first-child {
-    margin-right: 10px;
 }
 @media only screen and (max-width: 510px) {
     /* Expand settings component*/
@@ -91,13 +85,10 @@
         width: 100%;
     }
 
-    /* Expand Start/Resume buttons */
-    .settingButtons {
-        width: 100%;
-    }
-    .settingButtons button {
+    /* Expand start button */
+    .settingsStart {
+        width: calc(100% - 20px);
         font-size: 18px;
-        width: 100%;
         height: 50px;
     }
 }

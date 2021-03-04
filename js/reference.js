@@ -27,12 +27,24 @@ const referenceTables = Vue.component("referenceTables", {
          * @returns {String} - The language code ("en", "es", etc.)
          */
         getLang: function(label) {
-            if (label.toLowerCase().includes("spanish")) {
-                return "es";
-            }
-            else {
+            if (label.toLowerCase().includes("english") || label.toLowerCase().includes("type") || label.toLowerCase().includes("category")) {
                 return "en";
             }
+            else {
+                return "es";
+            }
+        },
+
+        /**
+         * Read a peice of text.
+         * @param {String} text - The text to read.
+         * @param {String} label - The language of the text.
+         */
+        Read: function(text, label)
+        {
+            var msg = new SpeechSynthesisUtterance(text);
+            msg.lang = this.getLang(label);
+            window.speechSynthesis.speak(msg);
         },
 
         /**
@@ -40,7 +52,7 @@ const referenceTables = Vue.component("referenceTables", {
          * @param {object} e - The event args.
          */
         keyup: function(e) {
-            if (this._inactive) return;
+            if (this._inactive || this.$refs.search === document.activeElement) return;
             if (e.key === "h" || e.key == "/") {
                 try {
                     this.$refs.search.focus();

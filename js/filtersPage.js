@@ -20,8 +20,8 @@ let filterInput = Vue.component("filterInput", {
 
     data: function() {
         return {
-            verbFilters: [],
-            vocabFilters: [],
+            verbFilters: [{tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."}],
+            vocabFilters: [{category:"All Categories", type:"All Types", direction:"Eng. ↔ Esp."}],
         };
     },
 
@@ -405,8 +405,9 @@ let filtersPage = Vue.component("filtersPage", {
         /**
          * Start a new quizzer session
          */
-        CreateSession: function() {
+        StartSession: function() {
             // Get prompts
+            let prompts;
             if (this.category === "vocab") {
                 prompts = Shuffle(ApplyFilters(this.$root.$data.data.vocab, GetVocabFilters(this.filters), this.settings));
             }
@@ -416,38 +417,11 @@ let filtersPage = Vue.component("filtersPage", {
             }
 
             // Set progress
-            promptIndex = 0;
+            let promptIndex = 0;
 
-            // Start quizzer
-            this.StartSession(prompts, promptIndex);
-        },
-
-        /**
-         * Resume the previous quizzer session.
-         */
-        ResumeSession: function() {
-            // Load prompts and progress
-            let { prompts, index } = JSON.parse(localStorage.getItem("last-session"));
-
-            // Start quizzer
-            this.StartSession(prompts, index);
-        },
-
-        /**
-         * Perform validation checks and then start the quizzer.
-         */
-        StartSession: function(prompts, promptIndex) {
-            // Validate prompts and promptIndex
-            if (!prompts) {
-                alert("An error occured while resuming the previous session.");
-                return;
-            }
-            else if (prompts.length === 0) {
+            // Validate prompts
+            if (prompts.length === 0) {
                 alert("You must have at least one filter.");
-                return;
-            }
-            else if (isNaN(promptIndex) || promptIndex < 0 || promptIndex >= prompts.length) {
-                alert("An error occured while resuming the previous session.");
                 return;
             }
 
@@ -476,8 +450,7 @@ let filtersPage = Vue.component("filtersPage", {
          */
         keyup: function(e) {
             if (this._inactive) return;
-            if (e.key === "s") this.CreateSession();
-            if (e.key === "r") this.ResumeSession();
+            if (e.key === "s") this.StartSession();
         }
     },
 
@@ -497,10 +470,7 @@ let filtersPage = Vue.component("filtersPage", {
             <main>
                 <filter-input :category="category" v-model="filters"></filter-input>
                 <settings-input v-model="settings"></settings-input>
-                <div class="settingButtons">
-                    <button class="settingsStart" @click="CreateSession();">Start</button>
-                    <button class="settingsResume" @click="ResumeSession();">Resume</button>
-                </div>
+                <button class="settingsStart" @click="StartSession();">Start</button>
             </main>
         </div>
     `,

@@ -229,12 +229,24 @@ let quizzer = Vue.component("quizzer", {
          * @returns {String} - The language code ("en", "es", etc.)
          */
         getLang: function(label) {
-            if (label.toLowerCase().includes("spanish")) {
-                return "es";
-            }
-            else {
+            if (label.toLowerCase().includes("english") || label.toLowerCase().includes("type") || label.toLowerCase().includes("category")) {
                 return "en";
             }
+            else {
+                return "es";
+            }
+        },
+
+        /**
+         * Read a peice of text.
+         * @param {String} text - The text to read.
+         * @param {String} label - The language of the text.
+         */
+        Read: function(text, label)
+        {
+            var msg = new SpeechSynthesisUtterance(text);
+            msg.lang = this.getLang(label);
+            window.speechSynthesis.speak(msg);
         },
     },
 
@@ -331,6 +343,13 @@ const quizzerPage = Vue.component("quizzerPage", {
         }
     },
 
+    data: function() {
+        return {
+            prompts: this.startingPrompts,
+            index: this.startingIndex,
+        }
+    },
+
     methods: {
         /**
          * Update the user's progress in localStorage.
@@ -343,9 +362,25 @@ const quizzerPage = Vue.component("quizzerPage", {
         }
     },
 
-    mounted: function() {
-        if (this.startingPrompts == null || this.startingIndex == null || this.settings == null) {
-            this.$router.replace({name:this.referer});
+    created: function() {
+        // Try to resume session if props are missing
+        if (this.prompts == undefined || this.index == undefined) {
+            try {
+                // Get last session
+                let { prompts, index } = JSON.parse(localStorage.getItem("last-session"));
+
+                // Validate prompts and promptIndex
+                if (prompts && !isNaN(index) && index >= 0 && index < prompts.length) {
+                    this.prompts = prompts;
+                    this.index = index;
+                }
+            } catch {}
+        }
+
+        // Go back if props are missing
+        if (this.prompts == undefined || this.index == undefined) {
+            alert("Unable to resume the previous session");
+            this.$emit("back", this.referer);
         }
     },
 
@@ -353,7 +388,7 @@ const quizzerPage = Vue.component("quizzerPage", {
         <div class="quizzer-page">
             <page-header @back="$emit('back', referer);" image="images/x.svg"></page-header>
             <main>
-                <quizzer :starting-prompts="startingPrompts" :starting-index="startingIndex" :settings="settings"
+                <quizzer :starting-prompts="prompts" :starting-index="index" :settings="settings"
                     @new-prompt="updateProgress" @finished-prompts="$emit('back', referer);">
                 </quizzer>
             </main>

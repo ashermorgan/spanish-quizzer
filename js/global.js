@@ -23,20 +23,6 @@ function SetTheme(darkTheme = null) {
 
 
 /**
- * Read a peice of text.
- * @param {String} text - The text to read.
- * @param {String} label - The language of the text.
- */
-function Read(text, label)
-{
-    var msg = new SpeechSynthesisUtterance(text);
-    msg.lang = getLang(label);
-    window.speechSynthesis.speak(msg);
-}
-
-
-
-/**
  * Load settings from localStorage.
  * @returns {Object} The settings.
  */

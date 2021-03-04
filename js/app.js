@@ -26,6 +26,9 @@ const pageHeader = Vue.component("pageHeader", {
 
 // App pages
 const homePage = Vue.component("homePage", {
+    data: function() {
+        return {isResumable: false};
+    },
     methods: {
         /**
          * Handle a keyup event (implements keyboard shortcuts).
@@ -35,8 +38,21 @@ const homePage = Vue.component("homePage", {
             if (this._inactive) return;
             if (e.key === "c") this.$router.push("verbs");
             if (e.key === "v") this.$router.push("vocab");
-            if (e.key === "r") this.$router.push("reference");
+            if (e.key === "t") this.$router.push("reference");
+            if (e.key === "r") this.$router.push("quizzer");
         },
+    },
+    activated: function() {
+        // Update isResumable property
+        try {
+            // Get last session
+            let { prompts, index } = JSON.parse(localStorage.getItem("last-session"));
+
+            // Validate prompts and promptIndex
+            if (prompts && !isNaN(index) && index >= 0 && index < prompts.length) {
+                this.isResumable = true;
+            }
+        } catch {}
     },
     created: function() {
         // Add keyup handler
@@ -56,6 +72,7 @@ const homePage = Vue.component("homePage", {
                     <router-link tag="button" to="/vocab">Study Vocab</router-link>
                     <router-link tag="button" to="/reference">Reference Tables</router-link>
                 </div>
+                <router-link v-if="isResumable" to="/quizzer">Resume previous session</router-link>
             </main>
         </div>
     `,
