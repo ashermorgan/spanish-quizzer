@@ -45,8 +45,8 @@
     justify-content: center;
 }
 .quizzerButtons button {
-    width: 75px;
-    height: 25px;
+    width: 85px;
+    height: 30px;
 }
 .quizzerButtons button:first-child {
     margin-right: 10px;
@@ -83,12 +83,14 @@
         width: 100%;
         padding: 0px;
     }
+    .quizzerProgress {
+        font-size: 20px;
+    }
     .quizzerInput {
         height: 35px;
     }
     .quizzerButtons button {
         height: 50px;
-        font-size: 18px;
         width: 100%;
     }
 }

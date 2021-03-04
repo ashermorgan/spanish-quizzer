@@ -213,8 +213,6 @@ let filterInput = Vue.component("filterInput", {
     template: `
         <div class="filtersInput" ref="container">
             <div class="verbSettings" v-show="category === 'verbs'">
-                <h1>Choose your settings and then click start.</h1>
-
                 <h2>
                     Verb Filters
                     <button class="icon" @click="AddFilter();"><img src="./images/plus.svg"></button>
@@ -249,8 +247,6 @@ let filterInput = Vue.component("filterInput", {
 
 
             <div class="vocabSettings" v-show="category === 'vocab'">
-                <h1>Choose your settings and then click start.</h1>
-
                 <h2>
                     Vocabulary Filters
                     <button class="icon" @click="AddFilter();"><img src="./images/plus.svg"></button>
