@@ -87,7 +87,7 @@
 
     /* Expand start button */
     .settingsStart {
-        width: calc(100% - 20px);
+        width: 100%;
         font-size: 18px;
         height: 50px;
     }
