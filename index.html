@@ -5,8 +5,10 @@
         <title>Spanish-Quizzer</title>
         <meta name="description" content="Quiz yourself on Spanish vocabulary and conjugations through a free and highly customizable web interface.">
         <meta name="viewport" content="width=device-width">
+        <meta name="theme-color" content="#009bc2">
+        <link rel="manifest" href="manifest.json">
         <link rel="icon" type="image/png" href="images/favicon-32.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
         <link rel="stylesheet" href="css/global.css">
         <link rel="stylesheet" href="css/app.css">
         <link rel="stylesheet" href="css/filtersPage.css">
@@ -37,5 +39,12 @@
                 <router-view @back="Back"></router-view>
             </keep-alive>
         </div>
+
+        <script>
+            // Register service worker
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("./service-worker.js");
+            }
+        </script>
     </body>
 </html>
