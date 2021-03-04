@@ -1,6 +1,6 @@
 /******** Variable styles ********/
 :root {
-    --theme-color: #00aad4;
+    --theme-color: #009bc2;
     --foreground-color: #000000;
     --background-color: #FFFFFF;
     --hover-color: #F0F0F0;
@@ -37,7 +37,7 @@ header {
     font-size: 25px;
     font-weight: bold;
     cursor: pointer;
-    color: inherit;
+    color: #000000;
     text-decoration: none;
     margin: 0px;
     padding-top: 15px;
@@ -102,7 +102,6 @@ button.icon img {
 
 /******** Dark mode ********/
 body.dark {
-    --theme-color: #0088AA;
     --foreground-color: #E0E0E0;
     --background-color: #121416;
     --hover-color: #323436;
