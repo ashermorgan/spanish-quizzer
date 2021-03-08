@@ -321,11 +321,14 @@ let settingsInput = Vue.component("settingsInput", {
 
     template: `
         <div class="settingsInput" ref="container">
-            <h2>Quizzer Settings</h2>
+            <h2>Settings</h2>
+            <h3>Appearance</h3>
             <div>
                 <input type="checkbox" id="settingsDarkTheme" v-model="value.darkTheme">
                 <label for="settingsDarkTheme">Dark Mode</label>
             </div>
+
+            <h3>Prompts</h3>
             <div>
                 <label for="settingsPromptType">Prompt type</label>
                 <select id="settingsPromptType" v-model="value.promptType">
@@ -342,6 +345,20 @@ let settingsInput = Vue.component("settingsInput", {
                     <option>Either</option>
                 </select>
             </div>
+            <div>
+                <label for="settingsMultiplePrompts">Multiple prompts</label>
+                <select id="settingsMultiplePrompts" v-model="value.multiplePrompts">
+                    <option>Show together</option>
+                    <option>Show separately</option>
+                    <option>Show one</option>
+                </select>
+            </div>
+            <div>
+                <input type="checkbox" id="settingsRemoveDuplicates" v-model="value.removeDuplicates">
+                <label for="settingsRemoveDuplicates">Remove duplicate prompts</label>
+            </div>
+
+            <h3>Grading</h3>
             <div>
                 <label for="settingsOnMissedPrompt">When I miss a prompt</label>
                 <select id="settingsOnMissedPrompt" v-model="value.onMissedPrompt">
@@ -361,23 +378,11 @@ let settingsInput = Vue.component("settingsInput", {
                 </select>
             </div>
             <div>
-                <label for="settingsMultiplePrompts">Multiple prompts</label>
-                <select id="settingsMultiplePrompts" v-model="value.multiplePrompts">
-                    <option>Show together</option>
-                    <option>Show separately</option>
-                    <option>Show one</option>
-                </select>
-            </div>
-            <div>
                 <label for="settingsMultipleAnswers">Multiple answers</label>
                 <select id="settingsMultipleAnswers" v-model="value.multipleAnswers">
                     <option>Require all</option>
                     <option>Require any</option>
                 </select>
-            </div>
-            <div>
-                <input type="checkbox" id="settingsRemoveDuplicates" v-model="value.removeDuplicates">
-                <label for="settingsRemoveDuplicates">Remove duplicate prompts</label>
             </div>
         </div>
     `,

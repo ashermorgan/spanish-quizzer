@@ -52,8 +52,13 @@
     text-align: center;
     margin-bottom: 5px;
 }
-.settingsInput div {
+.settingsInput div, .settingsInput h3 {
     text-align: left;
+    margin-bottom: 5px;
+}
+.settingsInput h3 {
+    margin-top: 10px;
+    font-size: 16px;
 }
 .settingsInput input[type=number] {
     width: 50px;
@@ -74,7 +79,6 @@
 
 /* Start button */
 .settingsStart {
-    margin-top: 20px;
     margin-bottom: 10px;
     width: 100px;
     height: 40px;
