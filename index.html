@@ -42,7 +42,7 @@
 
         <script>
             // Register service worker
-            if ("serviceWorker" in navigator) {
+            if ("serviceWorker" in navigator && localStorage.getItem("serviceworker") !== "false") {
                 navigator.serviceWorker.register("./service-worker.js");
             }
         </script>
