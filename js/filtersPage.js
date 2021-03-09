@@ -20,8 +20,8 @@ let filterInput = Vue.component("filterInput", {
 
     data: function() {
         return {
-            verbFilters: [{tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."}],
-            vocabFilters: [{category:"All Categories", type:"All Types", direction:"Eng. ↔ Esp."}],
+            verbFilters: [],
+            vocabFilters: [],
         };
     },
 
@@ -464,6 +464,11 @@ let filtersPage = Vue.component("filtersPage", {
         window.addEventListener("keyup", this.keyup);
     },
 
+    activated: function() {
+        // Add 1 filter by default
+        if (this.filters.length === 0) this.$refs.filters.AddFilter();
+    },
+
     destroyed: function() {
         // Remove keyup handler
         window.removeEventListener("keyup", this.keyup);
@@ -473,7 +478,7 @@ let filtersPage = Vue.component("filtersPage", {
         <div class="filtersPage">
             <page-header @back="$emit('back');" image="images/arrow-left.svg"></page-header>
             <main>
-                <filter-input :category="category" v-model="filters"></filter-input>
+                <filter-input ref="filters" :category="category" v-model="filters"></filter-input>
                 <settings-input v-model="settings"></settings-input>
                 <button class="settingsStart" @click="StartSession();">Start</button>
             </main>

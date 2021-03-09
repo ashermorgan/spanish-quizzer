@@ -11,16 +11,12 @@ describe("FilterInput", function() {
             expect(FilterInput.category).to.equal("verbs");
         });
 
-        it("VerbFilters should be correct", function() {
-            expect(FilterInput.verbFilters).to.deep.equal([
-                {tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."}
-            ]);
+        it("VerbFilters should be empty", function() {
+            expect(FilterInput.verbFilters).to.deep.equal([]);
         });
 
-        it("VocabFilters should be correct", function() {
-            expect(FilterInput.vocabFilters).to.deep.equal([
-                {category:"All Categories", type:"All Types", direction:"Eng. ↔ Esp."}
-            ]);
+        it("VocabFilters should be empty", function() {
+            expect(FilterInput.vocabFilters).to.deep.equal([]);
         });
     });
 
