@@ -12,15 +12,7 @@ let quizzer = Vue.component("quizzer", {
         },
         settings: {
             type: Object,
-            default: function() {
-                return {
-                    promptType: "Text",
-                    inputType: "Text",
-                    onMissedPrompt: "Correct me",
-                    repeatPrompts: "Never",
-                    multipleAnswers: "Require all",
-                };
-            },
+            default: getSettings(),
         },
     },
 

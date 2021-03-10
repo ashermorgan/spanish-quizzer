@@ -1,8 +1,19 @@
 describe("Quizzer", function() {
     let Quizzer;
+    let originalSettings;
     beforeEach(function() {
         // Create quizzer component
         Quizzer = new quizzer();
+        
+        // Override quizzer settings
+        originalSettings = Quizzer.settings;
+        Quizzer.settings = {
+            promptType: "Text",
+            inputType: "Text",
+            onMissedPrompt: "Correct me",
+            repeatPrompts: "Never",
+            multipleAnswers: "Require all",
+        };
     });
 
     describe("Initial state", function() {
@@ -15,11 +26,7 @@ describe("Quizzer", function() {
         });
 
         it("Settings should be correct", function() {
-            expect(Quizzer.settings.promptType).to.equal("Text");
-            expect(Quizzer.settings.inputType).to.equal("Text");
-            expect(Quizzer.settings.onMissedPrompt).to.equal("Correct me");
-            expect(Quizzer.settings.repeatPrompts).to.equal("Never");
-            expect(Quizzer.settings.multipleAnswers).to.equal("Require all");
+            expect(originalSettings).to.deep.equal(getSettings());
         });
 
         it("Prompts should be empty", function() {
