@@ -82,7 +82,7 @@ let quizzer = Vue.component("quizzer", {
 
             // Read prompt
             if (this.settings.promptType !== "Text") {
-                Read(this.prompt[1], this.prompt[0]);
+                this.Read(this.prompt[1], this.prompt[0]);
             }
 
             // Get voice input
