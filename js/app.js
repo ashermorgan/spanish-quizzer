@@ -89,13 +89,46 @@ function loadVue() {
 
         router: new VueRouter({
             routes: [
-                { path: "/", redirect: "/home" },
-                { path: "/home",      name: "home",      component: homePage },
-                { path: "/verbs",     name: "verbs",     component: filtersPage, props: {category: "verbs"}},
-                { path: "/vocab",     name: "vocab",     component: filtersPage, props: {category: "vocab"}},
-                { path: "/quizzer",   name: "quizzer",   component: quizzerPage,  props:true },
-                { path: "/reference", name: "reference", component: referencePage },
-                { path: "*", redirect: "/home" },
+                {
+                    path: "/",
+                    redirect: "/home"
+                },
+                {
+                    path: "/home",
+                    name: "home",
+                    component: homePage
+                },
+                {
+                    path: "/verbs",
+                    name: "verbs",
+                    meta: { title: "Verb Filters" },
+                    component: filtersPage,
+                    props: { category: "verbs" }
+                },
+                {
+                    path: "/vocab",
+                    name: "vocab",
+                    meta: { title: "Vocab Filters" },
+                    component: filtersPage,
+                    props: { category: "vocab" }
+                },
+                {
+                    path: "/quizzer",
+                    name: "quizzer",
+                    meta: { title: "Quizzer" },
+                    component: quizzerPage,
+                    props: true
+                },
+                {
+                    path: "/reference",
+                    name: "reference",
+                    meta: { title: "Reference Tables" },
+                    component: referencePage
+                },
+                {
+                    path: "*",
+                    redirect: "/home"
+                },
             ],
         }),
 
@@ -130,9 +163,20 @@ function loadVue() {
             data: {}
         },
 
+        watch: {
+            $route: function(to, from) {
+                if (to.meta.title) document.title = to.meta.title + " - Spanish-Quizzer";
+                else document.title = "Spanish-Quizzer";
+            }
+        },
+
         created: function() {
             // Add keyup handler
             window.addEventListener("keyup", this.keyup);
+
+            // Set page title
+            if (this.$route.meta.title) document.title = this.$route.meta.title + " - Spanish-Quizzer";
+            else document.title = "Spanish-Quizzer";
         },
 
         destroyed: function() {
