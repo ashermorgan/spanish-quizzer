@@ -83,7 +83,7 @@ const homePage = Vue.component("homePage", {
     },
     template: `
         <div class="home">
-            <page-header></page-header>
+            <page-header icon2="settings" @click2="$router.push({name:'settings', params:{referer:$route.name}})"></page-header>
             <main>
                 <h1>What do you want to study?</h1>
                 <div>

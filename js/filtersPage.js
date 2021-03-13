@@ -352,13 +352,6 @@ const filtersPage = Vue.component("filtersPage", {
         },
 
         /**
-         * Open the settings page
-         */
-        openSettings: function() {
-            this.$router.push({name:"settings", params:{referer:this.category}});
-        },
-
-        /**
          * Handle a keyup event (implements some keyboard shortcuts).
          * @param {object} e - The event args.
          */
@@ -385,9 +378,10 @@ const filtersPage = Vue.component("filtersPage", {
 
     template: `
         <div class="filtersPage">
-            <page-header icon1="arrow-left" @click1="$emit('back');" icon2="settings" @click2="openSettings"></page-header>
+            <page-header icon1="arrow-left" @click1="$emit('back');" icon2="settings" @click2="$router.push({name:'settings', params:{referer:$route.name}})"></page-header>
             <main>
                 <filter-input ref="filters" :category="category" v-model="filters"></filter-input>
+                <h1>Quizzer Settings</h1>
                 <settings-input v-model="settings"></settings-input>
                 <button class="settingsStart" @click="StartSession();">Start</button>
             </main>

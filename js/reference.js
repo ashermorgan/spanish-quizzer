@@ -109,7 +109,7 @@ const referenceTables = Vue.component("referenceTables", {
 const referencePage = Vue.component("referencePage", {
     template: `
         <div class="referencePage">
-            <page-header @click1="$emit('back');" icon1="arrow-left"></page-header>
+            <page-header icon1="arrow-left" @click1="$emit('back');" icon2="settings" @click2="$router.push({name:'settings', params:{referer:$route.name}})"></page-header>
             <main>
                 <reference-tables :data="this.$root.$data.data"></reference-tables>
             </main>

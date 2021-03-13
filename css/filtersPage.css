@@ -58,12 +58,19 @@
     margin-bottom: 20px;
 }
 
+/* Hide non-quizzer settings & labels */
+.filtersPage main .settingsInput .appearanceSettings {
+    display: none;
+}
+
 /* Start button */
 .settingsStart {
     margin-bottom: 10px;
     width: 100px;
     height: 40px;
 }
+
+/* Mobile devices */
 @media only screen and (max-width: 510px) {
     /* Expand settings component*/
     .settingsInput {
@@ -79,13 +86,7 @@
 }
 @media only screen and (max-width: 800px) {
     /* Hide settings */
-    .filtersPage main .settingsInput {
-        display: none;
-    }
-}
-@media only screen and (min-width: 801px) {
-    /* Hide settings icon */
-    .filtersPage header img:last-child {
+    .filtersPage main .settingsInput, .filtersPage main>h1 {
         display: none;
     }
 }
