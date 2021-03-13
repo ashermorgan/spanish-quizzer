@@ -1,9 +1,6 @@
 // Initialize constants
-const version = "spanish-quizzer-2";
+const version = "spanish-quizzer-3";
 const resources = [
-    "https://cdn.jsdelivr.net/npm/vue@2.6.12",
-    "https://cdn.jsdelivr.net/npm/vue-router@3.5.1",
-    "https://unpkg.com/papaparse@5.1.1/papaparse.min.js",
     "./css/app.css",
     "./css/filtersPage.css",
     "./css/global.css",
@@ -29,6 +26,9 @@ const resources = [
     "./js/quizzer.js",
     "./js/reference.js",
     "./js/settingsPage.js",
+    "./libs/papaparse.js",
+    "./libs/vue-router.js",
+    "./libs/vue.js",
     "./index.html",
     "./",
 ];
