@@ -6,7 +6,10 @@ let app;
 // page-header component
 const pageHeader = Vue.component("pageHeader", {
     props: {
-        image: {
+        icon1: {
+            type: String
+        },
+        icon2: {
             type: String
         },
         title: {
@@ -14,10 +17,26 @@ const pageHeader = Vue.component("pageHeader", {
             default: "Spanish-Quizzer",
         }
     },
+    computed: {
+        image1: function() {
+            if (this.icon1) return `images/${this.icon1}.svg`;
+            else return null;
+        },
+        image2: function() {
+            if (this.icon2) return `images/${this.icon2}.svg`;
+            else return null;
+        }
+    },
+    methods: {
+        goHome: function() {
+            if (this.$route.name !== 'home') this.$router.push('home');
+        }
+    },
     template: `
-        <header @click="$emit('back');">
-            <img v-if="image" :src="image"/>
-            {{ title }}
+        <header>
+            <img v-if="image1" :src="image1" @click="$emit('click1')"/>
+            <span @click="goHome">{{ title }}</span>
+            <img v-if="image2" :src="image2" @click="$emit('click2')"/>
         </header>
     `
 });
@@ -113,6 +132,13 @@ function loadVue() {
                     props: { category: "vocab" }
                 },
                 {
+                    path: "/settings",
+                    name: "settings",
+                    meta: { title: "Settings" },
+                    component: settingsPage,
+                    props: true
+                },
+                {
                     path: "/quizzer",
                     name: "quizzer",
                     meta: { title: "Quizzer" },
@@ -145,8 +171,12 @@ function loadVue() {
                     case "reference":
                         this.$router.push("home");
                         break;
+                    case "settings":
+                        this.$router.push(this.$route.params.referer || "home");
+                        break;
                     case "quizzer":
                         this.$router.push(this.$route.params.referer || "home");
+                        break;
                 }
             },
 

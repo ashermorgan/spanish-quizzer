@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Mocha Tests - Spanish-Quizzer</title>
+        <title>Tests - Spanish-Quizzer</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="icon" type="image/png" href="../images/favicon-32.png">
         <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon-180.png">
@@ -18,12 +18,13 @@
         <!-- Scripts being tested -->
         <script src="../js/global.js"></script>
         <script src="../js/filtersPage.js"></script>
+        <script src="../js/settingsPage.js"></script>
         <script src="../js/filters.js"></script>
         <script src="../js/quizzer.js"></script>
 
         <!-- Setup tests -->
         <script class="mocha-init">
-            mocha.setup('bdd');
+            mocha.setup("bdd");
             mocha.checkLeaks();
             let expect = chai.expect;
         </script>
@@ -31,6 +32,7 @@
         <!-- Tests -->
         <script src="test.global.js"></script>
         <script src="test.filtersPage.js"></script>
+        <script src="test.settingsPage.js"></script>
         <script src="test.filters.js"></script>
         <script src="test.quizzer.js"></script>
 

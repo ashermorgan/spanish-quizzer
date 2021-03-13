@@ -1,4 +1,4 @@
-let quizzer = Vue.component("quizzer", {
+const quizzer = Vue.component("quizzer", {
     props: {
         startingPrompts: {
             type: Array,
@@ -378,7 +378,7 @@ const quizzerPage = Vue.component("quizzerPage", {
 
     template: `
         <div class="quizzer-page">
-            <page-header @back="$emit('back', referer);" image="images/x.svg"></page-header>
+            <page-header @click1="$emit('back', referer);" icon1="x"></page-header>
             <main>
                 <quizzer :starting-prompts="prompts" :starting-index="index" :settings="settings"
                     @new-prompt="updateProgress" @finished-prompts="$emit('back', referer);">

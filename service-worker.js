@@ -1,5 +1,5 @@
 // Initialize constants
-const version = "spanish-quizzer-1";
+const version = "spanish-quizzer-2";
 const resources = [
     "https://cdn.jsdelivr.net/npm/vue@2.6.12",
     "https://cdn.jsdelivr.net/npm/vue-router@3.5.1",
@@ -9,6 +9,7 @@ const resources = [
     "./css/global.css",
     "./css/quizzer.css",
     "./css/reference.css",
+    "./css/settingsPage.css",
     "./data/verbs.csv",
     "./data/vocab.csv",
     "./images/arrow-left.svg",
@@ -27,6 +28,7 @@ const resources = [
     "./js/global.js",
     "./js/quizzer.js",
     "./js/reference.js",
+    "./js/settingsPage.js",
     "./index.html",
     "./",
 ];

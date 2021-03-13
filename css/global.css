@@ -36,18 +36,25 @@ header {
     background-color: var(--theme-color);
     font-size: 25px;
     font-weight: bold;
-    cursor: pointer;
     color: #000000;
     text-decoration: none;
     margin: 0px;
     padding-top: 15px;
     padding-bottom: 15px;
 }
-header img {
+header>* {
+    cursor: pointer;
+}
+header>img {
     position: absolute;
-    left: 10px;
     height: 30px;
     background-color: var(--theme-color);
+}
+header>img:first-child {
+    left: 10px;
+}
+header>img:last-child {
+    right: 10px;
 }
 
 
@@ -66,7 +73,7 @@ header img {
 
 
 /******** Other elements ********/
-h1, h2 {
+h1 {
     font-size: 20px;
 }
 button:not(.icon) {

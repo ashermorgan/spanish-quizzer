@@ -1,5 +1,5 @@
 // filter-input component
-let filterInput = Vue.component("filterInput", {
+const filterInput = Vue.component("filterInput", {
     props: {
         category: {
             type: String,
@@ -213,10 +213,10 @@ let filterInput = Vue.component("filterInput", {
     template: `
         <div class="filtersInput" ref="container">
             <div class="verbSettings" v-show="category === 'verbs'">
-                <h2>
+                <h1>
                     Verb Filters
                     <button class="icon" @click="AddFilter();"><img src="./images/plus.svg"></button>
-                </h2>
+                </h1>
 
                 <div v-for="(filter, index) in verbFilters" class="filter">
                     <select v-model="filter.tense">
@@ -247,10 +247,10 @@ let filterInput = Vue.component("filterInput", {
 
 
             <div class="vocabSettings" v-show="category === 'vocab'">
-                <h2>
+                <h1>
                     Vocabulary Filters
                     <button class="icon" @click="AddFilter();"><img src="./images/plus.svg"></button>
-                </h2>
+                </h1>
 
                 <div v-for="(filter, index) in vocabFilters" class="filter">
                     <select class="vocabSetName" v-model="filter.category">
@@ -299,99 +299,8 @@ let filterInput = Vue.component("filterInput", {
 
 
 
-// settings-input component
-let settingsInput = Vue.component("settingsInput", {
-    props: {
-        value: {
-            type: Object,
-            default: getSettings(),
-        },
-    },
-
-    watch: {
-        value: {
-            handler: function(value) {
-                setSettings(value);
-
-                this.$emit("input", value);
-            },
-            deep: true,
-        },
-    },
-
-    template: `
-        <div class="settingsInput" ref="container">
-            <h2>Settings</h2>
-            <h3>Appearance</h3>
-            <div>
-                <input type="checkbox" id="settingsDarkTheme" v-model="value.darkTheme">
-                <label for="settingsDarkTheme">Dark Mode</label>
-            </div>
-
-            <h3>Prompts</h3>
-            <div>
-                <label for="settingsPromptType">Prompt type</label>
-                <select id="settingsPromptType" v-model="value.promptType">
-                    <option>Text</option>
-                    <option>Audio</option>
-                    <option>Both</option>
-                </select>
-            </div>
-            <div>
-                <label for="settingsInputType">Input type</label>
-                <select id="settingsInputType" v-model="value.inputType">
-                    <option>Text</option>
-                    <option>Voice</option>
-                    <option>Either</option>
-                </select>
-            </div>
-            <div>
-                <label for="settingsMultiplePrompts">Multiple prompts</label>
-                <select id="settingsMultiplePrompts" v-model="value.multiplePrompts">
-                    <option>Show together</option>
-                    <option>Show separately</option>
-                    <option>Show one</option>
-                </select>
-            </div>
-            <div>
-                <input type="checkbox" id="settingsRemoveDuplicates" v-model="value.removeDuplicates">
-                <label for="settingsRemoveDuplicates">Remove duplicate prompts</label>
-            </div>
-
-            <h3>Grading</h3>
-            <div>
-                <label for="settingsOnMissedPrompt">When I miss a prompt</label>
-                <select id="settingsOnMissedPrompt" v-model="value.onMissedPrompt">
-                    <option>Correct me</option>
-                    <option>Tell me</option>
-                    <option>Ignore it</option>
-                </select>
-            </div>
-            <div>
-                <label for="settingsRepeatPrompts">Repeat missed prompts</label>
-                <select id="settingsRepeatPrompts" v-model="value.repeatPrompts">
-                    <option>Never</option>
-                    <option>Immediately</option>
-                    <option>5 prompts later</option>
-                    <option>5 & 10 prompts later</option>
-                    <option>At the end</option>
-                </select>
-            </div>
-            <div>
-                <label for="settingsMultipleAnswers">Multiple answers</label>
-                <select id="settingsMultipleAnswers" v-model="value.multipleAnswers">
-                    <option>Require all</option>
-                    <option>Require any</option>
-                </select>
-            </div>
-        </div>
-    `,
-});
-
-
-
 // filters-page component
-let filtersPage = Vue.component("filtersPage", {
+const filtersPage = Vue.component("filtersPage", {
     props: {
         category: {
             type: String,
@@ -450,6 +359,13 @@ let filtersPage = Vue.component("filtersPage", {
         },
 
         /**
+         * Open the settings page
+         */
+        openSettings: function() {
+            this.$router.push({name:"settings", params:{referer:this.category}});
+        },
+
+        /**
          * Handle a keyup event (implements some keyboard shortcuts).
          * @param {object} e - The event args.
          */
@@ -476,7 +392,7 @@ let filtersPage = Vue.component("filtersPage", {
 
     template: `
         <div class="filtersPage">
-            <page-header @back="$emit('back');" image="images/arrow-left.svg"></page-header>
+            <page-header icon1="arrow-left" @click1="$emit('back');" icon2="settings" @click2="openSettings"></page-header>
             <main>
                 <filter-input ref="filters" :category="category" v-model="filters"></filter-input>
                 <settings-input v-model="settings"></settings-input>
