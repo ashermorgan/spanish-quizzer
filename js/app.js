@@ -152,6 +152,14 @@ function loadVue() {
                     component: referencePage
                 },
                 {
+                    path: "/data",
+                    beforeEnter: function() { window.location.href = "data"; }
+                },
+                {
+                    path: "/tests",
+                    beforeEnter: function() { window.location.href = "tests"; }
+                },
+                {
                     path: "*",
                     redirect: "/home"
                 },
