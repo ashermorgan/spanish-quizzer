@@ -347,13 +347,6 @@ const filtersPage = Vue.component("filtersPage", {
                 }
             }
 
-            // Give iOS devices ringer warning for prompt audio
-            if (this.settings.promptType !== "Text") {
-                if (!!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
-                    alert("Please make sure your ringer is on in order to hear audio prompts.");
-                }
-            }
-
             // Start quizzer
             this.$router.push({name:"quizzer", params:{startingPrompts:prompts, startingIndex:promptIndex, settings:this.settings, referer:this.category}});
         },
