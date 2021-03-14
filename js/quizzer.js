@@ -378,7 +378,7 @@ const quizzerPage = Vue.component("quizzerPage", {
 
     template: `
         <div class="quizzer-page">
-            <page-header @click1="$emit('back', referer);" icon1="x"></page-header>
+            <page-header @click1="$emit('back', referer);" icon1="x" label1="Back"></page-header>
             <main>
                 <quizzer :starting-prompts="prompts" :starting-index="index" :settings="settings"
                     @new-prompt="updateProgress" @finished-prompts="$emit('back', referer);">

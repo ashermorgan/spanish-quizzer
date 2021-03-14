@@ -110,7 +110,7 @@ const settingsPage = Vue.component("settingsPage", {
 
     template: `
         <div class="settingsPage">
-            <page-header @click1="$emit('back', referer);" icon1="x"></page-header>
+            <page-header @click1="$emit('back', referer);" icon1="x" label1="Back"></page-header>
             <main>
                 <h1>Settings</h1>
                 <settings-input></settings-input>

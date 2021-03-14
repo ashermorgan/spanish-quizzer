@@ -6,37 +6,72 @@ let app;
 // page-header component
 const pageHeader = Vue.component("pageHeader", {
     props: {
+        /**
+         * The 1st header icon
+         */
         icon1: {
             type: String
         },
+
+        /**
+         * The 2nd header icon
+         */
         icon2: {
             type: String
         },
+
+        /**
+         * The label for the 1st header icon
+         */
+        label1: {
+            type: String
+        },
+
+        /**
+         * The label for the 2nd header icon
+         */
+        label2: {
+            type: String
+        },
+
+        /**
+         * The header text
+         */
         title: {
             type: String,
             default: "Spanish-Quizzer",
         }
     },
     computed: {
-        image1: function() {
+        /**
+         * The path to the 1st header icon
+         */
+        path1: function() {
             if (this.icon1) return `images/${this.icon1}.svg`;
             else return null;
         },
-        image2: function() {
+
+        /**
+         * The path to the 2nd header icon
+         */
+        path2: function() {
             if (this.icon2) return `images/${this.icon2}.svg`;
             else return null;
         }
     },
     methods: {
+        /**
+         * Navigate to the home page
+         */
         goHome: function() {
             if (this.$route.name !== 'home') this.$router.push('home');
         }
     },
     template: `
         <header>
-            <img v-if="image1" :src="image1" @click="$emit('click1')"/>
+            <button v-if="path1" :title="label1" class="icon"><img :src="path1" alt="" @click="$emit('click1')"/></button>
             <span @click="goHome">{{ title }}</span>
-            <img v-if="image2" :src="image2" @click="$emit('click2')"/>
+            <button v-if="path2" :title="label2" class="icon"><img :src="path2" alt="" @click="$emit('click2')"/></button>
         </header>
     `
 });
@@ -83,7 +118,7 @@ const homePage = Vue.component("homePage", {
     },
     template: `
         <div class="home">
-            <page-header icon2="settings" @click2="$router.push({name:'settings', params:{referer:$route.name}})"></page-header>
+            <page-header icon2="settings" label2="Settings" @click2="$router.push({name:'settings', params:{referer:$route.name}})"></page-header>
             <main>
                 <h1>What do you want to study?</h1>
                 <div>

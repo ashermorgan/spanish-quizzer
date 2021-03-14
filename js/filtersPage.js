@@ -215,7 +215,7 @@ const filterInput = Vue.component("filterInput", {
             <div class="verbSettings" v-show="category === 'verbs'">
                 <h1>
                     Verb Filters
-                    <button class="icon" @click="AddFilter();"><img src="./images/plus.svg"></button>
+                    <button title="Add filter" class="icon" @click="AddFilter();"><img src="./images/plus.svg" alt=""></button>
                 </h1>
 
                 <div v-for="(filter, index) in verbFilters" class="filter">
@@ -241,7 +241,7 @@ const filterInput = Vue.component("filterInput", {
                         <option>Conj. → Eng.</option>
                         <option>Conj. → Esp.</option>
                     </select>
-                    <button class="icon" @click="RemoveFilter(index);"><img src="./images/trash.svg"></button>
+                    <button title="Remove filter" class="icon" @click="RemoveFilter(index);"><img src="./images/trash.svg" alt=""></button>
                 </div>
             </div>
 
@@ -249,7 +249,7 @@ const filterInput = Vue.component("filterInput", {
             <div class="vocabSettings" v-show="category === 'vocab'">
                 <h1>
                     Vocabulary Filters
-                    <button class="icon" @click="AddFilter();"><img src="./images/plus.svg"></button>
+                    <button title="Add filter" class="icon" @click="AddFilter();"><img src="./images/plus.svg" alt=""></button>
                 </h1>
 
                 <div v-for="(filter, index) in vocabFilters" class="filter">
@@ -290,7 +290,7 @@ const filterInput = Vue.component("filterInput", {
                         <option>Eng. → Esp.</option>
                         <option>Esp. → Eng.</option>
                     </select>
-                    <button class="icon" @click="RemoveFilter(index);"><img src="./images/trash.svg"></button>
+                    <button title="Remove filter" class="icon" @click="RemoveFilter(index);"><img src="./images/trash.svg" alt=""></button>
                 </div>
             </div>
         </div>
@@ -378,7 +378,8 @@ const filtersPage = Vue.component("filtersPage", {
 
     template: `
         <div class="filtersPage">
-            <page-header icon1="arrow-left" @click1="$emit('back');" icon2="settings" @click2="$router.push({name:'settings', params:{referer:$route.name}})"></page-header>
+            <page-header icon1="arrow-left" label1="Back" @click1="$emit('back');"
+                icon2="settings" label2="Settings" @click2="$router.push({name:'settings', params:{referer:$route.name}})"></page-header>
             <main>
                 <filter-input ref="filters" :category="category" v-model="filters"></filter-input>
                 <h1>Quizzer Settings</h1>

@@ -45,16 +45,18 @@ header {
 header>* {
     cursor: pointer;
 }
-header>img {
+header button {
     position: absolute;
-    height: 30px;
-    background-color: var(--theme-color);
 }
-header>img:first-child {
+header button:first-child {
     left: 10px;
 }
-header>img:last-child {
+header button:last-child {
     right: 10px;
+}
+header button img {
+    height: 30px;
+    width: 30px;
 }
 
 
@@ -100,7 +102,7 @@ button.icon {
     cursor: pointer;
     vertical-align: middle;
 }
-button.icon img {
+main button.icon img {
     height: 24px;
     width: 24px;
 }
