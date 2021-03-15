@@ -111,13 +111,13 @@ function GetVerbFilters(rawFilters) {
                 filter.type = "Irregular";
                 break;
             case "stem changing":
-                filter.type = "Stem.?Changing";
+                filter.type = "Stem Changing";
                 break;
             case "orthographic":
                 filter.type = "Orthographic";
                 break;
             case "nonregular":
-                filter.type = "Irregular|Stem.?Changing|Orthographic";
+                filter.type = "Irregular|Stem Changing|Orthographic";
                 break;
             case "all types":
                 filter.type = ".*";
