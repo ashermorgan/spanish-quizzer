@@ -15,9 +15,6 @@ function SetTheme(darkTheme = null) {
     else {
         document.body.classList.remove("dark");
     }
-
-    // Save theme
-    localStorage.setItem("darkTheme", darkTheme);
 }
 
 
