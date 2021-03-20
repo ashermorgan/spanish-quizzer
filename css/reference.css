@@ -44,6 +44,32 @@
     cursor: pointer;
 }
 
+/* Cell colors */
+.referenceTable td.normal {
+    color: inherit;
+}
+.referenceTable td.irregular {
+    color: hsl(0, 100%, 45%);
+}
+.referenceTable td.nonregular {
+    color: hsl(40, 100%, 45%);
+}
+.referenceTable td.regular {
+    color: hsl(120, 100%, 25%);
+}
+.dark .referenceTable td.normal {
+    color: inherit;
+}
+.dark .referenceTable td.irregular {
+    color: hsl(0, 100%, 55%);
+}
+.dark .referenceTable td.nonregular {
+    color: hsl(40, 100%, 55%);
+}
+.dark .referenceTable td.regular {
+    color: hsl(120, 100%, 35%);
+}
+
 /* Print styles */
 @media print {
     body, body.dark {
@@ -60,5 +86,8 @@
     }
     table {
         border-collapse: collapse;
+    }
+    .referenceTable td {
+        color: #000000 !important;
     }
 }

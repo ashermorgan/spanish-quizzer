@@ -27,13 +27,16 @@ function getSettings() {
     // Initialize settings
     let settings = {
         darkTheme: false,
+        conjugationColors: true,
+
         promptType: "Text",
         inputType: "Text",
+        multiplePrompts: "Show together",
+        removeDuplicates: false,
+
         onMissedPrompt: "Correct me",
         repeatPrompts: "Never",
-        multiplePrompts: "Show together",
         multipleAnswers: "Require all",
-        removeDuplicates: false,
     };
 
     // Parse settings
@@ -54,26 +57,31 @@ function getSettings() {
         }
         catch { }
     }
+    if ([true, false].includes(parsedSettings.conjugationColors)) {
+        settings.conjugationColors = parsedSettings.conjugationColors;
+    }
+
     if (["Text", "Audio", "Both"].includes(parsedSettings.promptType)) {
         settings.promptType = parsedSettings.promptType;
     }
     if (["Text", "Voice", "Either"].includes(parsedSettings.inputType)) {
         settings.inputType = parsedSettings.inputType;
     }
+    if (["Show together", "Show separately", "Show one"].includes(parsedSettings.multiplePrompts)) {
+        settings.multiplePrompts = parsedSettings.multiplePrompts;
+    }
+    if ([true, false].includes(parsedSettings.removeDuplicates)) {
+        settings.removeDuplicates = parsedSettings.removeDuplicates;
+    }
+
     if (["Correct me", "Tell me", "Ignore it"].includes(parsedSettings.onMissedPrompt)) {
         settings.onMissedPrompt = parsedSettings.onMissedPrompt;
     }
     if (["Never", "Immediately", "5 prompts later", "5 & 10 prompts later", "At the end"].includes(parsedSettings.repeatPrompts)) {
         settings.repeatPrompts = parsedSettings.repeatPrompts;
     }
-    if (["Show together", "Show separately", "Show one"].includes(parsedSettings.multiplePrompts)) {
-        settings.multiplePrompts = parsedSettings.multiplePrompts;
-    }
     if (["Require all", "Require any"].includes(parsedSettings.multipleAnswers)) {
         settings.multipleAnswers = parsedSettings.multipleAnswers;
-    }
-    if ([true, false].includes(parsedSettings.removeDuplicates)) {
-        settings.removeDuplicates = parsedSettings.removeDuplicates;
     }
 
     // Return parsed settings

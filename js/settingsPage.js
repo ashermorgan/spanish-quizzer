@@ -31,6 +31,10 @@ const settingsInput = Vue.component("settingsInput", {
                     <input type="checkbox" id="settingsDarkTheme" v-model="value.darkTheme">
                     <label for="settingsDarkTheme">Dark Mode</label>
                 </div>
+                <div>
+                    <input type="checkbox" id="settingsConjugationColors" v-model="value.conjugationColors">
+                    <label for="settingsConjugationColors">Colored conjugations in reference tables</label>
+                </div>
             </div>
 
             <div class="quizzerPromptsSettings">

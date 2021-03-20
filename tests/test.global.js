@@ -7,13 +7,16 @@ describe("Global.js", function() {
             // Set localStorage settings
             let expected = {
                 darkTheme: true,
+                conjugationColors: true,
+
                 promptType: "Audio",
                 inputType: "Voice",
+                multiplePrompts: "Show one",
+                removeDuplicates: true,
+
                 onMissedPrompt: "Tell me",
                 repeatPrompts: "5 prompts later",
-                multiplePrompts: "Show one",
                 multipleAnswers: "Require any",
-                removeDuplicates: true,
             };
             localStorage.setItem("settings", JSON.stringify(expected));
 
@@ -58,13 +61,19 @@ describe("Global.js", function() {
             let settings = getSettings();
 
             // Assert default settings loaded
-            expect(settings.promptType).to.equal("Text");
-            expect(settings.inputType).to.equal("Text");
-            expect(settings.onMissedPrompt).to.equal("Correct me");
-            expect(settings.repeatPrompts).to.equal("Never");
-            expect(settings.multiplePrompts).to.equal("Show together");
-            expect(settings.multipleAnswers).to.equal("Require all");
-            expect(settings.removeDuplicates).to.equal(false);
+            expect(settings).to.deep.equal({
+                darkTheme: false,
+                conjugationColors: true,
+
+                promptType: "Text",
+                inputType: "Text",
+                multiplePrompts: "Show together",
+                removeDuplicates: false,
+
+                onMissedPrompt: "Correct me",
+                repeatPrompts: "Never",
+                multipleAnswers: "Require all",
+            });
 
             // Restore original setting to localStorage
             localStorage.setItem("settings", originalValue);
@@ -79,20 +88,23 @@ describe("Global.js", function() {
             // Set settings
             let settings = {
                 darkTheme : "A",
-                promptType : "B",
-                inputType : "C",
-                onMissedPrompt : "D",
-                repeatPrompts : "E",
-                multiplePrompts : "F",
-                multipleAnswers : "G",
-                removeDuplicates : "H",
+                conjugationColors: "B",
+
+                promptType : "C",
+                inputType : "D",
+                multiplePrompts : "E",
+                removeDuplicates : "F",
+
+                onMissedPrompt : "G",
+                repeatPrompts : "H",
+                multipleAnswers : "I",
             }
 
             // Call setSettings
             setSettings(settings);
 
             // Assert localStorage setting updated
-            expect(localStorage.getItem("settings")).to.equal(`{"darkTheme":"A","promptType":"B","inputType":"C","onMissedPrompt":"D","repeatPrompts":"E","multiplePrompts":"F","multipleAnswers":"G","removeDuplicates":"H"}`);
+            expect(localStorage.getItem("settings")).to.equal(JSON.stringify(settings));
 
             // Restore original setting to localStorage
             localStorage.setItem("settings", originalValue);

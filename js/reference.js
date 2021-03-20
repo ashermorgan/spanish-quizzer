@@ -9,9 +9,54 @@ const referenceTables = Vue.component("referenceTables", {
     data: function() {
         return {
             category: "Choose a category",
-            tableData: {...{"Choose a category":[]}, ...this.data},
             query: "",
+            conjugationColors: true,
         }
+    },
+    computed: {
+        /**
+         * The color classes for verb conjugation cells
+         */
+        conjugationColorClasses: function() {
+            let result = [];
+            for (let row in this.tableData.verbs) {
+                result.push([]);
+                for (let column = 0; column < this.tableData.verbs[row].length; column++) {
+                    // Check if cell is a type cell
+                    if (!this.tableData.verbs[0][column].includes("Type")) {
+                        if (column > 0) {
+                            // Cell isn't a type cell, use color class of previous cell
+                            result[row].push(result[row][column-1]);
+                        }
+                        else {
+                            // Cell is in the first column
+                            result[row].push("normal");
+                        }
+                    }
+
+                    // Get color class
+                    else if (this.tableData.verbs[row][column].includes("Irregular")) {
+                        result[row].push("irregular");
+                    }
+                    else if (this.tableData.verbs[row][column].includes("Regular")) {
+                        result[row].push("regular");
+                    }
+                    else if (this.tableData.verbs[row][column].includes("Stem Changing") || this.tableData.verbs[row][column].includes("Orthographic")) {
+                        result[row].push("nonregular");
+                    }
+                    else {
+                        result[row].push("normal");
+                    }
+                }
+            }
+            return result;
+        },
+        /**
+         * The data used by the table
+         */
+        tableData: function() {
+            return {...{"Choose a category":[]}, ...this.data};
+        },
     },
     methods: {
         /**
@@ -79,6 +124,10 @@ const referenceTables = Vue.component("referenceTables", {
         // Remove keyup handler
         window.removeEventListener("keyup", this.keyup);
     },
+    activated: function() {
+        // Update conjugationColors setting
+        this.conjugationColors = getSettings().conjugationColors;
+    },
     template: `
     <div>
         <div class="referenceTableControls">
@@ -95,7 +144,8 @@ const referenceTables = Vue.component("referenceTables", {
             <table>
                 <tr v-for="(row, rowIndex) in data[category]" v-show="rowIndex === 0 || row.join(',').toLowerCase().includes(query.toLowerCase())">
                     <th v-if="rowIndex === 0" v-for="column in row">{{ column }}</th>
-                    <td v-if="rowIndex !== 0" v-for="(column, columnIndex) in row" @click="Read(column, data[category][0][columnIndex])" :lang="getLang(data[category][0][columnIndex])">{{ column }}</td>
+                    <td v-if="rowIndex !== 0" v-for="(column, columnIndex) in row" @click="Read(column, data[category][0][columnIndex])"
+                        :lang="getLang(data[category][0][columnIndex])" :class="(conjugationColors && category === 'verbs') ? conjugationColorClasses[rowIndex][columnIndex] : 'normal'">{{ column }}</td>
                 </tr>
             </table>
         </div>
