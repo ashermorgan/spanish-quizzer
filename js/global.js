@@ -39,6 +39,12 @@ function getSettings() {
         multipleAnswers: "Require all",
     };
 
+    // Detect prefered theme
+    try {
+        settings.darkTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+    catch { }
+
     // Parse settings
     let parsedSettings;
     try {
@@ -50,12 +56,6 @@ function getSettings() {
     // Load settings
     if ([true, false].includes(parsedSettings.darkTheme)) {
         settings.darkTheme = parsedSettings.darkTheme;
-    }
-    else {
-        try {
-            settings.darkTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        }
-        catch { }
     }
     if ([true, false].includes(parsedSettings.conjugationColors)) {
         settings.conjugationColors = parsedSettings.conjugationColors;
