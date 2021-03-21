@@ -62,7 +62,7 @@ describe("Global.js", function() {
 
             // Assert default settings loaded
             expect(settings).to.deep.equal({
-                darkTheme: false,
+                darkTheme: settings.darkTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
                 conjugationColors: true,
 
                 promptType: "Text",
