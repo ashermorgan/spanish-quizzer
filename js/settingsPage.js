@@ -97,6 +97,89 @@ const settingsInput = Vue.component("settingsInput", {
                     </select>
                 </div>
             </div>
+
+            <div class="defaultFiltersSettings">
+                <h2>Default Verb Filter</h2>
+                <div>
+                    <select v-model="value.defaultFilters.verbs.tense">
+                        <option>All Tenses</option>
+                        <option>Present Participles</option>
+                        <option>Past Participles</option>
+                        <option>Present Tense</option>
+                        <option>Preterite Tense</option>
+                        <option>Imperfect Tense</option>
+                        <option>Simple Future Tense</option>
+                        <option>Present Subjunctive Tense</option>
+                    </select>
+                    <select v-model="value.defaultFilters.verbs.type">
+                        <option>All Types</option>
+                        <option>Reflexive</option>
+                        <option>Regular</option>
+                        <option>Nonregular</option>
+                        <option>Stem Changing</option>
+                        <option>Orthographic</option>
+                        <option>Irregular</option>
+                    </select>
+                    <select v-model="value.defaultFilters.verbs.subject">
+                        <option>All Subjects</option>
+                        <option>Type</option>
+                        <option>Yo</option>
+                        <option>Tú</option>
+                        <option>Él</option>
+                        <option>Nosotros</option>
+                        <option>Ellos</option>
+                    </select>
+                    <select v-model="value.defaultFilters.verbs.direction">
+                        <option>Eng. → Conj.</option>
+                        <option>Esp. → Conj.</option>
+                        <option>Conj. → Eng.</option>
+                        <option>Conj. → Esp.</option>
+                    </select>
+                </div>
+                <h2>Default Vocab Filter</h2>
+                <div>
+                    <select v-model="value.defaultFilters.vocab.category">
+                        <option>All Categories</option>
+                        <optgroup label="Common Words">
+                            <option>Adjectives</option>
+                            <option>Adverbs</option>
+                            <option>Prepositions</option>
+                            <option>Transitions</option>
+                            <option>Verbs</option>
+                        </optgroup>
+                        <optgroup label="Basic Words">
+                            <option>Colors</option>
+                            <option>Days</option>
+                            <option>Months</option>
+                            <option>Numbers</option>
+                            <option>Questions</option>
+                        </optgroup>
+                        <optgroup label="Advanced Words">
+                            <option>Childhood</option>
+                            <option>Clothes</option>
+                            <option>Family</option>
+                            <option>Food</option>
+                            <option>Health</option>
+                            <option>House</option>
+                            <option>Nature</option>
+                            <option>Professions</option>
+                            <option>Vacation</option>
+                            <option>Weather</option>
+                        </optgroup>
+                    </select>
+                    <select v-model="value.defaultFilters.vocab.type">
+                        <option>All Types</option>
+                        <option>Adjectives</option>
+                        <option>Nouns</option>
+                        <option>Verbs</option>
+                    </select>
+                    <select v-model="value.defaultFilters.vocab.direction">
+                        <option>Eng. ↔ Esp.</option>
+                        <option>Eng. → Esp.</option>
+                        <option>Esp. → Eng.</option>
+                    </select>
+                </div>
+            </div>
         </div>
     `,
 });

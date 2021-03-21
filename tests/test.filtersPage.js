@@ -75,12 +75,23 @@ describe("FilterInput", function() {
             expect(FilterInput.verbFilters.length).to.equal(0);
             expect(FilterInput.vocabFilters.length).to.equal(0);
 
+            // Override getSettings method
+            let old_getSettings = getSettings
+            getSettings = function() {
+                let settings = old_getSettings();
+                settings.defaultFilters.verbs = {tense:"Present Tense", type:"Regular", subject:"Yo", direction:"Esp. → Conj."};
+                return settings;
+            };
+
             // Add filter
             FilterInput.AddFilter();
 
+            // Restore getSettings method
+            getSettings = old_getSettings;
+
             // Assert filter added
             expect(FilterInput.verbFilters).to.have.deep.members([
-                {tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."},
+                {tense:"Present Tense", type:"Regular", subject:"Yo", direction:"Esp. → Conj."},
             ]);
             expect(FilterInput.vocabFilters).to.have.deep.members([]);
         });
@@ -93,12 +104,23 @@ describe("FilterInput", function() {
             expect(FilterInput.verbFilters.length).to.equal(0);
             expect(FilterInput.vocabFilters.length).to.equal(0);
 
+            // Override getSettings method
+            let old_getSettings = getSettings
+            getSettings = function() {
+                let settings = old_getSettings();
+                settings.defaultFilters.vocab = {category:"Childhood", type:"Adjectives", direction:"Eng. → Esp."};
+                return settings;
+            };
+
             // Add filter
             FilterInput.AddFilter();
 
+            // Restore getSettings method
+            getSettings = old_getSettings;
+
             // Assert filter added
             expect(FilterInput.vocabFilters).to.have.deep.members([
-                {category:"All Categories", type:"All Types", direction:"Eng. ↔ Esp."},
+                {category:"Childhood", type:"Adjectives", direction:"Eng. → Esp."},
             ]);
             expect(FilterInput.verbFilters).to.have.deep.members([]);
         });

@@ -40,10 +40,10 @@ const filterInput = Vue.component("filterInput", {
          */
         AddFilter: function() {
             if (this.category === "verbs") {
-                this.verbFilters.push({tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."});
+                this.verbFilters.push(getSettings().defaultFilters.verbs);
             }
             else if (this.category === "vocab") {
-                this.vocabFilters.push({category:"All Categories", type:"All Types", direction:"Eng. ↔ Esp."});
+                this.vocabFilters.push(getSettings().defaultFilters.vocab);
             }
         },
 

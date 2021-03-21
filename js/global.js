@@ -37,6 +37,11 @@ function getSettings() {
         onMissedPrompt: "Correct me",
         repeatPrompts: "Never",
         multipleAnswers: "Require all",
+
+        defaultFilters: {
+            verbs: {tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."},
+            vocab: {category:"All Categories", type:"All Types", direction:"Eng. ↔ Esp."},
+        },
     };
 
     // Detect prefered theme
@@ -82,6 +87,11 @@ function getSettings() {
     }
     if (["Require all", "Require any"].includes(parsedSettings.multipleAnswers)) {
         settings.multipleAnswers = parsedSettings.multipleAnswers;
+    }
+
+    if (parsedSettings.defaultFilters) {
+        if (parsedSettings.defaultFilters.verbs) settings.defaultFilters.verbs = parsedSettings.defaultFilters.verbs;
+        if (parsedSettings.defaultFilters.vocab) settings.defaultFilters.vocab = parsedSettings.defaultFilters.vocab;
     }
 
     // Return parsed settings

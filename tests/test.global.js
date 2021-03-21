@@ -17,6 +17,11 @@ describe("Global.js", function() {
                 onMissedPrompt: "Tell me",
                 repeatPrompts: "5 prompts later",
                 multipleAnswers: "Require any",
+
+                defaultFilters: {
+                    verbs: {tense:"Present Tense", type:"Regular", subject:"Yo", direction:"Esp. → Conj."},
+                    vocab: {category:"Childhood", type:"Adjectives", direction:"Eng. → Esp."},
+                },
             };
             localStorage.setItem("settings", JSON.stringify(expected));
 
@@ -73,6 +78,11 @@ describe("Global.js", function() {
                 onMissedPrompt: "Correct me",
                 repeatPrompts: "Never",
                 multipleAnswers: "Require all",
+
+                defaultFilters: {
+                    verbs: {tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."},
+                    vocab: {category:"All Categories", type:"All Types", direction:"Eng. ↔ Esp."},
+                },
             });
 
             // Restore original setting to localStorage
