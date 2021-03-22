@@ -3,7 +3,7 @@ const settingsInput = Vue.component("settingsInput", {
     props: {
         value: {
             type: Object,
-            default: getSettings(),
+            default: getSettings,
         },
     },
 
@@ -15,6 +15,14 @@ const settingsInput = Vue.component("settingsInput", {
                 this.$emit("input", value);
             },
             deep: true,
+        },
+    },
+
+    methods: {
+        reset: function(args) {
+            localStorage.removeItem("settings");
+            this.value = getSettings();
+            args.target.blur();
         },
     },
 
@@ -179,6 +187,10 @@ const settingsInput = Vue.component("settingsInput", {
                         <option>Esp. → Eng.</option>
                     </select>
                 </div>
+            </div>
+
+            <div class="resetSettings">
+                <button title="Reset" @click="reset">Reset</button>
             </div>
         </div>
     `,

@@ -59,7 +59,7 @@
 }
 
 /* Hide non-quizzer settings & labels */
-.filtersPage main .settingsInput>div:not(.quizzerPromptsSettings, .quizzerGradingSettings) {
+.filtersPage main .settingsInput>*:not(.quizzerPromptsSettings, .quizzerGradingSettings) {
     display: none;
 }
 
