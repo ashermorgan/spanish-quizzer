@@ -119,6 +119,7 @@ const quizzer = Vue.component("quizzer", {
             this.responceActive = true;
             try {
                 // Will fail if not mounted
+                // If not mounted, input will be focused by v-focus directive once it is mounted
                 this.$refs.input.focus();
             }
             catch { }
@@ -310,13 +311,17 @@ const quizzer = Vue.component("quizzer", {
         this.Reset();
     },
 
-    mounted: function() {
-        this.$refs.input.focus();
-    },
-
     destroyed: function() {
         // Remove keyup handler
         window.removeEventListener("keyup", this.keyup);
+    },
+
+    directives: {
+        focus: {
+            inserted: function (el) {
+                el.focus();
+            }
+        }
     },
 
     template: `
@@ -336,8 +341,8 @@ const quizzer = Vue.component("quizzer", {
             <label class="quizzerInputLabel" for="quizzerInput">{{ prompt[2] }}</label>
 
             <div class="quizzerInput">
-                <input ref="input" id="quizzerInput" type="text" v-model="responce" :readonly="settings.inputType === 'Voice'" v-show="responceActive"
-                    :lang="getLang(prompt[2])" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
+                <input ref="input" id="quizzerInput" type="text" v-model="responce" :readonly="settings.inputType === 'Voice'" v-if="responceActive"
+                    :lang="getLang(prompt[2])" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer" v-focus>
                 <div v-show="!responceActive">
                     <span v-for="part in diff.input">
                         <del v-if="part.changed">{{ part.value }}</del><span v-if="!part.changed">{{ part.value }}</span>
