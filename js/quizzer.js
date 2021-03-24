@@ -269,6 +269,10 @@ const quizzer = Vue.component("quizzer", {
         this.Reset();
     },
 
+    mounted: function() {
+        this.$refs.input.focus();
+    },
+
     destroyed: function() {
         // Remove keyup handler
         window.removeEventListener("keyup", this.keyup);
