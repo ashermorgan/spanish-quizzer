@@ -54,7 +54,7 @@ const quizzer = Vue.component("quizzer", {
          * @returns {Array} - The diff object
          */
         diff: function() {
-            if (this.settings.showDiff === "Always" || (this.settings.showDiff === "For single answers" && this.prompt[3].split(",").length === 1)) {
+            if (this.settings.onMissedPrompt === "Correct me" && (this.settings.showDiff === "Always" || (this.settings.showDiff === "For single answers" && this.prompt[3].split(",").length === 1))) {
                 // Initialize result
                 let result = {
                     input: [],

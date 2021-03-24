@@ -595,6 +595,24 @@ describe("Quizzer", function() {
             });
         });
 
+        it("Should be plain if onMissedPrompt equals 'Tell me'", function() {
+            // Initialize variables
+            Quizzer.settings.showDiff = "Always";
+            Quizzer.settings.onMissedPrompt = "Tell me";
+            Quizzer.prompts = [["A", "B", "C", "D"]];
+            Quizzer.responce = "E";
+
+            // Assert diff is correct
+            expect(Quizzer.diff).to.deep.equal({
+                input: [  // Should be in original case
+                    {changed:false, value:"E"}
+                ],
+                answer: [  // Should be lower case
+                    {changed:false, value:"d"}
+                ],
+            });
+        });
+
         it("Should be correct if diffs are enabled", function() {
             // Initialize variables
             Quizzer.settings.showDiff = "Always";
