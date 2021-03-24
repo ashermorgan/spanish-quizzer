@@ -17,6 +17,7 @@ describe("Global.js", function() {
                 onMissedPrompt: "Tell me",
                 repeatPrompts: "5 prompts later",
                 multipleAnswers: "Require any",
+                showDiff: "Never",
 
                 defaultFilters: {
                     verbs: {tense:"Present Tense", type:"Regular", subject:"Yo", direction:"Esp. → Conj."},
@@ -78,6 +79,7 @@ describe("Global.js", function() {
                 onMissedPrompt: "Correct me",
                 repeatPrompts: "Never",
                 multipleAnswers: "Require all",
+                showDiff: "For single answers",
 
                 defaultFilters: {
                     verbs: {tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."},
@@ -108,6 +110,7 @@ describe("Global.js", function() {
                 onMissedPrompt : "G",
                 repeatPrompts : "H",
                 multipleAnswers : "I",
+                showDiff: "J",
             }
 
             // Call setSettings

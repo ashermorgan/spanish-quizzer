@@ -78,14 +78,15 @@ header button img {
 h1 {
     font-size: 20px;
 }
-button:not(.icon) {
-    font-size: 15px;
-}
 button:not(.icon), input, select {
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     color: var(--foreground-color);
     border-radius: 0px;
+    font-size: 14px;
+}
+button:not(.icon) {
+    font-size: 15px;
 }
 button:hover:enabled:not(.icon) {
     cursor: pointer;

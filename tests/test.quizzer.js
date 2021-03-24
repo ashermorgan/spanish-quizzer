@@ -4,7 +4,7 @@ describe("Quizzer", function() {
     beforeEach(function() {
         // Create quizzer component
         Quizzer = new quizzer();
-        
+
         // Override quizzer settings
         originalSettings = Quizzer.settings;
         Quizzer.settings = {
@@ -557,6 +557,92 @@ describe("Quizzer", function() {
             expect(Quizzer.prompt[1]).to.equal("b2");
             expect(Quizzer.prompt[2]).to.equal("c2");
             expect(Quizzer.prompt[3]).to.equal("d2");
+        });
+    });
+
+    describe("Diff property", function() {
+        it("Should be plain if diffs are disabled", function() {
+            // Initialize variables
+            Quizzer.settings.showDiff = "Never";
+            Quizzer.prompts = [["A", "B", "C", "D"]];
+            Quizzer.responce = "E";
+
+            // Assert diff is correct
+            expect(Quizzer.diff).to.deep.equal({
+                input: [  // Should be in original case
+                    {changed:false, value:"E"}
+                ],
+                answer: [  // Should be lower case
+                    {changed:false, value:"d"}
+                ],
+            });
+        });
+
+        it("Should be plain if diffs aren't enabled for multiple answers", function() {
+            // Initialize variables
+            Quizzer.settings.showDiff = "For single answers";
+            Quizzer.prompts = [["A", "B", "C", "D1, D2"]];
+            Quizzer.responce = "E";
+
+            // Assert diff is correct
+            expect(Quizzer.diff).to.deep.equal({
+                input: [  // Should be in original case
+                    {changed:false, value:"E"}
+                ],
+                answer: [  // Should be lower case
+                    {changed:false, value:"d1, d2"}
+                ],
+            });
+        });
+
+        it("Should be correct if diffs are enabled", function() {
+            // Initialize variables
+            Quizzer.settings.showDiff = "Always";
+            Quizzer.prompts = [["A", "B", "C", "La manzana"]];
+            Quizzer.responce = "La monanaa";  // 1 letter replaced (a->o), 1 letter removed (z), 1 letter added (a)
+
+            // Assert diff is correct
+            expect(Quizzer.diff).to.deep.equal({
+                input: [  // Should be in original case
+                    {changed:false, value:"La m"},
+                    {changed:true, value:"o"},
+                    {changed:false, value:"n"},
+                    {changed:false, value:"ana"},
+                    {changed:true, value:"a"},
+                ],
+                answer: [  // Should be lower case
+                    {changed:false, value:"la m"},
+                    {changed:true, value:"a"},
+                    {changed:false, value:"n"},
+                    {changed:true, value:"z"},
+                    {changed:false, value:"ana"},
+                ],
+            });
+        });
+
+        it("Should have correct casing", function() {
+            // Initialize variables
+            Quizzer.settings.showDiff = "Always";
+            Quizzer.prompts = [["A", "B", "C", "La MaNzAnA"]];
+            Quizzer.responce = "lA mOnAnAa";  // 1 letter replaced (a->o), 1 letter removed (z), 1 letter added (a)
+
+            // Assert diff is correct
+            expect(Quizzer.diff).to.deep.equal({
+                input: [  // Should be in original case
+                    {changed:false, value:"lA m"},
+                    {changed:true, value:"O"},
+                    {changed:false, value:"n"},
+                    {changed:false, value:"AnA"},
+                    {changed:true, value:"a"},
+                ],
+                answer: [  // Should be lower case
+                    {changed:false, value:"la m"},
+                    {changed:true, value:"a"},
+                    {changed:false, value:"n"},
+                    {changed:true, value:"z"},
+                    {changed:false, value:"ana"},
+                ],
+            });
         });
     });
 

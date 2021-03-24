@@ -12,7 +12,7 @@ const quizzer = Vue.component("quizzer", {
         },
         settings: {
             type: Object,
-            default: getSettings(),
+            default: getSettings,
         },
     },
 
@@ -35,9 +35,66 @@ const quizzer = Vue.component("quizzer", {
         };
     },
 
+    computed: {
+        /**
+         * Get The current prompt
+         * @returns {Array} - The current prompt
+         */
+        prompt: function() {
+            if (this.index < this.prompts.length) {
+                return this.prompts[this.index];
+            }
+            else {
+                return ["", "", "", ""];
+            }
+        },
+
+        /**
+         * Get the diff between the use responce and correct answer
+         * @returns {Array} - The diff object
+         */
+        diff: function() {
+            if (this.settings.showDiff === "Always" || (this.settings.showDiff === "For single answers" && this.prompt[3].split(",").length === 1)) {
+                // Initialize result
+                let result = {
+                    input: [],
+                    answer: [],
+                };
+
+                // Generate diff
+                // Go backwards (from answer to input) so that output case matches user input
+                let diff = Diff.diffChars(this.prompt[3], this.responce, {ignoreCase:true});
+
+                // Populate result object
+                for (let i=0; i < diff.length; i++) {
+                    if (diff[i].added) {
+                        result.input.push({changed:true, value:diff[i].value});
+                    }
+                    else if (diff[i].removed) {
+                        result.answer.push({changed:true, value:diff[i].value.toLowerCase()});
+                    }
+                    else {
+                        result.input.push({changed:false, value:diff[i].value});
+                        result.answer.push({changed:false, value:diff[i].value.toLowerCase()});
+                    }
+                }
+
+                // Return diffs
+                return result;
+            }
+            else {
+                // Diff is disabled, return user responce and correct answer
+                return {
+                    input: [{changed:false, value:this.responce}],
+                    answer: [{changed:false, value:this.prompt[3].toLowerCase()}],
+                };
+            }
+        },
+    },
+
     methods: {
         /**
-         * Handles keyup events and implements quizzer keyboard shortcuts.
+         * Handles keyup events and implements quizzer keyboard shortcuts
          */
         keyup: function(e) {
             if (e.keyCode === 13 && e.ctrlKey) {
@@ -49,7 +106,7 @@ const quizzer = Vue.component("quizzer", {
         },
 
         /**
-         * Give the user the next prompt and reset the quizzer.
+         * Give the user the next prompt and reset the quizzer
          */
         Reset: function() {
             // Get new prompt
@@ -110,7 +167,7 @@ const quizzer = Vue.component("quizzer", {
         },
 
         /**
-         * Process the user's responce.
+         * Process the user's responce
          */
         Submit: function() {
             // Parse responce
@@ -153,7 +210,6 @@ const quizzer = Vue.component("quizzer", {
                 try {
                     // Will fail if not mounted
                     this.$refs.feedback.scrollIntoView(false);
-                    this.$refs.input.focus();
                 }
                 catch { }
             }
@@ -167,7 +223,7 @@ const quizzer = Vue.component("quizzer", {
         },
 
         /**
-         * Process an incorrect responce and then reset the quizzer.
+         * Process an incorrect responce and then reset the quizzer
          */
         Continue: function() {
             // Repeat prompt
@@ -204,7 +260,7 @@ const quizzer = Vue.component("quizzer", {
         },
 
         /**
-         * Calls Submit or Continue depending on the value of responceActive.
+         * Calls Submit or Continue depending on the value of responceActive
          */
         Enter: function() {
             if (this.responceActive) {
@@ -216,8 +272,8 @@ const quizzer = Vue.component("quizzer", {
         },
 
         /**
-         * Get the language code that matches a label.
-         * @param {String} label - The label.
+         * Get the language code that matches a label
+         * @param {String} label - The label
          * @returns {String} - The language code ("en", "es", etc.)
          */
         getLang: function(label) {
@@ -230,9 +286,9 @@ const quizzer = Vue.component("quizzer", {
         },
 
         /**
-         * Read a peice of text.
-         * @param {String} text - The text to read.
-         * @param {String} label - The language of the text.
+         * Read a peice of text
+         * @param {String} text - The text to read
+         * @param {String} label - The language of the text
          */
         Read: function(text, label)
         {
@@ -240,21 +296,6 @@ const quizzer = Vue.component("quizzer", {
             msg.lang = this.getLang(label);
             window.speechSynthesis.speak(msg);
         },
-    },
-
-    computed: {
-        /**
-         * Get The current prompt.
-         * @returns {Array} - The current prompt.
-         */
-        prompt: function() {
-            if (this.index < this.prompts.length) {
-                return this.prompts[this.index];
-            }
-            else {
-                return ["", "", "", ""];
-            }
-        }
     },
 
     created: function() {
@@ -283,16 +324,26 @@ const quizzer = Vue.component("quizzer", {
         <div class="quizzer" v-show="index < prompts.length">
             <p class="quizzerProgress">{{ index }} / {{ prompts.length }}</p>
 
-            <section>
-                <label class="quizzerPromptType" for="quizzerPrompt">{{ prompt[0] }}</label>
-                <span class="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">{{ settings.promptType === "Audio" ? "Click to hear again" : prompt[1] }}</span>
-            </section>
+            <div class="quizzerPrompt">
+                <label for="quizzerPrompt">
+                    {{ prompt[0] }}
+                </label>
+                <span id="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">
+                    {{ settings.promptType === "Audio" ? "Click to hear again" : prompt[1] }}
+                </span>
+            </div>
 
-            <section>
-                <label class="quizzerInputType" for="quizzerInput">{{ prompt[2] }}</label>
-                <input class="quizzerInput" ref="input" type="text" v-model="responce" :readonly="!responceActive || settings.inputType === 'Voice'"
+            <label class="quizzerInputLabel" for="quizzerInput">{{ prompt[2] }}</label>
+
+            <div class="quizzerInput">
+                <input ref="input" id="quizzerInput" type="text" v-model="responce" :readonly="settings.inputType === 'Voice'" v-show="responceActive"
                     :lang="getLang(prompt[2])" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Type the answer">
-            </section>
+                <div v-show="!responceActive">
+                    <span v-for="part in diff.input">
+                        <del v-if="part.changed">{{ part.value }}</del><span v-if="!part.changed">{{ part.value }}</span>
+                    </span>
+                </div>
+            </div>
 
             <div class="quizzerButtons">
                 <button v-if="responceActive" :disabled="settings.inputType === 'Voice'" @click="Submit();">Submit</button>
@@ -303,7 +354,11 @@ const quizzer = Vue.component("quizzer", {
             <div class="quizzerFeedback" ref="feedback" v-show="!responceActive">
                 <span v-if="settings.onMissedPrompt === 'Correct me'">
                     The correct answer is
-                    <span class="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">{{ prompt[3].toLowerCase() }}</span>.
+                    <span class="quizzerFeedbackTerm" @click="Read(prompt[3], prompt[2]);">
+                        <span v-for="part in diff.answer">
+                            <ins v-if="part.changed">{{ part.value }}</ins><span v-if="!part.changed">{{ part.value }}</span>
+                        </span>
+                    </span>
                 </span>
                 <span v-if="settings.onMissedPrompt === 'Tell me'">
                     Incorrect.

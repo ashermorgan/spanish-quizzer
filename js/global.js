@@ -37,6 +37,7 @@ function getSettings() {
         onMissedPrompt: "Correct me",
         repeatPrompts: "Never",
         multipleAnswers: "Require all",
+        showDiff: "For single answers",
 
         defaultFilters: {
             verbs: {tense:"All Tenses", type:"All Types", subject:"All Subjects", direction:"Eng. → Conj."},
@@ -87,6 +88,9 @@ function getSettings() {
     }
     if (["Require all", "Require any"].includes(parsedSettings.multipleAnswers)) {
         settings.multipleAnswers = parsedSettings.multipleAnswers;
+    }
+    if (["Never", "For single answers", "Always"].includes(parsedSettings.showDiff)) {
+        settings.showDiff = parsedSettings.showDiff;
     }
 
     if (parsedSettings.defaultFilters) {

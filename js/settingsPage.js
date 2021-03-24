@@ -104,6 +104,14 @@ const settingsInput = Vue.component("settingsInput", {
                         <option>Require any</option>
                     </select>
                 </div>
+                <div>
+                    <label for="settingsShowDiff">Show differences with answer</label>
+                    <select id="settingsShowDiff" v-model="value.showDiff">
+                        <option>Never</option>
+                        <option>For single answers</option>
+                        <option>Always</option>
+                    </select>
+                </div>
             </div>
 
             <div class="defaultFiltersSettings">
