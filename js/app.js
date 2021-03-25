@@ -92,6 +92,7 @@ const homePage = Vue.component("homePage", {
             if (this._inactive) return;
             if (e.key === "c") this.$router.push("verbs");
             if (e.key === "v") this.$router.push("vocab");
+            if (e.key === ",") this.$router.push("settings");
             if (e.key === "t") this.$router.push("reference");
             if (e.key === "r") this.$router.push("quizzer");
         },

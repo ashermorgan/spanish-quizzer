@@ -357,6 +357,7 @@ const filtersPage = Vue.component("filtersPage", {
          */
         keyup: function(e) {
             if (this._inactive) return;
+            if (e.key === ",") this.$router.push({name:"settings", params:{referer:this.$route.name}});
             if (e.key === "s") this.StartSession();
         }
     },

@@ -105,6 +105,7 @@ const referenceTables = Vue.component("referenceTables", {
             }
             if (e.key === "c") this.category = "verbs"
             if (e.key === "v") this.category = "vocab";
+            if (e.key === ",") this.$router.push({name:"settings", params:{referer:this.$route.name}});
         },
     },
     mounted: function() {
