@@ -27,6 +27,11 @@
 .settingsInput .resetSettings button {
     padding: 5px 15px;
 }
+@media only screen and (max-width: 800px) {
+    .settingsInput div, .settingsInput h2 {
+        margin-bottom: 10px;
+    }
+}
 @media only screen and (max-width: 500px) {
     .settingsInput .resetSettings button {
         width: 100%;

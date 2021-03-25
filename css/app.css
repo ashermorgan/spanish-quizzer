@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 5px;
 }
 .home main button {
     width: 175px;
