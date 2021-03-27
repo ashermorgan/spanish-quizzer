@@ -60,6 +60,16 @@ const referenceTables = Vue.component("referenceTables", {
     },
     methods: {
         /**
+         * Search for a string in the table
+         * @param {Object} args - The event args (optional)
+         */
+        search: function(args) {
+            if (args) args.target.blur();
+            this.$refs.search.blur();
+            this.query = this.$refs.search.value;
+        },
+
+        /**
          * Set the table height.
          */
         setTableHeight: function() {
@@ -97,7 +107,9 @@ const referenceTables = Vue.component("referenceTables", {
          * @param {object} e - The event args.
          */
         keyup: function(e) {
-            if (this._inactive || this.$refs.search === document.activeElement) return;
+            if (this._inactive) return;
+            if (e.keyCode === 13 && this.$refs.search === document.activeElement) this.search();
+            if (this.$refs.search === document.activeElement) return;
             if (e.key === "h" || e.key == "/") {
                 try {
                     this.$refs.search.focus();
@@ -137,8 +149,10 @@ const referenceTables = Vue.component("referenceTables", {
                 <option value="verbs">Conjugations</option>
                 <option value="vocab">Vocab</option>
             </select>
-            <input type="text" aria-label="Search" v-model="query" placeholder="Search"
-                autocomplete="off" autocorrect="off" ref="search">
+            <div>
+                <input type="text" ref="search" aria-label="Search" placeholder="Search" autocomplete="off" autocorrect="off">
+                <button @click="search">Search</button>
+            </div>
         </div>
 
         <div class="referenceTable" ref="referenceTable">

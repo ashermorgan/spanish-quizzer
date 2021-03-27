@@ -6,9 +6,18 @@
     justify-content: center;
     margin: 15px 10px;
 }
-.referenceTableControls input {
+.referenceTableControls * {
+    height: 25px;
+}
+.referenceTableControls div {
     margin-left: 10px;
+}
+.referenceTableControls input {
+    margin-right: 10px;
     padding-left: 3px;
+}
+.referenceTableControls button {
+    padding: 0px 10px;
 }
 @media only screen and (max-width: 500px) {
     .referenceTableControls {
@@ -18,9 +27,13 @@
     .referenceTableControls * {
         height: 30px;
     }
-    .referenceTableControls input {
+    .referenceTableControls div {
+        display: flex;
         margin-left: 0px;
         margin-top: 10px;
+    }
+    .referenceTableControls input {
+        width: 100%;
     }
 }
 
