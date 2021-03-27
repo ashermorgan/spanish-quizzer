@@ -1,5 +1,5 @@
 // Initialize constants
-const version = "spanish-quizzer-4";
+const version = "spanish-quizzer-5";
 const resources = [
     "./css/app.css",
     "./css/filtersPage.css",
@@ -17,6 +17,8 @@ const resources = [
     "./images/favicon-512-maskable.png",
     "./images/favicon-512.png",
     "./images/plus.svg",
+    "./images/settings.svg",
+    "./images/sound.svg",
     "./images/trash.svg",
     "./images/x.svg",
     "./js/app.js",

@@ -97,10 +97,10 @@ const quizzer = Vue.component("quizzer", {
          * Handles keyup events and implements quizzer keyboard shortcuts
          */
         keyup: function(e) {
-            if (e.keyCode === 13 && e.ctrlKey) {
+            if (e.keyCode === 13 && e.ctrlKey && document.activeElement.tagName !== "BUTTON") {
                 this.Reset();
             }
-            else if (e.keyCode === 13 && !e.ctrlKey) {
+            else if (e.keyCode === 13 && !e.ctrlKey && document.activeElement.tagName !== "BUTTON") {
                 this.Enter();
             }
         },
@@ -336,6 +336,9 @@ const quizzer = Vue.component("quizzer", {
                 <span id="quizzerPrompt" :lang="getLang(prompt[0])" @click="Read(prompt[1], prompt[0]);">
                     {{ settings.promptType === "Audio" ? "Click to hear again" : prompt[1] }}
                 </span>
+                <button class="icon" title="Read prompt" @click="$event.target.parentElement.blur(); Read(prompt[1], prompt[0]);">
+                    <img alt="" src="images/sound.svg">
+                </button>
             </div>
 
             <label class="quizzerInputLabel" for="quizzerInput">{{ prompt[2] }}</label>
@@ -364,6 +367,9 @@ const quizzer = Vue.component("quizzer", {
                             <ins v-if="part.changed">{{ part.value }}</ins><span v-if="!part.changed">{{ part.value }}</span>
                         </span>
                     </span>
+                    <button class="icon" title="Read answer" @click="$event.target.parentElement.blur(); Read(prompt[3], prompt[2]);">
+                        <img alt="" src="images/sound.svg">
+                    </button>
                 </span>
                 <span v-if="settings.onMissedPrompt === 'Tell me'">
                     Incorrect.

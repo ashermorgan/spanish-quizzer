@@ -50,6 +50,11 @@
     background-color: #222426;
 }
 
+/* Audio buttons */
+.quizzerPrompt button.icon img, .quizzerFeedback button.icon img {
+    margin-left: 5px;
+}
+
 /* Buttons */
 .quizzerButtons {
     display: flex;
