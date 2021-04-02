@@ -16,22 +16,22 @@ def getConjugations(verb):
     soup = BeautifulSoup(page.text, "html.parser")
 
     # Get English infinative
-    english = soup.find("div", class_="CMxOwuaP _1v-p9pvd").text
+    english = soup.find("div", class_="quickdefWrapper--2qDMaLCj").text
 
     # Get participles
-    presentParticiple = soup.find_all("div", class_="_2xfncFkp")[0].text
-    pastParticiple = soup.find_all("div", class_="_2xfncFkp")[1].text
+    presentParticiple = soup.find_all("div", class_="dashedBorder--2zu1T3f5")[0].text
+    pastParticiple = soup.find_all("div", class_="dashedBorder--2zu1T3f5")[1].text
 
     # Get Indicative conjugations
     indicative = []
-    rows = soup.find_all("table", class_="_2qmJM3i9")[0].find_all("tr")
+    rows = soup.find_all("table", class_="vtable--2WLTGmgs")[0].find_all("tr")
     for row in rows:
         cols = row.find_all("td")
         indicative += [[col.text for col in cols]]
 
     # Get Subjunctive conjugations
     subjunctive = []
-    rows = soup.find_all("table", class_="_2qmJM3i9")[1].find_all("tr")
+    rows = soup.find_all("table", class_="vtable--2WLTGmgs")[1].find_all("tr")
     for row in rows:
         cols = row.find_all("td")
         subjunctive += [[col.text for col in cols]]
@@ -70,8 +70,8 @@ def correctConjugations(filepath):
             for i in range(len(row)):
                 if (temp[i] != None and temp[i].lower() != row[i].lower()):
                     row[i] = temp[i].capitalize()
-        except:
-            print("Exception during {0}".format(row[1]))
+        except Exception as e:
+            print(f"Exception during {row[1]}: {e}")
 
     # Save csv
     with open(filepath, "w", newline="", encoding="utf-8") as f:
