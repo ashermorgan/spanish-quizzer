@@ -132,13 +132,14 @@ function loadData() {
         for (let setName of setNames) {
             Papa.parse(`data/${setName}.csv`, {
                 download: true,
+                skipEmptyLines: true,
                 complete: function(results) {
+                    // Load data
                     sets[setName] = results.data;
-                    progress++;
 
-                    if (progress === setNames.length) {
-                        resolve(sets);
-                    }
+                    // Update progress
+                    progress++;
+                    if (progress === setNames.length) resolve(sets);
                 }
             });
         }
