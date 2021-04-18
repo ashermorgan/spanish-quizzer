@@ -1,5 +1,5 @@
 // Initialize constants
-const version = "spanish-quizzer-5";
+const version = "spanish-quizzer-6";
 const resources = [
     "./css/app.css",
     "./css/filtersPage.css",
@@ -28,10 +28,10 @@ const resources = [
     "./js/quizzer.js",
     "./js/reference.js",
     "./js/settingsPage.js",
-    "./libs/diff.js",
-    "./libs/papaparse.js",
-    "./libs/vue-router.js",
-    "./libs/vue.js",
+    "./vendor/diff.js",
+    "./vendor/papaparse.js",
+    "./vendor/vue-router.js",
+    "./vendor/vue.js",
     "./index.html",
     "./",
 ];
