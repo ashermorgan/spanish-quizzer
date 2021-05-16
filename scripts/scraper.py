@@ -45,6 +45,7 @@ def getConjugations(verb):
         None, indicative[1][3],  indicative[2][3], indicative[3][3], indicative[4][3], indicative[6][3], # Imperfect conjugations
         None, indicative[1][5],  indicative[2][5], indicative[3][5], indicative[4][5], indicative[6][5], # Future conjugations
         None, subjunctive[1][1], subjunctive[2][1], subjunctive[3][1], subjunctive[4][1], subjunctive[6][1], # Present Subjunctive conjugations
+        None, subjunctive[1][2], subjunctive[2][2], subjunctive[3][2], subjunctive[4][2], subjunctive[6][2], # Imperfect Subjunctive conjugations
     ]
     return result
 

@@ -96,6 +96,8 @@ const filterInput = Vue.component("filterInput", {
                     break;
                 case "Present Subjunctive Tense":
                     break;
+                case "Imperfect Subjunctive Tense":
+                    break;
             }
 
             // Reset type if needed
@@ -228,6 +230,7 @@ const filterInput = Vue.component("filterInput", {
                         <option>Imperfect Tense</option>
                         <option>Simple Future Tense</option>
                         <option>Present Subjunctive Tense</option>
+                        <option>Imperfect Subjunctive Tense</option>
                     </select>
                     <select v-model="filter.type">
                         <option v-for="(available, type) in getTenseTypes(index)" :disabled="!available">{{ type }}</option>
