@@ -37,12 +37,13 @@ def getConjugations(verb):
         subjunctive += [[col.text for col in cols]]
 
     # Return verb info
-    result = [english,verb, # Infinatives
+    result = [english,verb, # Infinitives
         None, presentParticiple, # Present participle
         None, pastParticiple, # Past participle
         None, indicative[1][1],  indicative[2][1], indicative[3][1], indicative[4][1], indicative[6][1], # Present conjugations
         None, indicative[1][2],  indicative[2][2], indicative[3][2], indicative[4][2], indicative[6][2], # Preterite conjugations
         None, indicative[1][3],  indicative[2][3], indicative[3][3], indicative[4][3], indicative[6][3], # Imperfect conjugations
+        None, indicative[1][4],  indicative[2][4], indicative[3][4], indicative[4][4], indicative[6][4], # Conditional conjugations
         None, indicative[1][5],  indicative[2][5], indicative[3][5], indicative[4][5], indicative[6][5], # Future conjugations
         None, subjunctive[1][1], subjunctive[2][1], subjunctive[3][1], subjunctive[4][1], subjunctive[6][1], # Present Subjunctive conjugations
         None, subjunctive[1][2], subjunctive[2][2], subjunctive[3][2], subjunctive[4][2], subjunctive[6][2], # Imperfect Subjunctive conjugations
@@ -68,7 +69,7 @@ def correctConjugations(filepath):
             temp = getConjugations(row[1])
 
             # Compare and correct conjugations
-            for i in range(len(row)):
+            for i in range(20, len(row)):
                 if (temp[i] != None and temp[i].lower() != row[i].lower()):
                     row[i] = temp[i].capitalize()
         except Exception as e:

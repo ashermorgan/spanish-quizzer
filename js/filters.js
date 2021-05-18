@@ -76,6 +76,7 @@ function GetVerbFilters(rawFilters) {
             filters.push({ tense: "present tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "preterite tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "imperfect tense", type: filter.type, subject: filter.subject, direction: filter.direction });
+            filters.push({ tense: "conditional tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "simple future tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "present subjunctive tense", type: filter.type, subject: filter.subject, direction: filter.direction });
             filters.push({ tense: "imperfect subjunctive tense", type: filter.type, subject: filter.subject, direction: filter.direction });
@@ -241,7 +242,7 @@ function GetVerbFilters(rawFilters) {
                         throw `Unrecognized subject: ${filter.subject}.`;
                 }
                 break;
-            case "simple future tense":
+            case "conditional tense":
                 filterIndex = 24;
                 switch (filter.subject) {
                     case "type":
@@ -266,7 +267,7 @@ function GetVerbFilters(rawFilters) {
                         throw `Unrecognized subject: ${filter.subject}.`;
                 }
                 break;
-            case "present subjunctive tense":
+            case "simple future tense":
                 filterIndex = 30;
                 switch (filter.subject) {
                     case "type":
@@ -291,7 +292,7 @@ function GetVerbFilters(rawFilters) {
                         throw `Unrecognized subject: ${filter.subject}.`;
                 }
                 break;
-            case "imperfect subjunctive tense":
+            case "present subjunctive tense":
                 filterIndex = 36;
                 switch (filter.subject) {
                     case "type":
@@ -311,6 +312,31 @@ function GetVerbFilters(rawFilters) {
                         break;
                     case "ellos":
                         inputIndex = 41;
+                        break;
+                    default:
+                        throw `Unrecognized subject: ${filter.subject}.`;
+                }
+                break;
+            case "imperfect subjunctive tense":
+                filterIndex = 42;
+                switch (filter.subject) {
+                    case "type":
+                        inputIndex = filterIndex;
+                        break;
+                    case "yo":
+                        inputIndex = 43;
+                        break;
+                    case "tú":
+                        inputIndex = 44;
+                        break;
+                    case "él":
+                        inputIndex = 45;
+                        break;
+                    case "nosotros":
+                        inputIndex = 46;
+                        break;
+                    case "ellos":
+                        inputIndex = 47;
                         break;
                     default:
                         throw `Unrecognized subject: ${filter.subject}.`;

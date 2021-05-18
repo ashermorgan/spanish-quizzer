@@ -148,6 +148,11 @@ describe("Filters", function() {
                 {outputIndex:0, inputIndex:39, filters:[{index:36, value:".*"}]},
                 {outputIndex:0, inputIndex:40, filters:[{index:36, value:".*"}]},
                 {outputIndex:0, inputIndex:41, filters:[{index:36, value:".*"}]},
+                {outputIndex:0, inputIndex:43, filters:[{index:42, value:".*"}]},
+                {outputIndex:0, inputIndex:44, filters:[{index:42, value:".*"}]},
+                {outputIndex:0, inputIndex:45, filters:[{index:42, value:".*"}]},
+                {outputIndex:0, inputIndex:46, filters:[{index:42, value:".*"}]},
+                {outputIndex:0, inputIndex:47, filters:[{index:42, value:".*"}]},
             ];
 
             // Filter verbs
@@ -192,6 +197,11 @@ describe("Filters", function() {
                 {outputIndex:0, inputIndex:39, filters:[{index:36, value:"Irregular|Stem Changing|Orthographic"}]},
                 {outputIndex:0, inputIndex:40, filters:[{index:36, value:"Irregular|Stem Changing|Orthographic"}]},
                 {outputIndex:0, inputIndex:41, filters:[{index:36, value:"Irregular|Stem Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:43, filters:[{index:42, value:"Irregular|Stem Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:44, filters:[{index:42, value:"Irregular|Stem Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:45, filters:[{index:42, value:"Irregular|Stem Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:46, filters:[{index:42, value:"Irregular|Stem Changing|Orthographic"}]},
+                {outputIndex:0, inputIndex:47, filters:[{index:42, value:"Irregular|Stem Changing|Orthographic"}]},
 
                 {outputIndex:0, inputIndex:07, filters:[{index:06, value:".*"}]},
                 {outputIndex:0, inputIndex:08, filters:[{index:06, value:".*"}]},
@@ -207,6 +217,7 @@ describe("Filters", function() {
                 {outputIndex:28, inputIndex:1, filters:[{index:24, value:"Stem Changing"}]},
                 {outputIndex:34, inputIndex:1, filters:[{index:30, value:"Stem Changing"}]},
                 {outputIndex:40, inputIndex:1, filters:[{index:36, value:"Stem Changing"}]},
+                {outputIndex:46, inputIndex:1, filters:[{index:42, value:"Stem Changing"}]},
             ];
 
             // Filter verbs
@@ -298,7 +309,7 @@ describe("Filters", function() {
                 expect(actual).to.have.deep.members(expected);
             });
 
-            it("Should correctly filter verbs for Simple Future Tense", function() {
+            it("Should correctly filter verbs for Conditional Tense", function() {
                 // Initialize expected
                 let expected = [
                     {outputIndex:0, inputIndex:25, filters:[{index:24, value:".*"}]},
@@ -306,6 +317,23 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:27, filters:[{index:24, value:".*"}]},
                     {outputIndex:0, inputIndex:28, filters:[{index:24, value:".*"}]},
                     {outputIndex:0, inputIndex:29, filters:[{index:24, value:".*"}]},
+                ];
+
+                // Filter verbs
+                let actual = GetVerbFilters([{tense:"Conditional Tense", subject:"all subjects", type:"all types", direction:"Eng. => Conj."}]);
+
+                // Assert filtered verbs are correct
+                expect(actual).to.have.deep.members(expected);
+            });
+
+            it("Should correctly filter verbs for Simple Future Tense", function() {
+                // Initialize expected
+                let expected = [
+                    {outputIndex:0, inputIndex:31, filters:[{index:30, value:".*"}]},
+                    {outputIndex:0, inputIndex:32, filters:[{index:30, value:".*"}]},
+                    {outputIndex:0, inputIndex:33, filters:[{index:30, value:".*"}]},
+                    {outputIndex:0, inputIndex:34, filters:[{index:30, value:".*"}]},
+                    {outputIndex:0, inputIndex:35, filters:[{index:30, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -318,11 +346,11 @@ describe("Filters", function() {
             it("Should correctly filter verbs for Present Subjunctive Tense", function() {
                 // Initialize expected
                 let expected = [
-                    {outputIndex:0, inputIndex:31, filters:[{index:30, value:".*"}]},
-                    {outputIndex:0, inputIndex:32, filters:[{index:30, value:".*"}]},
-                    {outputIndex:0, inputIndex:33, filters:[{index:30, value:".*"}]},
-                    {outputIndex:0, inputIndex:34, filters:[{index:30, value:".*"}]},
-                    {outputIndex:0, inputIndex:35, filters:[{index:30, value:".*"}]},
+                    {outputIndex:0, inputIndex:37, filters:[{index:36, value:".*"}]},
+                    {outputIndex:0, inputIndex:38, filters:[{index:36, value:".*"}]},
+                    {outputIndex:0, inputIndex:39, filters:[{index:36, value:".*"}]},
+                    {outputIndex:0, inputIndex:40, filters:[{index:36, value:".*"}]},
+                    {outputIndex:0, inputIndex:41, filters:[{index:36, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -335,11 +363,11 @@ describe("Filters", function() {
             it("Should correctly filter verbs for Imperfect Subjunctive Tense", function() {
                 // Initialize expected
                 let expected = [
-                    {outputIndex:0, inputIndex:37, filters:[{index:36, value:".*"}]},
-                    {outputIndex:0, inputIndex:38, filters:[{index:36, value:".*"}]},
-                    {outputIndex:0, inputIndex:39, filters:[{index:36, value:".*"}]},
-                    {outputIndex:0, inputIndex:40, filters:[{index:36, value:".*"}]},
-                    {outputIndex:0, inputIndex:41, filters:[{index:36, value:".*"}]},
+                    {outputIndex:0, inputIndex:43, filters:[{index:42, value:".*"}]},
+                    {outputIndex:0, inputIndex:44, filters:[{index:42, value:".*"}]},
+                    {outputIndex:0, inputIndex:45, filters:[{index:42, value:".*"}]},
+                    {outputIndex:0, inputIndex:46, filters:[{index:42, value:".*"}]},
+                    {outputIndex:0, inputIndex:47, filters:[{index:42, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -386,6 +414,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:39, filters:[{index:36, value:"Regular"}]},
                     {outputIndex:0, inputIndex:40, filters:[{index:36, value:"Regular"}]},
                     {outputIndex:0, inputIndex:41, filters:[{index:36, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:43, filters:[{index:42, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:44, filters:[{index:42, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:45, filters:[{index:42, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:46, filters:[{index:42, value:"Regular"}]},
+                    {outputIndex:0, inputIndex:47, filters:[{index:42, value:"Regular"}]},
                 ];
 
                 // Filter verbs
@@ -430,6 +463,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:39, filters:[{index:36, value:"Reflexive"}]},
                     {outputIndex:0, inputIndex:40, filters:[{index:36, value:"Reflexive"}]},
                     {outputIndex:0, inputIndex:41, filters:[{index:36, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:43, filters:[{index:42, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:44, filters:[{index:42, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:45, filters:[{index:42, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:46, filters:[{index:42, value:"Reflexive"}]},
+                    {outputIndex:0, inputIndex:47, filters:[{index:42, value:"Reflexive"}]},
                 ];
 
                 // Filter verbs
@@ -474,6 +512,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:39, filters:[{index:36, value:"Stem Changing"}]},
                     {outputIndex:0, inputIndex:40, filters:[{index:36, value:"Stem Changing"}]},
                     {outputIndex:0, inputIndex:41, filters:[{index:36, value:"Stem Changing"}]},
+                    {outputIndex:0, inputIndex:43, filters:[{index:42, value:"Stem Changing"}]},
+                    {outputIndex:0, inputIndex:44, filters:[{index:42, value:"Stem Changing"}]},
+                    {outputIndex:0, inputIndex:45, filters:[{index:42, value:"Stem Changing"}]},
+                    {outputIndex:0, inputIndex:46, filters:[{index:42, value:"Stem Changing"}]},
+                    {outputIndex:0, inputIndex:47, filters:[{index:42, value:"Stem Changing"}]},
                 ];
 
                 // Filter verbs
@@ -518,6 +561,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:39, filters:[{index:36, value:"Orthographic"}]},
                     {outputIndex:0, inputIndex:40, filters:[{index:36, value:"Orthographic"}]},
                     {outputIndex:0, inputIndex:41, filters:[{index:36, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:43, filters:[{index:42, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:44, filters:[{index:42, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:45, filters:[{index:42, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:46, filters:[{index:42, value:"Orthographic"}]},
+                    {outputIndex:0, inputIndex:47, filters:[{index:42, value:"Orthographic"}]},
                 ];
 
                 // Filter verbs
@@ -562,6 +610,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:39, filters:[{index:36, value:"Irregular"}]},
                     {outputIndex:0, inputIndex:40, filters:[{index:36, value:"Irregular"}]},
                     {outputIndex:0, inputIndex:41, filters:[{index:36, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:43, filters:[{index:42, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:44, filters:[{index:42, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:45, filters:[{index:42, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:46, filters:[{index:42, value:"Irregular"}]},
+                    {outputIndex:0, inputIndex:47, filters:[{index:42, value:"Irregular"}]},
                 ];
 
                 // Filter verbs
@@ -606,6 +659,11 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:39, filters:[{index:36, value:"Irregular|Stem Changing|Orthographic"}]},
                     {outputIndex:0, inputIndex:40, filters:[{index:36, value:"Irregular|Stem Changing|Orthographic"}]},
                     {outputIndex:0, inputIndex:41, filters:[{index:36, value:"Irregular|Stem Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:43, filters:[{index:42, value:"Irregular|Stem Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:44, filters:[{index:42, value:"Irregular|Stem Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:45, filters:[{index:42, value:"Irregular|Stem Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:46, filters:[{index:42, value:"Irregular|Stem Changing|Orthographic"}]},
+                    {outputIndex:0, inputIndex:47, filters:[{index:42, value:"Irregular|Stem Changing|Orthographic"}]},
                 ];
 
                 // Filter verbs
@@ -628,6 +686,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:24, filters:[{index:24, value:".*"}]},
                     {outputIndex:0, inputIndex:30, filters:[{index:30, value:".*"}]},
                     {outputIndex:0, inputIndex:36, filters:[{index:36, value:".*"}]},
+                    {outputIndex:0, inputIndex:42, filters:[{index:42, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -648,6 +707,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:25, filters:[{index:24, value:".*"}]},
                     {outputIndex:0, inputIndex:31, filters:[{index:30, value:".*"}]},
                     {outputIndex:0, inputIndex:37, filters:[{index:36, value:".*"}]},
+                    {outputIndex:0, inputIndex:43, filters:[{index:42, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -668,6 +728,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:26, filters:[{index:24, value:".*"}]},
                     {outputIndex:0, inputIndex:32, filters:[{index:30, value:".*"}]},
                     {outputIndex:0, inputIndex:38, filters:[{index:36, value:".*"}]},
+                    {outputIndex:0, inputIndex:44, filters:[{index:42, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -688,6 +749,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:27, filters:[{index:24, value:".*"}]},
                     {outputIndex:0, inputIndex:33, filters:[{index:30, value:".*"}]},
                     {outputIndex:0, inputIndex:39, filters:[{index:36, value:".*"}]},
+                    {outputIndex:0, inputIndex:45, filters:[{index:42, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -708,6 +770,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:28, filters:[{index:24, value:".*"}]},
                     {outputIndex:0, inputIndex:34, filters:[{index:30, value:".*"}]},
                     {outputIndex:0, inputIndex:40, filters:[{index:36, value:".*"}]},
+                    {outputIndex:0, inputIndex:46, filters:[{index:42, value:".*"}]},
                 ];
 
                 // Filter verbs
@@ -728,6 +791,7 @@ describe("Filters", function() {
                     {outputIndex:0, inputIndex:29, filters:[{index:24, value:".*"}]},
                     {outputIndex:0, inputIndex:35, filters:[{index:30, value:".*"}]},
                     {outputIndex:0, inputIndex:41, filters:[{index:36, value:".*"}]},
+                    {outputIndex:0, inputIndex:47, filters:[{index:42, value:".*"}]},
                 ];
 
                 // Filter verbs

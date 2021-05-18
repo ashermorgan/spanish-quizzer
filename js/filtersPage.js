@@ -90,6 +90,10 @@ const filterInput = Vue.component("filterInput", {
                     filters["Stem Changing"] = false;
                     filters["Orthographic"] = false;
                     break;
+                case "Conditional Tense":
+                    filters["Stem Changing"] = false;
+                    filters["Orthographic"] = false;
+                    break;
                 case "Simple Future Tense":
                     filters["Stem Changing"] = false;
                     filters["Orthographic"] = false;
@@ -228,6 +232,7 @@ const filterInput = Vue.component("filterInput", {
                         <option>Present Tense</option>
                         <option>Preterite Tense</option>
                         <option>Imperfect Tense</option>
+                        <option>Conditional Tense</option>
                         <option>Simple Future Tense</option>
                         <option>Present Subjunctive Tense</option>
                         <option>Imperfect Subjunctive Tense</option>

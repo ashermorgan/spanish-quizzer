@@ -20,9 +20,10 @@ def createXlsx(csvPath, xlsxPath):
         data += [[row[0], row[1], row[7],  row[8],  row[9],  row[10], row[11]]]     # Present
         data += [["",     "",     row[13], row[14], row[15], row[16], row[17]]]     # Preterite
         data += [["",     "",     row[19], row[20], row[21], row[22], row[23]]]     # Imperfect
-        data += [["",     "",     row[25], row[26], row[27], row[28], row[29]]]     # Simple Future
-        data += [["",     "",     row[31], row[32], row[33], row[34], row[35]]]     # Present Subjunctive
-        data += [["",     "",     row[37], row[38], row[39], row[40], row[41]]]     # Imperfect Subjunctive
+        data += [["",     "",     row[25], row[26], row[27], row[28], row[29]]]     # Conditional
+        data += [["",     "",     row[31], row[32], row[33], row[34], row[35]]]     # Simple Future
+        data += [["",     "",     row[37], row[38], row[39], row[40], row[41]]]     # Present Subjunctive
+        data += [["",     "",     row[43], row[44], row[45], row[46], row[47]]]     # Imperfect Subjunctive
 
     # Create spreadsheet
     vk = openpyxl.Workbook()
@@ -55,10 +56,10 @@ def createXlsx(csvPath, xlsxPath):
                 # Conjugation columns only
                 border.top = thin
                 border.bottom = thin
-            if row % 6 == 1:
+            if row % 7 == 1:
                 # Present tense rows only
                 border.top = thick
-            if row % 6 == 0:
+            if row % 7 == 0:
                 # Present Subjunctive tense rows only
                 border.bottom = thick
             border.left = thin
