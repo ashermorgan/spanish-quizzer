@@ -227,15 +227,21 @@ const filterInput = Vue.component("filterInput", {
                 <div v-for="(filter, index) in verbFilters" class="filter">
                     <select v-model="filter.tense">
                         <option>All Tenses</option>
-                        <option>Present Participles</option>
-                        <option>Past Participles</option>
-                        <option>Present Tense</option>
-                        <option>Preterite Tense</option>
-                        <option>Imperfect Tense</option>
-                        <option>Conditional Tense</option>
-                        <option>Simple Future Tense</option>
-                        <option>Present Subjunctive Tense</option>
-                        <option>Imperfect Subjunctive Tense</option>
+                        <optgroup label="Participles">
+                            <option>Present Participles</option>
+                            <option>Past Participles</option>
+                        </optgroup>
+                        <optgroup label="Indicative Tenses">
+                            <option>Present Tense</option>
+                            <option>Preterite Tense</option>
+                            <option>Imperfect Tense</option>
+                            <option>Conditional Tense</option>
+                            <option>Simple Future Tense</option>
+                        </optgroup>
+                        <optgroup label="Subjunctive Tenses">
+                            <option>Present Subjunctive Tense</option>
+                            <option>Imperfect Subjunctive Tense</option>
+                        </optgroup>
                     </select>
                     <select v-model="filter.type">
                         <option v-for="(available, type) in getTenseTypes(index)" :disabled="!available">{{ type }}</option>
