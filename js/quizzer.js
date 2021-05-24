@@ -97,6 +97,7 @@ const quizzer = Vue.component("quizzer", {
          * Handles keyup events and implements quizzer keyboard shortcuts
          */
         keyup: function(e) {
+            if (this._inactive || e.altKey || e.shiftKey || e.metaKey) return;
             if (e.keyCode === 13 && e.ctrlKey && document.activeElement.tagName !== "BUTTON") {
                 this.Reset();
             }

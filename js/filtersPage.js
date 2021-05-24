@@ -370,7 +370,7 @@ const filtersPage = Vue.component("filtersPage", {
          * @param {object} e - The event args.
          */
         keyup: function(e) {
-            if (this._inactive) return;
+            if (this._inactive || e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) return;
             if (e.key === ",") this.$router.push({name:"settings", params:{referer:this.$route.name}});
             if (e.key === "s") this.StartSession();
         }

@@ -164,7 +164,7 @@ const referenceTables = Vue.component("referenceTables", {
          * @param {object} e - The event args.
          */
         keyup: function(e) {
-            if (this._inactive) return;
+            if (this._inactive || e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) return;
             if (e.keyCode === 13 && this.$refs.search === document.activeElement) this.search();
             if (this.$refs.search === document.activeElement) return;
             if (e.key === "h" || e.key == "/") {
