@@ -1,32 +1,79 @@
 /******** home-page component ********/
-.home main {
-    text-align: center;
+.home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
-.home main h1 {
-    font-weight: bold;
-    margin-top: 15px;
-    margin-bottom: 5px;
+
+/* resume session banner */
+.home #resumeBanner {
+    text-align: center;
+    padding: 10px;
+    background-color: #cccccc;
+}
+.home #resumeBanner a {
+    color: var(--foreground-color);
+    text-decoration: none;
+}
+.home #resumeBanner button {
+    position: absolute;
+    right: 10px;
+}
+.home #resumeBanner button img {
+    height: 24px;
+    width: 24px;
+}
+.dark .home #resumeBanner {
+    background-color: #333333;
+}
+.dark .home #resumeBanner button {
+    filter: invert(90%);
+}
+
+/* main content */
+.home main {
+    flex-grow: 1;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.home h1 {
+    font-size: 40px;
+    max-width: 500px;
 }
 .home main div {
+    margin: 10px 0px;
+    width: 510px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    margin-bottom: 5px;
 }
-.home main button {
-    width: 175px;
+.home main div button {
+    flex-grow: 1;
     height: 50px;
     line-height: 50px;
-    margin: 10px;
+    margin: 0px 5px;
 }
+
+/* mobile styles */
 @media only screen and (max-width: 550px) {
+    .home main {
+        justify-content: flex-start;
+    }
+    .home h1 {
+        width: 100%;
+        font-size: 30px;
+        text-align: center;
+    }
     .home main div {
         flex-direction: column;
         align-items: stretch;
+        width: 100%;
     }
-    .home main button {
-        width: auto;
+    .home main div button {
         height: 60px;
         line-height: 60px;
+        margin: 10px 0px;
     }
 }

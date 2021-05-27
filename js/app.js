@@ -81,7 +81,10 @@ const pageHeader = Vue.component("pageHeader", {
 // App pages
 const homePage = Vue.component("homePage", {
     data: function() {
-        return {isResumable: false};
+        return {
+            isResumable: false,
+            showResumeBanner: true,
+        };
     },
     methods: {
         /**
@@ -120,14 +123,17 @@ const homePage = Vue.component("homePage", {
     template: `
         <div class="home">
             <page-header icon2="settings" label2="Settings" @click2="$router.push({name:'settings', params:{referer:$route.name}})"></page-header>
+            <div v-if="isResumable && showResumeBanner" id="resumeBanner">
+                <router-link v-if="isResumable" to="/quizzer">Resume previous session</router-link>
+                <button @click="showResumeBanner=false" class="icon" title="Dismiss"><img alt="" src="images/x.svg"></button>
+            </div>
             <main>
-                <h1>What do you want to study?</h1>
+                <h1>The best way to study Spanish vocabulary and verb conjugations</h1>
                 <div>
                     <router-link tag="button" to="/verbs">Study Conjugations</router-link>
                     <router-link tag="button" to="/vocab">Study Vocab</router-link>
                     <router-link tag="button" to="/reference">Reference Tables</router-link>
                 </div>
-                <router-link v-if="isResumable" to="/quizzer">Resume previous session</router-link>
             </main>
         </div>
     `,
