@@ -38,26 +38,11 @@
 }
 
 /* Table */
-.referenceTable {
-    text-align: left;
-    overflow-x: auto;
-}
 .referenceTable table {
+    width: auto;
     margin: auto;
 }
-.referenceTable th {
-    background-color: var(--hover-color);
-    border: 1px solid var(--border-color);
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-}
-.referenceTable th div {
-    display: flex;
-    align-items: center;
-}
 .referenceTable td {
-    border: 1px solid var(--border-color);
     cursor: pointer;
 }
 

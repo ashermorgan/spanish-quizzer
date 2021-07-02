@@ -9,17 +9,30 @@ const referenceTables = Vue.component("referenceTables", {
     data: function() {
         return {
             category: "Choose a category",
-            query: "",
             conjugationColors: true,
-            sortIndex: 0,
-            sortAccending: true,
+            tableTheme: null,
+            table: null,
         }
     },
     watch: {
-        category: function() {
-            // Reset sortIndex and sortAccending
-            this.sortIndex = 0;
-            this.sortAccending = true;
+        category: function(value) {
+            // Update table
+            this.table.setData({
+                headers: this.tableData[value][0],
+                body: this.tableData[value].slice(1),
+                bodyClasses: value === "verbs" && this.conjugationColors ? this.conjugationColorClasses : null,
+            });
+            this.table.sort(0, true);
+        },
+        tableTheme: function(value) {
+            // Update table theme
+            this.table.theme = value;
+        },
+        conjugationColors: function(value) {
+            // Update table body classes
+            this.table.setData({
+                bodyClasses: this.category === "verbs" && value ? this.conjugationColorClasses : null,
+            });
         }
     },
     computed: {
@@ -58,7 +71,7 @@ const referenceTables = Vue.component("referenceTables", {
                     }
                 }
             }
-            return result;
+            return result.slice(1);
         },
         /**
          * The data used by the table
@@ -75,55 +88,7 @@ const referenceTables = Vue.component("referenceTables", {
         search: function(args) {
             if (args) args.target.blur();
             this.$refs.search.blur();
-            this.query = this.$refs.search.value;
-        },
-
-        /**
-         * Sort the table by values in a column
-         * @param {Number} index The index of the column to sort by
-         * @param {Boolean} accending Whether to sort accending or descending
-         */
-        sortColumn: function(index, accending) {
-            // Get sort direction
-            let direction;
-            if (accending !== undefined) {
-                direction = accending;
-            }
-            else if (this.sortIndex === index) {
-                direction = !this.sortAccending;
-            }
-            else {
-                direction = true;
-            }
-
-            // Remove headers
-            let headers = this.data[this.category][0];
-            this.data[this.category] = this.data[this.category].slice(1);
-
-            // Sort data
-            if (this.sortIndex === index && this.sortAccending === direction) {
-                // Data is sorted by correct column AND in correct direction
-            }
-            else if (this.sortIndex === index && this.sortAccending !== direction) {
-                // Data is sorted by correct column but in wrong direction
-                this.data[this.category].reverse();
-            }
-            else {
-                // Data is sorted by incorrect column AND in incorrect direction
-                this.data[this.category].sort((a, b) => {
-                    if (a[index] === b[index]) return 0;
-                    else if (a[index] < b[index]) return -1;
-                    else return 1;
-                });
-                if (!direction) this.data[this.category].reverse();
-            }
-
-            // Reinsert headers
-            this.data[this.category].unshift(headers);
-
-            // Set sortStatus
-            this.sortIndex = index;
-            this.sortAccending = direction;
+            this.table.search(this.$refs.search.value);
         },
 
         /**
@@ -178,6 +143,17 @@ const referenceTables = Vue.component("referenceTables", {
         },
     },
     mounted: function() {
+        // Generate table
+        this.table = new DataTable(".referenceTable", {
+            sortable: true,
+            unsortable: false,
+            bodyEventHandlers: {
+                click: (row, column, args) => {
+                    this.Read(this.tableData[this.category][row + 1][column], this.tableData[this.category][0][column]);
+                }
+            }
+        });
+
         // Set table height
         this.setTableHeight();
 
@@ -195,8 +171,10 @@ const referenceTables = Vue.component("referenceTables", {
         window.removeEventListener("keyup", this.keyup);
     },
     activated: function() {
-        // Update conjugationColors setting
-        this.conjugationColors = getSettings().conjugationColors;
+        // Update settings
+        let settings = getSettings();
+        this.conjugationColors = settings.conjugationColors;
+        this.tableTheme = settings.darkTheme ? "basic-dark" : "basic-light";
     },
     template: `
     <div>
@@ -213,23 +191,6 @@ const referenceTables = Vue.component("referenceTables", {
         </div>
 
         <div class="referenceTable" ref="referenceTable">
-            <table>
-                <tr v-for="(row, rowIndex) in data[category]" v-show="rowIndex === 0 || row.join(',').toLowerCase().includes(query.toLowerCase())">
-                    <th v-if="rowIndex === 0" v-for="(column, columnIndex) in row" @click="sortColumn(columnIndex)">
-                        <div>
-                            <span>{{ column }}</span>
-                            <button class="icon">
-                                <img v-if="sortIndex === columnIndex && sortAccending" src="images/chevron-up.svg">
-                            </button>
-                            <button class="icon">
-                                <img v-if="sortIndex === columnIndex && !sortAccending" src="images/chevron-down.svg">
-                            </button>
-                        </div>
-                    </th>
-                    <td v-if="rowIndex !== 0" v-for="(column, columnIndex) in row" @click="Read(column, data[category][0][columnIndex])"
-                        :lang="getLang(data[category][0][columnIndex])" :class="(conjugationColors && category === 'verbs') ? conjugationColorClasses[rowIndex][columnIndex] : 'normal'">{{ column }}</td>
-                </tr>
-            </table>
         </div>
     </div>
     `
