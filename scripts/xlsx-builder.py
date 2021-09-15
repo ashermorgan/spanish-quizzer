@@ -4,7 +4,9 @@ import openpyxl
 from openpyxl.styles.borders import Border, Side
 from os import path
 
-
+# Get type abbreveation
+def getTypeAbbr(text):
+    return text.replace("Regular", "R").replace("Reflexive", "X").replace("Stem Changing", "S").replace("Orthographic", "O").replace("Irregular", "I")
 
 # Converts a csv of verbs to a spreadsheet
 def createXlsx(csvPath, xlsxPath):
@@ -14,16 +16,19 @@ def createXlsx(csvPath, xlsxPath):
         for row in csv.reader(f):
             rows.append(row)
 
+    # Sort verbs by infinitive
+    rows = sorted(rows[1:], key=lambda x: x[1])
+
     # Rearrange csv data
-    data = [["English", "Infinitive", "Yo", "Tú", "Él", "Nosotros", "Ellos"]]
-    for row in rows[1:]:
-        data += [[row[0], row[1], row[7],  row[8],  row[9],  row[10], row[11]]]     # Present
-        data += [["",     "",     row[13], row[14], row[15], row[16], row[17]]]     # Preterite
-        data += [["",     "",     row[19], row[20], row[21], row[22], row[23]]]     # Imperfect
-        data += [["",     "",     row[25], row[26], row[27], row[28], row[29]]]     # Conditional
-        data += [["",     "",     row[31], row[32], row[33], row[34], row[35]]]     # Simple Future
-        data += [["",     "",     row[37], row[38], row[39], row[40], row[41]]]     # Present Subjunctive
-        data += [["",     "",     row[43], row[44], row[45], row[46], row[47]]]     # Imperfect Subjunctive
+    data = [["Infinitive", "English & Participles", "Tense & Type", "Yo", "Tú", "Él", "Nosotros", "Ellos"]]
+    for row in rows:
+        data += [[row[1], row[0],                                       f"Present ({getTypeAbbr(row[6])})",      row[7],  row[8],  row[9],  row[10], row[11]]]  # Present
+        data += [["",     "",                                           f"Preterite ({getTypeAbbr(row[12])})",   row[13], row[14], row[15], row[16], row[17]]]  # Preterite
+        data += [["",     "",                                           f"Imperfect ({getTypeAbbr(row[18])})",   row[19], row[20], row[21], row[22], row[23]]]  # Imperfect
+        data += [["",     f"Pres. Participle ({getTypeAbbr(row[2])}):", f"Conditional ({getTypeAbbr(row[24])})", row[25], row[26], row[27], row[28], row[29]]]  # Conditional
+        data += [["",     row[3],                                       f"Future ({getTypeAbbr(row[30])})",      row[31], row[32], row[33], row[34], row[35]]]  # Simple Future
+        data += [["",     f"Past Participle ({getTypeAbbr(row[4])}):",  f"Pres. Subj. ({getTypeAbbr(row[36])})", row[37], row[38], row[39], row[40], row[41]]]  # Present Subjunctive
+        data += [["",     row[5],                                       f"Imp. Subj. ({getTypeAbbr(row[42])})",  row[43], row[44], row[45], row[46], row[47]]]  # Imperfect Subjunctive
 
     # Create spreadsheet
     vk = openpyxl.Workbook()
@@ -56,6 +61,10 @@ def createXlsx(csvPath, xlsxPath):
                 # Conjugation columns only
                 border.top = thin
                 border.bottom = thin
+            if column == 1 and row % 7 > 3:
+                # Participles only
+                border.top = thin
+                border.bottom = thin
             if row % 7 == 1:
                 # Present tense rows only
                 border.top = thick
@@ -77,6 +86,13 @@ def createXlsx(csvPath, xlsxPath):
 
             # Update cell borders
             cell.border = border
+
+    # Add page break
+    for i in range(36, len(data), 35):
+        sh.row_breaks.append(openpyxl.worksheet.pagebreak.Break(id=i))
+
+    # Repeat first row every page
+    sh.print_title_rows = "1:1"
 
     # Set page margins
     sh.page_margins.left = 0.25
