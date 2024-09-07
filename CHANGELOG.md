@@ -65,7 +65,7 @@
 
 ### Improved Features
 - Made it easier to find raw vocab sets and verb conjugations by creating the
-    [vocab page](https://ashermorgan.github.io/Spanish-Quizzer/vocab/).
+    [vocab page](https://apps.ashermorgan.net/spanish-quizzer/vocab/).
 - Disabled auto correct in the reference tables search bar to make it easier to
     search for Spanish words.
 - Improved noscript message.
@@ -129,7 +129,7 @@
 ## 2.3.0 - 2020-04-11
 
 ### New Features
-- Added [reference tables](https://ashermorgan.github.io/Spanish-Quizzer/Reference/).
+- Added [reference tables](https://apps.ashermorgan.net/spanish-quizzer/Reference/).
 - Added audio prompts.
 - Added option to repeat missed prompts.
 
